@@ -371,6 +371,25 @@ a:hover { color: #a78bfa; }
 .latest-card .meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .45rem; }
 .latest-card h4 { margin-bottom: .45rem; color: #f4f6ff; }
 .latest-card p { color: #8f92a7; font-size: .92rem; }
+.category-nav {
+  display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.2rem;
+}
+.category-nav a {
+  padding: .45rem .85rem; border-radius: 999px; background: rgba(124,92,252,.14); border: 1px solid rgba(124,92,252,.22); color: #d8cfff; font-size: .88rem;
+}
+.popular-list {
+  display: grid; gap: .8rem;
+}
+.popular-item {
+  padding: .9rem 1rem; border-radius: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+}
+.popular-item strong { display: block; color: #f4f6ff; margin-bottom: .2rem; }
+.popular-item span { color: #8f92a7; font-size: .9rem; }
+.ad-slot {
+  background: linear-gradient(135deg, rgba(124,92,252,.2), rgba(6,182,212,.12)); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 1.2rem 1.4rem; margin-top: 1.2rem;
+}
+.ad-slot p { color: #d8d9e4; margin-bottom: .25rem; }
+.ad-slot small { color: #9ea2b3; }
 .cookie-banner {
   position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 2000;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
@@ -1030,6 +1049,39 @@ a:hover { color: #a78bfa; }
       <h4>Building a resilient AI workflow for real-world coding</h4>
       <p>Instead of relying on a single model for every task, many teams now use a primary model for deep reasoning and a secondary model for speed, cost efficiency, or backup coverage.</p>
       <a href="articles.html">Explore more articles →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORY NAV + POPULAR ===== -->
+<section class="section" id="guides">
+  <div class="section-inner">
+    <div class="section-label">Browse by Topic</div>
+    <h2 class="section-title">A more structured content experience</h2>
+    <div class="category-nav">
+      <a href="articles.html">All Articles</a>
+      <a href="article-claude-vs-gpt.html">Model Comparison</a>
+      <a href="article-llm-pricing.html">Pricing</a>
+      <a href="article-agent-ecosystem.html">Agent Ecosystem</a>
+      <a href="article-multi-model-workflow.html">Workflow Strategy</a>
+    </div>
+    <div class="popular-list">
+      <div class="popular-item">
+        <strong>Popular: Claude vs GPT vs DeepSeek for coding</strong>
+        <span>Read the practical comparison of the most common coding models.</span>
+      </div>
+      <div class="popular-item">
+        <strong>Popular: How to Think About LLM Pricing</strong>
+        <span>Understand the cost factors that really matter when choosing a model.</span>
+      </div>
+      <div class="popular-item">
+        <strong>Popular: Why Multi-Model Workflows Matter</strong>
+        <span>Learn how teams combine multiple models for better reliability and value.</span>
+      </div>
+    </div>
+    <div class="ad-slot">
+      <p>Sponsored content placeholder</p>
+      <small>This space can be used for an AdSense-friendly ad unit or a featured partner recommendation.</small>
     </div>
   </div>
 </section>
