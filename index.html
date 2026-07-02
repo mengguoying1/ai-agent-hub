@@ -319,6 +319,26 @@ a:hover { color: #a78bfa; }
 .standards-card p { color: #8f92a7; font-size: .9rem; }
 .policy-links { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 1rem; }
 .policy-links a { color: #a78bfa; font-weight: 600; }
+.guide-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem;
+}
+.guide-card {
+  background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 1.4rem;
+}
+.guide-card h4 { margin-bottom: .45rem; color: #f4f6ff; }
+.guide-card p { color: #8f92a7; font-size: .95rem; margin-bottom: .9rem; }
+.guide-card a { color: #7c5cfc; font-weight: 700; }
+.faq-list { display: grid; gap: .8rem; }
+.faq-item {
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; overflow: hidden;
+}
+.faq-question {
+  width: 100%; border: 0; background: transparent; color: #f4f6ff; text-align: left; padding: 1rem 1.1rem; font-size: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+}
+.faq-answer {
+  padding: 0 1.1rem 1rem; color: #8f92a7; line-height: 1.65; display: none;
+}
+.faq-item.active .faq-answer { display: block; }
 .cookie-banner {
   position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 2000;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
@@ -407,7 +427,9 @@ a:hover { color: #a78bfa; }
       <li><a href="#models">Models</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#news">News</a></li>
+      <li><a href="#guides">Guides</a></li>
       <li><a href="#recommend">Recommend</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#features">Features</a></li>
     </ul>
   </div>
@@ -927,6 +949,54 @@ a:hover { color: #a78bfa; }
   </div>
 </section>
 
+<!-- ===== PRACTICAL GUIDES ===== -->
+<section class="section" id="guides">
+  <div class="section-inner">
+    <div class="section-label">Practical Guides</div>
+    <h2 class="section-title">Useful articles for developers who want to choose the right AI stack</h2>
+    <p class="section-desc">Beyond comparisons, this site also offers actionable guidance for beginners and experienced builders alike. These articles make the site more useful and improve its long-term value for readers.</p>
+    <div class="guide-grid">
+      <article class="guide-card">
+        <h4>How to choose your first AI coding stack</h4>
+        <p>Learn how to balance cost, speed, and reasoning quality when picking coding assistants for daily work.</p>
+        <a href="guide.html">Read guide →</a>
+      </article>
+      <article class="guide-card">
+        <h4>When to use Claude, GPT, or DeepSeek</h4>
+        <p>A practical decision framework for routing different tasks to different models without overcomplicating your workflow.</p>
+        <a href="guide.html">Read guide →</a>
+      </article>
+      <article class="guide-card">
+        <h4>Building a multi-model workflow</h4>
+        <p>Discover why many teams rely on a primary model plus a secondary fallback for coding, writing, and long-context tasks.</p>
+        <a href="guide.html">Read guide →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section" id="faq" style="background:rgba(255,255,255,.01);">
+  <div class="section-inner">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Common questions about AI agents and model selection</h2>
+    <div class="faq-list">
+      <div class="faq-item active">
+        <button class="faq-question" type="button">Is this site just a list of tools?<span>+</span></button>
+        <div class="faq-answer">No. It is designed as a practical reference that helps readers compare models, understand trade-offs, and choose tools based on real workflows.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button">How often is the content updated?<span>+</span></button>
+        <div class="faq-answer">The site is structured to support regular updates as the AI landscape changes, especially around pricing, model releases, and tooling support.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button">Can this site be used for commercial or educational purposes?<span>+</span></button>
+        <div class="faq-answer">Yes, the content is intended as an informational resource for developers, students, and teams exploring AI-assisted workflows.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== ADSENSE READINESS ===== -->
 <section class="section" id="standards">
   <div class="section-inner">
@@ -1063,6 +1133,18 @@ window.addEventListener('pointerleave', () => {
 });
 window.addEventListener('blur', () => {
   if (glow) glow.style.opacity = '0';
+});
+
+document.querySelectorAll('.faq-item').forEach((item) => {
+  const button = item.querySelector('.faq-question');
+  if (!button) return;
+  button.addEventListener('click', () => {
+    const isActive = item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach((entry) => entry.classList.remove('active'));
+    if (!isActive) {
+      item.classList.add('active');
+    }
+  });
 });
 
 const consentBanner = document.getElementById('cookieBanner');
