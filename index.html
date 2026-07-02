@@ -299,6 +299,16 @@ a:hover { color: #a78bfa; }
 .feat-card p { font-size: .85rem; color: #8888a0; }
 
 /* ===== News Ticker ===== */
+.related-strip {
+  display: flex; flex-wrap: wrap; gap: .7rem; margin: 1rem 0 1.4rem;
+}
+.related-strip a {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .55rem .9rem; border-radius: 999px;
+  background: rgba(124,92,252,.12); border: 1px solid rgba(124,92,252,.2);
+  color: #d8cfff; font-size: .9rem; font-weight: 600;
+}
+.related-strip a:hover { color: #fff; transform: translateY(-1px); }
 .news-section { background: rgba(255,255,255,.015); border-top: 1px solid rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.04); }
 .news-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1008,6 +1018,11 @@ a:hover { color: #a78bfa; }
     <div class="section-label">Knowledge Hub</div>
     <h2 class="section-title">Articles, guides, and comparisons in one place</h2>
     <p class="section-desc">A content-focused structure helps readers browse by topic and keeps the site useful long-term.</p>
+    <div class="related-strip">
+      <a href="guide.html">How to choose an AI coding stack</a>
+      <a href="article-claude-vs-gpt.html">Claude vs GPT comparison</a>
+      <a href="article-multi-model-workflow.html">Why multi-model workflows matter</a>
+    </div>
     <div class="category-pill-row">
       <span class="category-pill">AI Agents</span>
       <span class="category-pill">Coding Assistants</span>
