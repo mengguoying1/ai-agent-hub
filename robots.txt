@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://your-username.github.io/ai-agent-hub/sitemap.xml
+Sitemap: https://www.waiagent.win/sitemap.xml

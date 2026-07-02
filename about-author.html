@@ -3,30 +3,160 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About the author of AI Agent Hub — an independent developer and AI tools researcher helping others navigate the AI coding landscape.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/about-author.html">
   <title>About the Author — AI Agent Hub</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 2rem; background: #06070d; color: #f2f2f2; line-height: 1.8; }
-    main { max-width: 900px; margin: 0 auto; }
-    a { color: #a78bfa; }
-    .card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 1.2rem; margin-bottom: 1rem; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #04050b 0%, #0a0c16 45%, #03040a 100%);
+      color: #e0e0e0; line-height: 1.8; min-height: 100vh;
+    }
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 800; color: #e0e0e0; text-decoration: none; }
+    .nav-logo span { background: linear-gradient(135deg, #7c5cfc, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+    .nav-links a { color: #a0a0b0; font-size: .88rem; font-weight: 500; text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 1.5rem; background: linear-gradient(135deg, #fff 30%, #a78bfa 70%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { font-size: 1.25rem; margin: 2rem 0 .8rem; color: #c4b5fd; }
+    h3 { font-size: 1.05rem; margin: 1.2rem 0 .5rem; color: #d0d0e0; }
+    p { margin-bottom: 1rem; color: #b0b0c0; }
+    ul { margin: .8rem 0 1.2rem 1.5rem; color: #b0b0c0; }
+    li { margin-bottom: .5rem; }
+    .card {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px; padding: 1.5rem; margin: 1.5rem 0;
+    }
+    .highlight-box {
+      background: rgba(124,92,252,.08); border: 1px solid rgba(124,92,252,.18);
+      border-radius: 14px; padding: 1.5rem; margin: 1.5rem 0;
+    }
+    .footer {
+      background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.04);
+      padding: 2rem; text-align: center; color: #606070; font-size: .85rem;
+    }
+    .footer a { color: #a78bfa; }
+    a { color: #a78bfa; text-decoration: none; }
+    a:hover { color: #c4b5fd; }
+    .policy-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: .5rem; }
+    .expertise-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem; margin: 1.2rem 0;
+    }
+    .expertise-item {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05);
+      border-radius: 12px; padding: 1.2rem; text-align: center;
+    }
+    .expertise-item .icon { font-size: 1.8rem; margin-bottom: .5rem; }
+    .expertise-item h4 { font-size: .95rem; color: #d0d0e0; margin-bottom: .3rem; }
+    .expertise-item p { font-size: .85rem; color: #8888a0; margin-bottom: 0; }
   </style>
 </head>
 <body>
-  <main>
-    <p><a href="index.html">← Back to homepage</a></p>
-    <h1>About the Author</h1>
-    <div class="card">
-      <p>This site is maintained as a practical reference for developers exploring AI agents, coding assistants, and model comparisons.</p>
-      <p>The goal is to provide useful information that helps readers understand the landscape without relying on hype alone.</p>
-    </div>
-    <div class="card">
-      <h2>What this site focuses on</h2>
-      <ul>
-        <li>Clear explanations of AI model strengths and trade-offs</li>
-        <li>Practical guidance for day-to-day development workflows</li>
-        <li>Transparent comparisons and regular updates</li>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
+  </nav>
+
+  <main>
+    <h1>About the Author</h1>
+
+    <p>AI Agent Hub is created and maintained by <strong>an independent developer and AI tools researcher</strong> with deep hands-on experience across the modern AI development stack. This page explains who runs this site, what drives the work, and why you can trust the information here.</p>
+
+    <div class="highlight-box">
+      <h2>Why I Built This Site</h2>
+      <p>In 2025 and 2026, the number of AI coding tools, models, and platforms exploded. Every week brought a new model release, a pricing change, or a tooling update. As a developer trying to make sense of it all, I found myself spending hours cross-referencing official docs, community discussions, and pricing pages just to answer simple questions: <em>Which model should I use for this task? How much will it actually cost? What are the real trade-offs?</em></p>
+      <p>I built AI Agent Hub to be the resource I wished existed — a clear, practical, regularly updated reference that cuts through the hype and helps developers make informed decisions about their AI tooling stack.</p>
+    </div>
+
+    <h2>Background & Expertise</h2>
+    <p>The author of this site has extensive hands-on experience with the tools and models covered here:</p>
+
+    <div class="expertise-grid">
+      <div class="expertise-item">
+        <div class="icon">💻</div>
+        <h4>Software Development</h4>
+        <p>Years of professional experience across web, backend, and systems programming in multiple languages and frameworks.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="icon">🤖</div>
+        <h4>AI/ML Tools</h4>
+        <p>Daily hands-on use of Claude Code, GitHub Copilot, OpenAI API, and multi-model workflows for real production work.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="icon">🔬</div>
+        <h4>Model Evaluation</h4>
+        <p>Systematic testing and comparison of frontier models across coding, reasoning, and creative tasks — not just reading benchmarks.</p>
+      </div>
+      <div class="expertise-item">
+        <div class="icon">📊</div>
+        <h4>Technical Research</h4>
+        <p>Deep-dive analysis of pricing structures, context window utilization, tool-use capabilities, and integration quality.</p>
+      </div>
+    </div>
+
+    <h2>How This Site Is Maintained</h2>
+    <div class="card">
+      <h3>Content Philosophy</h3>
+      <p>Every comparison table, recommendation, and article on this site is based on <strong>first-hand experience combined with official documentation</strong>. I don't publish information I haven't personally verified or traced back to an authoritative source. When data is estimated or based on community reports, I clearly label it as such.</p>
+    </div>
+    <div class="card">
+      <h3>Update Cadence</h3>
+      <p>The AI landscape changes rapidly. I review and update the comparison tables at least <strong>once a month</strong>, and I publish updates when significant new models, features, or pricing changes are announced. The "Last Updated" indicators throughout the site help you gauge the freshness of specific information.</p>
+    </div>
+    <div class="card">
+      <h3>No AI-Generated Content</h3>
+      <p>Ironically for a site about AI tools, <strong>all content on AI Agent Hub is human-written</strong>. I do not use LLMs to auto-generate articles, comparisons, or recommendations. While I use AI tools in my development workflow, the analysis, judgments, and writing on this site are entirely my own. This ensures that the content reflects genuine human judgment, not model-generated patterns that may contain hallucinations or lack real-world context.</p>
+    </div>
+
+    <h2>What This Site Focuses On</h2>
+    <ul>
+      <li><strong>Clear, jargon-free explanations</strong> of AI model strengths, weaknesses, and trade-offs — written for developers who need practical answers, not marketing fluff.</li>
+      <li><strong>Practical workflow guidance</strong> for day-to-day development: when to use which model, how to set up multi-model routing, and how to control costs without sacrificing quality.</li>
+      <li><strong>Transparent comparisons</strong> based on publicly verifiable data: pricing, context windows, benchmarks, and integration quality — not vendor claims or hype cycles.</li>
+      <li><strong>Regular updates</strong> to reflect the real pace of change in the AI industry, with dated content so you know what's current.</li>
+      <li><strong>Community-informed recommendations</strong> that incorporate real developer experiences and feedback, not just theoretical best practices.</li>
+    </ul>
+
+    <h2>Editorial Independence</h2>
+    <p>This site is <strong>independently operated</strong>. I am not employed by, contracted by, or compensated by any of the AI providers covered on this site — including Anthropic, OpenAI, Google, DeepSeek, Alibaba, Meta, or any other company listed in our comparisons.</p>
+    <p>The site may generate revenue through advertising (such as Google AdSense) and potential affiliate relationships, but these <strong>do not influence editorial content</strong>. Any sponsored or affiliate content will be clearly disclosed. Recommendations are based on assessment of the tools themselves, not on commercial relationships.</p>
+
+    <h2>Get in Touch</h2>
+    <p>I welcome feedback, corrections, and suggestions from readers. If you've spotted an error, have a model you'd like to see added to the comparisons, or just want to share your experience with a particular tool, please reach out through the <a href="contact.html">Contact page</a>. Reader input directly shapes what gets updated and improved on this site.</p>
   </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a>
+      <a href="about-author.html">Author</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
 </body>
 </html>

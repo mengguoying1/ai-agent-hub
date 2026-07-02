@@ -3,55 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Articles — browse all AI Agent Hub guides, comparisons, and strategy pieces on AI coding agents, model selection, and developer workflows.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/articles.html">
   <title>Articles — AI Agent Hub</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 2rem; background: #06070d; color: #f2f2f2; line-height: 1.7; }
-    main { max-width: 1100px; margin: 0 auto; }
-    a { color: #a78bfa; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
-    .card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 1.2rem; }
-    .meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .45rem; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #04050b 0%, #0a0c16 45%, #03040a 100%);
+      color: #e0e0e0; line-height: 1.8; min-height: 100vh;
+    }
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 800; color: #e0e0e0; text-decoration: none; }
+    .nav-logo span { background: linear-gradient(135deg, #7c5cfc, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+    .nav-links a { color: #a0a0b0; font-size: .88rem; font-weight: 500; text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    main { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: .5rem; background: linear-gradient(135deg, #fff 30%, #a78bfa 70%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { font-size: 1.2rem; margin: 2rem 0 1rem; color: #c4b5fd; }
+    p { margin-bottom: 1rem; color: #b0b0c0; }
+    .section-desc { color: #9090a0; margin-bottom: 2rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+    .card {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px; padding: 1.5rem; transition: all .2s;
+    }
+    .card:hover { border-color: rgba(124,92,252,.25); transform: translateY(-2px); }
+    .meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .5rem; }
+    .card h3 { font-size: 1.1rem; margin-bottom: .5rem; color: #f4f6ff; }
+    .card p { font-size: .92rem; color: #8f92a7; margin-bottom: .8rem; }
+    .card a { color: #a78bfa; font-weight: 600; text-decoration: none; }
+    .card a:hover { color: #c4b5fd; }
+    .footer {
+      background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.04);
+      padding: 2rem; text-align: center; color: #606070; font-size: .85rem;
+    }
+    .footer a { color: #a78bfa; }
+    a { color: #a78bfa; text-decoration: none; }
+    a:hover { color: #c4b5fd; }
+    .policy-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: .5rem; }
+    .category-nav {
+      display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem;
+    }
+    .category-nav a {
+      padding: .45rem .85rem; border-radius: 999px;
+      background: rgba(124,92,252,.14); border: 1px solid rgba(124,92,252,.22);
+      color: #d8cfff; font-size: .88rem; text-decoration: none;
+    }
+    .category-nav a:hover { background: rgba(124,92,252,.24); color: #fff; }
   </style>
 </head>
 <body>
-  <main>
-    <div class="topbar">
-      <h1>Articles</h1>
-      <a href="index.html">← Back to homepage</a>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
+  </nav>
+
+  <main>
+    <h1>Articles & Guides</h1>
+    <p class="section-desc">In-depth articles on AI coding agents, model comparisons, pricing strategies, and practical workflows for developers. All content is human-researched and regularly updated.</p>
+
+    <div class="category-nav">
+      <a href="articles.html">All Articles</a>
+      <a href="article-claude-vs-gpt.html">Model Comparison</a>
+      <a href="article-llm-pricing.html">Pricing</a>
+      <a href="article-agent-ecosystem.html">Agent Ecosystem</a>
+      <a href="article-multi-model-workflow.html">Workflow Strategy</a>
+      <a href="guide.html">Guides</a>
+    </div>
+
+    <h2>Featured Articles</h2>
     <div class="grid">
       <article class="card">
-        <div class="meta">Guide · 5 min read</div>
-        <h3>How to choose the right AI coding tool</h3>
-        <p>Learn how to select the right stack based on cost, speed, reasoning depth, and integration quality.</p>
-        <a href="guide.html">Read article</a>
+        <div class="meta">Guide · 8 min read</div>
+        <h3>How to Choose an AI Coding Stack</h3>
+        <p>A complete decision framework for matching AI coding tools to your tasks, budget, and workflow. Covers task assessment, cost estimation, model selection, and common pitfalls.</p>
+        <a href="guide.html">Read guide →</a>
       </article>
+
       <article class="card">
-        <div class="meta">Comparison · 4 min read</div>
-        <h3>Claude vs GPT vs DeepSeek for coding</h3>
-        <p>Understand the strengths and weaknesses of each major model family for real developer workflows.</p>
-        <a href="article-claude-vs-gpt.html">Read article</a>
+        <div class="meta">Comparison · 7 min read</div>
+        <h3>Claude vs GPT vs DeepSeek for Coding</h3>
+        <p>Detailed comparison of the three major model families across reasoning depth, IDE integration, cost efficiency, and real-world coding performance.</p>
+        <a href="article-claude-vs-gpt.html">Read article →</a>
       </article>
+
       <article class="card">
         <div class="meta">Strategy · 6 min read</div>
-        <h3>Why multi-model workflows are becoming standard</h3>
-        <p>See how developers use primary and fallback models to improve speed, cost control, and reliability.</p>
-        <a href="article-multi-model-workflow.html">Read article</a>
+        <h3>Why Multi-Model Workflows Matter</h3>
+        <p>How combining a primary model with budget fallbacks, specialist models, and provider diversity improves reliability, cost control, and output quality.</p>
+        <a href="article-multi-model-workflow.html">Read article →</a>
       </article>
+
       <article class="card">
-        <div class="meta">Pricing · 4 min read</div>
-        <h3>How to think about LLM pricing</h3>
-        <p>A straightforward guide to the cost factors that matter when evaluating model options.</p>
-        <a href="article-llm-pricing.html">Read article</a>
+        <div class="meta">Pricing · 6 min read</div>
+        <h3>How to Think About LLM Pricing</h3>
+        <p>Understand token-based pricing, context window costs, prompt caching benefits, and how to estimate real monthly spend across different usage patterns.</p>
+        <a href="article-llm-pricing.html">Read article →</a>
       </article>
+
       <article class="card">
-        <div class="meta">Concepts · 5 min read</div>
-        <h3>The agent ecosystem explained</h3>
-        <p>Understand how modern AI agents combine reasoning, tools, context, and workflows into functional systems.</p>
-        <a href="article-agent-ecosystem.html">Read article</a>
+        <div class="meta">Concepts · 7 min read</div>
+        <h3>The Agent Ecosystem Explained</h3>
+        <p>How modern AI agents combine reasoning, tool use, context management, and execution loops. Covers Claude Code, Copilot Agent Mode, MCP, and multi-agent systems.</p>
+        <a href="article-agent-ecosystem.html">Read article →</a>
       </article>
     </div>
+
+    <h2>Quick Reference</h2>
+    <p>Looking for specific information? Here's where to find it:</p>
+    <div class="grid">
+      <div class="card">
+        <h3>🔍 Model Comparison Tables</h3>
+        <p>Side-by-side specs, pricing, and strengths for 24+ models across international, Chinese, and open-source categories.</p>
+        <a href="./#models">View on homepage →</a>
+      </div>
+      <div class="card">
+        <h3>💰 Pricing Analysis</h3>
+        <p>Realistic monthly cost estimates for different usage levels, with cost-saving strategies and caching explanations.</p>
+        <a href="article-llm-pricing.html">Read pricing guide →</a>
+      </div>
+      <div class="card">
+        <h3>💡 Curated Recommendations</h3>
+        <p>Best models for Claude Code users, Copilot users, multi-model setups, and budget-conscious developers.</p>
+        <a href="./#recommend">View recommendations →</a>
+      </div>
+      <div class="card">
+        <h3>📰 Latest AI News</h3>
+        <p>Key developments from mid-2026: model launches, pricing changes, and ecosystem updates.</p>
+        <a href="./#news">View news →</a>
+      </div>
+    </div>
   </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a>
+      <a href="about-author.html">Author</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
 </body>
 </html>

@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/</loc>
+    <loc>https://www.waiagent.win/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/articles.html</loc>
+    <loc>https://www.waiagent.win/articles.html</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/guide.html</loc>
+    <loc>https://www.waiagent.win/guide.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/article-claude-vs-gpt.html</loc>
+    <loc>https://www.waiagent.win/article-claude-vs-gpt.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/article-multi-model-workflow.html</loc>
+    <loc>https://www.waiagent.win/article-multi-model-workflow.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/article-llm-pricing.html</loc>
+    <loc>https://www.waiagent.win/article-llm-pricing.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/article-agent-ecosystem.html</loc>
+    <loc>https://www.waiagent.win/article-agent-ecosystem.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/about.html</loc>
+    <loc>https://www.waiagent.win/about.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/privacy.html</loc>
+    <loc>https://www.waiagent.win/privacy.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/terms.html</loc>
+    <loc>https://www.waiagent.win/terms.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/contact.html</loc>
+    <loc>https://www.waiagent.win/contact.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://your-username.github.io/ai-agent-hub/about-author.html</loc>
+    <loc>https://www.waiagent.win/about-author.html</loc>
     <priority>0.6</priority>
   </url>
 </urlset>

@@ -3,19 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About AI Agent Hub — an independent resource helping developers navigate AI coding agents, frontier models, and practical workflows.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/about.html">
   <title>About — AI Agent Hub</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 2rem; background: #06070d; color: #f2f2f2; line-height: 1.7; }
-    main { max-width: 900px; margin: 0 auto; }
-    a { color: #a78bfa; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #04050b 0%, #0a0c16 45%, #03040a 100%);
+      color: #e0e0e0; line-height: 1.8; min-height: 100vh;
+    }
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 800; color: #e0e0e0; text-decoration: none; }
+    .nav-logo span { background: linear-gradient(135deg, #7c5cfc, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+    .nav-links a { color: #a0a0b0; font-size: .88rem; font-weight: 500; text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 1.5rem; background: linear-gradient(135deg, #fff 30%, #a78bfa 70%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { font-size: 1.3rem; margin: 2rem 0 .8rem; color: #c4b5fd; }
+    h3 { font-size: 1.05rem; margin: 1.2rem 0 .5rem; color: #d0d0e0; }
+    p { margin-bottom: 1rem; color: #b0b0c0; }
+    ul, ol { margin: .8rem 0 1.2rem 1.5rem; color: #b0b0c0; }
+    li { margin-bottom: .5rem; }
+    .card {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px; padding: 1.5rem; margin: 1.5rem 0;
+    }
+    .footer {
+      background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.04);
+      padding: 2rem; text-align: center; color: #606070; font-size: .85rem;
+    }
+    .footer a { color: #a78bfa; }
+    a { color: #a78bfa; text-decoration: none; }
+    a:hover { color: #c4b5fd; }
+    .policy-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: .5rem; }
   </style>
 </head>
 <body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <main>
-    <h1>About This Project</h1>
-    <p>AI Agent Hub is an independent resource for developers interested in AI agents, coding assistants, and large language models.</p>
-    <p>The site is designed to provide practical comparisons, model landscape summaries, and curated recommendations based on publicly available information.</p>
-    <p>It is not affiliated with any specific provider and should be used as a reference tool.</p>
+    <h1>About AI Agent Hub</h1>
+
+    <p><strong>AI Agent Hub</strong> is an independent, editorially curated resource dedicated to helping developers, team leads, and technology decision-makers navigate the rapidly evolving landscape of AI coding agents and large language models.</p>
+
+    <div class="card">
+      <h2>Our Mission</h2>
+      <p>The AI tooling ecosystem moves fast — new models launch every month, pricing changes frequently, and the difference between a great development workflow and a frustrating one often comes down to choosing the right model for the right task.</p>
+      <p>We built AI Agent Hub to cut through the noise. Instead of marketing hype or vendor claims, we focus on <strong>practical, verifiable information</strong>: real pricing data, model capability comparisons, integration quality assessments, and workflow recommendations based on how developers actually use these tools day-to-day.</p>
+    </div>
+
+    <h2>What You'll Find Here</h2>
+    <ul>
+      <li><strong>Model Comparison Tables</strong> — Side-by-side comparisons of frontier models from Anthropic, OpenAI, Google DeepMind, DeepSeek, Alibaba, and more. We track context windows, pricing per million tokens, strengths, and availability status across international, Chinese, and open-source categories.</li>
+      <li><strong>Pricing Analysis</strong> — Realistic monthly cost estimates for developers using AI coding assistants at different usage levels, with breakdowns by provider and model tier.</li>
+      <li><strong>Workflow Recommendations</strong> — Curated picks organized by use case: Claude Code users, GitHub Copilot users, multi-model hub setups, and budget-conscious stacks.</li>
+      <li><strong>In-Depth Articles</strong> — Practical guides on model selection, multi-model workflow strategies, LLM pricing considerations, and the evolving agent ecosystem.</li>
+      <li><strong>News & Updates</strong> — Regular coverage of significant developments in the AI coding space, from model launches to tooling updates.</li>
+    </ul>
+
+    <h2>Our Approach to Content</h2>
+    <p>Every piece of content on this site is <strong>human-researched and human-written</strong>. We do not use AI to auto-generate articles or comparison data. Our process involves:</p>
+    <ol>
+      <li><strong>Research</strong> — We consult official documentation, API pricing pages, published benchmarks, and community feedback to gather accurate, current information.</li>
+      <li><strong>Verification</strong> — Pricing and capability claims are cross-referenced against official sources. When information is uncertain or estimated, we clearly label it as such.</li>
+      <li><strong>Regular Updates</strong> — The AI landscape changes rapidly. We refresh our data on a monthly basis and update articles when significant new models or features launch.</li>
+      <li><strong>Transparency</strong> — We disclose our methodology, note when information is estimated, and clearly separate factual comparisons from subjective recommendations.</li>
+    </ol>
+
+    <h2>Independence & Funding</h2>
+    <p>AI Agent Hub is an independent publication. We are <strong>not affiliated with, sponsored by, or funded by</strong> any of the AI providers we cover — including Anthropic, OpenAI, Google, DeepSeek, Alibaba, Meta, or any other listed company.</p>
+    <p>To sustain our operations and keep the site free for readers, we may display contextual advertising (such as Google AdSense) and may earn affiliate commissions from some linked services. Any sponsored or affiliate content will be <strong>clearly labeled</strong>. Our editorial assessments and recommendations are never influenced by commercial relationships.</p>
+
+    <h2>Who This Site Is For</h2>
+    <div class="card">
+      <h3>👨‍💻 Individual Developers</h3>
+      <p>If you're trying to figure out which AI coding assistant to use, how much it'll cost, or whether to go with Claude Code, Copilot, or a multi-model setup — our comparisons and guides are built for you.</p>
+    </div>
+    <div class="card">
+      <h3>👥 Engineering Teams</h3>
+      <p>For teams evaluating AI tooling at scale, we provide the data you need to make informed procurement decisions: pricing at volume, integration quality, self-hosting options, and privacy considerations.</p>
+    </div>
+    <div class="card">
+      <h3>📚 Students & Learners</h3>
+      <p>If you're just starting to explore AI-assisted development, our guides explain the fundamentals in plain language — no vendor jargon, no assumed expertise.</p>
+    </div>
+
+    <h2>Contact & Feedback</h2>
+    <p>We welcome corrections, suggestions, and partnership inquiries. If you spot outdated information, have a model we should add to our comparisons, or want to discuss collaboration opportunities, please <a href="contact.html">get in touch via our contact page</a>.</p>
   </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a>
+      <a href="about-author.html">Author</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
 </body>
 </html>
