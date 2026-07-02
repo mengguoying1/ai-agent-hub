@@ -353,6 +353,15 @@ a:hover { color: #a78bfa; }
   padding: 0 1.1rem 1rem; color: #8f92a7; line-height: 1.65; display: none;
 }
 .faq-item.active .faq-answer { display: block; }
+.latest-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem;
+}
+.latest-card {
+  background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 1.2rem;
+}
+.latest-card .meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .45rem; }
+.latest-card h4 { margin-bottom: .45rem; color: #f4f6ff; }
+.latest-card p { color: #8f92a7; font-size: .92rem; }
 .cookie-banner {
   position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 2000;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
@@ -1059,6 +1068,31 @@ a:hover { color: #a78bfa; }
       <div class="faq-item">
         <button class="faq-question" type="button">Can this site be used for commercial or educational purposes?<span>+</span></button>
         <div class="faq-answer">Yes, the content is intended as an informational resource for developers, students, and teams exploring AI-assisted workflows.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LATEST UPDATES ===== -->
+<section class="section" id="updates">
+  <div class="section-inner">
+    <div class="section-label">Latest Updates</div>
+    <h2 class="section-title">Fresh content to keep the site current and useful</h2>
+    <div class="latest-grid">
+      <div class="latest-card">
+        <div class="meta">July 2026</div>
+        <h4>New comparison views for coding assistants</h4>
+        <p>Updated guidance on how to compare reasoning quality, latency, pricing, and ecosystem fit for daily work.</p>
+      </div>
+      <div class="latest-card">
+        <div class="meta">July 2026</div>
+        <h4>Expanded model landscape coverage</h4>
+        <p>Added clearer summaries of major global and open-source model families for developers and teams.</p>
+      </div>
+      <div class="latest-card">
+        <div class="meta">July 2026</div>
+        <h4>More practical workflow guidance</h4>
+        <p>New content focuses on choosing the right model for coding, research, and long-context tasks.</p>
       </div>
     </div>
   </div>
