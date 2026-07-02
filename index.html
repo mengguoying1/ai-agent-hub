@@ -328,6 +328,20 @@ a:hover { color: #a78bfa; }
 .guide-card h4 { margin-bottom: .45rem; color: #f4f6ff; }
 .guide-card p { color: #8f92a7; font-size: .95rem; margin-bottom: .9rem; }
 .guide-card a { color: #7c5cfc; font-weight: 700; }
+.article-list {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem;
+}
+.article-card {
+  background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 1.3rem;
+}
+.article-card .article-meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; margin-bottom: .45rem; text-transform: uppercase; letter-spacing: .08em; }
+.article-card h4 { margin-bottom: .45rem; color: #f4f6ff; }
+.article-card p { color: #8f92a7; font-size: .95rem; margin-bottom: .8rem; }
+.article-card a { color: #7c5cfc; font-weight: 700; }
+.category-pill-row { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
+.category-pill {
+  padding: .4rem .8rem; border-radius: 999px; background: rgba(124,92,252,.16); color: #c4b5fd; font-size: .82rem; border: 1px solid rgba(124,92,252,.22);
+}
 .faq-list { display: grid; gap: .8rem; }
 .faq-item {
   background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; overflow: hidden;
@@ -945,6 +959,42 @@ a:hover { color: #a78bfa; }
         <h4>Privacy & Self-Hosting</h4>
         <p>Open models like DeepSeek-V3 and Qwen3-Coder let enterprises run powerful AI on their own hardware, keeping code and data in-house.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARTICLES & CATEGORIES ===== -->
+<section class="section" id="guides">
+  <div class="section-inner">
+    <div class="section-label">Knowledge Hub</div>
+    <h2 class="section-title">Articles, guides, and comparisons in one place</h2>
+    <p class="section-desc">A content-focused structure helps readers browse by topic and keeps the site useful long-term.</p>
+    <div class="category-pill-row">
+      <span class="category-pill">AI Agents</span>
+      <span class="category-pill">Coding Assistants</span>
+      <span class="category-pill">LLM Models</span>
+      <span class="category-pill">Developer Workflow</span>
+      <span class="category-pill">Pricing</span>
+    </div>
+    <div class="article-list">
+      <article class="article-card">
+        <div class="article-meta">Guide · 5 min read</div>
+        <h4>How to choose the right AI coding tool</h4>
+        <p>Understand the trade-offs between speed, cost, reasoning depth, and ecosystem support before committing to a workflow.</p>
+        <a href="guide.html">Read article →</a>
+      </article>
+      <article class="article-card">
+        <div class="article-meta">Comparison · 4 min read</div>
+        <h4>Claude vs GPT vs DeepSeek for coding</h4>
+        <p>A practical comparison of strengths, weaknesses, and optimal scenarios for each model family.</p>
+        <a href="guide.html">Read article →</a>
+      </article>
+      <article class="article-card">
+        <div class="article-meta">Strategy · 6 min read</div>
+        <h4>Why multi-model workflows are becoming standard</h4>
+        <p>Learn why many teams rely on a primary model plus a secondary fallback for reliability and cost control.</p>
+        <a href="guide.html">Read article →</a>
+      </article>
     </div>
   </div>
 </section>
