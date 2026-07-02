@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI Agent Hub is an independent guide to AI coding agents, frontier models, pricing, and practical workflows for developers.">
+<meta name="theme-color" content="#06070d">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://your-username.github.io/ai-agent-hub/">
+<meta property="og:title" content="AI Agent Hub — The Future of Intelligent Automation">
+<meta property="og:description" content="Independent comparison of AI agents, coding assistants, and LLM models for developers.">
+<meta property="og:type" content="website">
+<meta property="twitter:card" content="summary_large_image">
 <title>AI Agent Hub — The Future of Intelligent Automation</title>
 <style>
 /* ===== Reset & Base ===== */
@@ -300,6 +308,29 @@ a:hover { color: #a78bfa; }
   background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.04);
   padding: 3rem 2rem; text-align: center; color: #606070; font-size: .85rem;
 }
+.standards-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;
+}
+.standards-card {
+  background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px; padding: 1.2rem;
+}
+.standards-card h4 { margin-bottom: .35rem; color: #f0f2ff; }
+.standards-card p { color: #8f92a7; font-size: .9rem; }
+.policy-links { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 1rem; }
+.policy-links a { color: #a78bfa; font-weight: 600; }
+.cookie-banner {
+  position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 2000;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1rem 1.1rem; border-radius: 14px;
+  background: rgba(6, 10, 20, .95); border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 12px 40px rgba(0,0,0,.28); max-width: 860px; margin: 0 auto;
+}
+.cookie-banner.hidden { display: none; }
+.cookie-banner button {
+  border: none; border-radius: 999px; padding: .6rem 1rem; cursor: pointer;
+  background: linear-gradient(135deg, #7c5cfc, #6366f1); color: #fff; font-weight: 600;
+}
 .footer-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem; max-width: 1300px; margin: 0 auto 2rem; text-align: left;
@@ -356,6 +387,10 @@ a:hover { color: #a78bfa; }
 </style>
 </head>
 <body>
+<div class="cookie-banner" id="cookieBanner">
+  <p>This site uses cookies and local storage to improve your experience and remember your preferences. By continuing, you accept our <a href="privacy.html">Privacy Policy</a>.</p>
+  <button id="cookieAccept">Accept</button>
+</div>
 <div class="background-layer" aria-hidden="true">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
@@ -892,32 +927,65 @@ a:hover { color: #a78bfa; }
   </div>
 </section>
 
+<!-- ===== ADSENSE READINESS ===== -->
+<section class="section" id="standards">
+  <div class="section-inner">
+    <div class="section-label">Trust & Compliance</div>
+    <h2 class="section-title">Built for transparency, useful content, and a better reader experience</h2>
+    <p class="section-desc">This site focuses on original, practical information for developers exploring AI agents and frontier models. Clear navigation, transparent disclosures, and accessible policy pages are all part of the foundation for long-term monetization.</p>
+    <div class="standards-grid">
+      <div class="standards-card">
+        <h4>Original value</h4>
+        <p>We provide comparisons, guidance, and curated recommendations rather than low-effort auto-generated filler.</p>
+      </div>
+      <div class="standards-card">
+        <h4>Transparent policies</h4>
+        <p>Privacy, terms, and contact information are available so readers can understand the site clearly.</p>
+      </div>
+      <div class="standards-card">
+        <h4>Reader-first UX</h4>
+        <p>The layout is clean, readable, and designed to support useful browsing on desktop and mobile.</p>
+      </div>
+      <div class="standards-card">
+        <h4>Clear disclosures</h4>
+        <p>Pricing and capability details are presented as informational content and are not framed as guaranteed claims.</p>
+      </div>
+    </div>
+    <div class="policy-links">
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</section>
+
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="footer-grid">
     <div class="footer-col">
       <h4>AI Agent Hub</h4>
       <ul>
-        <li><a href="#">About This Project</a></li>
-        <li><a href="#">Data Sources</a></li>
-        <li><a href="#">Update Frequency</a></li>
+        <li><a href="about.html">About This Project</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Model Providers</h4>
       <ul>
-        <li><a href="https://anthropic.com" target="_blank">Anthropic (Claude)</a></li>
-        <li><a href="https://openai.com" target="_blank">OpenAI (GPT, Codex)</a></li>
-        <li><a href="https://deepseek.com" target="_blank">DeepSeek</a></li>
-        <li><a href="https://deepmind.google" target="_blank">Google DeepMind (Gemini)</a></li>
+        <li><a href="https://anthropic.com" target="_blank" rel="noopener noreferrer">Anthropic (Claude)</a></li>
+        <li><a href="https://openai.com" target="_blank" rel="noopener noreferrer">OpenAI (GPT, Codex)</a></li>
+        <li><a href="https://deepseek.com" target="_blank" rel="noopener noreferrer">DeepSeek</a></li>
+        <li><a href="https://deepmind.google" target="_blank" rel="noopener noreferrer">Google DeepMind (Gemini)</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Tools & Platforms</h4>
       <ul>
-        <li><a href="https://claude.ai/code" target="_blank">Claude Code</a></li>
-        <li><a href="https://github.com/features/copilot" target="_blank">GitHub Copilot</a></li>
-        <li><a href="https://openrouter.ai" target="_blank">OpenRouter (Hub)</a></li>
+        <li><a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer">Claude Code</a></li>
+        <li><a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer">GitHub Copilot</a></li>
+        <li><a href="https://openrouter.ai" target="_blank" rel="noopener noreferrer">OpenRouter (Hub)</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -996,6 +1064,19 @@ window.addEventListener('pointerleave', () => {
 window.addEventListener('blur', () => {
   if (glow) glow.style.opacity = '0';
 });
+
+const consentBanner = document.getElementById('cookieBanner');
+const consentButton = document.getElementById('cookieAccept');
+if (consentBanner && consentButton) {
+  const hasAccepted = localStorage.getItem('adsense-consent') === 'accepted';
+  if (hasAccepted) {
+    consentBanner.classList.add('hidden');
+  }
+  consentButton.addEventListener('click', () => {
+    localStorage.setItem('adsense-consent', 'accepted');
+    consentBanner.classList.add('hidden');
+  });
+}
 </script>
 
 </body>
