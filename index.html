@@ -391,8 +391,9 @@ a:hover { color: #a78bfa; }
   display: grid; gap: .8rem;
 }
 .popular-item {
-  padding: .9rem 1rem; border-radius: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+  display: block; padding: .9rem 1rem; border-radius: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); transition: all .2s;
 }
+.popular-item:hover { border-color: rgba(124,92,252,.28); transform: translateY(-1px); }
 .popular-item strong { display: block; color: #f4f6ff; margin-bottom: .2rem; }
 .popular-item span { color: #8f92a7; font-size: .9rem; }
 .ad-slot {
@@ -1081,18 +1082,18 @@ a:hover { color: #a78bfa; }
       <a href="article-multi-model-workflow.html">Workflow Strategy</a>
     </div>
     <div class="popular-list">
-      <div class="popular-item">
+      <a class="popular-item" href="article-claude-vs-gpt.html">
         <strong>Popular: Claude vs GPT vs DeepSeek for coding</strong>
         <span>Read the practical comparison of the most common coding models.</span>
-      </div>
-      <div class="popular-item">
+      </a>
+      <a class="popular-item" href="article-llm-pricing.html">
         <strong>Popular: How to Think About LLM Pricing</strong>
         <span>Understand the cost factors that really matter when choosing a model.</span>
-      </div>
-      <div class="popular-item">
+      </a>
+      <a class="popular-item" href="article-multi-model-workflow.html">
         <strong>Popular: Why Multi-Model Workflows Matter</strong>
         <span>Learn how teams combine multiple models for better reliability and value.</span>
-      </div>
+      </a>
     </div>
     <div class="ad-slot">
       <p>Sponsored content placeholder</p>
