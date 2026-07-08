@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="How to Think About LLM Pricing — understand token-based pricing, context costs, caching, and how to estimate your real monthly spend on AI coding tools.">
@@ -20,42 +21,9 @@
     "datePublished": "2026-07-01"
   }
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #04050b 0%, #0a0c16 45%, #03040a 100%);
-      color: #e0e0e0; line-height: 1.8; min-height: 100vh;
-    }
-    .nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); padding: 0 2rem; }
-    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .nav-logo { font-size: 1.3rem; font-weight: 800; color: #e0e0e0; text-decoration: none; }
-    .nav-logo span { background: linear-gradient(135deg, #7c5cfc, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
-    .nav-links a { color: #a0a0b0; font-size: .88rem; font-weight: 500; text-decoration: none; transition: color .2s; }
-    .nav-links a:hover { color: #fff; }
-    main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: .5rem; background: linear-gradient(135deg, #fff 30%, #a78bfa 70%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    h2 { font-size: 1.25rem; margin: 2.2rem 0 .8rem; color: #c4b5fd; }
-    h3 { font-size: 1.05rem; margin: 1.4rem 0 .5rem; color: #d0d0e0; }
-    p { margin-bottom: 1rem; color: #b0b0c0; }
-    ul, ol { margin: .8rem 0 1.2rem 1.5rem; color: #b0b0c0; }
-    li { margin-bottom: .5rem; }
-    .meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .8rem; }
-    .card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 1.5rem; margin: 1.5rem 0; }
-    .tip { background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.18); border-radius: 12px; padding: 1rem 1.3rem; margin: 1rem 0; }
-    .tip strong { color: #4ade80; }
-    table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: .9rem; }
-    th { background: rgba(255,255,255,.04); padding: .7rem .9rem; text-align: left; font-size: .8rem; color: #a0a0b0; text-transform: uppercase; letter-spacing: .05em; }
-    td { padding: .7rem .9rem; border-top: 1px solid rgba(255,255,255,.04); }
-    .footer { background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.04); padding: 2rem; text-align: center; color: #606070; font-size: .85rem; }
-    .footer a { color: #a78bfa; }
-    a { color: #a78bfa; text-decoration: none; }
-    a:hover { color: #c4b5fd; }
-    .policy-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: .5rem; }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="article-page">
   <nav class="nav">
     <div class="nav-inner">
       <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
@@ -89,15 +57,15 @@
           <tr><th>Model</th><th>Input (per 1M tokens)</th><th>Output (per 1M tokens)</th><th>Relative Cost vs Cheapest</th></tr>
         </thead>
         <tbody>
-          <tr><td>Gemini 2.5 Flash</td><td>~$0.15</td><td>~$0.60</td><td>1x (baseline)</td></tr>
-          <tr><td>DeepSeek-V3</td><td>~$0.27</td><td>~$0.40</td><td>~1.5x</td></tr>
-          <tr><td>Yi-Lightning</td><td>~$0.14</td><td>~$0.43</td><td>~1x</td></tr>
-          <tr><td>Claude Haiku 4.5</td><td>$0.80</td><td>$4.00</td><td>~6x</td></tr>
-          <tr><td>GPT-5 Mini</td><td>~$1.50</td><td>~$6.00</td><td>~10x</td></tr>
-          <tr><td>Claude Sonnet 5</td><td>$3.00</td><td>$15.00</td><td>~20x</td></tr>
-          <tr><td>Qwen3-Coder</td><td>~$0.50</td><td>~$2.00</td><td>~3x</td></tr>
-          <tr><td>GPT-5</td><td>~$15.00</td><td>~$60.00</td><td>~100x</td></tr>
-          <tr><td>Claude Opus 4.8</td><td>$15.00</td><td>$75.00</td><td>~110x</td></tr>
+          <tr><td>Gemini 3.1 Flash</td><td>~$0.075</td><td>~$0.30</td><td>1x (baseline)</td></tr>
+          <tr><td>Yi-Lightning</td><td>~$0.14</td><td>~$0.43</td><td>~1.8x</td></tr>
+          <tr><td>DeepSeek-V3</td><td>~$0.27</td><td>~$0.40</td><td>~2.5x</td></tr>
+          <tr><td>Qwen3-Coder</td><td>~$0.50</td><td>~$2.00</td><td>~5x</td></tr>
+          <tr><td>Claude Haiku 4.8</td><td>$0.80</td><td>$4.00</td><td>~10x</td></tr>
+          <tr><td>GPT-5.5 Mini</td><td>~$1.00</td><td>~$4.00</td><td>~11x</td></tr>
+          <tr><td>Claude Sonnet 4.8</td><td>$3.00</td><td>$15.00</td><td>~36x</td></tr>
+          <tr><td>GPT-5.5</td><td>~$10.00</td><td>~$40.00</td><td>~110x</td></tr>
+          <tr><td>Claude Opus 4.8</td><td>$15.00</td><td>$75.00</td><td>~180x</td></tr>
         </tbody>
       </table>
       <p style="font-size:.82rem;color:#7878a0;margin-top:.5rem;">Prices are approximate and subject to change. Check official provider pricing pages for current rates.</p>
@@ -108,9 +76,9 @@
     <h3>1. Context Window Utilization</h3>
     <p>The biggest hidden cost driver is <strong>how much context you send with each request</strong>. A 200K token context window is powerful, but if you're sending 50K tokens of codebase context with every query, your input costs multiply fast:</p>
     <ul>
-      <li><strong>Light context</strong> (2K input per query): $0.006/query on Sonnet 5</li>
-      <li><strong>Medium context</strong> (10K input per query): $0.03/query on Sonnet 5</li>
-      <li><strong>Full-repo context</strong> (100K input per query): $0.30/query on Sonnet 5</li>
+      <li><strong>Light context</strong> (2K input per query): $0.006/query on Sonnet 4.8</li>
+      <li><strong>Medium context</strong> (10K input per query): $0.03/query on Sonnet 4.8</li>
+      <li><strong>Full-repo context</strong> (100K input per query): $0.30/query on Sonnet 4.8</li>
     </ul>
     <p>At 500 queries per day with full-repo context, that's $150/day — or <strong>$4,500/month</strong>. The same usage with targeted 5K context drops to ~$225/month.</p>
 
@@ -139,7 +107,7 @@
       <li><strong>Autocomplete-style:</strong> Many small requests (100–500 tokens each), high volume. Use a cheap, fast model.</li>
       <li><strong>Chat-style:</strong> Conversational debugging with longer context. Mid-tier models work well.</li>
       <li><strong>Deep analysis:</strong> Few requests but very large context (full files/repos). Premium models justified for accuracy.</li>
-      <li><strong>Batch processing:</strong> Documentation, tests, migrations. Use the cheapest capable model — DeepSeek-V3 or Gemini Flash.</li>
+      <li><strong>Batch processing:</strong> Documentation, tests, migrations. Use the cheapest capable model — DeepSeek-V3 or Gemini 3.1 Flash.</li>
     </ul>
 
     <h2>Real Monthly Cost Estimates</h2>
@@ -151,11 +119,11 @@
         </thead>
         <tbody>
           <tr><td><strong>DeepSeek-V3 only</strong></td><td>~$2.00</td><td>~$3.00</td><td><strong>~$5/mo</strong></td></tr>
-          <tr><td><strong>Gemini 2.5 Flash only</strong></td><td>~$1.10</td><td>~$4.50</td><td><strong>~$6/mo</strong></td></tr>
-          <tr><td><strong>GPT-5 Mini only</strong></td><td>~$11.00</td><td>~$45.00</td><td><strong>~$56/mo</strong></td></tr>
-          <tr><td><strong>Claude Sonnet 5 only</strong></td><td>~$22.50</td><td>~$112.50</td><td><strong>~$135/mo</strong></td></tr>
-          <tr><td><strong>Sonnet 5 + DeepSeek mix (70/30)</strong></td><td>~$16.00</td><td>~$80.00</td><td><strong>~$96/mo</strong></td></tr>
-          <tr><td><strong>Sonnet 5 + caching</strong></td><td>~$6.00</td><td>~$112.50</td><td><strong>~$119/mo</strong></td></tr>
+          <tr><td><strong>Gemini 3.1 Flash only</strong></td><td>~$0.55</td><td>~$2.25</td><td><strong>~$2.80/mo</strong></td></tr>
+          <tr><td><strong>GPT-5.5 Mini only</strong></td><td>~$7.50</td><td>~$30.00</td><td><strong>~$37.50/mo</strong></td></tr>
+          <tr><td><strong>Claude Sonnet 4.8 only</strong></td><td>~$22.50</td><td>~$112.50</td><td><strong>~$135/mo</strong></td></tr>
+          <tr><td><strong>Sonnet 4.8 + DeepSeek mix (70/30)</strong></td><td>~$16.30</td><td>~$79.70</td><td><strong>~$96/mo</strong></td></tr>
+          <tr><td><strong>Sonnet 4.8 + caching</strong></td><td>~$8.30</td><td>~$112.50</td><td><strong>~$121/mo</strong></td></tr>
         </tbody>
       </table>
       <p style="font-size:.82rem;color:#7878a0;margin-top:.5rem;">Assumptions: 500 queries/day, avg 5K input + 2K output per query, 22 working days/month. Caching assumes 70% cache hit rate on input. Mix assumes 70% of queries on cheaper model.</p>
@@ -163,10 +131,10 @@
 
     <h2>Practical Cost-Saving Strategies</h2>
     <ol>
-      <li><strong>Route by task complexity:</strong> Send simple completions to DeepSeek-V3 or Haiku, complex reasoning to Sonnet or Opus. A 70/30 split can cut costs by 40–60%.</li>
+      <li><strong>Route by task complexity:</strong> Send simple completions to DeepSeek-V3 or Claude Haiku 4.8, complex reasoning to Sonnet 4.8 or Opus 4.8. A 70/30 split can cut costs by 40–60%.</li>
       <li><strong>Enable prompt caching:</strong> If you use Claude or GPT via API, structure your prompts so repeated context (system instructions, codebase context) is cacheable.</li>
       <li><strong>Trim context:</strong> Don't send your entire codebase when the relevant file is 500 lines. Be selective about what context the model actually needs.</li>
-      <li><strong>Use free tiers:</strong> Gemini 2.5 Flash has a generous free tier. GitHub Copilot includes a certain number of completions in the subscription.</li>
+      <li><strong>Use free tiers:</strong> Gemini 3.1 Flash has a generous free tier. GitHub Copilot includes a certain number of completions in the subscription.</li>
       <li><strong>Monitor usage:</strong> Set up usage alerts. It's easy to accidentally leave a long-context session running and rack up unexpected costs.</li>
       <li><strong>Consider subscriptions:</strong> For heavy users, flat-rate subscriptions (Copilot, Claude Code) may be cheaper than per-token API pricing — do the math for your usage level.</li>
     </ol>

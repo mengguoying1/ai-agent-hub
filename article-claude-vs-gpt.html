@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Claude vs GPT vs DeepSeek for Coding — a detailed practical comparison of the three major model families for developer workflows in 2026.">
@@ -20,41 +21,9 @@
     "datePublished": "2026-07-01"
   }
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #04050b 0%, #0a0c16 45%, #03040a 100%);
-      color: #e0e0e0; line-height: 1.8; min-height: 100vh;
-    }
-    .nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); padding: 0 2rem; }
-    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .nav-logo { font-size: 1.3rem; font-weight: 800; color: #e0e0e0; text-decoration: none; }
-    .nav-logo span { background: linear-gradient(135deg, #7c5cfc, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
-    .nav-links a { color: #a0a0b0; font-size: .88rem; font-weight: 500; text-decoration: none; transition: color .2s; }
-    .nav-links a:hover { color: #fff; }
-    main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: .5rem; background: linear-gradient(135deg, #fff 30%, #a78bfa 70%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    h2 { font-size: 1.25rem; margin: 2.2rem 0 .8rem; color: #c4b5fd; }
-    h3 { font-size: 1.05rem; margin: 1.4rem 0 .5rem; color: #d0d0e0; }
-    p { margin-bottom: 1rem; color: #b0b0c0; }
-    ul, ol { margin: .8rem 0 1.2rem 1.5rem; color: #b0b0c0; }
-    li { margin-bottom: .5rem; }
-    .meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .8rem; }
-    .card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 1.5rem; margin: 1.5rem 0; }
-    .verdict { background: rgba(124,92,252,.08); border: 1px solid rgba(124,92,252,.18); border-radius: 14px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
-    table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: .9rem; }
-    th { background: rgba(255,255,255,.04); padding: .7rem .9rem; text-align: left; font-size: .8rem; color: #a0a0b0; text-transform: uppercase; letter-spacing: .05em; }
-    td { padding: .7rem .9rem; border-top: 1px solid rgba(255,255,255,.04); }
-    .footer { background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.04); padding: 2rem; text-align: center; color: #606070; font-size: .85rem; }
-    .footer a { color: #a78bfa; }
-    a { color: #a78bfa; text-decoration: none; }
-    a:hover { color: #c4b5fd; }
-    .policy-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: .5rem; }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="article-page">
   <nav class="nav">
     <div class="nav-inner">
       <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
@@ -81,9 +50,9 @@
         </thead>
         <tbody>
           <tr><td><strong>Best for</strong></td><td>Code reasoning, refactoring, instruction following</td><td>General versatility, ecosystem breadth, creative tasks</td><td>Cost efficiency, bulk coding, self-hosting</td></tr>
-          <tr><td><strong>Top coding model</strong></td><td>Opus 4.8 / Sonnet 5</td><td>GPT-5 / GPT-5 Mini</td><td>DeepSeek-V3 / R1</td></tr>
+          <tr><td><strong>Top coding model</strong></td><td>Opus 4.8 / Sonnet 4.8</td><td>GPT-5.5 / GPT-5.5 Mini</td><td>DeepSeek-V3 / R1</td></tr>
           <tr><td><strong>Context window</strong></td><td>200K tokens</td><td>256K tokens</td><td>128K tokens</td></tr>
-          <tr><td><strong>Coding price (per 1M tokens)</strong></td><td>$3/$15 (Sonnet) to $15/$75 (Opus)</td><td>~$1.5/$6 (Mini) to ~$15/$60 (GPT-5)</td><td>~$0.27/$0.40 (V3)</td></tr>
+          <tr><td><strong>Coding price (per 1M tokens)</strong></td><td>$3/$15 (Sonnet 4.8) to $15/$75 (Opus 4.8)</td><td>~$1.0/$4.0 (Mini) to ~$10/$40 (GPT-5.5)</td><td>~$0.27/$0.40 (V3)</td></tr>
           <tr><td><strong>IDE integration</strong></td><td>Claude Code (CLI, VS Code, JetBrains)</td><td>GitHub Copilot, Azure, API</td><td>API, OpenRouter, self-host</td></tr>
           <tr><td><strong>Open weights</strong></td><td>No</td><td>No</td><td>Yes (V3)</td></tr>
           <tr><td><strong>Multilingual code</strong></td><td>Excellent (Python, JS/TS, Rust, Go, etc.)</td><td>Excellent across all major languages</td><td>Strong (Python, JS, C++, Java, Rust)</td></tr>
@@ -114,21 +83,21 @@
     <p>Use Claude when you need <strong>correctness over speed</strong> — complex refactors, debugging subtle issues, architecture decisions, and any task where getting it wrong costs more than getting it fast.</p>
 
     <h2>GPT / Codex: The Ecosystem Powerhouse</h2>
-    <p>OpenAI's GPT models benefit from the <strong>broadest developer ecosystem</strong> in AI. GitHub Copilot is built on GPT, Azure OpenAI Service provides enterprise deployment, and the Assistants API enables custom agent development. GPT-5 models combine strong coding with broad world knowledge.</p>
+    <p>OpenAI's GPT models benefit from the <strong>broadest developer ecosystem</strong> in AI. GitHub Copilot is built on GPT, Azure OpenAI Service provides enterprise deployment, and the Assistants API enables custom agent development. GPT-5.5 models combine strong coding with broad world knowledge.</p>
 
     <h3>Strengths for Coding</h3>
     <ul>
       <li><strong>IDE integration:</strong> GitHub Copilot's deep VS Code and JetBrains integration is the most polished AI coding experience available, with inline completions, chat, and agent mode.</li>
-      <li><strong>Language coverage:</strong> GPT-5 performs well across virtually all programming languages, including niche and legacy ones.</li>
-      <li><strong>General knowledge:</strong> When coding tasks intersect with domain knowledge (finance, medicine, law, etc.), GPT-5's broad training data is an advantage.</li>
+      <li><strong>Language coverage:</strong> GPT-5.5 performs well across virtually all programming languages, including niche and legacy ones.</li>
+      <li><strong>General knowledge:</strong> When coding tasks intersect with domain knowledge (finance, medicine, law, etc.), GPT-5.5's broad training data is an advantage.</li>
       <li><strong>Enterprise deployment:</strong> Azure marketplace availability and enterprise compliance features make GPT the path of least resistance for large organizations.</li>
-      <li><strong>Agent capabilities:</strong> GPT-5's native agent features allow autonomous web browsing, code execution, and multi-step workflows.</li>
+      <li><strong>Agent capabilities:</strong> GPT-5.5's native agent features allow autonomous web browsing, code execution, and multi-step workflows.</li>
     </ul>
 
     <h3>Limitations</h3>
     <ul>
-      <li><strong>Instruction following:</strong> GPT-5 can occasionally drift from complex instructions or add unrequested features, requiring more careful prompting.</li>
-      <li><strong>Cost at scale:</strong> GPT-5 at ~$15/$60 is comparable to Claude Sonnet, but GPT-5 Mini is a strong budget option.</li>
+      <li><strong>Instruction following:</strong> GPT-5.5 can occasionally drift from complex instructions or add unrequested features, requiring more careful prompting.</li>
+      <li><strong>Cost at scale:</strong> GPT-5.5 at ~$10/$40 is comparable to Claude Sonnet, but GPT-5.5 Mini is a strong budget option.</li>
       <li><strong>Vendor lock-in:</strong> Deep Copilot/Azure integration can make it harder to switch providers later.</li>
     </ul>
 
@@ -140,18 +109,18 @@
 
     <h3>Strengths for Coding</h3>
     <ul>
-      <li><strong>Extreme cost efficiency:</strong> At ~$0.27/$0.40 per 1M tokens, DeepSeek-V3 is 50x cheaper than Opus 4.8 and 20x cheaper than GPT-5 for comparable coding quality on many tasks.</li>
+      <li><strong>Extreme cost efficiency:</strong> At ~$0.27/$0.40 per 1M tokens, DeepSeek-V3 is 50x cheaper than Opus 4.8 and 13x cheaper than GPT-5.5 for comparable coding quality on many tasks.</li>
       <li><strong>Open weights (V3):</strong> MIT-licensed weights mean you can run DeepSeek-V3 on your own hardware — critical for enterprises with data privacy requirements or air-gapped environments.</li>
-      <li><strong>Strong on benchmarks:</strong> DeepSeek-V3 matches or approaches GPT-5 on HumanEval, MBPP, and SWE-bench coding benchmarks.</li>
+      <li><strong>Strong on benchmarks:</strong> DeepSeek-V3 matches or approaches GPT-5.5 on HumanEval, MBPP, and SWE-bench coding benchmarks.</li>
       <li><strong>Chain-of-thought (R1):</strong> DeepSeek-R1 provides transparent reasoning traces, making it excellent for debugging and understanding why code fails.</li>
-      <li><strong>Self-hosting economics:</strong> Once deployed on a single H100/H800, marginal cost approaches zero.</li>
+      <li><strong>Self-hosting economics:</strong> Once deployed on a single GPU setup, marginal cost approaches zero.</li>
     </ul>
 
     <h3>Limitations</h3>
     <ul>
       <li><strong>Smaller context window:</strong> 128K tokens vs 200K–256K for Claude/GPT. May be limiting for very large codebases.</li>
       <li><strong>Less polished tooling:</strong> No first-party IDE integration comparable to Claude Code or Copilot. Relies on API access via OpenRouter or direct API.</li>
-      <li><strong>English-first:</strong> While strong in Chinese and English, other language support is less comprehensive than GPT-5.</li>
+      <li><strong>English-first:</strong> While strong in Chinese and English, other language support is less comprehensive than GPT-5.5.</li>
       <li><strong>Self-hosting complexity:</strong> Running a 671B MoE model requires significant hardware (multi-GPU setup) and ML ops expertise.</li>
     </ul>
 

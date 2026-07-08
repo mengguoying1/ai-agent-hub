@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="AI Agent Hub is an independent guide to AI coding agents, frontier models, pricing, and practical workflows for developers.">
@@ -23,455 +24,9 @@
   "description": "Independent guide to AI coding agents, frontier models, pricing, and practical workflows for developers."
 }
 </script>
-<style>
-/* ===== Reset & Base ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-:root {
-  --mx: 50%;
-  --my: 50%;
-}
-body {
-  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background:
-    radial-gradient(1200px circle at var(--mx) var(--my), rgba(124,92,252,.22), transparent 36%),
-    radial-gradient(800px circle at calc(100% - var(--mx)) 18%, rgba(6,182,212,.16), transparent 42%),
-    linear-gradient(135deg, #04050b 0%, #0a0c16 45%, #03040a 100%);
-  color: #e0e0e0;
-  line-height: 1.7;
-  overflow-x: hidden;
-  position: relative;
-}
-.background-layer {
-  position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none;
-}
-.background-layer::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size: 70px 70px;
-  mask-image: radial-gradient(circle at center, black 24%, transparent 86%);
-  opacity: .28;
-  animation: driftGrid 22s linear infinite;
-}
-.background-layer::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(120deg, rgba(255,255,255,.04), transparent 24%, rgba(255,255,255,.025) 52%, transparent 80%);
-  mix-blend-mode: screen;
-  opacity: .5;
-}
-.orb {
-  position: absolute; border-radius: 50%; filter: blur(40px); opacity: .8;
-  animation: float 14s ease-in-out infinite alternate;
-}
-.orb-1 {
-  width: clamp(180px, 30vw, 320px); height: clamp(180px, 30vw, 320px);
-  top: 8%; left: -6%;
-  background: radial-gradient(circle, rgba(124,92,252,.75), transparent 70%);
-}
-.orb-2 {
-  width: clamp(220px, 32vw, 360px); height: clamp(220px, 32vw, 360px);
-  top: 46%; right: -8%;
-  background: radial-gradient(circle, rgba(6,182,212,.62), transparent 70%);
-  animation-delay: -4s;
-}
-.orb-3 {
-  width: clamp(180px, 24vw, 280px); height: clamp(180px, 24vw, 280px);
-  bottom: -8%; left: 24%;
-  background: radial-gradient(circle, rgba(56,189,248,.5), transparent 72%);
-  animation-delay: -8s;
-}
-.cursor-glow {
-  position: fixed; width: 320px; height: 320px; border-radius: 50%;
-  left: 0; top: 0; transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(6,182,212,.24) 0%, rgba(124,92,252,.16) 34%, transparent 72%);
-  filter: blur(18px); pointer-events: none; opacity: 0; z-index: -1;
-  transition: opacity .18s ease;
-}
-.nav, .hero, .section, .footer {
-  position: relative; z-index: 1;
-}
-
-/* ===== Typography ===== */
-h1, h2, h3, h4 { font-weight: 700; line-height: 1.3; }
-h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
-h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
-h3 { font-size: 1.2rem; }
-a { color: #7c5cfc; text-decoration: none; transition: color .2s; }
-a:hover { color: #a78bfa; }
-
-/* ===== Navigation ===== */
-.nav {
-  position: fixed; top: 0; width: 100%; z-index: 1000;
-  background: rgba(10,10,15,.85); backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  padding: 0 2rem;
-}
-.nav-inner {
-  max-width: 1300px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 64px;
-}
-.nav-logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -.02em; }
-.nav-logo span { background: linear-gradient(135deg, #7c5cfc, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
-.nav-links a { color: #a0a0b0; font-size: .88rem; font-weight: 500; transition: color .2s; }
-.nav-links a:hover { color: #fff; }
-
-/* ===== Hero ===== */
-.hero {
-  min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  text-align: center; padding: 6rem 2rem 4rem;
-  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,92,252,.25), transparent),
-              radial-gradient(ellipse 60% 50% at 80% 80%, rgba(6,182,212,.12), transparent);
-  position: relative;
-}
-.hero::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(124,92,252,.4), rgba(6,182,212,.4), transparent);
-}
-.hero-content { max-width: 850px; position: relative; z-index: 1; }
-.hero-badge {
-  display: inline-block; padding: .35rem 1rem; border-radius: 999px;
-  background: rgba(124,92,252,.15); border: 1px solid rgba(124,92,252,.3);
-  font-size: .82rem; color: #a78bfa; margin-bottom: 1.5rem; font-weight: 500;
-}
-.hero h1 { margin-bottom: 1.2rem; background: linear-gradient(135deg, #fff 30%, #a78bfa 70%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.hero p { font-size: 1.15rem; color: #9090a0; max-width: 600px; margin: 0 auto 2.5rem; }
-.hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: .5rem;
-  padding: .75rem 1.8rem; border-radius: 999px; font-weight: 600;
-  font-size: .95rem; cursor: pointer; transition: all .25s; border: none;
-  text-decoration: none;
-}
-.btn-primary {
-  background: linear-gradient(135deg, #7c5cfc, #6366f1); color: #fff;
-  box-shadow: 0 4px 24px rgba(124,92,252,.35);
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 32px rgba(124,92,252,.5); color: #fff; }
-.btn-outline {
-  background: transparent; color: #d0d0e0; border: 1px solid rgba(255,255,255,.15);
-}
-.btn-outline:hover { border-color: rgba(255,255,255,.4); color: #fff; }
-
-/* ===== Sections ===== */
-.section { padding: 5rem 2rem; }
-.section-inner { max-width: 1300px; margin: 0 auto; }
-.section-label {
-  display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .12em;
-  text-transform: uppercase; color: #7c5cfc; margin-bottom: .6rem;
-}
-.section-title { margin-bottom: 1rem; }
-.section-desc { color: #9090a0; max-width: 650px; margin-bottom: 3rem; font-size: 1.05rem; }
-
-/* ===== Module Cards ===== */
-.module-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-.module-card {
-  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
-  border-radius: 16px; padding: 2rem; transition: all .3s; position: relative; overflow: hidden;
-}
-.module-card:hover { transform: translateY(-4px); border-color: rgba(124,92,252,.25); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
-.module-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, #7c5cfc, #06b6d4);
-}
-.module-icon {
-  width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center;
-  justify-content: center; font-size: 1.5rem; margin-bottom: 1.2rem;
-}
-.module-card h3 { margin-bottom: .6rem; }
-.module-card p { color: #8888a0; font-size: .93rem; }
-.icon-purple { background: rgba(124,92,252,.15); color: #a78bfa; }
-.icon-cyan { background: rgba(6,182,212,.15); color: #22d3ee; }
-.icon-green { background: rgba(34,197,94,.15); color: #4ade80; }
-.icon-amber { background: rgba(245,158,11,.15); color: #fbbf24; }
-.icon-rose { background: rgba(244,63,94,.15); color: #fb7185; }
-
-/* ===== Comparison Table ===== */
-.table-wrap {
-  overflow-x: auto; border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.06);
-}
-.table-wrap table {
-  width: 100%; border-collapse: collapse; min-width: 1100px;
-}
-.table-wrap th {
-  background: rgba(255,255,255,.04); padding: 1rem 1.2rem; text-align: left;
-  font-size: .82rem; font-weight: 700; color: #a0a0b0; text-transform: uppercase;
-  letter-spacing: .05em; white-space: nowrap;
-}
-.table-wrap td {
-  padding: .9rem 1.2rem; border-top: 1px solid rgba(255,255,255,.04);
-  font-size: .9rem; vertical-align: top;
-}
-.table-wrap tbody tr { transition: background .2s; }
-.table-wrap tbody tr:hover { background: rgba(255,255,255,.02); }
-.badge {
-  display: inline-block; padding: .2rem .7rem; border-radius: 999px;
-  font-size: .75rem; font-weight: 600;
-}
-.badge-green { background: rgba(34,197,94,.2); color: #4ade80; }
-.badge-blue { background: rgba(59,130,246,.2); color: #60a5fa; }
-.badge-purple { background: rgba(124,92,252,.2); color: #a78bfa; }
-.badge-amber { background: rgba(245,158,11,.2); color: #fbbf24; }
-.badge-rose { background: rgba(244,63,94,.2); color: #fb7185; }
-.badge-cyan { background: rgba(6,182,212,.2); color: #22d3ee; }
-
-/* ===== Pricing Cards ===== */
-.pricing-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-.pricing-card {
-  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
-  border-radius: 16px; padding: 2rem; text-align: center; transition: all .3s;
-  position: relative;
-}
-.pricing-card.featured {
-  border-color: rgba(124,92,252,.4);
-  box-shadow: 0 0 40px rgba(124,92,252,.1);
-}
-.pricing-card.featured::after {
-  content: 'BEST VALUE'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-  background: linear-gradient(135deg, #7c5cfc, #6366f1); color: #fff;
-  padding: .25rem 1.2rem; border-radius: 999px; font-size: .7rem; font-weight: 700; letter-spacing: .08em;
-}
-.pricing-name { font-size: 1.1rem; font-weight: 700; margin-bottom: .4rem; }
-.pricing-provider { color: #8888a0; font-size: .85rem; margin-bottom: 1rem; }
-.pricing-price { font-size: 2.2rem; font-weight: 800; margin-bottom: .3rem; }
-.pricing-price span { font-size: .9rem; font-weight: 400; color: #8888a0; }
-.pricing-detail { color: #8888a0; font-size: .82rem; margin-bottom: 1.2rem; }
-.pricing-features { list-style: none; text-align: left; margin-bottom: 1.5rem; }
-.pricing-features li {
-  padding: .4rem 0; font-size: .88rem; color: #b0b0c0;
-  border-bottom: 1px solid rgba(255,255,255,.03);
-}
-.pricing-features li::before { content: '✓ '; color: #4ade80; font-weight: 700; }
-.pricing-cta {
-  display: block; padding: .7rem 1.5rem; border-radius: 999px;
-  font-weight: 600; font-size: .88rem; transition: all .25s;
-  cursor: pointer; text-align: center;
-}
-.cta-primary { background: linear-gradient(135deg, #7c5cfc, #6366f1); color: #fff; }
-.cta-primary:hover { box-shadow: 0 4px 20px rgba(124,92,252,.4); color: #fff; transform: translateY(-1px); }
-.cta-outline { border: 1px solid rgba(255,255,255,.15); color: #d0d0e0; }
-.cta-outline:hover { border-color: rgba(255,255,255,.4); color: #fff; }
-
-/* ===== Recommendation ===== */
-.rec-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 1.5rem;
-}
-.rec-card {
-  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
-  border-radius: 16px; padding: 2rem;
-}
-.rec-card h3 { margin-bottom: .8rem; display: flex; align-items: center; gap: .6rem; }
-.rec-card ul { list-style: none; }
-.rec-card ul li {
-  padding: .45rem 0; font-size: .9rem; color: #b0b0c0;
-  border-bottom: 1px solid rgba(255,255,255,.03);
-  display: flex; gap: .5rem;
-}
-.rec-rank {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 24px; height: 24px; border-radius: 50%;
-  font-size: .75rem; font-weight: 700; flex-shrink: 0;
-}
-.rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000; }
-.rank-2 { background: rgba(180,180,200,.25); color: #d0d0d0; }
-.rank-3 { background: rgba(180,140,100,.25); color: #cd7f32; }
-.rank-4, .rank-5 { background: rgba(255,255,255,.06); color: #9090a0; }
-
-/* ===== Features Grid ===== */
-.feat-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-.feat-card {
-  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05);
-  border-radius: 14px; padding: 1.5rem; text-align: center;
-}
-.feat-icon { font-size: 2rem; margin-bottom: .8rem; }
-.feat-card h4 { margin-bottom: .4rem; font-size: 1rem; }
-.feat-card p { font-size: .85rem; color: #8888a0; }
-
-/* ===== News Ticker ===== */
-.related-strip {
-  display: flex; flex-wrap: wrap; gap: .7rem; margin: 1rem 0 1.4rem;
-}
-.related-strip a {
-  display: inline-flex; align-items: center; gap: .35rem;
-  padding: .55rem .9rem; border-radius: 999px;
-  background: rgba(124,92,252,.12); border: 1px solid rgba(124,92,252,.2);
-  color: #d8cfff; font-size: .9rem; font-weight: 600;
-}
-.related-strip a:hover { color: #fff; transform: translateY(-1px); }
-.news-section { background: rgba(255,255,255,.015); border-top: 1px solid rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.04); }
-.news-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.2rem;
-}
-.news-card {
-  background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.04);
-  border-radius: 12px; padding: 1.4rem;
-}
-.news-date { font-size: .75rem; color: #7c5cfc; font-weight: 600; margin-bottom: .3rem; }
-.news-card h4 { font-size: .98rem; margin-bottom: .4rem; }
-.news-card p { font-size: .85rem; color: #8888a0; }
-
-/* ===== Footer ===== */
-.footer {
-  background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.04);
-  padding: 3rem 2rem; text-align: center; color: #606070; font-size: .85rem;
-}
-.standards-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;
-}
-.standards-card {
-  background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06);
-  border-radius: 14px; padding: 1.2rem;
-}
-.standards-card h4 { margin-bottom: .35rem; color: #f0f2ff; }
-.standards-card p { color: #8f92a7; font-size: .9rem; }
-.policy-links { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 1rem; }
-.policy-links a { color: #a78bfa; font-weight: 600; }
-.guide-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem;
-}
-.guide-card {
-  background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 1.4rem;
-}
-.guide-card h4 { margin-bottom: .45rem; color: #f4f6ff; }
-.guide-card p { color: #8f92a7; font-size: .95rem; margin-bottom: .9rem; }
-.guide-card a { color: #7c5cfc; font-weight: 700; }
-.article-list {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem;
-}
-.article-card {
-  background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 1.3rem;
-}
-.article-card .article-meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; margin-bottom: .45rem; text-transform: uppercase; letter-spacing: .08em; }
-.article-card h4 { margin-bottom: .45rem; color: #f4f6ff; }
-.article-card p { color: #8f92a7; font-size: .95rem; margin-bottom: .8rem; }
-.article-card a { color: #7c5cfc; font-weight: 700; }
-.category-pill-row { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
-.category-pill {
-  padding: .4rem .8rem; border-radius: 999px; background: rgba(124,92,252,.16); color: #c4b5fd; font-size: .82rem; border: 1px solid rgba(124,92,252,.22);
-}
-.faq-list { display: grid; gap: .8rem; }
-.faq-item {
-  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; overflow: hidden;
-}
-.faq-question {
-  width: 100%; border: 0; background: transparent; color: #f4f6ff; text-align: left; padding: 1rem 1.1rem; font-size: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-}
-.faq-answer {
-  padding: 0 1.1rem 1rem; color: #8f92a7; line-height: 1.65; display: none;
-}
-.faq-item.active .faq-answer { display: block; }
-.latest-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem;
-}
-.latest-card {
-  background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 1.2rem;
-}
-.latest-card .meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .45rem; }
-.latest-card h4 { margin-bottom: .45rem; color: #f4f6ff; }
-.latest-card p { color: #8f92a7; font-size: .92rem; }
-.category-nav {
-  display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.2rem;
-}
-.category-nav a {
-  padding: .45rem .85rem; border-radius: 999px; background: rgba(124,92,252,.14); border: 1px solid rgba(124,92,252,.22); color: #d8cfff; font-size: .88rem;
-}
-.popular-list {
-  display: grid; gap: .8rem;
-}
-.popular-item {
-  display: block; padding: .9rem 1rem; border-radius: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); transition: all .2s;
-}
-.popular-item:hover { border-color: rgba(124,92,252,.28); transform: translateY(-1px); }
-.popular-item strong { display: block; color: #f4f6ff; margin-bottom: .2rem; }
-.popular-item span { color: #8f92a7; font-size: .9rem; }
-.ad-slot {
-  background: linear-gradient(135deg, rgba(124,92,252,.2), rgba(6,182,212,.12)); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 1.2rem 1.4rem; margin-top: 1.2rem;
-}
-.ad-slot p { color: #d8d9e4; margin-bottom: .25rem; }
-.ad-slot small { color: #9ea2b3; }
-.cookie-banner {
-  position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 2000;
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  padding: 1rem 1.1rem; border-radius: 14px;
-  background: rgba(6, 10, 20, .95); border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 12px 40px rgba(0,0,0,.28); max-width: 860px; margin: 0 auto;
-}
-.cookie-banner.hidden { display: none; }
-.cookie-banner button {
-  border: none; border-radius: 999px; padding: .6rem 1rem; cursor: pointer;
-  background: linear-gradient(135deg, #7c5cfc, #6366f1); color: #fff; font-weight: 600;
-}
-.footer-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem; max-width: 1300px; margin: 0 auto 2rem; text-align: left;
-}
-.footer-col h4 { font-size: .9rem; color: #c0c0d0; margin-bottom: .8rem; }
-.footer-col ul { list-style: none; }
-.footer-col ul li { padding: .25rem 0; font-size: .84rem; }
-.footer-col ul li a { color: #707080; }
-.footer-col ul li a:hover { color: #a78bfa; }
-
-/* ===== Tab System ===== */
-.tab-nav {
-  display: flex; gap: .4rem; margin-bottom: 2rem; flex-wrap: wrap;
-  background: rgba(255,255,255,.02); border-radius: 12px; padding: .35rem;
-  border: 1px solid rgba(255,255,255,.04);
-}
-.tab-btn {
-  padding: .55rem 1.4rem; border-radius: 10px; border: none;
-  background: transparent; color: #9090a0; font-size: .88rem;
-  font-weight: 500; cursor: pointer; transition: all .25s;
-}
-.tab-btn.active { background: rgba(124,92,252,.2); color: #c4b5fd; }
-.tab-btn:hover:not(.active) { color: #d0d0d0; }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .section { padding: 3.5rem 1.2rem; }
-  .hero { padding: 5rem 1.2rem 3rem; }
-  .module-grid, .pricing-grid, .rec-grid { grid-template-columns: 1fr; }
-  .hero-btns { flex-direction: column; align-items: center; }
-}
-
-/* ===== Animations ===== */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes driftGrid {
-  from { transform: translateY(0); }
-  to { transform: translateY(40px); }
-}
-@keyframes float {
-  0% { transform: translate3d(0,0,0) scale(1); }
-  50% { transform: translate3d(4%, -6%, 0) scale(1.06); }
-  100% { transform: translate3d(-4%, 4%, 0) scale(.96); }
-}
-.animate { animation: fadeUp .6s ease-out both; }
-.animate-d1 { animation-delay: .1s; }
-.animate-d2 { animation-delay: .2s; }
-.animate-d3 { animation-delay: .3s; }
-</style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="home">
 <div class="cookie-banner" id="cookieBanner">
   <p>This site uses cookies and local storage to improve your experience and remember your preferences. By continuing, you accept our <a href="privacy.html">Privacy Policy</a>.</p>
   <button id="cookieAccept">Accept</button>
@@ -484,7 +39,7 @@ a:hover { color: #a78bfa; }
 </div>
 
 <!-- ===== NAVIGATION ===== -->
-<nav class="nav">
+<nav class="nav home-nav">
   <div class="nav-inner">
     <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
     <ul class="nav-links">
@@ -526,19 +81,19 @@ a:hover { color: #a78bfa; }
       <div class="module-card animate animate-d1">
         <div class="module-icon icon-purple">🧠</div>
         <h3>CODE</h3>
-        <p>The intelligent reasoning layer. Modern AI coding agents understand entire codebases, execute multi-step refactors, run terminal commands, and self-correct errors — all within your IDE or CLI. Powered by models like <strong>Claude Opus 4.8</strong> and <strong>Fable 5</strong>, these agents don't just autocomplete; they <em>engineer</em> solutions.</p>
+        <p>The intelligent reasoning layer. Modern AI coding agents understand entire codebases, execute multi-step refactors, run terminal commands, and self-correct errors — all within your IDE or CLI. Powered by models like <strong>Claude Opus 4.8</strong> and <strong>Sonnet 4.8</strong>, these agents don't just autocomplete; they <em>engineer</em> solutions.</p>
       </div>
       <!-- CODEX -->
       <div class="module-card animate animate-d2">
         <div class="module-icon icon-cyan">🤖</div>
         <h3>CODEX</h3>
-        <p>OpenAI's code-generation engine, now evolved into a full agent platform. Codex models power GitHub Copilot, OpenAI's Assistants API, and custom agent frameworks. With <strong>GPT-5</strong> class models, Codex handles complex API integrations, database schemas, and multi-file generation with context windows exceeding 256K tokens.</p>
+        <p>OpenAI's code-generation engine, now evolved into a full agent platform. Codex models power GitHub Copilot, OpenAI's Assistants API, and custom agent frameworks. With <strong>GPT-5.5</strong> class models, Codex handles complex API integrations, database schemas, and multi-file generation with context windows exceeding 256K tokens.</p>
       </div>
       <!-- HUB -->
       <div class="module-card animate animate-d3">
         <div class="module-icon icon-green">🔗</div>
-        <h3>HUB <span style="font-size:.78rem;color:#888;">— 中转站</span></h3>
-        <p>The intelligent routing layer that sits between you and multiple AI providers. A hub (or "transfer station") dynamically selects the optimal model per task — routing coding to Claude, creative writing to GPT-5, and reasoning to DeepSeek — all through a <strong>unified API and billing</strong> interface. Maximizes quality while minimizing cost.</p>
+        <h3>HUB <span style="font-size:.78rem;color:#888;">— API Router</span></h3>
+        <p>The intelligent routing layer that sits between you and multiple AI providers. A hub (or "transfer station") dynamically selects the optimal model per task — routing coding to Claude, creative writing to GPT-5.5, and reasoning to DeepSeek-R1/V3 — all through a <strong>unified API and billing</strong> interface. Maximizes quality while minimizing cost.</p>
       </div>
     </div>
   </div>
@@ -574,14 +129,6 @@ a:hover { color: #a78bfa; }
           </thead>
           <tbody>
             <tr>
-              <td><strong>Claude Fable 5</strong></td>
-              <td>Anthropic</td>
-              <td>200K</td>
-              <td>Code generation, multi-step reasoning, tool use, safety alignment, long-context analysis</td>
-              <td>$15 / $75</td>
-              <td><span class="badge badge-purple">GA</span></td>
-            </tr>
-            <tr>
               <td><strong>Claude Opus 4.8</strong></td>
               <td>Anthropic</td>
               <td>200K</td>
@@ -590,7 +137,7 @@ a:hover { color: #a78bfa; }
               <td><span class="badge badge-purple">GA</span></td>
             </tr>
             <tr>
-              <td><strong>Claude Sonnet 5</strong></td>
+              <td><strong>Claude Sonnet 4.8</strong></td>
               <td>Anthropic</td>
               <td>200K</td>
               <td>Fast code completion, balanced speed/quality, cost-effective for most coding tasks</td>
@@ -598,7 +145,7 @@ a:hover { color: #a78bfa; }
               <td><span class="badge badge-purple">GA</span></td>
             </tr>
             <tr>
-              <td><strong>Claude Haiku 4.5</strong></td>
+              <td><strong>Claude Haiku 4.8</strong></td>
               <td>Anthropic</td>
               <td>200K</td>
               <td>Ultra-fast responses, lightweight tasks, classification, data extraction</td>
@@ -606,39 +153,39 @@ a:hover { color: #a78bfa; }
               <td><span class="badge badge-purple">GA</span></td>
             </tr>
             <tr>
-              <td><strong>GPT-5</strong></td>
+              <td><strong>GPT-5.5</strong></td>
               <td>OpenAI</td>
               <td>256K</td>
               <td>General intelligence, creative writing, multilingual, broad knowledge, agent orchestration</td>
-              <td>~$15 / ~$60</td>
+              <td>~$10 / ~$40</td>
               <td><span class="badge badge-green">GA</span></td>
             </tr>
             <tr>
-              <td><strong>GPT-5 Mini</strong></td>
+              <td><strong>GPT-5.5 Mini</strong></td>
               <td>OpenAI</td>
               <td>256K</td>
               <td>Cost-efficient reasoning, good for most everyday tasks, fast inference</td>
-              <td>~$1.5 / ~$6</td>
+              <td>~$1.0 / ~$4</td>
               <td><span class="badge badge-green">GA</span></td>
             </tr>
             <tr>
-              <td><strong>Gemini 2.5 Pro</strong></td>
+              <td><strong>Gemini 3.1 Pro</strong></td>
               <td>Google DeepMind</td>
-              <td>1M+</td>
+              <td>2M+</td>
               <td>Massive context, multimodal (text/image/audio/video), search grounding, scientific reasoning</td>
-              <td>~$3.5 / ~$10.5</td>
+              <td>~$3.0 / ~$9.0</td>
               <td><span class="badge badge-blue">GA</span></td>
             </tr>
             <tr>
-              <td><strong>Gemini 2.5 Flash</strong></td>
+              <td><strong>Gemini 3.1 Flash</strong></td>
               <td>Google DeepMind</td>
-              <td>1M</td>
+              <td>2M</td>
               <td>Ultra-fast multimodal, cost-efficient for high-volume, real-time applications</td>
-              <td>~$0.15 / ~$0.60</td>
+              <td>~$0.075 / ~$0.30</td>
               <td><span class="badge badge-blue">GA</span></td>
             </tr>
             <tr>
-              <td><strong>Grok-4</strong></td>
+              <td><strong>Grok-5</strong></td>
               <td>xAI</td>
               <td>128K</td>
               <td>Real-time knowledge, technical depth, math, X platform integration</td>
@@ -693,7 +240,7 @@ a:hover { color: #a78bfa; }
               <td><strong>Qwen3-Coder</strong></td>
               <td>Alibaba Cloud</td>
               <td>128K</td>
-              <td>Specialized code generation, competitive with GPT-5 on coding benchmarks, multi-language support</td>
+              <td>Specialized code generation, competitive with GPT-5.5 on coding benchmarks, multi-language support</td>
               <td>~$0.50 / ~$2.00</td>
               <td><span class="badge badge-green">GA</span></td>
             </tr>
@@ -826,7 +373,7 @@ a:hover { color: #a78bfa; }
         <div class="pricing-detail">Ultra-budget choice for heavy coding</div>
         <ul class="pricing-features">
           <li>Exceptional code generation quality</li>
-          <li>~97% cheaper than GPT-5</li>
+          <li>~95% cheaper than GPT-5.5</li>
           <li>Open weights — self-host option</li>
           <li>Strong at Python, JS, Rust, Go</li>
           <li>Available via OpenRouter proxy</li>
@@ -834,7 +381,7 @@ a:hover { color: #a78bfa; }
         <a href="article-llm-pricing.html" class="pricing-cta cta-outline">Full Pricing Guide →</a>
       </div>
       <div class="pricing-card featured">
-        <div class="pricing-name">Claude Sonnet 5</div>
+        <div class="pricing-name">Claude Sonnet 4.8</div>
         <div class="pricing-provider">Anthropic API / Claude Code</div>
         <div class="pricing-price">~$45 <span>/ month</span></div>
         <div class="pricing-detail">Best value for Claude Code users</div>
@@ -848,9 +395,9 @@ a:hover { color: #a78bfa; }
         <a href="#recommend" class="pricing-cta cta-primary">View Recommendations ↓</a>
       </div>
       <div class="pricing-card">
-        <div class="pricing-name">GPT-5 Mini</div>
+        <div class="pricing-name">GPT-5.5 Mini</div>
         <div class="pricing-provider">OpenAI API / GitHub Copilot</div>
-        <div class="pricing-price">~$30 <span>/ month</span></div>
+        <div class="pricing-price">~$25 <span>/ month</span></div>
         <div class="pricing-detail">Copilot-native, broad ecosystem</div>
         <ul class="pricing-features">
           <li>Deep VS Code / JetBrains integration</li>
@@ -862,12 +409,12 @@ a:hover { color: #a78bfa; }
         <a href="#models" class="pricing-cta cta-outline">Compare All Models ↓</a>
       </div>
       <div class="pricing-card">
-        <div class="pricing-name">Gemini 2.5 Flash</div>
+        <div class="pricing-name">Gemini 3.1 Flash</div>
         <div class="pricing-provider">Google AI / Vertex AI</div>
-        <div class="pricing-price">~$3 <span>/ month</span></div>
+        <div class="pricing-price">~$2 <span>/ month</span></div>
         <div class="pricing-detail">Cheapest frontier model available</div>
         <ul class="pricing-features">
-          <li>Insane 1M token context</li>
+          <li>Insane 2M token context</li>
           <li>Multimodal (code + screenshots)</li>
           <li>Free tier for light usage</li>
           <li>Google Cloud integration</li>
@@ -888,33 +435,33 @@ a:hover { color: #a78bfa; }
     <div class="news-grid">
       <div class="news-card">
         <div class="news-date">July 2026</div>
-        <h4>Claude Fable 5 & Mythos 5 Launched</h4>
-        <p>Anthropic's newest model tier surpasses Opus in capability. Fable 5 is the most advanced generally available Claude model, with enhanced safety measures for dual-use capabilities.</p>
+        <h4>Claude Opus 4.8 & Sonnet 4.8 Released</h4>
+        <p>Anthropic's newest models set new records on SWE-bench and Humanity's Last Exam (HLE). Claude Opus 4.8 features advanced multi-file orchestration and native tool calling, setting a new standard for agentic reasoning.</p>
       </div>
       <div class="news-card">
         <div class="news-date">June 2026</div>
-        <h4>GPT-5 Agents Go Mainstream</h4>
-        <p>OpenAI releases GPT-5 with native agent capabilities — models can now autonomously browse the web, execute code, and manage multi-step workflows without external frameworks.</p>
+        <h4>GPT-5.5 Agentic Engine Launches</h4>
+        <p>OpenAI releases GPT-5.5 with an integrated native agent loop — models can now dynamically self-correct, manage long sessions, and execute terminal commands natively, matching OpenAI's new agentic focus.</p>
       </div>
       <div class="news-card">
         <div class="news-date">May 2026</div>
-        <h4>DeepSeek-V3 Dominates Open Source</h4>
-        <p>At 1/50th the cost of GPT-5, DeepSeek-V3 achieves comparable coding benchmarks, forcing the industry to reconsider pricing strategies. Self-hosting becomes viable for enterprises.</p>
+        <h4>Sakana AI Introduces Fugu Orchestration</h4>
+        <p>Sakana AI releases Fugu, a dynamic evolutionary agent orchestration system. Instead of rigid prompt chains, it uses evolutionary algorithms to dynamically discover optimal agent routines, pioneering new multi-agent trends.</p>
       </div>
       <div class="news-card">
         <div class="news-date">Q2 2026</div>
-        <h4>Claude Code Exits Beta</h4>
-        <p>Anthropic's CLI agent tool graduates to general availability with full VS Code & JetBrains extension support, MCP ecosystem, and enterprise SSO. Fast mode now uses Opus 4.8.</p>
-      </div>
-      <div class="news-card">
-        <div class="news-date">April 2026</div>
-        <h4>Qwen3 Challenges GPT-5 on Coding</h4>
-        <p>Alibaba's Qwen3-Coder matches GPT-5 on HumanEval and SWE-bench, with native MCP protocol support. Chinese open-source models reach global competitiveness.</p>
+        <h4>Claude Code Integrates Opus 4.8</h4>
+        <p>Anthropic's terminal agent Claude Code exits beta, adding full VS Code & JetBrains support. In deep mode, it leverages Claude Opus 4.8 to resolve 72% of issues on SWE-bench Verified.</p>
       </div>
       <div class="news-card">
         <div class="news-date">Q2 2026</div>
-        <h4>Context Windows Reach 1M+ Tokens</h4>
-        <p>Google's Gemini 2.5 series leads with 1M+ token context, while most frontier models settle at 128K–256K. Long-context coding becomes practical for entire codebase analysis.</p>
+        <h4>Qwen3 Dominates Coding Benchmarks</h4>
+        <p>Alibaba's Qwen3-Coder matches GPT-5.5 on HumanEval, SWE-bench, and Terminal-Bench v2, featuring native Model Context Protocol (MCP) support and highly competitive pricing.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-date">Q2 2026</div>
+        <h4>Gemini 3.1 Context Windows Expand to 2M</h4>
+        <p>Google's Gemini 3.1 Flash and Pro series expand native context to 2M tokens. This allows developers to load massive multi-gigabyte codebases directly into the prompt context for repo-wide editing.</p>
       </div>
     </div>
   </div>
@@ -931,32 +478,32 @@ a:hover { color: #a78bfa; }
       <div class="rec-card">
         <h3>🟣 For Claude Code Users</h3>
         <ul>
-          <li><span class="rec-rank rank-1">1</span> <strong>Claude Sonnet 5</strong> — Best balance of speed, cost, and code quality. Use for daily coding. $3/$15 per 1M tokens.</li>
+          <li><span class="rec-rank rank-1">1</span> <strong>Claude Sonnet 4.8</strong> — Best balance of speed, cost, and code quality. Use for daily coding. $3/$15 per 1M tokens.</li>
           <li><span class="rec-rank rank-2">2</span> <strong>Claude Opus 4.8</strong> — When you need deep reasoning on complex architecture. Use sparingly for critical decisions.</li>
           <li><span class="rec-rank rank-3">3</span> <strong>DeepSeek-V3</strong> — Through OpenRouter as a fallback for bulk, repetitive tasks. 50x cheaper than Opus.</li>
-          <li><span class="rec-rank rank-4">4</span> <strong>Claude Haiku 4.5</strong> — Lightning-fast for linting, formatting, simple completions. Ideal for real-time IDE use.</li>
-          <li><span class="rec-rank rank-5">5</span> <strong>Gemini 2.5 Flash</strong> — 1M context for analyzing entire repos. Free tier available. Great secondary model.</li>
+          <li><span class="rec-rank rank-4">4</span> <strong>Claude Haiku 4.8</strong> — Lightning-fast for linting, formatting, simple completions. Ideal for real-time IDE use.</li>
+          <li><span class="rec-rank rank-5">5</span> <strong>Gemini 3.1 Flash</strong> — 2M context for analyzing entire repos. Free tier available. Great secondary model.</li>
         </ul>
       </div>
       <!-- Codex / Copilot -->
       <div class="rec-card">
         <h3>🟢 For Codex / Copilot Users</h3>
         <ul>
-          <li><span class="rec-rank rank-1">1</span> <strong>GPT-5 Mini</strong> — Native Copilot model. Best cost/quality ratio for IDE autocomplete and chat. ~$1.5/$6 per 1M tokens.</li>
-          <li><span class="rec-rank rank-2">2</span> <strong>GPT-5</strong> — Ultimate capability for complex Copilot Chat queries. Use when Mini isn't enough.</li>
-          <li><span class="rec-rank rank-3">3</span> <strong>Claude Sonnet 5</strong> — via GitHub Models marketplace. Better at large refactors and architectural reasoning than GPT-5 Mini.</li>
-          <li><span class="rec-rank rank-4">4</span> <strong>Qwen3-Coder</strong> — Best open-source code specialist. Self-host or use via Alibaba Cloud for a fraction of GPT-5 cost.</li>
-          <li><span class="rec-rank rank-5">5</span> <strong>Gemini 2.5 Pro</strong> — Multimodal debugging. Share screenshots of errors for instant analysis.</li>
+          <li><span class="rec-rank rank-1">1</span> <strong>GPT-5.5 Mini</strong> — Native Copilot model. Best cost/quality ratio for IDE autocomplete and chat. ~$1.0/$4 per 1M tokens.</li>
+          <li><span class="rec-rank rank-2">2</span> <strong>GPT-5.5</strong> — Ultimate capability for complex Copilot Chat queries. Use when Mini isn't enough.</li>
+          <li><span class="rec-rank rank-3">3</span> <strong>Claude Sonnet 4.8</strong> — via GitHub Models marketplace. Better at large refactors and architectural reasoning than GPT-5.5 Mini.</li>
+          <li><span class="rec-rank rank-4">4</span> <strong>Qwen3-Coder</strong> — Best open-source code specialist. Self-host or use via Alibaba Cloud for a fraction of GPT-5.5 cost.</li>
+          <li><span class="rec-rank rank-5">5</span> <strong>Gemini 3.1 Pro</strong> — Multimodal debugging. Share screenshots of errors for instant analysis.</li>
         </ul>
       </div>
       <!-- Hub / Multi-Model -->
       <div class="rec-card">
-        <h3>🔗 For Hub (中转站) Setups</h3>
+        <h3>🔗 For Hub (API Router) Setups</h3>
         <ul>
-          <li><span class="rec-rank rank-1">1</span> <strong>Primary: Claude Sonnet 5 / Opus 4.8</strong> — Route all complex coding and reasoning tasks here. Unmatched for agentic workflows.</li>
+          <li><span class="rec-rank rank-1">1</span> <strong>Primary: Claude Sonnet 4.8 / Opus 4.8</strong> — Route all complex coding and reasoning tasks here. Unmatched for agentic workflows.</li>
           <li><span class="rec-rank rank-2">2</span> <strong>Secondary: DeepSeek-V3</strong> — Bulk tasks, documentation generation, test writing. 50x cheaper with near-frontier quality.</li>
-          <li><span class="rec-rank rank-3">3</span> <strong>Specialist: GPT-5</strong> — Creative content, multilingual translation, and tasks requiring broad world knowledge.</li>
-          <li><span class="rec-rank rank-4">4</span> <strong>Long-Context: Gemini 2.5 Flash</strong> — Repository-wide analysis, log processing, full codebase review at 1M tokens.</li>
+          <li><span class="rec-rank rank-3">3</span> <strong>Specialist: GPT-5.5</strong> — Creative content, multilingual translation, and tasks requiring broad world knowledge.</li>
+          <li><span class="rec-rank rank-4">4</span> <strong>Long-Context: Gemini 3.1 Flash</strong> — Repository-wide analysis, log processing, full codebase review at 2M tokens.</li>
           <li><span class="rec-rank rank-5">5</span> <strong>Self-Host: DeepSeek-V3 / Qwen3-Coder</strong> — For air-gapped environments or when data privacy is paramount.</li>
         </ul>
       </div>
@@ -965,10 +512,10 @@ a:hover { color: #a78bfa; }
         <h3>💰 Best Budget Stack (Under $20/month)</h3>
         <ul>
           <li><span class="rec-rank rank-1">1</span> <strong>DeepSeek-V3</strong> — $5/month for heavy usage. Near-frontier coding at 1/50th cost.</li>
-          <li><span class="rec-rank rank-2">2</span> <strong>Gemini 2.5 Flash</strong> — $3/month. Free tier for light use. 1M context is unmatched.</li>
+          <li><span class="rec-rank rank-2">2</span> <strong>Gemini 3.1 Flash</strong> — $2/month. Free tier for light use. 2M context is unmatched.</li>
           <li><span class="rec-rank rank-3">3</span> <strong>Yi-Lightning</strong> — ~$3/month. Fast, bilingual, excellent for Chinese-English workflows.</li>
-          <li><span class="rec-rank rank-4">4</span> <strong>Qwen3-Coder (self-host)</strong> — Hardware cost only. Run on a single H100 for unlimited coding.</li>
-          <li><span class="rec-rank rank-5">5</span> <strong>Claude Haiku 4.5</strong> — $5/month for quick completions. Use prompt caching to cut costs further.</li>
+          <li><span class="rec-rank rank-4">4</span> <strong>Qwen3-Coder (self-host)</strong> — Hardware cost only. Run on a single GPU setup for unlimited coding.</li>
+          <li><span class="rec-rank rank-5">5</span> <strong>Claude Haiku 4.8</strong> — $5/month for quick completions. Use prompt caching to cut costs further.</li>
         </ul>
       </div>
     </div>
@@ -1036,22 +583,40 @@ a:hover { color: #a78bfa; }
     </div>
     <div class="article-list">
       <article class="article-card">
-        <div class="article-meta">Guide · 5 min read</div>
-        <h4>How to choose the right AI coding tool</h4>
+        <div class="article-meta">Guide · 8 min read</div>
+        <h4>How to choose the right AI coding stack</h4>
         <p>Understand the trade-offs between speed, cost, reasoning depth, and ecosystem support before committing to a workflow.</p>
         <a href="guide.html">Read article →</a>
       </article>
       <article class="article-card">
-        <div class="article-meta">Comparison · 4 min read</div>
+        <div class="article-meta">Comparison · 7 min read</div>
         <h4>Claude vs GPT vs DeepSeek for coding</h4>
         <p>A practical comparison of strengths, weaknesses, and optimal scenarios for each model family.</p>
         <a href="article-claude-vs-gpt.html">Read article →</a>
       </article>
       <article class="article-card">
         <div class="article-meta">Strategy · 6 min read</div>
-        <h4>Why multi-model workflows are becoming standard</h4>
+        <h4>Why multi-model workflows are standard</h4>
         <p>Learn why many teams rely on a primary model plus a secondary fallback for reliability and cost control.</p>
         <a href="article-multi-model-workflow.html">Read article →</a>
+      </article>
+      <article class="article-card">
+        <div class="article-meta">Guide · 10 min read</div>
+        <h4>How to Self-Host DeepSeek-R1</h4>
+        <p>Detailed instructions on hardware sizing (VRAM), GGUF/FP8 quantization, and cloud/local serving engines (Ollama, vLLM).</p>
+        <a href="article-self-host-deepseek.html">Read article →</a>
+      </article>
+      <article class="article-card">
+        <div class="article-meta">Guide · 8 min read</div>
+        <h4>Understanding Model Context Protocol (MCP)</h4>
+        <p>An introduction to Anthropic's open protocol, explaining hosts, clients, servers, and how to write custom tools.</p>
+        <a href="article-mcp-guide.html">Read article →</a>
+      </article>
+      <article class="article-card">
+        <div class="article-meta">Strategy · 7 min read</div>
+        <h4>Prompt Caching Strategies</h4>
+        <p>Optimize your prompts to leverage automatic and manual caching on Claude and DeepSeek to cut API costs by 50%+.</p>
+        <a href="article-prompt-caching.html">Read article →</a>
       </article>
     </div>
   </div>

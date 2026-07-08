@@ -48,4 +48,44 @@
     <loc>https://www.waiagent.win/about-author.html</loc>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.waiagent.win/article-self-host-deepseek.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/article-mcp-guide.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/article-prompt-caching.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/article-cursor-vs-windsurf.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/article-local-llm-guide.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/article-moe-explained.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/article-ai-security.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/article-structured-outputs.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/article-agent-evaluation.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/article-fine-tuning-vs-rag.html</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>

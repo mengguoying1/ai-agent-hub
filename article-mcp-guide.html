@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Understanding Model Context Protocol (MCP) — a comprehensive quickstart guide to building MCP servers and connecting LLMs to databases, filesystems, and APIs.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/article-mcp-guide.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Understanding the Model Context Protocol (MCP): A Developer's Quickstart — AI Agent Hub</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Understanding the Model Context Protocol (MCP): A Developer's Quickstart",
+    "description": "An introduction to Anthropic's open-source Model Context Protocol (MCP), covering core concepts (hosts, clients, servers) and a practical setup guide.",
+    "author": { "@type": "Organization", "name": "AI Agent Hub" },
+    "publisher": { "@type": "Organization", "name": "AI Agent Hub" },
+    "datePublished": "2026-07-08"
+  }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="article-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="meta">Guide · 8 min read · Updated July 2026</div>
+    <h1>Understanding the Model Context Protocol (MCP): A Developer's Quickstart</h1>
+    <p>Until recently, connecting large language models (LLMs) to local tools and private databases required building custom integrations for every specific IDE, web app, or workflow. The **Model Context Protocol (MCP)**, open-sourced by Anthropic, resolves this issue. Much like how the Language Server Protocol (LSP) standardized syntax checking across editors, MCP standardizes how AI agents securely access data, run scripts, and interact with software tools.</p>
+
+    <h2>What is the Model Context Protocol?</h2>
+    <p>MCP is an open standard client-server protocol. It establishes a secure channel for AI models (running inside a local client or host) to discover, inspect, and execute capabilities provided by a local or remote server.</p>
+
+    <div class="card">
+      <h3>The Three Pillars of MCP Architecture</h3>
+      <ul>
+        <li><strong>Host / Application:</strong> The development environment or platform where the AI logic lives (e.g., Claude Desktop, Cursor, Windsurf, or a custom LLM orchestration backend).</li>
+        <li><strong>Client:</strong> The protocol implementation inside the host that negotiates communication and enforces user permissions.</li>
+        <li><strong>Server:</strong> A lightweight program that exposes specific data sources (databases, folders) or computational tools (compilers, calculators, shell runners) to the client.</li>
+      </ul>
+    </div>
+
+    <h2>How MCP Works in Practice</h2>
+    <p>MCP communicates over JSON-RPC. When an AI client connects to an MCP server, it asks the server what capabilities it supports. The server replies with three types of resources:</p>
+    <ol>
+      <li><strong>Prompts:</strong> Pre-built prompt templates that help guide the user's interaction with the model (e.g., "Review this SQL schema").</li>
+      <li><strong>Resources:</strong> Read-only data feeds. These can be local file contents, live database schemas, logs, or API responses.</li>
+      <li><strong>Tools:</strong> Executable functions that the model can run (with user approval), such as executing code, performing a web search, or writing a file.</li>
+    </ol>
+
+    <h2>Building a Simple Python MCP Server</h2>
+    <p>Writing an MCP server is straightforward. Anthropic provides SDKs in Python and TypeScript. Below is a simple Python MCP server that provides a mathematical computation tool.</p>
+
+    <h3>1. Setup Dependencies</h3>
+    <p>Create a directory and install the python-mcp SDK:</p>
+    <pre><code>pip install mcp</code></pre>
+
+    <h3>2. Write the Server Logic (server.py)</h3>
+    <p>Create a file named <code>server.py</code> and add the following code:</p>
+    <pre><code>from mcp.server.fastmcp import FastMCP
+
+# Initialize FastMCP server
+mcp = FastMCP("CalculatorService")
+
+@mcp.tool()
+def calculate_fibonacci(n: int) -> str:
+    """Calculate the nth Fibonacci number."""
+    if n < 0:
+        return "Error: n must be a positive integer."
+    elif n == 0:
+        return "0"
+    elif n == 1:
+        return "1"
+    
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return f"The {n}th Fibonacci number is {b}."
+
+if __name__ == "__main__":
+    mcp.run()</code></pre>
+
+    <h2>Integrating Your Server with Claude Desktop</h2>
+    <p>To hook up this new service to Claude Desktop, you must add it to your local MCP configuration file. This config file is located at:</p>
+    <ul>
+      <li><strong>Windows:</strong> <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
+      <li><strong>macOS:</strong> <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+    </ul>
+
+    <p>Open this file and add your server to the <code>mcpServers</code> block:</p>
+    <pre><code>{
+  "mcpServers": {
+    "calculator": {
+      "command": "python",
+      "args": ["C:/path/to/your/server.py"]
+    }
+  }
+}</code></pre>
+
+    <p>Restart Claude Desktop. You will see a new hammer icon, indicating the model has access to your custom Calculator tool. When you ask Claude to calculate a high Fibonacci number, it will route the request to your local Python server, run the calculation, and return the correct result.</p>
+
+    <h2>Security Best Practices</h2>
+    <p>Because MCP tools can run terminal commands and read files on your local machine, security is critical:</p>
+    <ul>
+      <li><strong>Enforce User Approvals:</strong> Clients should always prompt the user before running write-based or destructive tools (e.g., executing a terminal command or writing a file).</li>
+      <li><strong>Restrict Directory Access:</strong> If building a filesystem server, validate that input paths are constrained within a safe workspace directory to prevent path traversal attacks.</li>
+      <li><strong>Use Environment Variables:</strong> Never hard-code API keys inside your server code. Pass them via the client configuration using the `env` parameter.</li>
+    </ul>
+
+    <div class="verdict">
+      <h3>The Verdict</h3>
+      <p>MCP represents a massive shift in how AI models interact with the physical world. Instead of writing custom plugins for every IDE, developers can write a single MCP server in Node.js or Python and immediately expose their tools to Claude Code, Cursor, Windsurf, and any future client that adopts the standard.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Articles — browse all AI Agent Hub guides, comparisons, and strategy pieces on AI coding agents, model selection, and developer workflows.">
@@ -9,65 +10,9 @@
   <link rel="canonical" href="https://www.waiagent.win/articles.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Articles — AI Agent Hub</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #04050b 0%, #0a0c16 45%, #03040a 100%);
-      color: #e0e0e0; line-height: 1.8; min-height: 100vh;
-    }
-    .nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(10,10,15,.92); backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      padding: 0 2rem;
-    }
-    .nav-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
-    }
-    .nav-logo { font-size: 1.3rem; font-weight: 800; color: #e0e0e0; text-decoration: none; }
-    .nav-logo span { background: linear-gradient(135deg, #7c5cfc, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
-    .nav-links a { color: #a0a0b0; font-size: .88rem; font-weight: 500; text-decoration: none; transition: color .2s; }
-    .nav-links a:hover { color: #fff; }
-    main { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: .5rem; background: linear-gradient(135deg, #fff 30%, #a78bfa 70%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    h2 { font-size: 1.2rem; margin: 2rem 0 1rem; color: #c4b5fd; }
-    p { margin-bottom: 1rem; color: #b0b0c0; }
-    .section-desc { color: #9090a0; margin-bottom: 2rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
-    .card {
-      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
-      border-radius: 14px; padding: 1.5rem; transition: all .2s;
-    }
-    .card:hover { border-color: rgba(124,92,252,.25); transform: translateY(-2px); }
-    .meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .5rem; }
-    .card h3 { font-size: 1.1rem; margin-bottom: .5rem; color: #f4f6ff; }
-    .card p { font-size: .92rem; color: #8f92a7; margin-bottom: .8rem; }
-    .card a { color: #a78bfa; font-weight: 600; text-decoration: none; }
-    .card a:hover { color: #c4b5fd; }
-    .footer {
-      background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.04);
-      padding: 2rem; text-align: center; color: #606070; font-size: .85rem;
-    }
-    .footer a { color: #a78bfa; }
-    a { color: #a78bfa; text-decoration: none; }
-    a:hover { color: #c4b5fd; }
-    .policy-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: .5rem; }
-    .category-nav {
-      display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem;
-    }
-    .category-nav a {
-      padding: .45rem .85rem; border-radius: 999px;
-      background: rgba(124,92,252,.14); border: 1px solid rgba(124,92,252,.22);
-      color: #d8cfff; font-size: .88rem; text-decoration: none;
-    }
-    .category-nav a:hover { background: rgba(124,92,252,.24); color: #fff; }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="articles-page">
   <nav class="nav">
     <div class="nav-inner">
       <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
@@ -81,7 +26,7 @@
     </div>
   </nav>
 
-  <main>
+  <main class="wide">
     <h1>Articles & Guides</h1>
     <p class="section-desc">In-depth articles on AI coding agents, model comparisons, pricing strategies, and practical workflows for developers. All content is human-researched and regularly updated.</p>
 
@@ -129,6 +74,77 @@
         <h3>The Agent Ecosystem Explained</h3>
         <p>How modern AI agents combine reasoning, tool use, context management, and execution loops. Covers Claude Code, Copilot Agent Mode, MCP, and multi-agent systems.</p>
         <a href="article-agent-ecosystem.html">Read article →</a>
+      </article>
+
+      <!-- New Articles -->
+      <article class="card">
+        <div class="meta">Guide · 10 min read</div>
+        <h3>How to Self-Host DeepSeek-R1</h3>
+        <p>Detailed instructions on hardware requirements (VRAM, RAM), quantization levels (GGUF, EXL2), and software platforms like Ollama and vLLM.</p>
+        <a href="article-self-host-deepseek.html">Read guide →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Guide · 8 min read</div>
+        <h3>Understanding Model Context Protocol (MCP)</h3>
+        <p>An introduction to Anthropic's open-source protocol (MCP), explaining core concepts (hosts, clients, servers) and how to write custom servers.</p>
+        <a href="article-mcp-guide.html">Read guide →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Strategy · 7 min read</div>
+        <h3>Prompt Caching Strategies</h3>
+        <p>Learn how to optimize your prompts to leverage automatic and manual prompt caching on DeepSeek, Anthropic, and OpenAI to cut bills by 50%+.</p>
+        <a href="article-prompt-caching.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Comparison · 9 min read</div>
+        <h3>Cursor vs Windsurf vs Copilot Agent</h3>
+        <p>Side-by-side comparison of the three leading agentic coding environments on multi-file editing, terminal integration, and context search.</p>
+        <a href="article-cursor-vs-windsurf.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Guide · 8 min read</div>
+        <h3>Local LLMs in 2026: Ollama vs. Llama.cpp vs. vLLM</h3>
+        <p>Compare local serving engines on memory efficiency, raw tokens-per-second, setup ease, and suitability for individual vs. team development.</p>
+        <a href="article-local-llm-guide.html">Read guide →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Concepts · 8 min read</div>
+        <h3>Mixture of Experts (MoE) Architecture</h3>
+        <p>A deep dive into MoE models (DeepSeek-V3, Qwen3) to explain active vs. total parameters, routing networks, and the economics of API pricing.</p>
+        <a href="article-moe-explained.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Strategy · 8 min read</div>
+        <h3>Security & Privacy in AI Coding</h3>
+        <p>How to protect proprietary source code, avoid model training leakage, understand Zero Data Retention, and screen for GPL license contamination.</p>
+        <a href="article-ai-security.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Guide · 8 min read</div>
+        <h3>Mastering Structured Outputs</h3>
+        <p>Force models to return 100% valid JSON matching your schema using OpenAI JSON Schema and Anthropic Tool Use choices.</p>
+        <a href="article-structured-outputs.html">Read guide →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Concepts · 8 min read</div>
+        <h3>How to Benchmark AI Agents</h3>
+        <p>An introduction to SWE-bench (Verified/Lite) for evaluating multi-step coding agents, and how to build sandboxed test rigs for internal APIs.</p>
+        <a href="article-agent-evaluation.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Strategy · 8 min read</div>
+        <h3>Fine-Tuning vs. RAG for Codebase Search</h3>
+        <p>Compare Retrieval-Augmented Generation (RAG) and model fine-tuning for proprietary repositories, detailing costs, accuracy, and updates.</p>
+        <a href="article-fine-tuning-vs-rag.html">Read article →</a>
       </article>
     </div>
 

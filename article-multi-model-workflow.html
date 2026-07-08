@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Why Multi-Model Workflows Matter — learn how combining primary and fallback AI models improves reliability, cost control, and task-specific accuracy.">
@@ -20,39 +21,9 @@
     "datePublished": "2026-07-01"
   }
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #04050b 0%, #0a0c16 45%, #03040a 100%);
-      color: #e0e0e0; line-height: 1.8; min-height: 100vh;
-    }
-    .nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); padding: 0 2rem; }
-    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .nav-logo { font-size: 1.3rem; font-weight: 800; color: #e0e0e0; text-decoration: none; }
-    .nav-logo span { background: linear-gradient(135deg, #7c5cfc, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
-    .nav-links a { color: #a0a0b0; font-size: .88rem; font-weight: 500; text-decoration: none; transition: color .2s; }
-    .nav-links a:hover { color: #fff; }
-    main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: .5rem; background: linear-gradient(135deg, #fff 30%, #a78bfa 70%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    h2 { font-size: 1.25rem; margin: 2.2rem 0 .8rem; color: #c4b5fd; }
-    h3 { font-size: 1.05rem; margin: 1.4rem 0 .5rem; color: #d0d0e0; }
-    p { margin-bottom: 1rem; color: #b0b0c0; }
-    ul, ol { margin: .8rem 0 1.2rem 1.5rem; color: #b0b0c0; }
-    li { margin-bottom: .5rem; }
-    .meta { color: #7c5cfc; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .8rem; }
-    .card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 1.5rem; margin: 1.5rem 0; }
-    .strategy { background: rgba(124,92,252,.06); border: 1px solid rgba(124,92,252,.15); border-radius: 14px; padding: 1.3rem 1.5rem; margin: 1.2rem 0; }
-    .strategy h3 { color: #c4b5fd; }
-    .footer { background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.04); padding: 2rem; text-align: center; color: #606070; font-size: .85rem; }
-    .footer a { color: #a78bfa; }
-    a { color: #a78bfa; text-decoration: none; }
-    a:hover { color: #c4b5fd; }
-    .policy-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: .5rem; }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="article-page">
   <nav class="nav">
     <div class="nav-inner">
       <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
@@ -85,28 +56,28 @@
 
     <div class="strategy">
       <h3>Strategy 1: Primary + Budget Fallback</h3>
-      <p><strong>Setup:</strong> Claude Sonnet 5 (primary, 70% of tasks) + DeepSeek-V3 (fallback, 30% of tasks)</p>
+      <p><strong>Setup:</strong> Claude Sonnet 4.8 (primary, 70% of tasks) + DeepSeek-V3 (fallback, 30% of tasks)</p>
       <p><strong>When to use:</strong> Route complex refactors and architectural work to Sonnet. Route boilerplate, tests, documentation, and simple completions to DeepSeek.</p>
       <p><strong>Cost impact:</strong> ~30% savings vs Sonnet-only. If you push 50% of tasks to the budget model, savings approach 45%.</p>
     </div>
 
     <div class="strategy">
       <h3>Strategy 2: Speed + Depth Hierarchy</h3>
-      <p><strong>Setup:</strong> Claude Haiku 4.5 (fast autocomplete) + Claude Sonnet 5 (daily coding) + Claude Opus 4.8 (critical reasoning)</p>
+      <p><strong>Setup:</strong> Claude Haiku 4.8 (fast autocomplete) + Claude Sonnet 4.8 (daily coding) + Claude Opus 4.8 (critical reasoning)</p>
       <p><strong>When to use:</strong> Haiku for inline suggestions and quick fixes. Sonnet for most coding work. Opus for architecture decisions, complex debugging, and security reviews.</p>
       <p><strong>Cost impact:</strong> Using Haiku for 40% of interactions can reduce costs vs all-Sonnet by ~20%, while Opus for the hardest 10% adds minimal cost but significant quality.</p>
     </div>
 
     <div class="strategy">
       <h3>Strategy 3: Provider Diversity for Resilience</h3>
-      <p><strong>Setup:</strong> GPT-5 Mini (primary, Copilot integration) + Claude Sonnet 5 (secondary, via API) + Gemini 2.5 Flash (long-context tasks)</p>
+      <p><strong>Setup:</strong> GPT-5.5 Mini (primary, Copilot integration) + Claude Sonnet 4.8 (secondary, via API) + Gemini 3.1 Flash (long-context tasks)</p>
       <p><strong>When to use:</strong> Each model serves a distinct role. If any provider has issues, you have two alternatives ready.</p>
       <p><strong>Cost impact:</strong> Neutral to slightly higher than single-provider, but the resilience benefit outweighs the marginal cost for most teams.</p>
     </div>
 
     <div class="strategy">
       <h3>Strategy 4: Open Source Self-Host + Cloud Premium</h3>
-      <p><strong>Setup:</strong> Self-hosted DeepSeek-V3 or Qwen3-Coder (bulk work, unlimited usage) + Claude Sonnet 5 API (premium tasks)</p>
+      <p><strong>Setup:</strong> Self-hosted DeepSeek-V3 or Qwen3-Coder (bulk work, unlimited usage) + Claude Sonnet 4.8 API (premium tasks)</p>
       <p><strong>When to use:</strong> For enterprises with GPU infrastructure and data privacy requirements. Self-hosted model handles all routine work with zero marginal cost; cloud API handles the hardest problems.</p>
       <p><strong>Cost impact:</strong> High upfront hardware cost, but near-zero marginal cost for 80%+ of tasks. Best for teams doing 1,000+ API calls per day.</p>
     </div>
