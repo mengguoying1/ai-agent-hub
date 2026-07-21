@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Securing Function Calling & Tool Execution — Learn how to defend AI agents against indirect prompt injection, SSRF, and arbitrary shell command execution.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/article-function-calling-security.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Securing Function Calling & Tool Execution — AI Agent Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="article-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="category-tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
+      <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; Security
+    </div>
+
+    <h1>Securing Function Calling: Preventing Tool Execution Vulnerabilities</h1>
+    <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
+      Security · 10 min read · Updated July 2026
+    </div>
+
+    <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
+      Giving an AI agent access to API tools and terminal commands unlocks immense capability — but also creates severe security vectors. Indirect prompt injections inside fetched web pages can hijack your agent to run malicious shell scripts or exfiltrate environment keys.
+    </p>
+
+    <h2>1. Threat Vectors in Tool-Calling Agents</h2>
+    <ul>
+      <li><strong>Indirect Prompt Injection:</strong> An attacker embeds hidden instructions inside a Markdown file or web page that your agent fetches. The agent reads the text and executes unauthorized tools.</li>
+      <li><strong>Server-Side Request Forgery (SSRF):</strong> Agents with web fetch tools can be tricked into hitting internal metadata endpoints (e.g. `169.254.169.254`).</li>
+      <li><strong>Unsanitized Shell Parameter Injection:</strong> Passing raw strings from LLM output directly into `subprocess.run(shell=True)`.</li>
+    </ul>
+
+    <h2>2. Hardening Best Practices</h2>
+    <ol>
+      <li><strong>Schema-Level Parameter Validation:</strong> Use Pydantic or Zod schemas to enforce strict types, regex matching, and value range checks on all JSON tool arguments.</li>
+      <li><strong>Human-in-the-Loop Interrupts:</strong> Require explicit developer approval before executing high-risk commands (e.g. `rm`, `git push`, API payments).</li>
+      <li><strong>Containerized MicroVM Isolation:</strong> Run all agent code execution inside ephemeral Docker containers or gVisor sandboxes with network egress filtering.</li>
+    </ol>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>

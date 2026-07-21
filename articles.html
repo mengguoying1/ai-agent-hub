@@ -32,118 +32,211 @@
 
     <div class="category-nav">
       <a href="articles.html">All Articles</a>
-      <a href="article-claude-vs-gpt.html">Model Comparison</a>
-      <a href="article-llm-pricing.html">Pricing</a>
-      <a href="article-agent-ecosystem.html">Agent Ecosystem</a>
-      <a href="article-multi-model-workflow.html">Workflow Strategy</a>
+      <a href="category-tutorials.html">Tutorials</a>
+      <a href="category-benchmarks.html">Benchmarks</a>
+      <a href="category-architecture.html">Architecture</a>
+      <a href="category-tools.html">Interactive Tools</a>
       <a href="guide.html">Guides</a>
     </div>
 
-    <h2>Featured Articles</h2>
+    <h2>Interactive Web Utilities</h2>
+    <div class="grid" style="margin-bottom: 2.5rem;">
+      <article class="card" style="border: 1px solid rgba(124,92,252,0.3); background: rgba(124,92,252,0.08);">
+        <div class="meta" style="color:#22d3ee;">Web Utility · Real-Time Calculation</div>
+        <h3><a href="tool-cost-calculator.html">Interactive LLM API & Token Cost Calculator</a></h3>
+        <p>Calculate daily and monthly API spending across Claude, GPT-5.5, DeepSeek, and Gemini with customizable prompt caching hit rates.</p>
+        <a href="tool-cost-calculator.html">Launch Calculator →</a>
+      </article>
+
+      <article class="card" style="border: 1px solid rgba(6,182,212,0.3); background: rgba(6,182,212,0.08);">
+        <div class="meta" style="color:#4ade80;">Web Utility · Dynamic Filtering</div>
+        <h3><a href="tool-benchmark-compare.html">Interactive AI Agent Benchmark Matrix</a></h3>
+        <p>Filter and sort 12+ frontier LLMs by SWE-bench Verified score, Terminal-Bench v2, pricing, and context window sizes.</p>
+        <a href="tool-benchmark-compare.html">Launch Matrix →</a>
+      </article>
+    </div>
+
+    <h2>Featured Articles & Technical Guides</h2>
     <div class="grid">
+      <article class="card">
+        <div class="meta">Guide · 10 min read</div>
+        <h3><a href="article-subscription-refresh-guide.html">AI Subscription Refresh Cycles & Rate Limits</a></h3>
+        <p>Understand rolling 5-hour windows, monthly seats, and rate limit reset mechanics across Claude Pro, ChatGPT Plus, Cursor, and Copilot.</p>
+        <a href="article-subscription-refresh-guide.html">Read guide →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Architecture · 11 min read</div>
+        <h3><a href="article-langgraph-vs-crewai.html">LangGraph vs CrewAI vs AutoGen</a></h3>
+        <p>Comparing cyclic state graphs, role-playing crews, and conversational multi-agent frameworks for enterprise production.</p>
+        <a href="article-langgraph-vs-crewai.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Benchmarking · 9 min read</div>
+        <h3><a href="article-vllm-vs-ollama.html">vLLM vs Ollama vs SGLang Serving Engines</a></h3>
+        <p>Benchmarking throughput, PagedAttention memory efficiency, and prefix caching across local inference engines.</p>
+        <a href="article-vllm-vs-ollama.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Tutorial · 10 min read</div>
+        <h3><a href="article-dspy-optimization.html">Automated Prompt Optimization with DSPy</a></h3>
+        <p>Replace fragile hand-written prompts with programmatic Signatures and Teleprompter compilers.</p>
+        <a href="article-dspy-optimization.html">Read tutorial →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Architecture · 11 min read</div>
+        <h3><a href="article-agent-memory.html">Building Long-Term Memory for AI Agents</a></h3>
+        <p>Exploring working memory, vector stores, epistemic knowledge graphs, and MemGPT architectures.</p>
+        <a href="article-agent-memory.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Security · 10 min read</div>
+        <h3><a href="article-function-calling-security.html">Securing Function Calling & Tool Execution</a></h3>
+        <p>Preventing indirect prompt injection, SSRF, and unauthorized shell execution in tool-calling agents.</p>
+        <a href="article-function-calling-security.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Tutorial · 11 min read</div>
+        <h3><a href="article-claude-code-workflow.html">Mastering Claude Code CLI for Enterprise</a></h3>
+        <p>Advanced terminal workflows for multi-file refactoring, CLAUDE.md rule customization, and git integration.</p>
+        <a href="article-claude-code-workflow.html">Read tutorial →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Benchmarking · 10 min read</div>
+        <h3><a href="article-swe-bench-deep-dive.html">Deep Dive into SWE-bench & Terminal-Bench v2</a></h3>
+        <p>How modern agent evaluation suites test multi-file patch generation and Linux bash execution.</p>
+        <a href="article-swe-bench-deep-dive.html">Read article →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Tutorial · 10 min read</div>
+        <h3><a href="article-rag-chunking-strategies.html">Advanced RAG Chunking & Hybrid Search</a></h3>
+        <p>AST code splitting, parent-child document retrieval, and hybrid dense/sparse vector search.</p>
+        <a href="article-rag-chunking-strategies.html">Read tutorial →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Tutorial · 9 min read</div>
+        <h3><a href="article-ollama-deepseek-r1.html">Running DeepSeek-R1 Locally</a></h3>
+        <p>Quantization levels (Q4_K_M vs Q8_0), VRAM math formulas, and one-command Ollama setup.</p>
+        <a href="article-ollama-deepseek-r1.html">Read tutorial →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta">Architecture · 10 min read</div>
+        <h3><a href="article-agentic-rag.html">Agentic RAG Systems & Re-ranking</a></h3>
+        <p>Building self-corrective retrieval loops, query transformation, and cross-encoder re-ranking.</p>
+        <a href="article-agentic-rag.html">Read article →</a>
+      </article>
+
       <article class="card">
         <div class="meta">Guide · 8 min read</div>
         <h3>How to Choose an AI Coding Stack</h3>
-        <p>A complete decision framework for matching AI coding tools to your tasks, budget, and workflow. Covers task assessment, cost estimation, model selection, and common pitfalls.</p>
+        <p>A complete decision framework for matching AI coding tools to your tasks, budget, and workflow.</p>
         <a href="guide.html">Read guide →</a>
       </article>
 
       <article class="card">
         <div class="meta">Comparison · 7 min read</div>
         <h3>Claude vs GPT vs DeepSeek for Coding</h3>
-        <p>Detailed comparison of the three major model families across reasoning depth, IDE integration, cost efficiency, and real-world coding performance.</p>
+        <p>Detailed comparison of major model families across reasoning depth, IDE integration, and cost.</p>
         <a href="article-claude-vs-gpt.html">Read article →</a>
       </article>
 
       <article class="card">
         <div class="meta">Strategy · 6 min read</div>
         <h3>Why Multi-Model Workflows Matter</h3>
-        <p>How combining a primary model with budget fallbacks, specialist models, and provider diversity improves reliability, cost control, and output quality.</p>
+        <p>How combining a primary model with budget fallbacks improves reliability and cost control.</p>
         <a href="article-multi-model-workflow.html">Read article →</a>
       </article>
 
       <article class="card">
         <div class="meta">Pricing · 6 min read</div>
         <h3>How to Think About LLM Pricing</h3>
-        <p>Understand token-based pricing, context window costs, prompt caching benefits, and how to estimate real monthly spend across different usage patterns.</p>
+        <p>Understand token-based pricing, context window costs, and prompt caching benefits.</p>
         <a href="article-llm-pricing.html">Read article →</a>
       </article>
 
       <article class="card">
         <div class="meta">Concepts · 7 min read</div>
         <h3>The Agent Ecosystem Explained</h3>
-        <p>How modern AI agents combine reasoning, tool use, context management, and execution loops. Covers Claude Code, Copilot Agent Mode, MCP, and multi-agent systems.</p>
+        <p>How modern AI agents combine reasoning, tool use, context management, and execution loops.</p>
         <a href="article-agent-ecosystem.html">Read article →</a>
       </article>
 
-      <!-- New Articles -->
       <article class="card">
         <div class="meta">Guide · 10 min read</div>
         <h3>How to Self-Host DeepSeek-R1</h3>
-        <p>Detailed instructions on hardware requirements (VRAM, RAM), quantization levels (GGUF, EXL2), and software platforms like Ollama and vLLM.</p>
+        <p>Instructions on hardware requirements (VRAM, RAM) and serving platforms like Ollama and vLLM.</p>
         <a href="article-self-host-deepseek.html">Read guide →</a>
       </article>
 
       <article class="card">
         <div class="meta">Guide · 8 min read</div>
         <h3>Understanding Model Context Protocol (MCP)</h3>
-        <p>An introduction to Anthropic's open-source protocol (MCP), explaining core concepts (hosts, clients, servers) and how to write custom servers.</p>
+        <p>Introduction to Anthropic's open-source protocol (MCP), explaining core concepts and custom servers.</p>
         <a href="article-mcp-guide.html">Read guide →</a>
       </article>
 
       <article class="card">
         <div class="meta">Strategy · 7 min read</div>
         <h3>Prompt Caching Strategies</h3>
-        <p>Learn how to optimize your prompts to leverage automatic and manual prompt caching on DeepSeek, Anthropic, and OpenAI to cut bills by 50%+.</p>
+        <p>Learn how to optimize prompts to leverage automatic and manual prompt caching on Anthropic and OpenAI.</p>
         <a href="article-prompt-caching.html">Read article →</a>
       </article>
 
       <article class="card">
         <div class="meta">Comparison · 9 min read</div>
         <h3>Cursor vs Windsurf vs Copilot Agent</h3>
-        <p>Side-by-side comparison of the three leading agentic coding environments on multi-file editing, terminal integration, and context search.</p>
+        <p>Side-by-side comparison of leading agentic coding environments on multi-file editing and terminal access.</p>
         <a href="article-cursor-vs-windsurf.html">Read article →</a>
       </article>
 
       <article class="card">
         <div class="meta">Guide · 8 min read</div>
-        <h3>Local LLMs in 2026: Ollama vs. Llama.cpp vs. vLLM</h3>
-        <p>Compare local serving engines on memory efficiency, raw tokens-per-second, setup ease, and suitability for individual vs. team development.</p>
+        <h3>Local LLMs in 2026: Ollama vs. vLLM</h3>
+        <p>Compare local serving engines on memory efficiency, raw tokens-per-second, and setup ease.</p>
         <a href="article-local-llm-guide.html">Read guide →</a>
       </article>
 
       <article class="card">
         <div class="meta">Concepts · 8 min read</div>
         <h3>Mixture of Experts (MoE) Architecture</h3>
-        <p>A deep dive into MoE models (DeepSeek-V3, Qwen3) to explain active vs. total parameters, routing networks, and the economics of API pricing.</p>
+        <p>A deep dive into MoE models (DeepSeek-V3, Qwen3) to explain active parameters and sparse routing.</p>
         <a href="article-moe-explained.html">Read article →</a>
       </article>
 
       <article class="card">
         <div class="meta">Strategy · 8 min read</div>
         <h3>Security & Privacy in AI Coding</h3>
-        <p>How to protect proprietary source code, avoid model training leakage, understand Zero Data Retention, and screen for GPL license contamination.</p>
+        <p>How to protect proprietary source code, avoid model training leakage, and screen for GPL license contamination.</p>
         <a href="article-ai-security.html">Read article →</a>
       </article>
 
       <article class="card">
         <div class="meta">Guide · 8 min read</div>
         <h3>Mastering Structured Outputs</h3>
-        <p>Force models to return 100% valid JSON matching your schema using OpenAI JSON Schema and Anthropic Tool Use choices.</p>
+        <p>Force models to return 100% valid JSON matching your schema using OpenAI and Anthropic APIs.</p>
         <a href="article-structured-outputs.html">Read guide →</a>
       </article>
 
       <article class="card">
         <div class="meta">Concepts · 8 min read</div>
         <h3>How to Benchmark AI Agents</h3>
-        <p>An introduction to SWE-bench (Verified/Lite) for evaluating multi-step coding agents, and how to build sandboxed test rigs for internal APIs.</p>
+        <p>An introduction to SWE-bench for evaluating multi-step coding agents and local test rigs.</p>
         <a href="article-agent-evaluation.html">Read article →</a>
       </article>
 
       <article class="card">
         <div class="meta">Strategy · 8 min read</div>
-        <h3>Fine-Tuning vs. RAG for Codebase Search</h3>
-        <p>Compare Retrieval-Augmented Generation (RAG) and model fine-tuning for proprietary repositories, detailing costs, accuracy, and updates.</p>
+        <h3>Fine-Tuning vs. RAG for Codebases</h3>
+        <p>Compare Retrieval-Augmented Generation (RAG) and model fine-tuning for proprietary repositories.</p>
         <a href="article-fine-tuning-vs-rag.html">Read article →</a>
       </article>
     </div>

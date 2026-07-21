@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Agentic RAG Systems — Building self-correcting retrieval pipelines with query rewriting, document grading, and cross-encoder re-ranking.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/article-agentic-rag.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Agentic RAG Systems: Self-Correction & Re-ranking — AI Agent Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="article-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="category-tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
+      <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; Agentic RAG
+    </div>
+
+    <h1>Agentic RAG Systems: Self-Correction, Rewriting & Re-Ranking</h1>
+    <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
+      Architecture · 10 min read · Updated July 2026
+    </div>
+
+    <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
+      Standard RAG pipelines fail when vector search returns irrelevant or incomplete documents. Agentic RAG introduces reasoning loops into the retrieval process: evaluating retrieved chunks, rewriting bad queries, and re-ranking documents dynamically.
+    </p>
+
+    <h2>1. The Self-Corrective RAG Loop</h2>
+    <ol>
+      <li><strong>Query Transformation:</strong> The agent reformulates ambiguous user questions into multiple targeted search queries.</li>
+      <li><strong>Document Grading:</strong> A fast LLM (like Claude Haiku 4.8 or Gemini 3.1 Flash) grades each retrieved chunk for relevance. Irrelevant chunks are discarded.</li>
+      <li><strong>Fallback Web Search / Router:</strong> If vector search fails to yield high-confidence documents, the agent dynamically invokes web search tools or alternative data stores.</li>
+    </ol>
+
+    <h2>2. Cross-Encoder Re-Ranking</h2>
+    <p>Bi-encoder vector embeddings offer fast retrieval speed but lower semantic accuracy. Passing top-20 candidates through a Cross-Encoder re-ranker (such as `Cohere ReRank v3` or `bge-reranker-large`) ensures only top-3 relevant context chunks enter the final generation prompt.</p>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>

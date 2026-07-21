@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Automated Prompt Optimization with DSPy — Learn how to replace fragile manual prompts with programmatic Signatures and Teleprompter compilers.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/article-dspy-optimization.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Automated Prompt Optimization with DSPy — AI Agent Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="article-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="category-tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
+      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; DSPy Optimization
+    </div>
+
+    <h1>Automated Prompt Optimization with DSPy: Beyond Manual Prompts</h1>
+    <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
+      Tutorial · 10 min read · Updated July 2026
+    </div>
+
+    <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
+      Manual prompt engineering ("You are an expert developer...") is fragile and breaks whenever you upgrade LLM versions. Stanford's DSPy framework introduces a paradigm shift: compiling declarative Python Signatures into optimized prompts automatically.
+    </p>
+
+    <h2>1. The Problem with Manual Prompting</h2>
+    <p>Hand-written prompts suffer from three major vulnerabilities:</p>
+    <ul>
+      <li><strong>Model Sensitivity:</strong> A prompt crafted for GPT-4o often underperforms when ported to Claude Sonnet or DeepSeek-V3.</li>
+      <li><strong>Lack of Systematic Evaluation:</strong> Modifying one sentence in a system prompt can inadvertently regress performance on edge cases.</li>
+      <li><strong>Lack of Few-Shot Selection:</strong> Selecting the optimal few-shot examples manually is time-consuming and suboptimal.</li>
+    </ul>
+
+    <h2>2. DSPy Primitives: Signatures & Modules</h2>
+    <p>In DSPy, you specify <em>what</em> the model should do rather than <em>how</em> to prompt it:</p>
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:8px; overflow-x:auto;"><code>import dspy
+
+# Define declarative signature
+class CodeRefactor(dspy.Signature):
+    """Refactor Python code for performance and memory optimization."""
+    raw_code = dspy.InputField(desc="Unoptimized input Python code")
+    target_python_version = dspy.InputField(desc="Target Python runtime version")
+    refactored_code = dspy.OutputField(desc="Optimized production code")
+    explanation = dspy.OutputField(desc="Brief summary of changes")
+</code></pre>
+
+    <h2>3. Teleprompters: Automatic Prompt Compilers</h2>
+    <p>DSPy's Teleprompters (such as `MIPROv2` and `BootstrapFewShotWithRandomSearch`) take your module, evaluate it against a validation dataset, and automatically discover the highest-performing system prompt instructions and few-shot examples.</p>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>

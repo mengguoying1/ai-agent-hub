@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Building Long-Term Memory for AI Agents — Exploring short-term working memory, vector databases, epistemic knowledge graphs, and MemGPT architectures.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/article-agent-memory.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Building Long-Term Memory for AI Agents — AI Agent Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="article-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="category-tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
+      <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; Agent Memory
+    </div>
+
+    <h1>Building Long-Term Memory for AI Agents: Architectures & Design</h1>
+    <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
+      Architecture · 11 min read · Updated July 2026
+    </div>
+
+    <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
+      Stateless LLM calls limit agents to single-session interactions. To build agents that learn user preferences, recall historical bug fixes, and maintain state over months, developers must implement multi-layered memory systems.
+    </p>
+
+    <h2>1. The Four Layers of Agent Memory</h2>
+    <ul>
+      <li><strong>Working Memory (In-Context RAM):</strong> The active prompt context window (e.g. 200K tokens). Fast access but volatile and expensive to maintain across sessions.</li>
+      <li><strong>Episodic Memory (Logs & Chat History):</strong> Time-series logs of prior agent steps and conversations. Vectorized and retrieved via semantic similarity.</li>
+      <li><strong>Semantic Memory (Knowledge Graphs):</strong> Structured facts, entities, and codebase dependency graphs stored in graph databases (Neo4j, Memgraph).</li>
+      <li><strong>Procedural Memory (Tool Usage Rules):</strong> Learned strategies, prompts, and system execution habits stored as serialized code routines.</li>
+    </ul>
+
+    <h2>2. MemGPT: OS-Style Memory Management</h2>
+    <p>MemGPT introduces an operating-system-inspired memory hierarchy. The agent uses explicit function calls (`core_memory_append`, `archival_memory_search`) to manage what stays in RAM and what gets paged out to disk.</p>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>

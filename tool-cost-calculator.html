@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive LLM API Cost Calculator — Estimate your monthly AI coding costs across Claude, GPT-5.5, DeepSeek, and Gemini with prompt caching controls.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/tool-cost-calculator.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Interactive LLM API & Token Cost Calculator — AI Agent Hub</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "LLM API Cost Calculator",
+    "url": "https://www.waiagent.win/tool-cost-calculator.html",
+    "description": "Calculate daily and monthly API costs for AI coding models with customizable context sizes and prompt caching hit rates.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All"
+  }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="tool-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="category-tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 1000px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
+      <a href="./">Home</a> &gt; <a href="category-tools.html">Tools</a> &gt; LLM Cost Calculator
+    </div>
+
+    <h1>Interactive LLM API Cost Calculator</h1>
+    <p style="color:#9090a0; margin-bottom: 2rem;">Estimate your monthly AI API spending based on query volume, token length, and prompt caching ratios. Compare costs instantly across 8+ frontier and open-weights models.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 2.5rem;">
+      <!-- Controls Card -->
+      <div class="card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.8rem;">
+        <h3 style="margin-bottom: 1.2rem; color: #c4b5fd;">⚙️ Usage Parameters</h3>
+        
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display:block; font-size:.88rem; color:#b0b0c0; margin-bottom:.4rem;">Primary Model</label>
+          <select id="modelSelect" style="width:100%; padding:.7rem; border-radius:8px; background:#0e101c; color:#fff; border:1px solid rgba(255,255,255,0.15); font-size:.9rem;" onchange="calculateCost()">
+            <option value="claude-sonnet-48">Claude Sonnet 4.8 ($3.00 / $15.00)</option>
+            <option value="claude-opus-48">Claude Opus 4.8 ($15.00 / $75.00)</option>
+            <option value="claude-haiku-48">Claude Haiku 4.8 ($0.80 / $4.00)</option>
+            <option value="gpt-55">GPT-5.5 ($10.00 / $40.00)</option>
+            <option value="gpt-55-mini">GPT-5.5 Mini ($1.00 / $4.00)</option>
+            <option value="deepseek-v3">DeepSeek-V3 ($0.27 / $0.40)</option>
+            <option value="gemini-31-flash" selected>Gemini 3.1 Flash ($0.075 / $0.30)</option>
+            <option value="gemini-31-pro">Gemini 3.1 Pro ($3.00 / $9.00)</option>
+            <option value="qwen3-coder">Qwen3-Coder ($0.50 / $2.00)</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display:flex; justify-content:space-between; font-size:.88rem; color:#b0b0c0; margin-bottom:.4rem;">
+            <span>Input Tokens / Query</span>
+            <strong id="inputTokensVal" style="color:#7c5cfc;">5,000</strong>
+          </label>
+          <input type="range" id="inputTokens" min="500" max="50000" step="500" value="5000" style="width:100%;" oninput="calculateCost()">
+        </div>
+
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display:flex; justify-content:space-between; font-size:.88rem; color:#b0b0c0; margin-bottom:.4rem;">
+            <span>Output Tokens / Query</span>
+            <strong id="outputTokensVal" style="color:#06b6d4;">2,000</strong>
+          </label>
+          <input type="range" id="outputTokens" min="100" max="10000" step="100" value="2000" style="width:100%;" oninput="calculateCost()">
+        </div>
+
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display:flex; justify-content:space-between; font-size:.88rem; color:#b0b0c0; margin-bottom:.4rem;">
+            <span>Queries / Day</span>
+            <strong id="queriesPerDayVal" style="color:#4ade80;">500</strong>
+          </label>
+          <input type="range" id="queriesPerDay" min="50" max="5000" step="50" value="500" style="width:100%;" oninput="calculateCost()">
+        </div>
+
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display:flex; justify-content:space-between; font-size:.88rem; color:#b0b0c0; margin-bottom:.4rem;">
+            <span>Working Days / Month</span>
+            <strong id="daysPerMonthVal" style="color:#f4f6ff;">22</strong>
+          </label>
+          <input type="range" id="daysPerMonth" min="1" max="31" step="1" value="22" style="width:100%;" oninput="calculateCost()">
+        </div>
+
+        <div>
+          <label style="display:flex; justify-content:space-between; font-size:.88rem; color:#b0b0c0; margin-bottom:.4rem;">
+            <span>Prompt Caching Hit Rate</span>
+            <strong id="cacheHitVal" style="color:#fbbf24;">50%</strong>
+          </label>
+          <input type="range" id="cacheHit" min="0" max="90" step="5" value="50" style="width:100%;" oninput="calculateCost()">
+        </div>
+      </div>
+
+      <!-- Results Card -->
+      <div class="card" style="background: linear-gradient(135deg, rgba(124,92,252,0.1), rgba(6,182,212,0.05)); border: 1px solid rgba(124,92,252,0.3); border-radius: 16px; padding: 1.8rem; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size: .8rem; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: .4rem;">Estimated Total Spend</div>
+          <div style="font-size: 3.2rem; font-weight: 800; color: #fff; margin-bottom: .2rem;" id="monthlyTotalDisplay">$2.80</div>
+          <div style="color: #9090a0; font-size: .9rem; margin-bottom: 1.5rem;" id="dailyTotalDisplay">~$0.13 / day</div>
+
+          <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;">
+            <div style="display:flex; justify-space-between; margin-bottom:.4rem; font-size:.85rem;">
+              <span style="color:#8888a0;">Uncached Input Cost:</span>
+              <strong style="color:#fff;" id="uncachedCostDisplay">$0.41</strong>
+            </div>
+            <div style="display:flex; justify-space-between; margin-bottom:.4rem; font-size:.85rem;">
+              <span style="color:#8888a0;">Cached Input Savings:</span>
+              <strong style="color:#4ade80;" id="cachedSavingsDisplay">-$0.18</strong>
+            </div>
+            <div style="display:flex; justify-space-between; font-size:.85rem;">
+              <span style="color:#8888a0;">Output Token Cost:</span>
+              <strong style="color:#fff;" id="outputCostDisplay">$2.57</strong>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: rgba(124,92,252,0.15); border: 1px solid rgba(124,92,252,0.3); border-radius: 10px; padding: 1rem; font-size: .85rem; color: #d8cfff;">
+          <strong>💡 Optimization Insight:</strong> <span id="optimizationTip">Gemini 3.1 Flash provides 2M token context at the lowest industry price point.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">Model Cost Comparison Matrix</h2>
+    <div style="overflow-x: auto; background: rgba(255,255,255,0.02); border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: .9rem;">
+        <thead>
+          <tr style="background: rgba(255,255,255,0.04); color: #a0a0b0;">
+            <th style="padding: 1rem;">Model</th>
+            <th style="padding: 1rem;">Input / Output (1M)</th>
+            <th style="padding: 1rem;">Est. Monthly Total</th>
+            <th style="padding: 1rem;">Vs Selected</th>
+          </tr>
+        </thead>
+        <tbody id="matrixTableBody">
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+  const modelData = {
+    'claude-sonnet-48': { name: 'Claude Sonnet 4.8', inRate: 3.00, outRate: 15.00, cacheRate: 0.30 },
+    'claude-opus-48': { name: 'Claude Opus 4.8', inRate: 15.00, outRate: 75.00, cacheRate: 1.50 },
+    'claude-haiku-48': { name: 'Claude Haiku 4.8', inRate: 0.80, outRate: 4.00, cacheRate: 0.08 },
+    'gpt-55': { name: 'GPT-5.5', inRate: 10.00, outRate: 40.00, cacheRate: 5.00 },
+    'gpt-55-mini': { name: 'GPT-5.5 Mini', inRate: 1.00, outRate: 4.00, cacheRate: 0.50 },
+    'deepseek-v3': { name: 'DeepSeek-V3', inRate: 0.27, outRate: 0.40, cacheRate: 0.07 },
+    'gemini-31-flash': { name: 'Gemini 3.1 Flash', inRate: 0.075, outRate: 0.30, cacheRate: 0.01875 },
+    'gemini-31-pro': { name: 'Gemini 3.1 Pro', inRate: 3.00, outRate: 9.00, cacheRate: 0.75 },
+    'qwen3-coder': { name: 'Qwen3-Coder', inRate: 0.50, outRate: 2.00, cacheRate: 0.125 }
+  };
+
+  function calculateCost() {
+    const modelKey = document.getElementById('modelSelect').value;
+    const inputTokens = parseInt(document.getElementById('inputTokens').value);
+    const outputTokens = parseInt(document.getElementById('outputTokens').value);
+    const queries = parseInt(document.getElementById('queriesPerDay').value);
+    const days = parseInt(document.getElementById('daysPerMonth').value);
+    const cacheHitPct = parseInt(document.getElementById('cacheHit').value) / 100;
+
+    // Update Label UI
+    document.getElementById('inputTokensVal').innerText = inputTokens.toLocaleString();
+    document.getElementById('outputTokensVal').innerText = outputTokens.toLocaleString();
+    document.getElementById('queriesPerDayVal').innerText = queries.toLocaleString();
+    document.getElementById('daysPerMonthVal').innerText = days;
+    document.getElementById('cacheHitVal').innerText = (cacheHitPct * 100) + '%';
+
+    const selectedModel = modelData[modelKey];
+    
+    // Total monthly tokens
+    const totalInputTokensMonthly = (inputTokens * queries * days);
+    const totalOutputTokensMonthly = (outputTokens * queries * days);
+
+    // Caching math
+    const uncachedInputTokens = totalInputTokensMonthly * (1 - cacheHitPct);
+    const cachedInputTokens = totalInputTokensMonthly * cacheHitPct;
+
+    const uncachedInputCost = (uncachedInputTokens / 1000000) * selectedModel.inRate;
+    const cachedInputCost = (cachedInputTokens / 1000000) * selectedModel.cacheRate;
+    const fullPriceInputCost = (totalInputTokensMonthly / 1000000) * selectedModel.inRate;
+    const cachedSavings = fullPriceInputCost - (uncachedInputCost + cachedInputCost);
+
+    const outputCost = (totalOutputTokensMonthly / 1000000) * selectedModel.outRate;
+    const grandTotalMonthly = uncachedInputCost + cachedInputCost + outputCost;
+    const dailyTotal = grandTotalMonthly / days;
+
+    // Update Displays
+    document.getElementById('monthlyTotalDisplay').innerText = '$' + grandTotalMonthly.toFixed(2);
+    document.getElementById('dailyTotalDisplay').innerText = '~$' + dailyTotal.toFixed(2) + ' / day';
+    document.getElementById('uncachedCostDisplay').innerText = '$' + (uncachedInputCost + cachedInputCost).toFixed(2);
+    document.getElementById('cachedSavingsDisplay').innerText = '-$' + cachedSavings.toFixed(2);
+    document.getElementById('outputCostDisplay').innerText = '$' + outputCost.toFixed(2);
+
+    // Optimization tip
+    let tip = '';
+    if (cacheHitPct < 0.3) {
+      tip = 'Increasing prompt caching hit rate to 50%+ will immediately slash your input costs.';
+    } else if (selectedModel.inRate > 5.0) {
+      tip = 'You are using a flagship reasoning model. Consider routing 70% of routine tasks to Sonnet 4.8 or DeepSeek-V3.';
+    } else {
+      tip = 'Your current selection provides an optimal balance of cost-efficiency and performance.';
+    }
+    document.getElementById('optimizationTip').innerText = tip;
+
+    // Render Matrix Table
+    let tableHTML = '';
+    Object.keys(modelData).forEach(key => {
+      const m = modelData[key];
+      const mInUncached = (totalInputTokensMonthly * (1 - cacheHitPct) / 1000000) * m.inRate;
+      const mInCached = (totalInputTokensMonthly * cacheHitHitPctRatio(cacheHitPct) / 1000000) * m.cacheRate;
+      const mOut = (totalOutputTokensMonthly / 1000000) * m.outRate;
+      const mTotal = mInUncached + mInCached + mOut;
+      
+      const diff = mTotal - grandTotalMonthly;
+      let diffStr = '';
+      if (Math.abs(diff) < 0.01) {
+        diffStr = '<span style="color:#a78bfa; font-weight:700;">Selected</span>';
+      } else if (diff < 0) {
+        diffStr = `<span style="color:#4ade80;">-$${Math.abs(diff).toFixed(2)} (${((diff/grandTotalMonthly)*100).toFixed(0)}%)</span>`;
+      } else {
+        diffStr = `<span style="color:#fb7185;">+$${diff.toFixed(2)} (+${((diff/grandTotalMonthly)*100).toFixed(0)}%)</span>`;
+      }
+
+      const isSelected = key === modelKey;
+      tableHTML += `
+        <tr style="border-top:1px solid rgba(255,255,255,0.04); ${isSelected ? 'background:rgba(124,92,252,0.15);' : ''}">
+          <td style="padding:.9rem;"><strong>${m.name}</strong></td>
+          <td style="padding:.9rem; color:#8888a0;">$${m.inRate.toFixed(2)} / $${m.outRate.toFixed(2)}</td>
+          <td style="padding:.9rem; font-weight:700; color:#fff;">$${mTotal.toFixed(2)}</td>
+          <td style="padding:.9rem;">${diffStr}</td>
+        </tr>
+      `;
+    });
+    document.getElementById('matrixTableBody').innerHTML = tableHTML;
+  }
+
+  function cacheHitHitPctRatio(pct) { return pct; }
+
+  // Initial calculation
+  calculateCost();
+  </script>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>

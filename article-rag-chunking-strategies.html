@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Advanced RAG Chunking Strategies — AST-based code splitting, parent-child retrieval, semantic chunking, and hybrid dense/sparse retrieval for developers.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/article-rag-chunking-strategies.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Advanced RAG Chunking & Hybrid Search Strategies — AI Agent Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="article-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="category-tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
+      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; RAG Strategies
+    </div>
+
+    <h1>Advanced RAG: Chunking Strategies & Hybrid Search Systems</h1>
+    <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
+      Tutorial · 10 min read · Updated July 2026
+    </div>
+
+    <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
+      Naively splitting code files by fixed character lengths (e.g. 500 tokens) ruins context boundaries. High-accuracy RAG systems require AST (Abstract Syntax Tree) code splitting, parent-child document retrieval, and hybrid dense/sparse vector search.
+    </p>
+
+    <h2>1. AST Code Splitting vs Fixed-Size Chunking</h2>
+    <p>Fixed-character chunking often slices functions in half, severing variable declarations from their return statements. Tree-sitter AST splitters parse source code into complete semantic units (classes, functions, interface definitions) before vectorization.</p>
+
+    <h2>2. Parent-Child Document Retrieval</h2>
+    <p>Store small, granular chunks (100 tokens) in the vector database for high-precision vector matching, but return the larger parent document (1000 tokens) or full module context to the LLM during generation.</p>
+
+    <h2>3. Hybrid Search: BM25 + Vector Embeddings</h2>
+    <p>Combine sparse keyword search (BM25) with dense vector embeddings (bge-m3 / text-embedding-3) using Reciprocal Rank Fusion (RRF) to retrieve both exact code symbols and semantic concepts.</p>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>

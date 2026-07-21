@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive AI Agent Benchmark Matrix — Filter and sort 12+ frontier LLMs by SWE-bench Verified score, Terminal-Bench v2, pricing, and context windows.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/tool-benchmark-compare.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Interactive AI Agent Benchmark & Model Matrix — AI Agent Hub</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Agent Benchmark Matrix",
+    "url": "https://www.waiagent.win/tool-benchmark-compare.html",
+    "description": "Interactive matrix to filter and compare AI coding agents and LLM models across coding benchmarks, token prices, and context windows.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All"
+  }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="tool-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="category-tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
+      <a href="./">Home</a> &gt; <a href="category-tools.html">Tools</a> &gt; Benchmark Matrix
+    </div>
+
+    <h1>Interactive AI Agent Benchmark & Model Matrix</h1>
+    <p style="color:#9090a0; margin-bottom: 2rem;">Filter and sort models by SWE-bench Verified coding scores, Terminal-Bench v2 interactive execution scores, token costs, and license types.</p>
+
+    <!-- Filters Bar -->
+    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem;">
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
+        
+        <!-- Search Box -->
+        <input type="text" id="searchInput" placeholder="🔍 Search model or provider..." style="padding: .6rem 1rem; border-radius: 999px; background: #0a0c16; color: #fff; border: 1px solid rgba(255,255,255,0.15); width: 260px; font-size: .88rem;" oninput="filterModels()">
+
+        <!-- Filter Pills -->
+        <div style="display: flex; flex-wrap: wrap; gap: .5rem;" id="filterPills">
+          <button class="btn-pill active" onclick="setCategoryFilter('all', this)">All Models</button>
+          <button class="btn-pill" onclick="setCategoryFilter('top-coding', this)">🏆 Top Coding (&gt;65%)</button>
+          <button class="btn-pill" onclick="setCategoryFilter('open-source', this)">🔓 Open Weights</button>
+          <button class="btn-pill" onclick="setCategoryFilter('budget', this)">💰 Budget (&lt;$5/1M)</button>
+          <button class="btn-pill" onclick="setCategoryFilter('large-context', this)">📚 1M+ Context</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Matrix Table -->
+    <div style="overflow-x: auto; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid rgba(255,255,255,0.06);">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: .9rem;">
+        <thead>
+          <tr style="background: rgba(255,255,255,0.04); color: #a0a0b0;">
+            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('name')">Model System ↕</th>
+            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('developer')">Developer ↕</th>
+            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('sweBench')">SWE-bench Verified ↕</th>
+            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('terminalBench')">Terminal-Bench v2 ↕</th>
+            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('context')">Context ↕</th>
+            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('inPrice')">Input / Output ↕</th>
+            <th style="padding: 1rem;">License</th>
+          </tr>
+        </thead>
+        <tbody id="benchmarkBody">
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <style>
+  .btn-pill {
+    padding: .45rem 1rem; border-radius: 999px; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1); color: #b0b0c0; font-size: .82rem;
+    cursor: pointer; transition: all .2s;
+  }
+  .btn-pill:hover { border-color: rgba(124,92,252,0.4); color: #fff; }
+  .btn-pill.active { background: rgba(124,92,252,0.25); border-color: #7c5cfc; color: #c4b5fd; font-weight: 600; }
+  </style>
+
+  <script>
+  const models = [
+    { name: 'Claude Code (Opus 4.8)', developer: 'Anthropic', sweBench: 72, terminalBench: 78, context: 200, inPrice: 15.00, outPrice: 75.00, open: false },
+    { name: 'OpenAI Agentic Engine (GPT-5.5)', developer: 'OpenAI', sweBench: 68, terminalBench: 74, context: 256, inPrice: 10.00, outPrice: 40.00, open: false },
+    { name: 'Sakana Fugu Orchestration', developer: 'Sakana AI', sweBench: 65, terminalBench: 71, context: 128, inPrice: 5.00, outPrice: 15.00, open: false },
+    { name: 'Claude Sonnet 4.8', developer: 'Anthropic', sweBench: 64, terminalBench: 70, context: 200, inPrice: 3.00, outPrice: 15.00, open: false },
+    { name: 'Qwen3-Coder (Agentic Setup)', developer: 'Alibaba Cloud', sweBench: 61, terminalBench: 66, context: 128, inPrice: 0.50, outPrice: 2.00, open: true },
+    { name: 'Gemini 3.1 Pro (Agentic Loop)', developer: 'Google DeepMind', sweBench: 60, terminalBench: 65, context: 2000, inPrice: 3.00, outPrice: 9.00, open: false },
+    { name: 'Cursor Composer (Sonnet 4.8)', developer: 'Anysphere', sweBench: 58, terminalBench: 63, context: 200, inPrice: 3.00, outPrice: 15.00, open: false },
+    { name: 'DeepSeek-V3 (Agentic Setup)', developer: 'DeepSeek', sweBench: 56, terminalBench: 61, context: 128, inPrice: 0.27, outPrice: 0.40, open: true },
+    { name: 'DeepSeek-R1 (CoT Agent)', developer: 'DeepSeek', sweBench: 57, terminalBench: 62, context: 128, inPrice: 0.55, outPrice: 2.20, open: true },
+    { name: 'GPT-5.5 Mini', developer: 'OpenAI', sweBench: 52, terminalBench: 58, context: 256, inPrice: 1.00, outPrice: 4.00, open: false },
+    { name: 'Gemini 3.1 Flash', developer: 'Google DeepMind', sweBench: 50, terminalBench: 55, context: 2000, inPrice: 0.075, outPrice: 0.30, open: false },
+    { name: 'Claude Haiku 4.8', developer: 'Anthropic', sweBench: 46, terminalBench: 51, context: 200, inPrice: 0.80, outPrice: 4.00, open: false }
+  ];
+
+  let currentCategory = 'all';
+  let sortKey = 'sweBench';
+  let sortAsc = false;
+
+  function renderTable() {
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    
+    let filtered = models.filter(m => {
+      const matchesSearch = m.name.toLowerCase().includes(search) || m.developer.toLowerCase().includes(search);
+      
+      if (!matchesSearch) return false;
+
+      if (currentCategory === 'top-coding') return m.sweBench >= 65;
+      if (currentCategory === 'open-source') return m.open === true;
+      if (currentCategory === 'budget') return m.inPrice <= 5.0;
+      if (currentCategory === 'large-context') return m.context >= 1000;
+      
+      return true;
+    });
+
+    filtered.sort((a, b) => {
+      let valA = a[sortKey];
+      let valB = b[sortKey];
+      if (typeof valA === 'string') {
+        return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      }
+      return sortAsc ? valA - valB : valB - valA;
+    });
+
+    let html = '';
+    filtered.forEach(m => {
+      html += `
+        <tr style="border-top: 1px solid rgba(255,255,255,0.04);">
+          <td style="padding: 1rem;"><strong>${m.name}</strong></td>
+          <td style="padding: 1rem; color:#a0a0b0;">${m.developer}</td>
+          <td style="padding: 1rem;"><span style="color:#4ade80; font-weight:700;">${m.sweBench}%</span></td>
+          <td style="padding: 1rem;"><span style="color:#22d3ee; font-weight:700;">${m.terminalBench}%</span></td>
+          <td style="padding: 1rem; color:#d0d0e0;">${m.context >= 1000 ? (m.context/1000)+'M' : m.context+'K'}</td>
+          <td style="padding: 1rem; color:#e0e0e0;">$${m.inPrice.toFixed(2)} / $${m.outPrice.toFixed(2)}</td>
+          <td style="padding: 1rem;">
+            ${m.open ? '<span class="badge badge-green">Open Weights</span>' : '<span class="badge badge-purple">Proprietary</span>'}
+          </td>
+        </tr>
+      `;
+    });
+
+    document.getElementById('benchmarkBody').innerHTML = html;
+  }
+
+  function setCategoryFilter(cat, btn) {
+    currentCategory = cat;
+    document.querySelectorAll('#filterPills button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTable();
+  }
+
+  function filterModels() {
+    renderTable();
+  }
+
+  function sortTable(key) {
+    if (sortKey === key) {
+      sortAsc = !sortAsc;
+    } else {
+      sortKey = key;
+      sortAsc = false;
+    }
+    renderTable();
+  }
+
+  // Initial Render
+  renderTable();
+  </script>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>
