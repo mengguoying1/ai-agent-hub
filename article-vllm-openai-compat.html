@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hosting OpenAI-Compatible Servers with vLLM — Learn how to configure vLLM to serve open-weights models locally via the standard OpenAI API format.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/article-vllm-openai-compat.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Hosting OpenAI-Compatible Local API Servers with vLLM — AI Agent Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="article-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="category-tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
+      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; vLLM OpenAI Server
+    </div>
+
+    <h1>Hosting OpenAI-Compatible Local API Servers with vLLM</h1>
+    <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
+      Tutorial · 9 min read · Updated July 2026
+    </div>
+
+    <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
+      One of the main advantages of vLLM is its native support for the OpenAI Chat Completions protocol. This allows developers to swap proprietary APIs with locally hosted open-weights models (like DeepSeek-V3 or Qwen3) with zero code modifications.
+    </p>
+
+    <h2>1. Launching the vLLM OpenAI Server</h2>
+    <p>Assuming you have Docker and NVIDIA Container Toolkit installed, run this single CLI command to serve a model:</p>
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:8px; overflow-x:auto;"><code>python -m vllm.entrypoints.openai.api_server \
+    --model Qwen/Qwen2.5-Coder-32B-Instruct \
+    --port 8000 \
+    --tensor-parallel-size 1
+</code></pre>
+
+    <h2>2. Connecting your Application</h2>
+    <p>Update your application's SDK client parameters to point to the local instance:</p>
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:8px; overflow-x:auto;"><code>from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:8000/v1",
+    api_key="token-not-needed-for-local"
+)
+
+response = client.chat.completions.create(
+    model="Qwen/Qwen2.5-Coder-32B-Instruct",
+    messages=[{"role": "user", "content": "Write a fast binary search."}]
+)
+</code></pre>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>
