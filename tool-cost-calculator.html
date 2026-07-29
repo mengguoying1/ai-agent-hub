@@ -53,15 +53,6 @@
         <div style="margin-bottom: 1.2rem;">
           <label style="display:block; font-size:.88rem; color:#b0b0c0; margin-bottom:.4rem;">Primary Model</label>
           <select id="modelSelect" style="width:100%; padding:.7rem; border-radius:8px; background:#0e101c; color:#fff; border:1px solid rgba(255,255,255,0.15); font-size:.9rem;" onchange="calculateCost()">
-            <option value="claude-sonnet-48">Claude Sonnet 4.8 ($3.00 / $15.00)</option>
-            <option value="claude-opus-48">Claude Opus 4.8 ($15.00 / $75.00)</option>
-            <option value="claude-haiku-48">Claude Haiku 4.8 ($0.80 / $4.00)</option>
-            <option value="gpt-55">GPT-5.5 ($10.00 / $40.00)</option>
-            <option value="gpt-55-mini">GPT-5.5 Mini ($1.00 / $4.00)</option>
-            <option value="deepseek-v3">DeepSeek-V3 ($0.27 / $0.40)</option>
-            <option value="gemini-31-flash" selected>Gemini 3.1 Flash ($0.075 / $0.30)</option>
-            <option value="gemini-31-pro">Gemini 3.1 Pro ($3.00 / $9.00)</option>
-            <option value="qwen3-coder">Qwen3-Coder ($0.50 / $2.00)</option>
           </select>
         </div>
 
@@ -130,7 +121,7 @@
         </div>
 
         <div style="background: rgba(124,92,252,0.15); border: 1px solid rgba(124,92,252,0.3); border-radius: 10px; padding: 1rem; font-size: .85rem; color: #d8cfff;">
-          <strong>💡 Optimization Insight:</strong> <span id="optimizationTip">Gemini 3.1 Flash provides 2M token context at the lowest industry price point.</span>
+          <strong>💡 Optimization Insight:</strong> <span id="optimizationTip">Gemini 3.6 Flash provides 2M token context at the lowest industry price point.</span>
         </div>
       </div>
     </div>
@@ -153,18 +144,26 @@
     </div>
   </main>
 
+  <script src="js/model-data.js"></script>
   <script>
-  const modelData = {
-    'claude-sonnet-48': { name: 'Claude Sonnet 4.8', inRate: 3.00, outRate: 15.00, cacheRate: 0.30 },
-    'claude-opus-48': { name: 'Claude Opus 4.8', inRate: 15.00, outRate: 75.00, cacheRate: 1.50 },
-    'claude-haiku-48': { name: 'Claude Haiku 4.8', inRate: 0.80, outRate: 4.00, cacheRate: 0.08 },
-    'gpt-55': { name: 'GPT-5.5', inRate: 10.00, outRate: 40.00, cacheRate: 5.00 },
-    'gpt-55-mini': { name: 'GPT-5.5 Mini', inRate: 1.00, outRate: 4.00, cacheRate: 0.50 },
-    'deepseek-v3': { name: 'DeepSeek-V3', inRate: 0.27, outRate: 0.40, cacheRate: 0.07 },
-    'gemini-31-flash': { name: 'Gemini 3.1 Flash', inRate: 0.075, outRate: 0.30, cacheRate: 0.01875 },
-    'gemini-31-pro': { name: 'Gemini 3.1 Pro', inRate: 3.00, outRate: 9.00, cacheRate: 0.75 },
-    'qwen3-coder': { name: 'Qwen3-Coder', inRate: 0.50, outRate: 2.00, cacheRate: 0.125 }
-  };
+  // Model pricing comes from the shared data layer (js/model-data.js).
+  // Only models with input/output/cacheRead prices are usable here.
+  const modelData = {};
+  AAH_DATA.utils.priced().forEach(m => {
+    modelData[m.id] = { name: m.name, inRate: m.inputPrice, outRate: m.outputPrice, cacheRate: m.cacheReadPrice };
+  });
+
+  // Build the <select> options from shared data (default: Gemini 3.6 Flash)
+  (function populateModelSelect() {
+    const sel = document.getElementById('modelSelect');
+    let html = '';
+    Object.keys(modelData).forEach(key => {
+      const m = modelData[key];
+      const selected = key === 'gemini-36-flash' ? ' selected' : '';
+      html += `<option value="${key}"${selected}>${m.name} (${AAH_DATA.utils.fmtPrice(m.inRate)} / ${AAH_DATA.utils.fmtPrice(m.outRate)})</option>`;
+    });
+    sel.innerHTML = html;
+  })();
 
   function calculateCost() {
     const modelKey = document.getElementById('modelSelect').value;
@@ -181,7 +180,7 @@
     document.getElementById('daysPerMonthVal').innerText = days;
     document.getElementById('cacheHitVal').innerText = (cacheHitPct * 100) + '%';
 
-    const selectedModel = modelData[modelKey];
+    const selectedModel = modelData[modelKey] || modelData[Object.keys(modelData)[0]];
     
     // Total monthly tokens
     const totalInputTokensMonthly = (inputTokens * queries * days);
@@ -223,7 +222,7 @@
     Object.keys(modelData).forEach(key => {
       const m = modelData[key];
       const mInUncached = (totalInputTokensMonthly * (1 - cacheHitPct) / 1000000) * m.inRate;
-      const mInCached = (totalInputTokensMonthly * cacheHitHitPctRatio(cacheHitPct) / 1000000) * m.cacheRate;
+      const mInCached = (totalInputTokensMonthly * cacheHitPct / 1000000) * m.cacheRate;
       const mOut = (totalOutputTokensMonthly / 1000000) * m.outRate;
       const mTotal = mInUncached + mInCached + mOut;
       
@@ -249,8 +248,6 @@
     });
     document.getElementById('matrixTableBody').innerHTML = tableHTML;
   }
-
-  function cacheHitHitPctRatio(pct) { return pct; }
 
   // Initial calculation
   calculateCost();

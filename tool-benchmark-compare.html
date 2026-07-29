@@ -94,21 +94,10 @@
   .btn-pill.active { background: rgba(124,92,252,0.25); border-color: #7c5cfc; color: #c4b5fd; font-weight: 600; }
   </style>
 
+  <script src="js/model-data.js"></script>
   <script>
-  const models = [
-    { name: 'Claude Code (Opus 4.8)', developer: 'Anthropic', sweBench: 72, terminalBench: 78, context: 200, inPrice: 15.00, outPrice: 75.00, open: false },
-    { name: 'OpenAI Agentic Engine (GPT-5.5)', developer: 'OpenAI', sweBench: 68, terminalBench: 74, context: 256, inPrice: 10.00, outPrice: 40.00, open: false },
-    { name: 'Sakana Fugu Orchestration', developer: 'Sakana AI', sweBench: 65, terminalBench: 71, context: 128, inPrice: 5.00, outPrice: 15.00, open: false },
-    { name: 'Claude Sonnet 4.8', developer: 'Anthropic', sweBench: 64, terminalBench: 70, context: 200, inPrice: 3.00, outPrice: 15.00, open: false },
-    { name: 'Qwen3-Coder (Agentic Setup)', developer: 'Alibaba Cloud', sweBench: 61, terminalBench: 66, context: 128, inPrice: 0.50, outPrice: 2.00, open: true },
-    { name: 'Gemini 3.1 Pro (Agentic Loop)', developer: 'Google DeepMind', sweBench: 60, terminalBench: 65, context: 2000, inPrice: 3.00, outPrice: 9.00, open: false },
-    { name: 'Cursor Composer (Sonnet 4.8)', developer: 'Anysphere', sweBench: 58, terminalBench: 63, context: 200, inPrice: 3.00, outPrice: 15.00, open: false },
-    { name: 'DeepSeek-V3 (Agentic Setup)', developer: 'DeepSeek', sweBench: 56, terminalBench: 61, context: 128, inPrice: 0.27, outPrice: 0.40, open: true },
-    { name: 'DeepSeek-R1 (CoT Agent)', developer: 'DeepSeek', sweBench: 57, terminalBench: 62, context: 128, inPrice: 0.55, outPrice: 2.20, open: true },
-    { name: 'GPT-5.5 Mini', developer: 'OpenAI', sweBench: 52, terminalBench: 58, context: 256, inPrice: 1.00, outPrice: 4.00, open: false },
-    { name: 'Gemini 3.1 Flash', developer: 'Google DeepMind', sweBench: 50, terminalBench: 55, context: 2000, inPrice: 0.075, outPrice: 0.30, open: false },
-    { name: 'Claude Haiku 4.8', developer: 'Anthropic', sweBench: 46, terminalBench: 51, context: 200, inPrice: 0.80, outPrice: 4.00, open: false }
-  ];
+  // Agent-system benchmark scores come from the shared data layer (js/model-data.js).
+  const models = AAH_DATA.agentBenchmarks;
 
   let currentCategory = 'all';
   let sortKey = 'sweBench';
