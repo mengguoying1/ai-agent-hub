@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive AI Agent Builder Lab — Configure, design, and generate runnable Python and TypeScript code for building custom AI agents step-by-step.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.waiagent.win/tool-agent-builder-lab.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Interactive AI Agent Builder Lab & Code Generator — AI Agent Hub</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Agent Builder Lab",
+    "url": "https://www.waiagent.win/tool-agent-builder-lab.html",
+    "description": "Visual studio for configuring AI agent architectures and generating production-ready Python and TypeScript boilerplate.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All"
+  }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="tool-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
+      <ul class="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="guide.html">Guides</a></li>
+        <li><a href="category-tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 1050px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
+      <a href="./">Home</a> &gt; <a href="category-tools.html">Tools</a> &gt; Agent Builder Lab
+    </div>
+
+    <h1>Interactive AI Agent Builder Lab</h1>
+    <p style="color:#9090a0; margin-bottom: 2rem;">Design your custom AI agent architecture step-by-step. Configure the reasoning brain, memory store, tool definitions, and framework pattern to generate production-ready Python or TypeScript boilerplate.</p>
+
+    <!-- Lab Layout Grid -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; align-items: start;">
+      
+      <!-- Left Column: Controls & Configuration -->
+      <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        
+        <!-- Step 1: Model Brain -->
+        <div class="card" style="padding:1.5rem;">
+          <h3 style="color:#c4b5fd; margin-bottom:1rem; font-size:1.05rem;">1. Select Model Brain (Reasoning Layer)</h3>
+          <select id="selModel" class="builder-select" onchange="generateAgent()">
+            <option value="claude">Claude Opus 5 (Anthropic) — Deepest Reasoning</option>
+            <option value="gpt">GPT-5.6 Sol (OpenAI) — High-Speed Agentic</option>
+            <option value="deepseek" selected>DeepSeek-V3 / R1 — Open Weights & Low Cost</option>
+            <option value="gemini">Gemini 3.6 Flash (Google) — Multimodal & Fast</option>
+          </select>
+        </div>
+
+        <!-- Step 2: Agent Architecture Pattern -->
+        <div class="card" style="padding:1.5rem;">
+          <h3 style="color:#c4b5fd; margin-bottom:1rem; font-size:1.05rem;">2. Agent Architecture Pattern</h3>
+          <select id="selPattern" class="builder-select" onchange="generateAgent()">
+            <option value="react" selected>ReAct Loop (Thought → Action → Observation)</option>
+            <option value="langgraph">LangGraph Cyclic State Machine (State → Nodes → Edges)</option>
+            <option value="plan_execute">Plan-and-Solve (Planner → Worker Agents)</option>
+          </select>
+        </div>
+
+        <!-- Step 3: Memory Storage -->
+        <div class="card" style="padding:1.5rem;">
+          <h3 style="color:#c4b5fd; margin-bottom:1rem; font-size:1.05rem;">3. Memory & State Management</h3>
+          <select id="selMemory" class="builder-select" onchange="generateAgent()">
+            <option value="buffer" selected>In-Memory Conversation Buffer (Short-term)</option>
+            <option value="rag">Vector Database RAG (ChromaDB / Pinecone)</option>
+            <option value="memgpt">Epistemic Knowledge Graph (MemGPT)</option>
+          </select>
+        </div>
+
+        <!-- Step 4: Tools & Capabilities -->
+        <div class="card" style="padding:1.5rem;">
+          <h3 style="color:#c4b5fd; margin-bottom:1rem; font-size:1.05rem;">4. Enable Tools & Protocols</h3>
+          <div style="display:flex; flex-direction:column; gap:.6rem;">
+            <label class="chk-label"><input type="checkbox" id="chkSearch" checked onchange="generateAgent()"> 🌐 Web Search Tool (DuckDuckGo / Tavily)</label>
+            <label class="chk-label"><input type="checkbox" id="chkFile" checked onchange="generateAgent()"> 📁 File System I/O (Read / Write Code)</label>
+            <label class="chk-label"><input type="checkbox" id="chkExec" onchange="generateAgent()"> ⚡ Code Execution Sandbox (Docker / Python Exec)</label>
+            <label class="chk-label"><input type="checkbox" id="chkMCP" checked onchange="generateAgent()"> 🔌 Model Context Protocol (MCP) Server</label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Live Code Generator & Preview -->
+      <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        
+        <!-- Generated Code Card -->
+        <div class="card" style="padding:1.5rem; background:rgba(4,5,12,0.85); border:1px solid rgba(124,92,252,0.3);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <div style="display:flex; gap:.8rem;">
+              <button id="btnPy" class="tab-btn active" onclick="switchLang('python')">Python 🐍</button>
+              <button id="btnTs" class="tab-btn" onclick="switchLang('typescript')">TypeScript 📘</button>
+            </div>
+            <button class="btn btn-primary" style="padding:.3rem 1rem; font-size:.8rem;" onclick="copyCode()">Copy Code 📋</button>
+          </div>
+
+          <pre style="background:rgba(0,0,0,0.5); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.84rem; max-height:460px; color:#e2e8f0; border:1px solid rgba(255,255,255,0.05);"><code id="codeBlock"># Loading code...</code></pre>
+        </div>
+
+        <!-- Architecture Summary Card -->
+        <div class="card" style="padding:1.2rem; background:rgba(124,92,252,0.06); border-left:4px solid #7c5cfc;">
+          <h4 style="color:#fff; margin-bottom:.5rem;">Architecture Specs Summary</h4>
+          <p style="font-size:.88rem; color:#b0b0c0; line-height:1.6;" id="specSummary">Generating specs...</p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <style>
+  .builder-select {
+    width: 100%; padding: .7rem 1rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; color: #fff; font-family: var(--font-body); font-size: .9rem; cursor: pointer;
+  }
+  .builder-select:focus { border-color: #7c5cfc; outline: none; }
+  .chk-label { font-size: .88rem; color: #cbd5e1; cursor: pointer; display: flex; align-items: center; gap: .6rem; }
+  .tab-btn {
+    background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #888;
+    padding: .3rem .9rem; border-radius: 6px; font-size: .8rem; cursor: pointer; transition: all .2s;
+  }
+  .tab-btn.active { background: #7c5cfc; color: #fff; border-color: #7c5cfc; }
+  </style>
+
+  <script>
+  let currentLang = 'python';
+
+  function switchLang(lang) {
+    currentLang = lang;
+    document.getElementById('btnPy').classList.toggle('active', lang === 'python');
+    document.getElementById('btnTs').classList.toggle('active', lang === 'typescript');
+    generateAgent();
+  }
+
+  function generateAgent() {
+    const model = document.getElementById('selModel').value;
+    const pattern = document.getElementById('selPattern').value;
+    const memory = document.getElementById('selMemory').value;
+    const search = document.getElementById('chkSearch').checked;
+    const file = document.getElementById('chkFile').checked;
+    const exec = document.getElementById('chkExec').checked;
+    const mcp = document.getElementById('chkMCP').checked;
+
+    let code = '';
+    let modelName = '';
+    let apiEndpoint = '';
+
+    if (model === 'claude') { modelName = 'claude-opus-5'; apiEndpoint = 'Anthropic(api_key=...)'; }
+    else if (model === 'gpt') { modelName = 'gpt-5.6-sol'; apiEndpoint = 'OpenAI(api_key=...)'; }
+    else if (model === 'deepseek') { modelName = 'deepseek-v3'; apiEndpoint = 'OpenAI(base_url="https://api.deepseek.com")'; }
+    else { modelName = 'gemini-3.6-flash'; apiEndpoint = 'GoogleGenAI(api_key=...)'; }
+
+    if (currentLang === 'python') {
+      code = `# Autonomous AI Agent Boilerplate (Python)\n`;
+      code += `# Created via AI Agent Hub Builder Lab\n\n`;
+      code += `import os\nfrom typing import List, Dict, Any\n`;
+      if (pattern === 'langgraph') {
+        code += `from langgraph.graph import StateGraph, END\n`;
+      }
+      code += `\n# 1. Initialize Core Reasoning Brain\n`;
+      code += `MODEL_NAME = "${modelName}"\n`;
+      code += `client = ${apiEndpoint}\n\n`;
+
+      code += `# 2. Define Agent Tools\n`;
+      code += `tools = []\n`;
+      if (search) code += `def web_search(query: str):\n    """Search duckduckgo/tavily for real-time web info."""\n    return f"Search results for: {query}"\ntools.append(web_search)\n\n`;
+      if (file) code += `def read_write_file(path: str, action: str, content: str = ""):\n    """Read or write local repository files."""\n    return f"File action {action} on {path}"\ntools.append(read_write_file)\n\n`;
+      if (mcp) code += `# MCP Server Client Protocol enabled for database & REST integration\n\n`;
+
+      code += `# 3. Agent Execution Loop (${pattern.toUpperCase()})\n`;
+      code += `class AIAgent:\n`;
+      code += `    def __init__(self):\n`;
+      code += `        self.history = []\n`;
+      if (memory === 'rag') code += `        self.vector_store = "ChromaDB/Pinecone Setup"\n`;
+      code += `\n    def run(self, user_prompt: str) -> str:\n`;
+      code += `        print(f"Executing agent task: {user_prompt}")\n`;
+      code += `        # Reasoning Loop: Thought -> Action -> Observation\n`;
+      code += `        response = client.chat.completions.create(\n`;
+      code += `            model=MODEL_NAME,\n`;
+      code += `            messages=[{"role": "user", "content": user_prompt}]\n`;
+      code += `        )\n`;
+      code += `        return response.choices[0].message.content\n\n`;
+      code += `if __name__ == "__main__":\n`;
+      code += `    agent = AIAgent()\n`;
+      code += `    res = agent.run("Analyze project codebase and write unit tests.")\n`;
+      code += `    print(res)\n`;
+
+    } else {
+      // TypeScript
+      code = `// Autonomous AI Agent Boilerplate (TypeScript / Node.js)\n`;
+      code += `import { OpenAI } from "openai";\n\n`;
+      code += `const MODEL_NAME = "${modelName}";\n`;
+      code += `const client = new OpenAI({ apiKey: process.env.API_KEY });\n\n`;
+      code += `interface AgentState {\n  history: Array<{ role: string; content: string }>;\n}\n\n`;
+      code += `async function runAgentTask(prompt: string): Promise<string> {\n`;
+      code += `  console.log(\`Running agent task: \${prompt}\`);\n`;
+      code += `  const response = await client.chat.completions.create({\n`;
+      code += `    model: MODEL_NAME,\n`;
+      code += `    messages: [{ role: "user", content: prompt }]\n`;
+      code += `  });\n`;
+      code += `  return response.choices[0].message.content || "";\n`;
+      code += `}\n\n`;
+      code += `runAgentTask("Refactor code modules and execute tests.");\n`;
+    }
+
+    document.getElementById('codeBlock').innerText = code;
+
+    // Spec Summary
+    let toolsText = [];
+    if (search) toolsText.push("Web Search");
+    if (file) toolsText.push("File I/O");
+    if (exec) toolsText.push("Docker Execution");
+    if (mcp) toolsText.push("MCP Server");
+
+    document.getElementById('specSummary').innerHTML = `
+      <strong>Selected Brain:</strong> ${modelName}<br>
+      <strong>Architecture:</strong> ${pattern}<br>
+      <strong>Memory Strategy:</strong> ${memory}<br>
+      <strong>Enabled Tools:</strong> ${toolsText.join(', ') || 'None'}
+    `;
+  }
+
+  function copyCode() {
+    const text = document.getElementById('codeBlock').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Agent boilerplate code copied to clipboard!");
+    });
+  }
+
+  // Initialize
+  generateAgent();
+  </script>
+
+  <footer class="footer">
+    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
+    <div class="policy-links">
+      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>
