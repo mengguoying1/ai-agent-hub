@@ -102,6 +102,135 @@
   </div>
 </section>
 
+<!-- ===== INTERACTIVE AGENT SIMULATOR ===== -->
+<section class="section" id="simulator" style="background: rgba(124,92,252,0.02); border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04);">
+  <div class="section-inner">
+    <div class="section-label">Interactive Playground</div>
+    <h2 class="section-title">⚡ Live Agent Task Simulator</h2>
+    <p class="section-desc">Experience how autonomous AI agents execute tasks in real time — combining thought loops, tool invocations, and test verifications.</p>
+
+    <div class="sim-container">
+      <div class="sim-grid">
+        
+        <!-- Controls Column -->
+        <div style="display:flex; flex-direction:column; gap:1.2rem;">
+          <div>
+            <label style="display:block; font-size:.85rem; font-weight:700; color:#c4b5fd; margin-bottom:.5rem;">Select Agent Prompt Task:</label>
+            <div style="display:flex; flex-direction:column; gap:.5rem;" id="simPresetContainer">
+              <button class="sim-preset-btn active" onclick="selectSimTask(0)">🔒 Refactor Auth Middleware to JWT</button>
+              <button class="sim-preset-btn" onclick="selectSimTask(1)">🧪 Generate PyTest Unit Test Suite</button>
+              <button class="sim-preset-btn" onclick="selectSimTask(2)">⚡ Optimize Database Query & Index</button>
+            </div>
+          </div>
+
+          <div>
+            <label style="display:block; font-size:.85rem; font-weight:700; color:#c4b5fd; margin-bottom:.5rem;">Agent Model Brain:</label>
+            <select id="simModelSel" class="builder-select" style="width:100%;">
+              <option value="Claude Opus 5">Claude Opus 5 (Anthropic)</option>
+              <option value="GPT-5.6 Sol">GPT-5.6 Sol (OpenAI)</option>
+              <option value="DeepSeek-V3" selected>DeepSeek-V3 (Open Weights)</option>
+              <option value="Gemini 3.6 Flash">Gemini 3.6 Flash (Google)</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary" style="padding:.75rem 1.5rem; justify-content:center; background:linear-gradient(135deg,#7c5cfc,#06b6d4);" onclick="runAgentSimulation()" id="simRunBtn">▶️ Run Agent Simulation</button>
+        </div>
+
+        <!-- Terminal Output Column -->
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.6rem;">
+            <span style="font-size:.82rem; font-family:monospace; color:#94a3b8;">Terminal Output [Agent Sandbox]</span>
+            <span style="font-size:.78rem; color:#4ade80;" id="simStatus">Ready</span>
+          </div>
+          <div class="sim-terminal" id="simTerminal">
+            <div class="sim-log-line" style="color:#64748b;">// Click "Run Agent Simulation" to start interactive step-by-step execution.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+let currentSimTaskIdx = 0;
+const simTasks = [
+  {
+    title: "Refactor Auth Middleware to JWT",
+    steps: [
+      { type: "think", text: "🧠 Thinking... Analyzing codebase architecture and scanning auth/middleware.py" },
+      { type: "tool", text: "🔍 Invoking Tool: file_read('auth/middleware.py')" },
+      { type: "exec", text: "⚡ Action: Replacing session cookies with JWT token validation logic" },
+      { type: "tool", text: "🧪 Invoking Tool: exec_test('pytest tests/test_auth.py')" },
+      { type: "pass", text: "✅ Test Passed: 5/5 assertions succeeded in 12ms!" }
+    ]
+  },
+  {
+    title: "Generate PyTest Unit Test Suite",
+    steps: [
+      { type: "think", text: "🧠 Thinking... Parsing function signatures in services/payment.py" },
+      { type: "tool", text: "🔍 Invoking Tool: inspect_ast('services/payment.py')" },
+      { type: "exec", text: "⚡ Action: Generating mock payments and edge-case unit tests" },
+      { type: "tool", text: "🧪 Invoking Tool: exec_test('pytest tests/test_payment.py')" },
+      { type: "pass", text: "✅ Coverage Goal Reached: 98% line coverage achieved!" }
+    ]
+  },
+  {
+    title: "Optimize Database Query & Index",
+    steps: [
+      { type: "think", text: "🧠 Thinking... Analyzing slow query log for user_orders table" },
+      { type: "tool", text: "🔍 Invoking Tool: db_explain('SELECT * FROM user_orders WHERE created_at > ...')" },
+      { type: "exec", text: "⚡ Action: Creating compound index idx_orders_user_created" },
+      { type: "pass", text: "✅ Speedup Verified: Query execution latency dropped from 420ms to 4ms!" }
+    ]
+  }
+];
+
+function selectSimTask(idx) {
+  currentSimTaskIdx = idx;
+  const btns = document.querySelectorAll('#simPresetContainer .sim-preset-btn');
+  btns.forEach((b, i) => b.classList.toggle('active', i === idx));
+}
+
+function runAgentSimulation() {
+  const terminal = document.getElementById('simTerminal');
+  const btn = document.getElementById('simRunBtn');
+  const status = document.getElementById('simStatus');
+  const model = document.getElementById('simModelSel').value;
+
+  btn.disabled = true;
+  status.innerText = 'Running...';
+  status.style.color = '#fbbf24';
+  terminal.innerHTML = `<div class="sim-log-line" style="color:#22d3ee;">🚀 Agent Session Started [Model: ${model}]</div>`;
+
+  const task = simTasks[currentSimTaskIdx];
+  let delay = 300;
+
+  task.steps.forEach((step, i) => {
+    setTimeout(() => {
+      let lineClass = 'sim-log-think';
+      if (step.type === 'tool') lineClass = 'sim-log-tool';
+      if (step.type === 'exec') lineClass = 'sim-log-exec';
+      if (step.type === 'pass') lineClass = 'sim-log-pass';
+
+      const timestamp = new Date().toLocaleTimeString();
+      const div = document.createElement('div');
+      div.className = 'sim-log-line ' + lineClass;
+      div.innerHTML = `<span class="sim-log-time">[${timestamp}]</span>${step.text}`;
+      terminal.appendChild(div);
+      terminal.scrollTop = terminal.scrollHeight;
+
+      if (i === task.steps.length - 1) {
+        btn.disabled = false;
+        status.innerText = 'Completed';
+        status.style.color = '#4ade80';
+      }
+    }, delay);
+    delay += 600;
+  });
+}
+</script>
+
 <!-- ===== MODEL COMPARISON ===== -->
 <section class="section" id="models" style="background:rgba(255,255,255,.01);">
   <div class="section-inner">
