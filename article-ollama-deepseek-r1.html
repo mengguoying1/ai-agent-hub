@@ -4,12 +4,16 @@
   <meta charset="UTF-8" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Running DeepSeek-R1 Locally — Quantization levels, VRAM requirements, and Ollama setup guide for 14B, 32B, 70B, and 671B models.">
+  <meta name="description" content="Local DeepSeek-R1 & V3 Deployment with Ollama — Step-by-step guide for running quantized DeepSeek reasoning models on local GPUs and Apple Silicon MacBooks.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Local DeepSeek-R1 & V3 Deployment with Ollama">
+  <meta property="og:description" content="Step-by-step guide for running quantized DeepSeek reasoning models on local GPUs and Apple Silicon.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.waiagent.win/article-ollama-deepseek-r1.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Running DeepSeek-R1 Locally: VRAM Math & Ollama Setup — AI Agent Hub</title>
+  <title>Local DeepSeek-R1 Deployment with Ollama — AI Agent Hub</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="article-page">
@@ -26,39 +30,86 @@
     </div>
   </nav>
 
-  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+  <main style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
-      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Local DeepSeek-R1 Setup
+      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Ollama DeepSeek-R1
     </div>
 
-    <h1>Running DeepSeek-R1 Locally: Quantization & VRAM Math Guide</h1>
+    <h1>Local DeepSeek-R1 & V3 Deployment with Ollama</h1>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 9 min read · Updated July 2026
+      Tutorial · 12 min read · Updated July 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      DeepSeek-R1 has revolutionized open-weights reasoning. This hands-on guide details hardware VRAM formulas, GGUF quantization tradeoffs (Q4_K_M vs Q8_0), and one-command local deployments with Ollama.
+      DeepSeek-R1 and V3 have redefined open-weights AI reasoning performance. Running DeepSeek models locally gives developers complete privacy, zero API rate limits, and zero recurring token costs. This guide covers local deployment using <strong>Ollama</strong> across NVIDIA GPUs and Apple Silicon MacBooks.
     </p>
 
-    <h2>1. VRAM Requirements & Hardware Formula</h2>
-    <p>Calculate required VRAM using the standard formula:</p>
-    <div class="card" style="background:rgba(0,0,0,0.3); border-left:3px solid #7c5cfc; padding:1rem; margin:1rem 0;">
-      <code>Required VRAM (GB) = (Params in Billions * Bits per Weight / 8) * 1.20 (KV-Cache Overhead)</code>
+    <h2>1. Selecting the Right DeepSeek-R1 Model Distill Flag</h2>
+    <p>Depending on your hardware VRAM capacity, select the appropriate parameter quantization size:</p>
+
+    <div style="overflow-x:auto; margin:1.5rem 0;">
+      <table style="width:100%; border-collapse:collapse; text-align:left; font-size:.9rem;">
+        <thead>
+          <tr style="background:rgba(124,92,252,0.15); color:#fff;">
+            <th style="padding:.8rem;">Model Variant</th>
+            <th style="padding:.8rem;">Minimum VRAM</th>
+            <th style="padding:.8rem;">Recommended Hardware</th>
+            <th style="padding:.8rem;">Use Case</th>
+          </tr>
+        </thead>
+        <tbody style="color:#d0d0e0;">
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">deepseek-r1:7b</td>
+            <td style="padding:.8rem;">6 GB VRAM</td>
+            <td style="padding:.8rem;">RTX 3060 / M1 Mac (8GB)</td>
+            <td style="padding:.8rem;">Lightweight coding & autocomplete</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">deepseek-r1:14b</td>
+            <td style="padding:.8rem;">12 GB VRAM</td>
+            <td style="padding:.8rem;">RTX 4070 / M2 Mac (16GB)</td>
+            <td style="padding:.8rem;">Daily code refactoring & logic reasoning</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">deepseek-r1:32b</td>
+            <td style="padding:.8rem;">24 GB VRAM</td>
+            <td style="padding:.8rem;">RTX 4090 / M3 Max (36GB)</td>
+            <td style="padding:.8rem;">Complex multi-file architectural reasoning</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">deepseek-r1:70b</td>
+            <td style="padding:.8rem;">48 GB VRAM</td>
+            <td style="padding:.8rem;">2x RTX 3090 / M2 Ultra (64GB)</td>
+            <td style="padding:.8rem;">Near-Claude Opus reasoning performance</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <ul>
-      <li><strong>DeepSeek-R1 14B (Q4_K_M):</strong> ~9 GB VRAM (Runs on RTX 4070 / 3080).</li>
-      <li><strong>DeepSeek-R1 32B (Q4_K_M):</strong> ~20 GB VRAM (Runs on RTX 4090 / 3090).</li>
-      <li><strong>DeepSeek-R1 70B (Q4_K_M):</strong> ~43 GB VRAM (Requires 2x RTX 3090 or Mac Studio M3 Max 64GB).</li>
-    </ul>
+    <h2>2. Installation & One-Command CLI Run</h2>
+    <p>Install Ollama and pull the target DeepSeek-R1 model quantized build:</p>
 
-    <h2>2. Quickstart Ollama Commands</h2>
-    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:8px; overflow-x:auto;"><code># Run 14B distilled reasoning model
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#e2e8f0;"><code># Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Run 14B DeepSeek reasoning model
 ollama run deepseek-r1:14b
 
-# Run 32B model for software engineering tasks
-ollama run deepseek-r1:32b
+# Verify REST API endpoint
+curl http://localhost:11434/api/generate -d '{
+  "model": "deepseek-r1:14b",
+  "prompt": "Write a Python script for asynchronous web scraping."
+}'
 </code></pre>
+
+    <h2>3. Connecting to VS Code & Cursor IDE</h2>
+    <p>Set Ollama's base URL in VS Code extensions (like Continue.dev or OpenCode) to <code>http://localhost:11434/v1</code> for full local inline autocomplete and agent chat.</p>
+
+    <h2>4. Related Hosting & Benchmark Guides</h2>
+    <ul>
+      <li><a href="article-vllm-vs-ollama.html">⚖️ vLLM vs Ollama High-Throughput Engine Benchmarks</a></li>
+      <li><a href="tool-cost-calculator.html">🧮 API Cost & Token Calculator</a></li>
+    </ul>
   </main>
 
   <footer class="footer">

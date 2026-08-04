@@ -4,12 +4,16 @@
   <meta charset="UTF-8" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Agentic Testing — Learn how to leverage autonomous AI agents to dynamically generate, run, and self-correct unit tests inside sandboxed containers.">
+  <meta name="description" content="Agentic Testing & Self-Correcting Verification Loops — How autonomous AI coding agents dynamically write, execute, and self-correct unit tests.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Agentic Testing & Self-Correcting Verification Loops">
+  <meta property="og:description" content="How autonomous AI coding agents dynamically write, execute, and self-correct unit tests.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.waiagent.win/article-agentic-testing.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Agentic Testing: Dynamic Test Generation & Code Verification — AI Agent Hub</title>
+  <title>Agentic Testing & Verification Loops — AI Agent Hub</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="article-page">
@@ -26,31 +30,72 @@
     </div>
   </nav>
 
-  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+  <main style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Agentic Testing
     </div>
 
-    <h1>Agentic Testing: Dynamic Test Generation & Code Verification</h1>
+    <h1>Agentic Testing & Self-Correcting Verification Loops</h1>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 9 min read · Updated July 2026
+      Tutorial · 12 min read · Updated July 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Writing comprehensive unit tests is one of the most repetitive parts of software development. Agentic Testing shifts this work to autonomous loops that write code, execute test suites, analyze failures, and refine implementations until they achieve 100% test coverage.
+      Generating code without runtime verification is dangerous. <strong>Agentic Testing</strong> embeds test runners (like PyTest or Jest) directly into the agent's reasoning loop. If a generated patch fails an assertion, the agent captures the stack trace, diagnoses the root cause, and iteratively self-corrects until 100% of tests pass.
     </p>
 
-    <h2>1. The Agentic Testing Loop</h2>
-    <p>Rather than simply generating test strings, an agentic testing pipeline executes in a continuous loop:</p>
-    <ul>
-      <li><strong>Code Ingestion:</strong> The agent parses the target source code.</li>
-      <li><strong>Test Generation:</strong> The agent writes dynamic test scripts (using pytest, mocha, or jest).</li>
-      <li><strong>Sandboxed Execution:</strong> The tests are run inside isolated Docker containers.</li>
-      <li><strong>Feedback & Self-Correction:</strong> If tests fail due to compilation errors or failing assertions, the stack trace is fed back into the agent to refactor the code automatically.</li>
-    </ul>
+    <h2>1. The Self-Correcting Verification Cycle</h2>
+    <div class="card" style="background:rgba(0,0,0,0.4); border-left:4px solid #7c5cfc; padding:1.2rem; margin:1.5rem 0;">
+      <h4 style="color:#c4b5fd; margin-bottom:.5rem;">Verification Loop Architecture:</h4>
+      <pre style="color:#cbd5e1; font-family:monospace; font-size:.85rem; line-height:1.6; margin:0;">
+1. Generate Initial Code Modification (Patch A)
+       │
+       ▼
+2. Execute Test Tool: `exec_command("pytest tests/test_module.py")`
+       │
+       ├── [PASS] ──► Push Commit & Finish
+       └── [FAIL] ──► Parse Error Traceback
+                           │
+                           ▼
+                  3. Reason Root Cause (Thought: "KeyError at line 42")
+                           │
+                           ▼
+                  4. Apply Patch B ──► Re-run Test Runner
+      </pre>
+    </div>
 
-    <h2>2. Key Frameworks: CoverAgent & Codium</h2>
-    <p>Open-source tools like <strong>CoverAgent</strong> integrate directly into your CLI, using local or cloud LLMs to achieve targeted code-coverage thresholds before commits are allowed.</p>
+    <h2>2. Python Self-Correcting Agent Script Example</h2>
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#4ade80;"><code>import subprocess
+from openai import OpenAI
+
+client = OpenAI()
+
+def run_pytest():
+    res = subprocess.run(["pytest", "tests/test_calculator.py"], capture_output=True, text=True)
+    return res.returncode == 0, res.stdout + res.stderr
+
+def self_healing_loop(prompt):
+    max_attempts = 3
+    for attempt in range(max_attempts):
+        success, logs = run_pytest()
+        if success:
+            print("✅ All unit tests passed!")
+            return True
+        
+        print(f"❌ Attempt {attempt+1} failed. Feeding logs back to agent...")
+        # Send stack trace to model for self-correction patch
+        patch = client.chat.completions.create(
+            model="deepseek-v3",
+            messages=[{"role": "user", "content": f"Fix code causing this failure:\n{logs}"}]
+        )
+    return False
+</code></pre>
+
+    <h2>3. Related Builder Tools & Tutorials</h2>
+    <ul>
+      <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
+      <li><a href="article-github-actions-agents.html">🤖 Integrating AI Agents into GitHub Actions CI/CD</a></li>
+    </ul>
   </main>
 
   <footer class="footer">

@@ -4,12 +4,16 @@
   <meta charset="UTF-8" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Building Long-Term Memory for AI Agents — Exploring short-term working memory, vector databases, epistemic knowledge graphs, and MemGPT architectures.">
+  <meta name="description" content="AI Agent Long-Term Memory Architecture & MemGPT Systems — Comprehensive guide on short-term sliding windows, vector RAG, and epistemic knowledge graphs for agents.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="robots" content="index, follow">
+  <meta property="og:title" content="AI Agent Long-Term Memory Architecture & MemGPT Systems">
+  <meta property="og:description" content="Comprehensive guide on sliding windows, vector RAG, and epistemic knowledge graphs for agents.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.waiagent.win/article-agent-memory.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Building Long-Term Memory for AI Agents — AI Agent Hub</title>
+  <title>AI Agent Long-Term Memory Architecture & MemGPT — AI Agent Hub</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="article-page">
@@ -26,30 +30,73 @@
     </div>
   </nav>
 
-  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+  <main style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; Agent Memory
     </div>
 
-    <h1>Building Long-Term Memory for AI Agents: Architectures & Design</h1>
+    <h1>AI Agent Long-Term Memory Architecture & MemGPT Systems</h1>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 11 min read · Updated July 2026
+      Architecture · 12 min read · Updated July 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Stateless LLM calls limit agents to single-session interactions. To build agents that learn user preferences, recall historical bug fixes, and maintain state over months, developers must implement multi-layered memory systems.
+      Without a persistent memory subsystem, an AI agent treats every conversation session in isolation—forgetting user preferences, architectural decisions, and past debugging attempts. Designing an effective agent memory hierarchy requires combining <strong>Short-Term Working Memory</strong>, <strong>Episodic Vector Memory</strong>, and <strong>Epistemic Knowledge Graphs (MemGPT)</strong>.
     </p>
 
-    <h2>1. The Four Layers of Agent Memory</h2>
-    <ul>
-      <li><strong>Working Memory (In-Context RAM):</strong> The active prompt context window (e.g. 200K tokens). Fast access but volatile and expensive to maintain across sessions.</li>
-      <li><strong>Episodic Memory (Logs & Chat History):</strong> Time-series logs of prior agent steps and conversations. Vectorized and retrieved via semantic similarity.</li>
-      <li><strong>Semantic Memory (Knowledge Graphs):</strong> Structured facts, entities, and codebase dependency graphs stored in graph databases (Neo4j, Memgraph).</li>
-      <li><strong>Procedural Memory (Tool Usage Rules):</strong> Learned strategies, prompts, and system execution habits stored as serialized code routines.</li>
-    </ul>
+    <h2>1. The 3-Tier Memory Hierarchy</h2>
+    <div style="overflow-x:auto; margin:1.5rem 0;">
+      <table style="width:100%; border-collapse:collapse; text-align:left; font-size:.9rem;">
+        <thead>
+          <tr style="background:rgba(124,92,252,0.15); color:#fff;">
+            <th style="padding:.8rem;">Memory Tier</th>
+            <th style="padding:.8rem;">Storage Medium</th>
+            <th style="padding:.8rem;">Retention Duration</th>
+            <th style="padding:.8rem;">Primary Purpose</th>
+          </tr>
+        </thead>
+        <tbody style="color:#d0d0e0;">
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Working Memory</td>
+            <td style="padding:.8rem;">Prompt Window Buffer</td>
+            <td style="padding:.8rem;">Current Active Session</td>
+            <td style="padding:.8rem;">Immediate reasoning, scratchpad thoughts, tool outputs</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Episodic Memory</td>
+            <td style="padding:.8rem;">Vector DB (Chroma / Pinecone)</td>
+            <td style="padding:.8rem;">Cross-Session (Days/Months)</td>
+            <td style="padding:.8rem;">Recalling past user conversations, error logs, and code fixes</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Epistemic Memory</td>
+            <td style="padding:.8rem;">Knowledge Graph (Neo4j / MemGPT)</td>
+            <td style="padding:.8rem;">Permanent System Knowledge</td>
+            <td style="padding:.8rem;">Project architecture rules, user personas, API key policies</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <h2>2. MemGPT: OS-Style Memory Management</h2>
-    <p>MemGPT introduces an operating-system-inspired memory hierarchy. The agent uses explicit function calls (`core_memory_append`, `archival_memory_search`) to manage what stays in RAM and what gets paged out to disk.</p>
+    <p>MemGPT models LLM memory like OS virtual memory—using explicit tool calls (<code>core_memory_append</code>, <code>archival_memory_search</code>) to page information in and out of the LLM context window:</p>
+
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#22d3ee;"><code># Python MemGPT Function Calling Schema Example
+def core_memory_append(section: str, content: str):
+    """Appends critical user facts to the agent's core memory block."""
+    # Append to system prompt core memory block
+    pass
+
+def archival_memory_search(query: str, page: int = 0):
+    """Searches long-term vector database for past interaction logs."""
+    pass
+</code></pre>
+
+    <h2>3. Related Architecture & Builder Tools</h2>
+    <ul>
+      <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
+      <li><a href="article-agentic-rag.html">🔄 Agentic RAG Architecture & Self-Correction Pipelines</a></li>
+    </ul>
   </main>
 
   <footer class="footer">

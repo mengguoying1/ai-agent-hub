@@ -4,12 +4,16 @@
   <meta charset="UTF-8" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Integrating AI Agents into GitHub Actions — Learn how to run autonomous coding agents inside CI/CD workflows for automated PR reviews, refactors, and test verification.">
+  <meta name="description" content="Integrating Autonomous AI Agents into GitHub Actions & CI/CD Pipelines — Automated PR code reviews, security vulnerability patching, and unit test generation.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Integrating Autonomous AI Agents into GitHub Actions & CI/CD Pipelines">
+  <meta property="og:description" content="Automated PR code reviews, security vulnerability patching, and unit test generation via CI/CD.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.waiagent.win/article-github-actions-agents.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Autonomous AI Agents in GitHub Actions CI/CD — AI Agent Hub</title>
+  <title>Integrating AI Agents into GitHub Actions CI/CD — AI Agent Hub</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="article-page">
@@ -26,31 +30,36 @@
     </div>
   </nav>
 
-  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+  <main style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
-      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; CI/CD Coding Agents
+      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; GitHub Actions Agents
     </div>
 
-    <h1>Autonomous AI Agents in GitHub Actions CI/CD Pipelines</h1>
+    <h1>Integrating Autonomous AI Agents into GitHub Actions & CI/CD Pipelines</h1>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 10 min read · Updated July 2026
+      Tutorial · 12 min read · Updated July 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Autonomous agents shouldn't be confined to your local desktop. Integrating them into your GitHub Actions workflows enables automatic pull request reviews, automated bug fixes, and continuous security audits during deployment.
+      Embedding autonomous AI coding agents directly into your GitHub Actions CI/CD workflows automates repetitive code reviews, auto-fixes lint errors, generates regression unit tests, and patches security vulnerabilities on every pull request. This tutorial covers setting up headless agent bots with Anthropic, OpenAI, and DeepSeek APIs.
     </p>
 
-    <h2>1. The Automated Agentic CI/CD Pipeline</h2>
-    <p>A typical setup executes upon a `pull_request` event. The workflow checks out the repository, retrieves the git diff, passes it to the agent, executes the agent's modification loop, runs unit tests, and commits the refactored code back to the branch if successful.</p>
+    <h2>1. CI/CD Agent Workflow Use Cases</h2>
+    <ul>
+      <li><strong>Automated PR Code Review:</strong> Analyzes diffs for security injection risks, off-by-one errors, and performance bottlenecks.</li>
+      <li><strong>Auto-Patching Failed Builds:</strong> When a CI build fails unit tests, the agent analyzes the stack trace, modifies code, and pushes a fix commit.</li>
+      <li><strong>Dependency Security Auditing:</strong> Automatically updates vulnerable NPM/PyPI dependencies and updates breakages.</li>
+    </ul>
 
-    <h2>2. Example GitHub Workflow YAML</h2>
-    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:8px; overflow-x:auto;"><code>name: Automated PR Refactor
+    <h2>2. Complete GitHub Actions Workflow Spec (.github/workflows/ai-review.yml)</h2>
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#e2e8f0;"><code>name: Autonomous AI Code Reviewer
+
 on:
   pull_request:
-    branches: [ main ]
+    types: [opened, synchronize]
 
 jobs:
-  refactor:
+  ai-agent-review:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -58,14 +67,52 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run Coding Agent Review
-        run: |
-          npm install -g claude-code-cli
-          claude-code review --pr-diff
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run AI Reviewer Agent
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install openai anthropic
+          python .github/scripts/agent_reviewer.py
 </code></pre>
+
+    <h2>3. Python Headless Review Agent Script</h2>
+    <p>Below is the Python runner script that executes Claude Sonnet 4.8 / DeepSeek-V3 to review PR diffs and post comments via GitHub API:</p>
+
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#4ade80;"><code>import os
+import subprocess
+from openai import OpenAI
+
+# Fetch git diff
+diff_output = subprocess.check_output(["git", "diff", "origin/main...HEAD"]).decode("utf-8")
+
+client = OpenAI(
+    base_url="https://api.deepseek.com",
+    api_key=os.environ["DEEPSEEK_API_KEY"]
+)
+
+response = client.chat.completions.create(
+    model="deepseek-v3",
+    messages=[
+        {"role": "system", "content": "You are a senior security code reviewer."},
+        {"role": "user", "content": f"Review this PR diff for critical bugs:\n\n{diff_output[:10000]}"}
+    ]
+)
+
+print("AI Review Summary:")
+print(response.choices[0].message.content)
+</code></pre>
+
+    <h2>4. Related Agent Security & Testing Guides</h2>
+    <ul>
+      <li><a href="article-function-calling-security.html">🛡️ Function Calling Security & Injection Prevention</a></li>
+      <li><a href="article-agentic-testing.html">🧪 Agentic Testing & Code Verification Loops</a></li>
+    </ul>
   </main>
 
   <footer class="footer">

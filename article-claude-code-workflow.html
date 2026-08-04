@@ -4,12 +4,16 @@
   <meta charset="UTF-8" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Mastering Claude Code CLI — Advanced workflows for terminal-based multi-file refactoring, git integration, MCP servers, and codebase navigation.">
+  <meta name="description" content="Claude Code CLI Workflow & Multi-File Refactoring Guide — Master terminal-based AI agent coding, VS Code integration, and automated repository editing.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Claude Code CLI Workflow & Multi-File Refactoring Guide">
+  <meta property="og:description" content="Master terminal-based AI agent coding, VS Code integration, and multi-file repo edits.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.waiagent.win/article-claude-code-workflow.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Mastering Claude Code CLI for Enterprise Refactoring — AI Agent Hub</title>
+  <title>Claude Code CLI Workflow & Multi-File Refactoring Guide — AI Agent Hub</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="article-page">
@@ -26,29 +30,64 @@
     </div>
   </nav>
 
-  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+  <main style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
-      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Claude Code Workflows
+      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Claude Code Workflow
     </div>
 
-    <h1>Mastering Claude Code CLI: Advanced Enterprise Workflows</h1>
+    <h1>Claude Code CLI Workflow & Multi-File Refactoring Guide</h1>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 11 min read · Updated July 2026
+      Tutorial · 12 min read · Updated July 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Claude Code has redefined CLI-based AI development. By operating directly inside your terminal, it combines codebase search, file editing, unit test execution, and Git commits into an autonomous developer loop.
+      Anthropic's <strong>Claude Code</strong> CLI tool brings the power of Claude Opus 5 and Sonnet 4.8 directly into developer terminal workflows. Unlike IDE extensions that only provide autocomplete, Claude Code acts as a full terminal agent—reading workspace files, running shell commands, generating multi-file code patches, and running test runners autonomously.
     </p>
 
-    <h2>1. The Claude Code Architecture</h2>
-    <p>Unlike IDE autocomplete extensions, Claude Code acts as a full-fledged agent. It issues `grep`, `find`, and `git` commands, analyzes error logs, and modifies multiple files in sequence until unit tests pass.</p>
+    <h2>1. Installation & Initial Configuration</h2>
+    <p>Install Claude Code globally via NPM or Homebrew, then authenticate with your Anthropic Console API key or Claude Pro account:</p>
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#e2e8f0;"><code># Install Claude Code CLI
+npm install -g @anthropic-ai/claude-code
 
-    <h2>2. Advanced Terminal Workflows</h2>
+# Authenticate and set default workspace permissions
+claude config set --global defaultModel claude-sonnet-4.8
+claude login
+
+# Launch interactive CLI inside your repository
+cd ~/my-python-project
+claude
+</code></pre>
+
+    <h2>2. Architectural Deep-Dive: How Claude Code Operates</h2>
+    <p>Claude Code uses an inner ReAct execution loop paired with Model Context Protocol (MCP) tool bindings:</p>
+    
+    <div class="card" style="background:rgba(0,0,0,0.4); border-left:4px solid #7c5cfc; padding:1.2rem; margin:1.5rem 0;">
+      <h4 style="color:#c4b5fd; margin-bottom:.5rem;">Execution Cycle:</h4>
+      <ol style="color:#cbd5e1; font-size:.9rem; line-height:1.7; margin:0; padding-left:1.2rem;">
+        <li><strong>Repo Indexing:</strong> Scans <code>.gitignore</code> and indexes AST symbols for fast retrieval.</li>
+        <li><strong>Planning Phase:</strong> Breaks complex prompts ("Refactor Auth module") into sub-tasks.</li>
+        <li><strong>Tool Execution:</strong> Invokes <code>FileRead</code>, <code>FileEdit</code>, <code>BashCommand</code>, and <code>GrepSearch</code>.</li>
+        <li><strong>Self-Verification:</strong> Automatically runs test commands (e.g. <code>pytest</code>, <code>npm test</code>) to check for regressions.</li>
+      </ol>
+    </div>
+
+    <h2>3. Advanced Multi-File Refactoring Example</h2>
+    <p>Suppose you need to migrate your Node.js Express authentication middleware from legacy session cookies to JWT tokens across 8 controller files. Simply issue a multi-step instruction:</p>
+    
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#22d3ee;"><code>> Refactor src/middleware/auth.js to validate Bearer JWT tokens instead of session cookies.
+> Update all controller handlers in src/controllers/*.js to extract user object from req.user.
+> Run npm test after editing to ensure zero test failures.
+</code></pre>
+
+    <h2>4. Best Practices for Cost & Token Optimization</h2>
     <ul>
-      <li><strong>Compact Context Management:</strong> Use `/compact` commands to prune conversation history when refactoring large repos.</li>
-      <li><strong>Custom CLAUDE.md Rules:</strong> Add a `CLAUDE.md` file to your project root specifying style conventions, test commands, and forbidden operations.</li>
-      <li><strong>MCP Tool Integration:</strong> Connect database inspection and REST API tools directly to the CLI interface.</li>
+      <li><strong>Use Compact Mode for Search:</strong> Keep initial research queries tight to save prompt tokens.</li>
+      <li><strong>Leverage Prompt Caching:</strong> Claude Code automatically utilizes Anthropic's 90% prompt caching discount on long repository context windows.</li>
+      <li><strong>Set Reasoning Effort Dials:</strong> Use <code>claude --effort low</code> for quick lint fixes, and <code>claude --effort high</code> for complex architecture refactoring.</li>
     </ul>
+
+    <h2>5. Integration with Model Context Protocol (MCP)</h2>
+    <p>Claude Code supports custom MCP servers, allowing you to connect local PostgreSQL databases, Redis caches, and GitHub PR workflows directly to the CLI interface. Read our complete <a href="article-mcp-guide.html">MCP Setup Guide</a> for server configurations.</p>
   </main>
 
   <footer class="footer">

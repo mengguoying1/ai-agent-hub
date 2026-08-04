@@ -4,12 +4,16 @@
   <meta charset="UTF-8" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Agentic RAG Systems — Building self-correcting retrieval pipelines with query rewriting, document grading, and cross-encoder re-ranking.">
+  <meta name="description" content="Agentic RAG Architecture & Self-Correction Pipelines — Comprehensive guide on building autonomous retrieval-augmented generation loops with cross-encoders and web search fallbacks.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Agentic RAG Architecture & Self-Correction Pipelines">
+  <meta property="og:description" content="Comprehensive guide on building autonomous RAG loops with cross-encoders and self-correction.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.waiagent.win/article-agentic-rag.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Agentic RAG Systems: Self-Correction & Re-ranking — AI Agent Hub</title>
+  <title>Agentic RAG Architecture & Self-Correction Pipelines — AI Agent Hub</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="article-page">
@@ -26,29 +30,112 @@
     </div>
   </nav>
 
-  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+  <main style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; Agentic RAG
     </div>
 
-    <h1>Agentic RAG Systems: Self-Correction, Rewriting & Re-Ranking</h1>
+    <h1>Agentic RAG Architecture & Self-Correction Pipelines</h1>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 10 min read · Updated July 2026
+      Architecture · 12 min read · Updated July 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Standard RAG pipelines fail when vector search returns irrelevant or incomplete documents. Agentic RAG introduces reasoning loops into the retrieval process: evaluating retrieved chunks, rewriting bad queries, and re-ranking documents dynamically.
+      Traditional naive RAG (Retrieval-Augmented Generation) follows a rigid linear pipeline: <code>Query → Vector Search → Prompt Concatenation → LLM Response</code>. When vector retrieval returns irrelevant chunks or outdated documents, naive RAG fails completely with hallucinated answers. <strong>Agentic RAG</strong> transforms retrieval into a dynamic, multi-turn reasoning loop capable of self-grading, query rewriting, and fallback web search.
     </p>
 
-    <h2>1. The Self-Corrective RAG Loop</h2>
-    <ol>
-      <li><strong>Query Transformation:</strong> The agent reformulates ambiguous user questions into multiple targeted search queries.</li>
-      <li><strong>Document Grading:</strong> A fast LLM (like Claude Haiku 4.8 or Gemini 3.1 Flash) grades each retrieved chunk for relevance. Irrelevant chunks are discarded.</li>
-      <li><strong>Fallback Web Search / Router:</strong> If vector search fails to yield high-confidence documents, the agent dynamically invokes web search tools or alternative data stores.</li>
-    </ol>
+    <h2>1. The Evolution: Naive RAG vs. Agentic RAG</h2>
+    <div style="overflow-x:auto; margin:1.5rem 0;">
+      <table style="width:100%; border-collapse:collapse; text-align:left; font-size:.9rem;">
+        <thead>
+          <tr style="background:rgba(124,92,252,0.15); color:#fff;">
+            <th style="padding:.8rem;">Feature</th>
+            <th style="padding:.8rem;">Naive RAG</th>
+            <th style="padding:.8rem;">Agentic RAG</th>
+          </tr>
+        </thead>
+        <tbody style="color:#d0d0e0;">
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Control Flow</td>
+            <td style="padding:.8rem;">Linear Single-Pass</td>
+            <td style="padding:.8rem; color:#4ade80;">Cyclic State Machine (LangGraph)</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Query Strategy</td>
+            <td style="padding:.8rem;">Static User Query</td>
+            <td style="padding:.8rem;">Dynamic Query Rewriting & Sub-Query Decomposition</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Document Validation</td>
+            <td style="padding:.8rem;">None (Passes raw top-K)</td>
+            <td style="padding:.8rem; color:#4ade80;">LLM Grade Relevance + Cross-Encoder Reranking</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Fallback Mechanism</td>
+            <td style="padding:.8rem;">Returns empty or hallucinates</td>
+            <td style="padding:.8rem;">Triggers Web Search / External API Tool</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <h2>2. Cross-Encoder Re-Ranking</h2>
-    <p>Bi-encoder vector embeddings offer fast retrieval speed but lower semantic accuracy. Passing top-20 candidates through a Cross-Encoder re-ranker (such as `Cohere ReRank v3` or `bge-reranker-large`) ensures only top-3 relevant context chunks enter the final generation prompt.</p>
+    <h2>2. Architectural Deep-Dive: Self-RAG State Machine</h2>
+    <p>Agentic RAG introduces three crucial node evaluations in the graph execution:</p>
+    
+    <div class="card" style="background:rgba(0,0,0,0.4); border-left:4px solid #7c5cfc; padding:1.2rem; margin:1.5rem 0;">
+      <h4 style="color:#c4b5fd; margin-bottom:.5rem;">Self-Correction Loop:</h4>
+      <pre style="color:#cbd5e1; font-family:monospace; font-size:.85rem; line-height:1.6; margin:0;">
+1. Retrieve Chunks via Hybrid Search (BM25 + Dense Vectors)
+       │
+       ▼
+2. Grade Document Relevance (Is chunk relevant to user question?)
+       ├── [YES] ──► Generate Answer Draft
+       └── [NO]  ──► Rewrite Query ──► Fallback Web Search Tool
+                                              │
+3. Check Hallucination (Is answer grounded in facts?) ◄┘
+       ├── [YES] ──► Final Output
+       └── [NO]  ──► Regenerate with strict constraints
+      </pre>
+    </div>
+
+    <h2>3. Clean Python LangGraph Implementation</h2>
+    <p>Below is a production-ready Python example using LangGraph and Cohere Cross-Encoder reranking:</p>
+
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#22d3ee;"><code>from typing import TypedDict, List
+from langgraph.graph import StateGraph, END
+
+class AgentState(TypedDict):
+    question: str
+    documents: List[str]
+    generation: str
+    needs_search: bool
+
+def retrieve_node(state: AgentState):
+    print("--- RETRACTING DOCUMENTS ---")
+    # Vector DB query logic here
+    return {"documents": ["Doc chunk 1...", "Doc chunk 2..."]}
+
+def grade_documents_node(state: AgentState):
+    print("--- GRADING RELEVANCE ---")
+    # LLM relevance check logic
+    relevant = True
+    return {"needs_search": not relevant}
+
+# Build LangGraph workflow
+workflow = StateGraph(AgentState)
+workflow.add_node("retrieve", retrieve_node)
+workflow.add_node("grade", grade_documents_node)
+
+workflow.set_entry_point("retrieve")
+workflow.add_edge("retrieve", "grade")
+app = workflow.compile()
+</code></pre>
+
+    <h2>4. Related Architecture Guides & Utilities</h2>
+    <ul>
+      <li><a href="article-rag-chunking-strategies.html">📄 AST Chunking & Parent-Child Document Retrieval</a></li>
+      <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
+    </ul>
   </main>
 
   <footer class="footer">

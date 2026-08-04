@@ -4,12 +4,16 @@
   <meta charset="UTF-8" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Advanced RAG Chunking Strategies — AST-based code splitting, parent-child retrieval, semantic chunking, and hybrid dense/sparse retrieval for developers.">
+  <meta name="description" content="Advanced RAG Document Chunking & Parent-Child Retrieval Strategies — Detailed developer guide on AST syntax tree splitting, semantic windowing, and hybrid search optimization.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Advanced RAG Document Chunking & Parent-Child Retrieval Strategies">
+  <meta property="og:description" content="Detailed guide on AST syntax tree splitting, semantic windowing, and hybrid search optimization.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.waiagent.win/article-rag-chunking-strategies.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Advanced RAG Chunking & Hybrid Search Strategies — AI Agent Hub</title>
+  <title>Advanced RAG Chunking & Parent-Child Retrieval — AI Agent Hub</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="article-page">
@@ -26,28 +30,60 @@
     </div>
   </nav>
 
-  <main style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+  <main style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
-      <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; RAG Strategies
+      <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; RAG Chunking
     </div>
 
-    <h1>Advanced RAG: Chunking Strategies & Hybrid Search Systems</h1>
+    <h1>Advanced RAG Document Chunking & Parent-Child Retrieval Strategies</h1>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 10 min read · Updated July 2026
+      Architecture · 12 min read · Updated July 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Naively splitting code files by fixed character lengths (e.g. 500 tokens) ruins context boundaries. High-accuracy RAG systems require AST (Abstract Syntax Tree) code splitting, parent-child document retrieval, and hybrid dense/sparse vector search.
+      Chunking is the single most critical factor determining vector retrieval accuracy in Retrieval-Augmented Generation (RAG). Splitting documents arbitrarily into fixed 500-character windows severs semantic context, destroys code block syntax, and introduces retrieval noise. This guide covers advanced chunking techniques, including <strong>AST Syntax Tree Splitting</strong> and <strong>Parent-Child Document Indexing</strong>.
     </p>
 
-    <h2>1. AST Code Splitting vs Fixed-Size Chunking</h2>
-    <p>Fixed-character chunking often slices functions in half, severing variable declarations from their return statements. Tree-sitter AST splitters parse source code into complete semantic units (classes, functions, interface definitions) before vectorization.</p>
+    <h2>1. The Problem with Naive Fixed-Character Chunking</h2>
+    <p>Naive chunking cuts text every N characters (e.g., 512 tokens with 50-token overlap). When indexing source code or technical documentation, fixed chunking causes severe failure modes:</p>
+    <ul>
+      <li><strong>Broken Function Bodies:</strong> Splitting a function across chunk boundaries severs parameter definitions from return logic.</li>
+      <li><strong>Context Fragmentation:</strong> A small 200-token chunk matches vector search accurately, but lacks surrounding architectural context required by the LLM.</li>
+    </ul>
 
-    <h2>2. Parent-Child Document Retrieval</h2>
-    <p>Store small, granular chunks (100 tokens) in the vector database for high-precision vector matching, but return the larger parent document (1000 tokens) or full module context to the LLM during generation.</p>
+    <h2>2. AST (Abstract Syntax Tree) Chunking for Source Code</h2>
+    <p>For code repositories, AST chunking uses language parsers (like Tree-sitter) to break files along natural syntactic boundaries—such as classes, methods, and functions—preserving structural integrity:</p>
 
-    <h2>3. Hybrid Search: BM25 + Vector Embeddings</h2>
-    <p>Combine sparse keyword search (BM25) with dense vector embeddings (bge-m3 / text-embedding-3) using Reciprocal Rank Fusion (RRF) to retrieve both exact code symbols and semantic concepts.</p>
+    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#e2e8f0;"><code># AST Code Splitting in Python using Tree-sitter
+from langchain_text_splitters import Language, RecursiveCharacterTextSplitter
+
+python_splitter = RecursiveCharacterTextSplitter.from_language(
+    language=Language.PYTHON,
+    chunk_size=800,
+    chunk_overlap=100
+)
+
+# Splitting preserves complete class & def function definitions
+chunks = python_splitter.split_text(python_code_str)
+</code></pre>
+
+    <h2>3. Parent-Child Document Indexing Architecture</h2>
+    <p>Parent-Child retrieval solves the trade-off between retrieval precision and generation context size by decoupling vector search chunks from LLM context chunks:</p>
+
+    <div class="card" style="background:rgba(0,0,0,0.4); border-left:4px solid #7c5cfc; padding:1.2rem; margin:1.5rem 0;">
+      <h4 style="color:#c4b5fd; margin-bottom:.5rem;">Parent-Child Vector Pipeline:</h4>
+      <ol style="color:#cbd5e1; font-size:.9rem; line-height:1.7; margin:0; padding-left:1.2rem;">
+        <li><strong>Small Child Chunks (100-200 tokens):</strong> Generated for vector database embedding & fast cosine similarity search.</li>
+        <li><strong>Large Parent Documents (1,000-2,000 tokens):</strong> Stored in a key-value document store (e.g. Redis).</li>
+        <li><strong>Retrieval Resolution:</strong> Vector search matches the highly specific child chunk, but returns the full parent document to the LLM prompt context window.</li>
+      </ol>
+    </div>
+
+    <h2>4. Related Architecture Articles & Utilities</h2>
+    <ul>
+      <li><a href="article-agentic-rag.html">🔄 Agentic RAG Architecture & Self-Correction Pipelines</a></li>
+      <li><a href="tool-cost-calculator.html">🧮 LLM API & Token Cost Calculator</a></li>
+    </ul>
   </main>
 
   <footer class="footer">
