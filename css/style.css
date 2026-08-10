@@ -350,6 +350,7 @@ body.home {
 .home .policy-links { gap: .8rem; margin-top: 1rem; }
 .home .category-nav { margin-bottom: 1.2rem; }
 .home .section-desc { max-width: 650px; margin-bottom: 3rem; font-size: 1.05rem; }
+.home main { max-width: none; margin: 0; padding: 0; }
 
 .background-layer {
   position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none;
