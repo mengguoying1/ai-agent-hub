@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A provider-neutral guide to prompt caching: eligibility, prefix design, break-even measurement, privacy, invalidation, and production monitoring."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/article-prompt-caching.html"><link rel="icon" href="favicon.svg"><title>Prompt Caching: Design, Economics & Safety — AI Agent Hub</title><link rel="stylesheet" href="css/style.css?v=20260810a"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Prompt Caching: Design, Economics and Safety","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"datePublished":"2026-06-24","dateModified":"2026-08-05","mainEntityOfPage":"https://www.waiagent.win/article-prompt-caching.html"}</script></head><body class="article-page">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A provider-neutral guide to prompt caching: eligibility, prefix design, break-even measurement, privacy, invalidation, and production monitoring."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/article-prompt-caching.html"><link rel="icon" href="favicon.svg"><title>Prompt Caching: Design, Economics & Safety — AI Agent Hub</title><link rel="stylesheet" href="css/style.css?v=20260810b"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Prompt Caching: Design, Economics and Safety","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"datePublished":"2026-06-24","dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-prompt-caching.html"}</script></head><body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a></li></ul></div></nav>
-<main id="main-content"><div class="meta">Performance & cost · Reviewed August 5, 2026</div><h1>Prompt Caching: Design, Economics & Safety</h1>
+<main id="main-content"><div class="meta">Performance & cost · Reviewed August 10, 2026</div><h1>Prompt Caching: Design, Economics & Safety</h1><p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
 <div class="highlight-box"><p><strong>No universal savings claim:</strong> caching helps only when an eligible, stable prefix is reused enough times. Measure cache writes, hits, retention, and misses from provider usage data before forecasting savings.</p></div>
 <p>Large prompts often repeat the same system instructions, tool definitions, examples, repository context, or reference documents. Prompt caching—also called context caching by some providers—can reuse work associated with that shared prefix. Provider behavior differs: caching may be automatic or explicit, eligibility and retention vary by model, and billing may separate writes, reads, and storage. Treat caching as an optimization with measurable preconditions, not as a correctness feature.</p>
 <h2>What gets reused</h2>
@@ -48,6 +48,46 @@ cached cost =
 <p>Alert on a sudden hit-rate drop after prompt or tool-schema releases. Compare quality and safety evaluations before and after prefix changes—the cached material may be stable while its instructions are wrong.</p>
 <h2>Failure modes to test</h2>
 <ul><li>one-character changes near the start of the prefix;</li><li>cache expiry during a long-running workflow;</li><li>requests routed to a different model or region;</li><li>tenant or user identifiers accidentally entering the shared block;</li><li>tool schema changes without a cache-version change;</li><li>provider responses with no cache-usage field;</li><li>fallback requests that use a provider with different cache semantics.</li></ul>
+<h2>A worked break-even example</h2>
+<div class="worked-example">
+<p><strong>Illustrative rates—not a current provider quote:</strong> suppose a reusable prefix contains 20,000 tokens. Ordinary input costs $2.50 per million tokens, a cache write costs $3.125 per million, and each cache read costs $0.25 per million. Ignore retention charges for this exercise.</p>
+<table><thead><tr><th>Prefix uses before expiry</th><th>Ordinary input</th><th>One write + later reads</th><th>Difference</th></tr></thead><tbody>
+<tr><td>1</td><td>$0.0500</td><td>$0.0625</td><td>Cache costs $0.0125 more</td></tr>
+<tr><td>2</td><td>$0.1000</td><td>$0.0675</td><td>Cache saves $0.0325</td></tr>
+<tr><td>5</td><td>$0.2500</td><td>$0.0825</td><td>Cache saves $0.1675</td></tr>
+<tr><td>10</td><td>$0.5000</td><td>$0.1075</td><td>Cache saves $0.3925</td></tr>
+</tbody></table>
+<p>Under these assumptions, the second use crosses break-even. Real systems must also multiply reads by the observed hit rate and add misses, storage, retention, model-routing, and expiry behavior. If only 40% of requests hit, the optimistic ten-use row is not a valid forecast.</p>
+</div>
+<h2>Build a prefix fingerprint you can audit</h2>
+<p>A cache version such as <code>support-policy-v7</code> is readable but does not prove which bytes were sent. Pair a human version with a normalized cryptographic fingerprint. Normalize only transformations that your request builder also performs; otherwise the hash and transmitted prefix can disagree.</p>
+<pre><code>async function prefixFingerprint(prefixText) {
+  const normalized = prefixText.replace(/\r\n/g, "\n").trimEnd();
+  const bytes = new TextEncoder().encode(normalized);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return [...new Uint8Array(digest)]
+    .map(byte =&gt; byte.toString(16).padStart(2, "0"))
+    .join("");
+}</code></pre>
+<p>Log the model ID, prefix version, fingerprint, prefix token count, tenant scope, and provider cache-usage fields. Do not log the prefix itself when it contains sensitive information.</p>
+<h2>A reproducible cache experiment</h2>
+<p>This protocol produces evidence without claiming that results transfer between providers or models:</p>
+<ol><li>Select 30 privacy-safe prompts representing short, medium, and long suffixes.</li><li>Freeze one eligible prefix, model version, region, endpoint, tool schema, and generation configuration.</li><li>Run each suffix once with caching disabled or with a deliberately cold prefix.</li><li>Run the same ordered set five times with caching enabled, spacing repetitions across the retention window you intend to use.</li><li>Record billed uncached input, cache-write, cache-read, and output tokens plus latency and task acceptance.</li><li>Repeat with one early-prefix character changed, one late-suffix change, and an expired cache.</li><li>Compare total cost and latency per accepted result; publish the exact date and assumptions with the result.</li></ol>
+<table><thead><tr><th>Metric</th><th>Why request count alone is insufficient</th></tr></thead><tbody>
+<tr><td>Token hit ratio</td><td>A request can “hit” while only a small prefix is discounted</td></tr>
+<tr><td>Write/read/miss cost</td><td>A high hit rate can still lose money after expensive writes</td></tr>
+<tr><td>p50 and p95 latency</td><td>Caching may affect long prompts differently from short ones</td></tr>
+<tr><td>Accepted-task rate</td><td>A prefix change can save tokens while degrading instructions</td></tr>
+<tr><td>Cross-tenant isolation</td><td>Cost savings never justify data leakage</td></tr>
+</tbody></table>
+<h2>Diagnose misses systematically</h2>
+<table><thead><tr><th>Observed symptom</th><th>Likely checks</th><th>Evidence to collect</th></tr></thead><tbody>
+<tr><td>Hits disappear after deploy</td><td>System prompt, tool order, whitespace, serialization</td><td>Old/new fingerprint and first differing byte</td></tr>
+<tr><td>Only some workers hit</td><td>Region, model route, endpoint, account scope</td><td>Route and provider request identifiers</td></tr>
+<tr><td>High request hits, low savings</td><td>Cached prefix is a small share of total input</td><td>Token-level hit ratio</td></tr>
+<tr><td>Unexpected stale behavior</td><td>Application response cache confused with prompt cache</td><td>Trace which layer returned the output</td></tr>
+<tr><td>Quality changes after version bump</td><td>Instruction or example content changed</td><td>Evaluation delta by prefix version</td></tr>
+</tbody></table>
 <h2>Implementation checklist</h2>
 <ol><li>Confirm model eligibility, minimum length, pricing, and retention in official docs.</li><li>Measure the repeated prefix in a realistic trace.</li><li>Move stable content before dynamic content without weakening isolation.</li><li>Add a prefix version and tenant-safe cache key.</li><li>Run a no-cache baseline and a cache-enabled test.</li><li>Calculate total write, hit, miss, and retention cost per accepted task.</li><li>Document invalidation and privacy behavior before production use.</li></ol>
 <h2>Primary references</h2>

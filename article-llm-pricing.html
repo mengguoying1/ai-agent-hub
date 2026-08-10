@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A practical method for estimating and controlling LLM API cost across input, output, caching, retries, tools, and production traffic."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/article-llm-pricing.html"><link rel="icon" href="favicon.svg"><title>LLM API Cost Planning: A Practical Pricing Method — AI Agent Hub</title><link rel="stylesheet" href="css/style.css?v=20260810a"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"LLM API Cost Planning: A Practical Pricing Method","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"datePublished":"2026-06-18","dateModified":"2026-08-05","mainEntityOfPage":"https://www.waiagent.win/article-llm-pricing.html"}</script></head><body class="article-page">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A practical method for estimating and controlling LLM API cost across input, output, caching, retries, tools, and production traffic."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/article-llm-pricing.html"><link rel="icon" href="favicon.svg"><title>LLM API Cost Planning: A Practical Pricing Method — AI Agent Hub</title><link rel="stylesheet" href="css/style.css?v=20260810b"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"LLM API Cost Planning: A Practical Pricing Method","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"datePublished":"2026-06-18","dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-llm-pricing.html"}</script></head><body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a></li></ul></div></nav>
-<main id="main-content"><div class="meta">Cost engineering · Reviewed August 5, 2026</div><h1>LLM API Cost Planning: A Practical Pricing Method</h1>
+<main id="main-content"><div class="meta">Cost engineering · Reviewed August 10, 2026</div><h1>LLM API Cost Planning: A Practical Pricing Method</h1><p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
 <div class="highlight-box"><p><strong>Core idea:</strong> a model's advertised token price is only one input. A useful budget also includes request volume, input/output mix, cache behavior, retries, tool loops, and the share of requests routed to each model.</p></div>
 <p>LLM price tables are easy to compare and easy to misuse. A cheaper input-token rate does not guarantee a cheaper workflow: one model may produce longer answers, require more retries, or need more agent steps. Conversely, an expensive model can be economical when it completes a difficult task in one call. This guide provides a reproducible way to estimate cost without pretending the estimate is a guarantee.</p>
 <h2>Start with a unit-cost equation</h2>
@@ -45,6 +45,51 @@
 <ol><li>Define the task and an acceptance test.</li><li>Collect a representative evaluation set without unnecessary personal data.</li><li>Run candidate models with the same tools and constraints.</li><li>Record usage metadata, latency, task success, and retries.</li><li>Calculate cost per accepted task, not only cost per request.</li><li>Stress-test long inputs, tool failures, and traffic peaks.</li><li>Recheck official prices before a procurement or launch decision.</li></ol>
 <h2>Common estimation errors</h2>
 <ul><li>Multiplying a chat message's character count by a fixed token ratio.</li><li>Ignoring system prompts and prior conversation history.</li><li>Assuming every repeated prefix will receive a cache hit.</li><li>Comparing models with different output limits or quality thresholds.</li><li>Ignoring failed requests, retries, and agent loops.</li><li>Publishing a price without a currency, unit, source, or verification date.</li></ul>
+<h2>A worked, auditable cost example</h2>
+<div class="worked-example">
+<p><strong>Illustrative workload—not production telemetry:</strong> imagine an internal support assistant handling 12,000 accepted tasks per month. A representative trace suggests 2.4 model calls per task, 6,000 input tokens and 900 output tokens per call, and an 8% retry allowance. Thirty-five percent of input tokens belong to an eligible repeated prefix.</p>
+<p>To keep the arithmetic reusable, this example uses hypothetical rates rather than implying a provider quote: $1.50 per million uncached input tokens, $0.15 per million cache-read tokens, and $7.50 per million output tokens. There is no cache-write or storage charge in this simplified example. Replace every rate with the current terms for the exact model and endpoint you use.</p>
+<table><thead><tr><th>Step</th><th>Calculation</th><th>Monthly result</th></tr></thead><tbody>
+<tr><td>Base calls</td><td>12,000 tasks × 2.4 calls</td><td>28,800 calls</td></tr>
+<tr><td>Calls including retries</td><td>28,800 × 1.08</td><td>31,104 calls</td></tr>
+<tr><td>Total input</td><td>31,104 × 6,000</td><td>186.624M tokens</td></tr>
+<tr><td>Cached / uncached input</td><td>35% / 65% of input</td><td>65.3184M / 121.3056M</td></tr>
+<tr><td>Total output</td><td>31,104 × 900</td><td>27.9936M tokens</td></tr>
+</tbody></table>
+<pre><code>uncached input = 121.3056 × $1.50 = $181.96
+cached input  =  65.3184 × $0.15 =   $9.80
+output        =  27.9936 × $7.50 = $209.95
+---------------------------------------------
+illustrative monthly model cost  = $401.71
+cost per accepted task           =   $0.0335</code></pre>
+<p>With the same token volume but no cache discount, the estimate is $489.89. The illustrative cache benefit is therefore $88.18, or about 18%. That is not a savings promise: a write charge, retention charge, lower hit rate, or prefix invalidation would change the result.</p>
+</div>
+<h3>Sensitivity: agent loops dominate quickly</h3>
+<p>Keep all other assumptions fixed and vary only calls per accepted task. This isolates the cost of planning, tool, validation, and retry loops.</p>
+<table><thead><tr><th>Calls per task</th><th>Calls including 8% retries</th><th>Illustrative monthly cost</th><th>Cost per accepted task</th></tr></thead><tbody>
+<tr><td>1.4</td><td>18,144</td><td>$234.33</td><td>$0.0195</td></tr>
+<tr><td>2.4</td><td>31,104</td><td>$401.71</td><td>$0.0335</td></tr>
+<tr><td>3.8</td><td>49,248</td><td>$636.04</td><td>$0.0530</td></tr>
+</tbody></table>
+<p>The model rate did not change, yet the high-loop design costs 2.7 times the low-loop design. This is why request-level unit prices are not enough for an agent product.</p>
+<h2>Capture evidence in a task-level trace</h2>
+<p>A forecast becomes auditable when each accepted or rejected task can be reconstructed from privacy-safe usage records. Store provider request identifiers separately from user content, and avoid logging prompts unless there is a documented need and retention policy.</p>
+<pre><code>{
+  "task_type": "support_summary",
+  "task_result": "accepted",
+  "model": "provider/model-version",
+  "calls": 3,
+  "input_tokens": 18240,
+  "cached_input_tokens": 6400,
+  "output_tokens": 2210,
+  "tool_calls": 1,
+  "retries": 0,
+  "latency_ms": 6840,
+  "price_snapshot": "2026-08-10"
+}</code></pre>
+<p>Aggregate these records by task type and result. Report median and p90 tokens, calls, latency, and cost per accepted task. Keep rejected and abandoned tasks in the denominator of spend: removing them makes the workflow look cheaper without improving it.</p>
+<h2>Forecast validation before launch</h2>
+<ol><li><strong>Freeze a price snapshot:</strong> record model ID, endpoint, region, units, cache terms, long-context tiers, and source URL.</li><li><strong>Replay a representative set:</strong> include routine, long-context, tool-failure, and refusal cases.</li><li><strong>Reconcile usage:</strong> compare locally recorded tokens with provider usage fields and a small billing export.</li><li><strong>Inspect outliers:</strong> find tasks above p95 cost and explain whether length, retries, tools, or routing caused them.</li><li><strong>Set guardrails:</strong> cap calls per task, output tokens, retry count, and expensive fallbacks.</li><li><strong>Review weekly after launch:</strong> compare forecast and actual cost per accepted task, not only the total invoice.</li></ol>
 <h2>Use the calculator with explicit assumptions</h2>
 <p>Our <a href="tool-cost-calculator.html">LLM cost calculator</a> uses the currently reviewed public model rates in this site's data file. It is an estimator, not an invoice predictor. Enter realistic input and output sizes, then save your traffic and retry assumptions separately.</p>
 <h2>Primary references</h2>
