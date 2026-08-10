@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="How to Evaluate AI Agents — a guide to coding benchmarks like SWE-bench and building custom evaluation pipelines for agentic workflows.">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://www.waiagent.win/article-agent-evaluation.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>How to Benchmark and Evaluate AI Agents: SWE-bench and Beyond — AI Agent Hub</title>
@@ -21,10 +20,11 @@
     "datePublished": "2026-07-08"
   }
   </script>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20260805c">
 </head>
 <body class="article-page">
-  <nav class="nav">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+  <nav class="nav" aria-label="Primary navigation">
     <div class="nav-inner">
       <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
       <ul class="nav-links">
@@ -37,7 +37,8 @@
     </div>
   </nav>
 
-  <main>
+  <main id="main-content">
+<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
     <div class="meta">Concepts · 8 min read · Updated July 2026</div>
     <h1>How to Benchmark and Evaluate AI Agents: SWE-bench and Beyond</h1>
     <p>Evaluating standard language models has evolved from multiple-choice tests (MMLU) and single-function generation (HumanEval) to expert-level reasoning benchmarks like <strong>Humanity's Last Exam (HLE)</strong>. However, evaluating an <strong>AI Agent</strong> is far more complex. Agents operate in loops, write multi-file patches, invoke shell commands, and read local errors. Evaluating their terminal interaction capability requires benchmarks like <strong>Terminal-Bench v2</strong>. This article explains how the AI community benchmarks agentic systems using <strong>SWE-bench</strong> and <strong>Terminal-Bench v2</strong>, and how you can set up evaluation rigs for your own agents.</p>

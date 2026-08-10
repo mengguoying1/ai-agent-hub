@@ -1,255 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Interactive AI Agent Builder Lab — Configure, design, and generate runnable Python and TypeScript code for building custom AI agents step-by-step.">
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.waiagent.win/tool-agent-builder-lab.html">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Interactive AI Agent Builder Lab & Code Generator — AI Agent Hub</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "AI Agent Builder Lab",
-    "url": "https://www.waiagent.win/tool-agent-builder-lab.html",
-    "description": "Visual studio for configuring AI agent architectures and generating production-ready Python and TypeScript boilerplate.",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "All"
-  }
-  </script>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body class="tool-page">
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
-      <ul class="nav-links">
-        <li><a href="./">Home</a></li>
-        <li><a href="articles.html">Articles</a></li>
-        <li><a href="guide.html">Guides</a></li>
-        <li><a href="category-tools.html">Tools</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <main style="max-width: 1050px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
-      <a href="./">Home</a> &gt; <a href="category-tools.html">Tools</a> &gt; Agent Builder Lab
-    </div>
-
-    <h1>Interactive AI Agent Builder Lab</h1>
-    <p style="color:#9090a0; margin-bottom: 2rem;">Design your custom AI agent architecture step-by-step. Configure the reasoning brain, memory store, tool definitions, and framework pattern to generate production-ready Python or TypeScript boilerplate.</p>
-
-    <!-- Lab Layout Grid -->
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; align-items: start;">
-      
-      <!-- Left Column: Controls & Configuration -->
-      <div style="display:flex; flex-direction:column; gap:1.5rem;">
-        
-        <!-- Step 1: Model Brain -->
-        <div class="card" style="padding:1.5rem;">
-          <h3 style="color:#c4b5fd; margin-bottom:1rem; font-size:1.05rem;">1. Select Model Brain (Reasoning Layer)</h3>
-          <select id="selModel" class="builder-select" onchange="generateAgent()">
-            <option value="claude">Claude Opus 5 (Anthropic) — Deepest Reasoning</option>
-            <option value="gpt">GPT-5.6 Sol (OpenAI) — High-Speed Agentic</option>
-            <option value="deepseek" selected>DeepSeek-V3 / R1 — Open Weights & Low Cost</option>
-            <option value="gemini">Gemini 3.6 Flash (Google) — Multimodal & Fast</option>
-          </select>
-        </div>
-
-        <!-- Step 2: Agent Architecture Pattern -->
-        <div class="card" style="padding:1.5rem;">
-          <h3 style="color:#c4b5fd; margin-bottom:1rem; font-size:1.05rem;">2. Agent Architecture Pattern</h3>
-          <select id="selPattern" class="builder-select" onchange="generateAgent()">
-            <option value="react" selected>ReAct Loop (Thought → Action → Observation)</option>
-            <option value="langgraph">LangGraph Cyclic State Machine (State → Nodes → Edges)</option>
-            <option value="plan_execute">Plan-and-Solve (Planner → Worker Agents)</option>
-          </select>
-        </div>
-
-        <!-- Step 3: Memory Storage -->
-        <div class="card" style="padding:1.5rem;">
-          <h3 style="color:#c4b5fd; margin-bottom:1rem; font-size:1.05rem;">3. Memory & State Management</h3>
-          <select id="selMemory" class="builder-select" onchange="generateAgent()">
-            <option value="buffer" selected>In-Memory Conversation Buffer (Short-term)</option>
-            <option value="rag">Vector Database RAG (ChromaDB / Pinecone)</option>
-            <option value="memgpt">Epistemic Knowledge Graph (MemGPT)</option>
-          </select>
-        </div>
-
-        <!-- Step 4: Tools & Capabilities -->
-        <div class="card" style="padding:1.5rem;">
-          <h3 style="color:#c4b5fd; margin-bottom:1rem; font-size:1.05rem;">4. Enable Tools & Protocols</h3>
-          <div style="display:flex; flex-direction:column; gap:.6rem;">
-            <label class="chk-label"><input type="checkbox" id="chkSearch" checked onchange="generateAgent()"> 🌐 Web Search Tool (DuckDuckGo / Tavily)</label>
-            <label class="chk-label"><input type="checkbox" id="chkFile" checked onchange="generateAgent()"> 📁 File System I/O (Read / Write Code)</label>
-            <label class="chk-label"><input type="checkbox" id="chkExec" onchange="generateAgent()"> ⚡ Code Execution Sandbox (Docker / Python Exec)</label>
-            <label class="chk-label"><input type="checkbox" id="chkMCP" checked onchange="generateAgent()"> 🔌 Model Context Protocol (MCP) Server</label>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Right Column: Live Code Generator & Preview -->
-      <div style="display:flex; flex-direction:column; gap:1.5rem;">
-        
-        <!-- Generated Code Card -->
-        <div class="card" style="padding:1.5rem; background:rgba(4,5,12,0.85); border:1px solid rgba(124,92,252,0.3);">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <div style="display:flex; gap:.8rem;">
-              <button id="btnPy" class="tab-btn active" onclick="switchLang('python')">Python 🐍</button>
-              <button id="btnTs" class="tab-btn" onclick="switchLang('typescript')">TypeScript 📘</button>
-            </div>
-            <button class="btn btn-primary" style="padding:.3rem 1rem; font-size:.8rem;" onclick="copyCode()">Copy Code 📋</button>
-          </div>
-
-          <pre style="background:rgba(0,0,0,0.5); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.84rem; max-height:460px; color:#e2e8f0; border:1px solid rgba(255,255,255,0.05);"><code id="codeBlock"># Loading code...</code></pre>
-        </div>
-
-        <!-- Architecture Summary Card -->
-        <div class="card" style="padding:1.2rem; background:rgba(124,92,252,0.06); border-left:4px solid #7c5cfc;">
-          <h4 style="color:#fff; margin-bottom:.5rem;">Architecture Specs Summary</h4>
-          <p style="font-size:.88rem; color:#b0b0c0; line-height:1.6;" id="specSummary">Generating specs...</p>
-        </div>
-
-      </div>
-
-    </div>
-  </main>
-
-  <style>
-  .builder-select {
-    width: 100%; padding: .7rem 1rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 8px; color: #fff; font-family: var(--font-body); font-size: .9rem; cursor: pointer;
-  }
-  .builder-select:focus { border-color: #7c5cfc; outline: none; }
-  .chk-label { font-size: .88rem; color: #cbd5e1; cursor: pointer; display: flex; align-items: center; gap: .6rem; }
-  .tab-btn {
-    background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #888;
-    padding: .3rem .9rem; border-radius: 6px; font-size: .8rem; cursor: pointer; transition: all .2s;
-  }
-  .tab-btn.active { background: #7c5cfc; color: #fff; border-color: #7c5cfc; }
-  </style>
-
-  <script>
-  let currentLang = 'python';
-
-  function switchLang(lang) {
-    currentLang = lang;
-    document.getElementById('btnPy').classList.toggle('active', lang === 'python');
-    document.getElementById('btnTs').classList.toggle('active', lang === 'typescript');
-    generateAgent();
-  }
-
-  function generateAgent() {
-    const model = document.getElementById('selModel').value;
-    const pattern = document.getElementById('selPattern').value;
-    const memory = document.getElementById('selMemory').value;
-    const search = document.getElementById('chkSearch').checked;
-    const file = document.getElementById('chkFile').checked;
-    const exec = document.getElementById('chkExec').checked;
-    const mcp = document.getElementById('chkMCP').checked;
-
-    let code = '';
-    let modelName = '';
-    let apiEndpoint = '';
-
-    if (model === 'claude') { modelName = 'claude-opus-5'; apiEndpoint = 'Anthropic(api_key=...)'; }
-    else if (model === 'gpt') { modelName = 'gpt-5.6-sol'; apiEndpoint = 'OpenAI(api_key=...)'; }
-    else if (model === 'deepseek') { modelName = 'deepseek-v3'; apiEndpoint = 'OpenAI(base_url="https://api.deepseek.com")'; }
-    else { modelName = 'gemini-3.6-flash'; apiEndpoint = 'GoogleGenAI(api_key=...)'; }
-
-    if (currentLang === 'python') {
-      code = `# Autonomous AI Agent Boilerplate (Python)\n`;
-      code += `# Created via AI Agent Hub Builder Lab\n\n`;
-      code += `import os\nfrom typing import List, Dict, Any\n`;
-      if (pattern === 'langgraph') {
-        code += `from langgraph.graph import StateGraph, END\n`;
-      }
-      code += `\n# 1. Initialize Core Reasoning Brain\n`;
-      code += `MODEL_NAME = "${modelName}"\n`;
-      code += `client = ${apiEndpoint}\n\n`;
-
-      code += `# 2. Define Agent Tools\n`;
-      code += `tools = []\n`;
-      if (search) code += `def web_search(query: str):\n    """Search duckduckgo/tavily for real-time web info."""\n    return f"Search results for: {query}"\ntools.append(web_search)\n\n`;
-      if (file) code += `def read_write_file(path: str, action: str, content: str = ""):\n    """Read or write local repository files."""\n    return f"File action {action} on {path}"\ntools.append(read_write_file)\n\n`;
-      if (mcp) code += `# MCP Server Client Protocol enabled for database & REST integration\n\n`;
-
-      code += `# 3. Agent Execution Loop (${pattern.toUpperCase()})\n`;
-      code += `class AIAgent:\n`;
-      code += `    def __init__(self):\n`;
-      code += `        self.history = []\n`;
-      if (memory === 'rag') code += `        self.vector_store = "ChromaDB/Pinecone Setup"\n`;
-      code += `\n    def run(self, user_prompt: str) -> str:\n`;
-      code += `        print(f"Executing agent task: {user_prompt}")\n`;
-      code += `        # Reasoning Loop: Thought -> Action -> Observation\n`;
-      code += `        response = client.chat.completions.create(\n`;
-      code += `            model=MODEL_NAME,\n`;
-      code += `            messages=[{"role": "user", "content": user_prompt}]\n`;
-      code += `        )\n`;
-      code += `        return response.choices[0].message.content\n\n`;
-      code += `if __name__ == "__main__":\n`;
-      code += `    agent = AIAgent()\n`;
-      code += `    res = agent.run("Analyze project codebase and write unit tests.")\n`;
-      code += `    print(res)\n`;
-
-    } else {
-      // TypeScript
-      code = `// Autonomous AI Agent Boilerplate (TypeScript / Node.js)\n`;
-      code += `import { OpenAI } from "openai";\n\n`;
-      code += `const MODEL_NAME = "${modelName}";\n`;
-      code += `const client = new OpenAI({ apiKey: process.env.API_KEY });\n\n`;
-      code += `interface AgentState {\n  history: Array<{ role: string; content: string }>;\n}\n\n`;
-      code += `async function runAgentTask(prompt: string): Promise<string> {\n`;
-      code += `  console.log(\`Running agent task: \${prompt}\`);\n`;
-      code += `  const response = await client.chat.completions.create({\n`;
-      code += `    model: MODEL_NAME,\n`;
-      code += `    messages: [{ role: "user", content: prompt }]\n`;
-      code += `  });\n`;
-      code += `  return response.choices[0].message.content || "";\n`;
-      code += `}\n\n`;
-      code += `runAgentTask("Refactor code modules and execute tests.");\n`;
-    }
-
-    document.getElementById('codeBlock').innerText = code;
-
-    // Spec Summary
-    let toolsText = [];
-    if (search) toolsText.push("Web Search");
-    if (file) toolsText.push("File I/O");
-    if (exec) toolsText.push("Docker Execution");
-    if (mcp) toolsText.push("MCP Server");
-
-    document.getElementById('specSummary').innerHTML = `
-      <strong>Selected Brain:</strong> ${modelName}<br>
-      <strong>Architecture:</strong> ${pattern}<br>
-      <strong>Memory Strategy:</strong> ${memory}<br>
-      <strong>Enabled Tools:</strong> ${toolsText.join(', ') || 'None'}
-    `;
-  }
-
-  function copyCode() {
-    const text = document.getElementById('codeBlock').innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      alert("Agent boilerplate code copied to clipboard!");
-    });
-  }
-
-  // Initialize
-  generateAgent();
-  </script>
-
-  <footer class="footer">
-    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
-    <div class="policy-links">
-      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
-    </div>
-  </footer>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Build a transparent AI agent architecture blueprint with model, tools, memory, permissions, approvals, limits, and evaluation checks."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/tool-agent-builder-lab.html"><link rel="alternate" type="application/rss+xml" title="AI Agent Hub Guides" href="feed.xml"><meta property="og:type" content="website"><meta property="og:title" content="AI Agent Blueprint Builder"><meta property="og:description" content="Generate a reviewable JSON architecture plan with explicit permissions, approvals, limits, and evaluations."><meta property="og:url" content="https://www.waiagent.win/tool-agent-builder-lab.html"><meta name="twitter:card" content="summary"><link rel="icon" href="favicon.svg"><title>AI Agent Blueprint Builder — AI Agent Hub</title><link rel="stylesheet" href="css/style.css?v=20260805c"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI Agent Blueprint Builder","applicationCategory":"DeveloperApplication","operatingSystem":"Any","isAccessibleForFree":true,"url":"https://www.waiagent.win/tool-agent-builder-lab.html","description":"Generate a reviewable AI agent architecture blueprint with explicit permissions and evaluation checks.","author":{"@type":"Organization","name":"AI Agent Hub"}}</script><style>.lab{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(320px,1.2fr);gap:1.5rem}.lab label{display:block;margin:.8rem 0;color:#c8c8d4}.lab select{width:100%;padding:.65rem;background:#0a0c16;color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:8px}.blueprint{white-space:pre-wrap;overflow:auto;max-height:620px;background:#070812;padding:1rem;border-radius:10px;color:#d8d8e5}@media(max-width:760px){.lab{grid-template-columns:1fr}}</style></head><body class="tool-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a></li></ul></div></nav>
+<main id="main-content" style="max-width:1100px;margin:0 auto;padding:3rem 1.5rem 5rem"><div class="breadcrumb"><a href="./">Home</a> &gt; <a href="category-tools.html">Tools</a> &gt; Blueprint builder</div><h1>AI Agent Blueprint Builder</h1><p class="section-desc">Generate an architecture review document—not “production-ready code.” The blueprint makes authority, approvals, budgets, observability, and evaluation visible before implementation.</p>
+<div class="lab"><section class="card"><h2>Design inputs</h2>
+<label>Model<select id="model"></select></label>
+<label>Workflow<select id="workflow"><option value="bounded-loop">Bounded tool loop</option><option value="plan-execute">Plan then execute</option><option value="reviewer">Generator plus independent reviewer</option></select></label>
+<label>State<select id="state"><option value="task-only">Task-scoped state only</option><option value="retrieval">Task state plus retrieval</option><option value="long-term">Long-term memory with lifecycle review</option></select></label>
+<fieldset><legend>Capabilities</legend><label><input type="checkbox" id="read" checked> Read approved workspace files</label><label><input type="checkbox" id="write"> Write workspace files</label><label><input type="checkbox" id="network"> Access allowlisted network hosts</label><label><input type="checkbox" id="execute"> Execute sandboxed commands</label></fieldset>
+<label>Approval boundary<select id="approval"><option value="all-writes">Approve every write or external side effect</option><option value="high-impact">Approve destructive, external, access, deploy, or payment actions</option><option value="read-only">Read-only agent; no writes permitted</option></select></label>
+<label>Maximum tool steps<select id="steps"><option>5</option><option selected>10</option><option>20</option></select></label>
+<button id="generate" type="button" class="btn btn-primary">Generate blueprint</button></section>
+<section class="card"><div style="display:flex;justify-content:space-between;gap:1rem;align-items:center"><h2>Architecture blueprint</h2><button id="copy" type="button" class="btn btn-secondary">Copy JSON</button></div><pre class="blueprint"><code id="output"></code></pre><p id="status" aria-live="polite"></p></section></div>
+<div class="highlight-box"><p><strong>Safety default:</strong> the generated design separates model proposals from authorization. Review the <a href="article-agent-ecosystem.html">agent systems guide</a>, <a href="article-ai-security.html">security checklist</a>, and <a href="article-mcp-guide.html">MCP guide</a> before implementation.</p></div>
+<div class="tool-explainer"><h2>How to use the blueprint</h2><p>The generated JSON is a design-review prompt for humans and implementation teams. It makes assumptions explicit before code exists: which model is proposed, what the agent may read or change, when approval is required, how many tool steps are allowed, and which failure cases must be evaluated.</p><div class="tool-guide-grid"><section><h3>Capabilities are not authority</h3><p>Checking “write” describes a possible tool capability. The application must still authenticate the caller, authorize each target, validate arguments, and enforce approval.</p></section><section><h3>Memory needs a lifecycle</h3><p>Long-term memory introduces retention, deletion, provenance, tenant isolation, and correction obligations. Prefer task-scoped state unless persistence has a defined benefit.</p></section><section><h3>Limits are safety controls</h3><p>Maximum steps, timeouts, spend limits, and stop conditions prevent a failed plan from becoming an unbounded tool loop.</p></section></div><h2>Review before implementation</h2><ol><li>Replace generic capabilities with exact tools, scopes, targets, and credential boundaries.</li><li>Define which operations are read-only, reversible, consequential, or destructive.</li><li>Add application-side schema validation and business authorization for every tool call.</li><li>Design idempotency, rollback, timeout, and partial-failure behavior.</li><li>Turn every evaluation label into a reproducible test with an expected result.</li></ol><h2>What the output deliberately omits</h2><ul><li>Provider SDK code, because interfaces and versions change.</li><li>Secrets, credentials, endpoints, and organization-specific policy.</li><li>A claim that the selected model is suitable for the workload.</li><li>Permission to deploy, write files, contact people, or access external systems.</li></ul><div class="related-links"><strong>Architecture references:</strong> start with <a href="article-agent-ecosystem.html">AI Agent Systems Explained</a>, then apply the <a href="article-ai-security.html">security guide</a> and <a href="article-structured-outputs.html">structured-output validation guide</a>.</div></div></main>
+<footer class="footer"><p>© 2026 AI Agent Hub.</p><div class="policy-links"><a href="methodology.html">Methodology</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Corrections</a></div></footer>
+<script src="js/model-data.js"></script><script>
+const modelSelect=document.getElementById('model');
+modelSelect.innerHTML=AAH_DATA.utils.priced().map(m=>'<option value="'+m.id+'">'+m.name+' · '+AAH_DATA.utils.fmtPricePair(m)+'</option>').join('');
+modelSelect.value='claude-sonnet-5';
+function blueprint(){
+ const model=AAH_DATA.utils.byId(modelSelect.value);
+ const capabilities={read_workspace:document.getElementById('read').checked,write_workspace:document.getElementById('write').checked,allowlisted_network:document.getElementById('network').checked,sandboxed_execution:document.getElementById('execute').checked};
+ const value={blueprint_version:'1.0',generated_from_data:AAH_DATA.verifiedAt,model:{id:model.id,name:model.name,context:AAH_DATA.utils.fmtContext(model),source:model.sourceUrl},orchestration:{pattern:document.getElementById('workflow').value,max_tool_steps:Number(document.getElementById('steps').value),stop_conditions:['acceptance criteria met','tool budget reached','approval denied','unrecoverable error']},state:{mode:document.getElementById('state').value,provenance_required:true,deletion_and_expiry_policy_required:true},capabilities,policy:{approval_boundary:document.getElementById('approval').value,model_output_grants_authority:false,validate_tool_arguments_outside_model:true,scope_credentials_per_tool:true},observability:['tool name','authorized target','approval decision','outcome','latency','token estimate'],evaluation:['normal task','permission denial','malicious retrieved instruction','tool timeout','partial failure','rollback'],implementation_note:'Blueprint only. Verify current provider SDKs and security requirements before coding.'};
+ document.getElementById('output').textContent=JSON.stringify(value,null,2);
+}
+document.querySelectorAll('select,input').forEach(el=>el.addEventListener('change',blueprint));document.getElementById('generate').addEventListener('click',blueprint);document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('output').textContent);document.getElementById('status').textContent='Blueprint copied.'}catch(e){document.getElementById('status').textContent='Clipboard access was unavailable. Select the JSON manually.'}});blueprint();
+</script></body></html>

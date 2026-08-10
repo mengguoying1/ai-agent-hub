@@ -1,468 +1,140 @@
-/* ============================================================
-   AI Agent Hub — SINGLE SOURCE OF TRUTH for model data
-   ============================================================
-   Monthly update workflow:
-     1. Edit THIS file only (prices, models, benchmarks, cards).
-     2. Run:  node build/generate-index.js
-        → re-renders the static tables/cards in index.html
-     3. Tool pages (calculator / benchmark / token counter)
-        read this file at runtime — no further action needed.
-
-   Works in browser (window.AAH_DATA) and Node (module.exports).
-   ============================================================ */
+/* AI Agent Hub - verified shared model data.
+   Update this file, then run: node build/generate-index.js */
 (function (root, factory) {
   const data = factory();
-  if (typeof module === 'object' && module.exports) {
-    module.exports = data;
-  } else {
-    root.AAH_DATA = data;
-  }
+  if (typeof module === 'object' && module.exports) module.exports = data;
+  else root.AAH_DATA = data;
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  /* ---------- Model catalog ----------
-     Fields:
-       id             unique slug (used by tools)
-       name           display name
-       company        provider / organization
-       contextK       context window in K tokens (2000 = 2M)
-       contextDisplay optional override, e.g. '2M+'
-       inputPrice     USD per 1M input tokens   (null = no public API price)
-       outputPrice    USD per 1M output tokens
-       cacheReadPrice USD per 1M cached-input tokens (required for cost calculator)
-       priceApprox    true → render prices with "~" prefix
-       strengths      default "Strengths" column text
-       tabStrengths   per-tab overrides  { china: '...' }
-       tabs           which index.html tables include this model
-                      ('international' | 'china' | 'opensource')
-       status         default status badge { text, badge(css class) }
-       tabStatus      per-tab badge overrides { international: {...} }
-       openWeights    presence adds the model to the opensource table:
-                      { displayName?, params, license, licenseBadge, highlights }
-  */
   const models = [
-    /* ===== International ===== */
     {
-      id: 'claude-opus-5',
-      name: 'Claude Opus 5',
-      company: 'Anthropic',
-      contextK: 200,
-      inputPrice: 15.0,
-      outputPrice: 75.0,
-      cacheReadPrice: 1.5,
-      priceApprox: false,
-      strengths: 'Flagship reasoning, multi-file hard coding, effort dials for cost scaling',
-      tabs: ['international'],
-      status: { text: 'NEW (Jul 2026)', badge: 'badge-purple' }
+      id: 'claude-opus-5', name: 'Claude Opus 5', company: 'Anthropic',
+      contextK: 1000, inputPrice: 5, outputPrice: 25, cacheReadPrice: 0.5,
+      strengths: 'Complex agentic coding and enterprise work; adaptive thinking and 128K maximum output',
+      tabs: ['international'], status: { text: 'Verified Aug 5', badge: 'badge-purple' },
+      sourceUrl: 'https://platform.claude.com/docs/en/about-claude/models/overview', verifiedAt: '2026-08-05'
     },
     {
-      id: 'claude-sonnet-48',
-      name: 'Claude Sonnet 4.8',
-      company: 'Anthropic',
-      contextK: 200,
-      inputPrice: 3.0,
-      outputPrice: 15.0,
-      cacheReadPrice: 0.3,
-      priceApprox: false,
-      strengths: 'Fast code completion, balanced speed/quality, cost-effective for most coding tasks',
-      tabs: ['international'],
-      status: { text: 'GA', badge: 'badge-purple' }
+      id: 'claude-sonnet-5', name: 'Claude Sonnet 5', company: 'Anthropic',
+      contextK: 1000, inputPrice: 2, outputPrice: 10, cacheReadPrice: 0.2,
+      strengths: 'Fast agentic coding with a 1M context window; introductory price through Aug 31, 2026',
+      tabs: ['international'], status: { text: 'Intro price', badge: 'badge-purple' },
+      sourceUrl: 'https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5',
+      priceNote: 'Standard price becomes $3 input / $15 output after August 31, 2026.', verifiedAt: '2026-08-05'
     },
     {
-      id: 'gpt-56-sol',
-      name: 'GPT-5.6 Sol',
-      company: 'OpenAI',
-      contextK: 256,
-      inputPrice: 10.0,
-      outputPrice: 40.0,
-      cacheReadPrice: 5.0,
-      priceApprox: true,
-      strengths: 'Autonomous agentic speed, multi-step execution, SWE-bench lead',
-      tabs: ['international'],
-      status: { text: 'NEW (Jul 2026)', badge: 'badge-green' }
+      id: 'gpt-56-sol', name: 'GPT-5.6 Sol', company: 'OpenAI',
+      contextK: 1050, contextDisplay: '1.05M', inputPrice: 5, outputPrice: 30, cacheReadPrice: 0.5,
+      strengths: 'Frontier model for complex professional work, coding, research, and tool use',
+      tabs: ['international'], status: { text: 'Verified Aug 5', badge: 'badge-green' },
+      sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-5.6-sol', verifiedAt: '2026-08-05'
     },
     {
-      id: 'gpt-55-mini',
-      name: 'GPT-5.5 Mini',
-      company: 'OpenAI',
-      contextK: 256,
-      inputPrice: 1.0,
-      outputPrice: 4.0,
-      cacheReadPrice: 0.5,
-      priceApprox: true,
-      strengths: 'Cost-efficient reasoning, good for most everyday tasks, fast inference',
-      tabs: ['international'],
-      status: { text: 'GA', badge: 'badge-green' }
+      id: 'gpt-56-terra', name: 'GPT-5.6 Terra', company: 'OpenAI',
+      contextK: 1050, contextDisplay: '1.05M', inputPrice: 2.5, outputPrice: 15, cacheReadPrice: 0.25,
+      strengths: 'Balanced GPT-5.6 tier for strong capability at a lower unit price',
+      tabs: ['international'], status: { text: 'Verified Aug 5', badge: 'badge-green' },
+      sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-5.6-terra', verifiedAt: '2026-08-05'
     },
     {
-      id: 'gemini-36-flash',
-      name: 'Gemini 3.6 Flash',
-      company: 'Google DeepMind',
-      contextK: 2000,
-      contextDisplay: '2M+',
-      inputPrice: 0.075,
-      outputPrice: 0.3,
-      cacheReadPrice: 0.01875,
-      priceApprox: true,
-      strengths: 'Ultra-fast multimodal, CodeMender security agents, sub-100ms latency',
-      tabs: ['international'],
-      status: { text: 'NEW (Jul 2026)', badge: 'badge-blue' }
+      id: 'gpt-56-luna', name: 'GPT-5.6 Luna', company: 'OpenAI',
+      contextK: 1050, contextDisplay: '1.05M', inputPrice: 1, outputPrice: 6, cacheReadPrice: 0.1,
+      strengths: 'Cost-sensitive, high-volume GPT-5.6 tier with the same published context limit',
+      tabs: ['international'], status: { text: 'Verified Aug 5', badge: 'badge-green' },
+      sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-5.6-luna', verifiedAt: '2026-08-05'
     },
     {
-      id: 'deepseek-v3',
-      name: 'DeepSeek-V3',
-      company: 'DeepSeek',
-      contextK: 128,
-      inputPrice: 0.27,
-      outputPrice: 0.4,
-      cacheReadPrice: 0.07,
-      priceApprox: false,
-      strengths: 'Open weights, high reasoning depth, 95% cheaper than proprietary APIs',
-      tabStrengths: {
-        china: 'Extreme cost-efficiency, strong coding & math, open weights, MoE architecture'
-      },
-      tabs: ['international', 'china', 'opensource'],
-      status: { text: 'GA', badge: 'badge-green' },
-      tabStatus: {
-        international: { text: 'Open Weights', badge: 'badge-cyan' }
-      },
-      openWeights: {
-        params: '671B MoE',
-        license: 'MIT',
-        licenseBadge: 'badge-green',
-        highlights: 'Top open model, beats GPT-4 on many benchmarks, extremely cheap to run'
-      }
+      id: 'gemini-36-flash', name: 'Gemini 3.6 Flash', company: 'Google DeepMind',
+      contextK: 1000, inputPrice: 1.5, outputPrice: 7.5, cacheReadPrice: 1.5,
+      strengths: 'Multimodal model for coding, knowledge work, and long-context understanding',
+      tabs: ['international'], status: { text: 'Verified Aug 5', badge: 'badge-blue' },
+      sourceUrl: 'https://deepmind.google/models/gemini/flash/',
+      cacheNote: 'No cache discount is assumed in the calculator.', verifiedAt: '2026-08-05'
     },
     {
-      id: 'deepseek-r1',
-      name: 'DeepSeek-R1',
-      company: 'DeepSeek',
-      contextK: 128,
-      inputPrice: 0.55,
-      outputPrice: 2.2,
-      cacheReadPrice: 0.14,
-      priceApprox: true,
-      strengths: 'Chain-of-thought reasoning, open weights, strong math & code',
-      tabStrengths: {
-        china: 'Chain-of-thought reasoning, scientific problem-solving, transparent reasoning traces'
-      },
-      tabs: ['international', 'china'],
-      status: { text: 'GA', badge: 'badge-green' },
-      tabStatus: {
-        international: { text: 'Open Weights', badge: 'badge-cyan' }
-      }
+      id: 'deepseek-v4-flash', name: 'DeepSeek V4 Flash', company: 'DeepSeek',
+      contextK: 1000, inputPrice: 0.14, outputPrice: 0.28, cacheReadPrice: 0.0028,
+      strengths: 'Low-cost current DeepSeek API model with thinking mode and Responses API support',
+      tabs: ['international', 'china'], status: { text: 'Verified Aug 5', badge: 'badge-cyan' },
+      sourceUrl: 'https://api-docs.deepseek.com/quick_start/pricing/',
+      priceNote: 'Peak/off-peak pricing was announced without an effective date when checked.', verifiedAt: '2026-08-05'
     },
     {
-      id: 'grok-5',
-      name: 'Grok-5',
-      company: 'xAI',
-      contextK: 128,
-      inputPrice: 5.0,
-      outputPrice: 15.0,
-      cacheReadPrice: null,
-      priceApprox: true,
-      strengths: 'Real-time knowledge, technical depth, math, X platform integration',
-      tabs: ['international'],
-      status: { text: 'GA', badge: 'badge-rose' }
-    },
-
-    /* ===== China ===== */
-    {
-      id: 'qwen3-235b',
-      name: 'Qwen3-235B',
-      company: 'Alibaba Cloud',
-      contextK: 128,
-      inputPrice: 0.5,
-      outputPrice: 2.0,
-      cacheReadPrice: 0.125,
-      priceApprox: true,
-      strengths: 'Multilingual (CN/EN/JP/KR), enterprise-grade, strong agent capabilities, MCP support',
-      tabs: ['china', 'opensource'],
-      status: { text: 'GA', badge: 'badge-green' },
-      openWeights: {
-        displayName: 'Qwen3',
-        params: '235B',
-        license: 'Apache 2.0',
-        licenseBadge: 'badge-green',
-        highlights: 'Best Chinese-English open model, agent-native, MCP-compatible'
-      }
+      id: 'deepseek-v4-pro', name: 'DeepSeek V4 Pro', company: 'DeepSeek',
+      contextK: 1000, inputPrice: 0.435, outputPrice: 0.87, cacheReadPrice: 0.003625,
+      strengths: 'Higher-capability DeepSeek V4 API model with thinking mode and 384K maximum output',
+      tabs: ['china'], status: { text: 'Verified Aug 5', badge: 'badge-cyan' },
+      sourceUrl: 'https://api-docs.deepseek.com/quick_start/pricing/',
+      priceNote: 'Peak/off-peak pricing was announced without an effective date when checked.', verifiedAt: '2026-08-05'
     },
     {
-      id: 'qwen3-coder',
-      name: 'Qwen3-Coder',
-      company: 'Alibaba Cloud',
-      contextK: 128,
-      inputPrice: 0.5,
-      outputPrice: 2.0,
-      cacheReadPrice: 0.125,
-      priceApprox: true,
-      strengths: 'Specialized code generation, competitive with GPT-5.5 on coding benchmarks, multi-language support',
-      tabs: ['china'],
-      status: { text: 'GA', badge: 'badge-green' }
-    },
-    {
-      id: 'ernie-5',
-      name: 'ERNIE 5.0',
-      company: 'Baidu',
-      contextK: 128,
-      inputPrice: 0.8,
-      outputPrice: 3.2,
-      cacheReadPrice: null,
-      priceApprox: true,
-      strengths: 'Chinese language mastery, enterprise knowledge management, search integration',
-      tabs: ['china'],
-      status: { text: 'GA', badge: 'badge-blue' }
-    },
-    {
-      id: 'hunyuan-t1',
-      name: 'Hunyuan-T1',
-      company: 'Tencent',
-      contextK: 256,
-      inputPrice: 0.5,
-      outputPrice: 1.5,
-      cacheReadPrice: null,
-      priceApprox: true,
-      strengths: 'Multimodal reasoning, WeChat ecosystem integration, media understanding',
-      tabs: ['china'],
-      status: { text: 'GA', badge: 'badge-blue' }
-    },
-    {
-      id: 'glm-5',
-      name: 'GLM-5',
-      company: 'Zhipu AI',
-      contextK: 128,
-      inputPrice: 0.5,
-      outputPrice: 1.0,
-      cacheReadPrice: null,
-      priceApprox: true,
-      strengths: 'Strong agent framework, AutoGLM autonomous operations, Chinese academic excellence',
-      tabs: ['china'],
-      status: { text: 'GA', badge: 'badge-green' }
-    },
-    {
-      id: 'yi-lightning',
-      name: 'Yi-Lightning',
-      company: '01.AI (Yi)',
-      contextK: 256,
-      inputPrice: 0.14,
-      outputPrice: 0.43,
-      cacheReadPrice: null,
-      priceApprox: true,
-      strengths: 'Excellent cost-performance ratio, strong bilingual capabilities, fast inference',
-      tabs: ['china', 'opensource'],
-      status: { text: 'GA', badge: 'badge-green' },
-      openWeights: {
-        params: '—',
-        license: 'Apache 2.0',
-        licenseBadge: 'badge-green',
-        highlights: 'Best cost-performance among open models, fast inference'
-      }
-    },
-    {
-      id: 'moonshot-v2',
-      name: 'Moonshot-v2 (Kimi)',
-      company: 'Moonshot AI',
-      contextK: 128,
-      inputPrice: 0.6,
-      outputPrice: 1.8,
-      cacheReadPrice: null,
-      priceApprox: true,
-      strengths: 'Ultra-long document processing, reading comprehension, document Q&A',
-      tabs: ['china'],
-      status: { text: 'GA', badge: 'badge-blue' }
-    },
-    {
-      id: 'step-3',
-      name: 'Step-3',
-      company: 'StepFun',
-      contextK: 256,
-      inputPrice: 0.3,
-      outputPrice: 1.2,
-      cacheReadPrice: null,
-      priceApprox: true,
-      strengths: 'Multimodal (text+image+video), strong reasoning, competitive pricing',
-      tabs: ['china'],
-      status: { text: 'GA', badge: 'badge-green' }
-    },
-
-    /* ===== Open source only (no public per-token API price) ===== */
-    {
-      id: 'llama-4',
-      name: 'Llama 4',
-      company: 'Meta',
-      contextK: 128,
-      inputPrice: null,
-      outputPrice: null,
-      cacheReadPrice: null,
-      priceApprox: false,
-      strengths: '',
-      tabs: ['opensource'],
-      status: { text: 'GA', badge: 'badge-green' },
-      openWeights: {
-        params: '400B',
-        license: 'Llama 4 Community',
-        licenseBadge: 'badge-green',
-        highlights: 'Strong multilingual, community ecosystem, fine-tuning friendly'
-      }
-    },
-    {
-      id: 'mistral-large-3',
-      name: 'Mistral Large 3',
-      company: 'Mistral AI',
-      contextK: 256,
-      inputPrice: null,
-      outputPrice: null,
-      cacheReadPrice: null,
-      priceApprox: false,
-      strengths: '',
-      tabs: ['opensource'],
-      status: { text: 'Research', badge: 'badge-amber' },
-      openWeights: {
-        params: '123B',
-        license: 'Research',
-        licenseBadge: 'badge-amber',
-        highlights: 'European leader, strong code & math, efficient architecture'
-      }
-    },
-
-    /* ===== Calculator-only models (kept for the cost tools) ===== */
-    {
-      id: 'claude-haiku-48',
-      name: 'Claude Haiku 4.8',
-      company: 'Anthropic',
-      contextK: 200,
-      inputPrice: 0.8,
-      outputPrice: 4.0,
-      cacheReadPrice: 0.08,
-      priceApprox: false,
-      strengths: 'Lightning-fast for linting, formatting, simple completions',
-      tabs: [],
-      status: { text: 'GA', badge: 'badge-purple' }
-    },
-    {
-      id: 'gemini-31-pro',
-      name: 'Gemini 3.1 Pro',
-      company: 'Google DeepMind',
-      contextK: 2000,
-      contextDisplay: '2M',
-      inputPrice: 3.0,
-      outputPrice: 9.0,
-      cacheReadPrice: 0.75,
-      priceApprox: false,
-      strengths: 'Multimodal debugging, repo-scale analysis',
-      tabs: [],
-      status: { text: 'GA', badge: 'badge-blue' }
+      id: 'claude-haiku-45', name: 'Claude Haiku 4.5', company: 'Anthropic',
+      contextK: 200, inputPrice: 1, outputPrice: 5, cacheReadPrice: 0.1,
+      strengths: 'Fast current Claude model for high-volume and latency-sensitive work',
+      tabs: ['international'], status: { text: 'Verified Aug 5', badge: 'badge-purple' },
+      sourceUrl: 'https://platform.claude.com/docs/en/about-claude/models/overview', verifiedAt: '2026-08-05'
     }
   ];
 
-  /* ---------- Agent-system benchmark matrix (tool-benchmark-compare.html) ----------
-     Historical scores for agentic setups at their test date — keep verbatim,
-     even when newer model versions exist in the pricing tables above.
-  */
   const agentBenchmarks = [
-    { name: 'Claude Code (Opus 4.8)', developer: 'Anthropic', sweBench: 72, terminalBench: 78, context: 200, inPrice: 15.0, outPrice: 75.0, open: false },
-    { name: 'OpenAI Agentic Engine (GPT-5.5)', developer: 'OpenAI', sweBench: 68, terminalBench: 74, context: 256, inPrice: 10.0, outPrice: 40.0, open: false },
-    { name: 'Sakana Fugu Orchestration', developer: 'Sakana AI', sweBench: 65, terminalBench: 71, context: 128, inPrice: 5.0, outPrice: 15.0, open: false },
-    { name: 'Claude Sonnet 4.8', developer: 'Anthropic', sweBench: 64, terminalBench: 70, context: 200, inPrice: 3.0, outPrice: 15.0, open: false },
-    { name: 'Qwen3-Coder (Agentic Setup)', developer: 'Alibaba Cloud', sweBench: 61, terminalBench: 66, context: 128, inPrice: 0.5, outPrice: 2.0, open: true },
-    { name: 'Gemini 3.1 Pro (Agentic Loop)', developer: 'Google DeepMind', sweBench: 60, terminalBench: 65, context: 2000, inPrice: 3.0, outPrice: 9.0, open: false },
-    { name: 'Cursor Composer (Sonnet 4.8)', developer: 'Anysphere', sweBench: 58, terminalBench: 63, context: 200, inPrice: 3.0, outPrice: 15.0, open: false },
-    { name: 'DeepSeek-V3 (Agentic Setup)', developer: 'DeepSeek', sweBench: 56, terminalBench: 61, context: 128, inPrice: 0.27, outPrice: 0.4, open: true },
-    { name: 'DeepSeek-R1 (CoT Agent)', developer: 'DeepSeek', sweBench: 57, terminalBench: 62, context: 128, inPrice: 0.55, outPrice: 2.2, open: true },
-    { name: 'GPT-5.5 Mini', developer: 'OpenAI', sweBench: 52, terminalBench: 58, context: 256, inPrice: 1.0, outPrice: 4.0, open: false },
-    { name: 'Gemini 3.1 Flash', developer: 'Google DeepMind', sweBench: 50, terminalBench: 55, context: 2000, inPrice: 0.075, outPrice: 0.3, open: false },
-    { name: 'Claude Haiku 4.8', developer: 'Anthropic', sweBench: 46, terminalBench: 51, context: 200, inPrice: 0.8, outPrice: 4.0, open: false }
+    { name: 'Claude Sonnet 5', developer: 'Anthropic', sweBench: 63.2, terminalBench: 80.4, context: 1000, inPrice: 2, outPrice: 10, open: false },
+    { name: 'GPT-5.6 Luna', developer: 'OpenAI', sweBench: 62.7, terminalBench: 84.7, context: 1050, inPrice: 1, outPrice: 6, open: false },
+    { name: 'Gemini 3.6 Flash', developer: 'Google DeepMind', sweBench: 58.7, terminalBench: 78, context: 1000, inPrice: 1.5, outPrice: 7.5, open: false }
   ];
 
-  /* ---------- Homepage pricing cards (index.html #pricing) ---------- */
+  const benchmarkSource = {
+    label: 'Google DeepMind Gemini 3.6 Flash performance table',
+    url: 'https://deepmind.google/models/gemini/flash/',
+    checked: '2026-08-05',
+    caveat: 'Vendor-published SWE-Bench Pro and Terminal-Bench 2.1 results; AI Agent Hub did not run these tests.'
+  };
+
   const pricingCards = [
     {
-      modelId: 'deepseek-v3',
-      provider: 'via DeepSeek API / OpenRouter',
-      monthly: '~$5',
-      detail: 'Ultra-budget choice for heavy coding',
-      features: [
-        'Exceptional code generation quality',
-        '~95% cheaper than GPT-5.5',
-        'Open weights — self-host option',
-        'Strong at Python, JS, Rust, Go',
-        'Available via OpenRouter proxy'
-      ],
-      cta: { text: 'Full Pricing Guide →', href: 'article-llm-pricing.html', cls: 'cta-outline' }
+      modelId: 'deepseek-v4-flash', provider: 'DeepSeek API', detail: 'Lowest published unit price in this verified set',
+      features: ['1M context window', 'Cache-hit input: $0.0028 / 1M tokens', 'Thinking mode available', 'Official API pricing linked below'],
+      cta: { text: 'Official pricing', href: 'https://api-docs.deepseek.com/quick_start/pricing/', cls: 'cta-outline' }
     },
     {
-      modelId: 'claude-sonnet-48',
-      provider: 'Anthropic API / Claude Code',
-      monthly: '~$45',
-      detail: 'Best value for Claude Code users',
-      featured: true,
-      features: [
-        'Native Claude Code integration',
-        'Excellent code quality & reasoning',
-        'Fast inference for real-time coding',
-        'Prompt caching reduces cost 90%',
-        '200K context window'
-      ],
-      cta: { text: 'View Recommendations ↓', href: '#recommend', cls: 'cta-primary' }
+      modelId: 'claude-sonnet-5', provider: 'Anthropic API', detail: 'Introductory pricing through August 31, 2026', featured: true,
+      features: ['1M context window', 'Strong agentic coding focus', '128K maximum output', 'Price rises to $3 / $15 after August 31'],
+      cta: { text: 'Official model page', href: 'https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5', cls: 'cta-primary' }
     },
     {
-      modelId: 'gpt-55-mini',
-      provider: 'OpenAI API / GitHub Copilot',
-      monthly: '~$25',
-      detail: 'Copilot-native, broad ecosystem',
-      features: [
-        'Deep VS Code / JetBrains integration',
-        'GitHub Copilot native model',
-        'Strong across all languages',
-        '256K context window',
-        'Azure marketplace availability'
-      ],
-      cta: { text: 'Compare All Models ↓', href: '#models', cls: 'cta-outline' }
+      modelId: 'gpt-56-luna', provider: 'OpenAI API', detail: 'Lower-cost GPT-5.6 tier for volume workloads',
+      features: ['1.05M context window', '$0.10 cached input / 1M tokens', 'Tool use and coding support', 'Official API model page linked below'],
+      cta: { text: 'Official model page', href: 'https://developers.openai.com/api/docs/models/gpt-5.6-luna', cls: 'cta-outline' }
     },
     {
-      modelId: 'gemini-36-flash',
-      provider: 'Google AI / Vertex AI',
-      monthly: '~$2',
-      detail: 'Cheapest frontier model available',
-      features: [
-        'Insane 2M token context',
-        'Multimodal (code + screenshots)',
-        'Free tier for light usage',
-        'Google Cloud integration',
-        'Great for code review at scale'
-      ],
-      cta: { text: 'Compare All Models ↓', href: '#models', cls: 'cta-outline' }
+      modelId: 'gemini-36-flash', provider: 'Google AI / Vertex AI', detail: 'Multimodal, long-context option',
+      features: ['1M context window', 'Multimodal input', 'Vendor-published benchmark data', 'Calculator assumes no cache discount'],
+      cta: { text: 'Official model page', href: 'https://deepmind.google/models/gemini/flash/', cls: 'cta-outline' }
     }
   ];
 
-  /* ---------- Shared helpers (used by generator AND tool pages) ---------- */
   const utils = {
-    // $15.00 → "$15.00", $0.075 → "$0.075"
     fmtPrice(n) {
       if (n === null || n === undefined) return '—';
-      return '$' + (n < 0.1 ? n.toFixed(3) : n.toFixed(2));
+      const digits = n < 0.01 ? 4 : (n < 0.1 ? 3 : 2);
+      return '$' + n.toFixed(digits);
     },
-    // price pair for tables: "$15 / $75" or "~$10 / ~$40"
     fmtPricePair(m) {
-      const p = m.priceApprox ? '~' : '';
-      return p + utils.fmtPrice(m.inputPrice) + ' / ' + p + utils.fmtPrice(m.outputPrice);
+      const prefix = m.priceApprox ? '~' : '';
+      return prefix + utils.fmtPrice(m.inputPrice) + ' / ' + prefix + utils.fmtPrice(m.outputPrice);
     },
-    // 200 → "200K", 2000 → "2M" (contextDisplay wins)
     fmtContext(m) {
       if (m.contextDisplay) return m.contextDisplay;
-      return m.contextK >= 1000 ? m.contextK / 1000 + 'M' : m.contextK + 'K';
+      return m.contextK >= 1000 ? (m.contextK / 1000) + 'M' : m.contextK + 'K';
     },
     badge(status) {
       return '<span class="badge ' + status.badge + '">' + status.text + '</span>';
     },
     forTab(tab) {
-      return models.filter(m => m.tabs.indexOf(tab) !== -1);
+      return models.filter(m => m.tabs.includes(tab));
     },
-    // models usable in cost tools: need all three prices
     priced() {
-      return models.filter(m =>
-        m.inputPrice !== null && m.outputPrice !== null && m.cacheReadPrice !== null
-      );
+      return models.filter(m => m.inputPrice !== null && m.outputPrice !== null && m.cacheReadPrice !== null);
     },
     byId(id) {
       return models.find(m => m.id === id) || null;
@@ -470,10 +142,12 @@
   };
 
   return {
-    updated: 'July 2026',
-    models: models,
-    agentBenchmarks: agentBenchmarks,
-    pricingCards: pricingCards,
-    utils: utils
+    updated: 'August 5, 2026',
+    verifiedAt: '2026-08-05',
+    models,
+    agentBenchmarks,
+    benchmarkSource,
+    pricingCards,
+    utils
   };
 });

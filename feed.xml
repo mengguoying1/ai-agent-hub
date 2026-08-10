@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI Agent Hub Guides</title>
+    <link>https://www.waiagent.win/articles.html</link>
+    <description>Reviewed, source-linked guides for AI model selection, agent architecture, security, cost, caching, retrieval, and deployment.</description>
+    <language>en</language>
+    <lastBuildDate>Mon, 10 Aug 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://www.waiagent.win/feed.xml" rel="self" type="application/rss+xml"/>
+    <item><title>How to Choose an AI Model and Agent Stack</title><link>https://www.waiagent.win/guide.html</link><guid isPermaLink="true">https://www.waiagent.win/guide.html</guid><pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate><description>A vendor-neutral decision framework using task evaluations, safety gates, latency, and total cost.</description></item>
+    <item><title>LLM API Cost Planning</title><link>https://www.waiagent.win/article-llm-pricing.html</link><guid isPermaLink="true">https://www.waiagent.win/article-llm-pricing.html</guid><pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate><description>Estimate cost per accepted task across token mix, caching, retries, tools, and production traffic.</description></item>
+    <item><title>Prompt Caching: Design, Economics and Safety</title><link>https://www.waiagent.win/article-prompt-caching.html</link><guid isPermaLink="true">https://www.waiagent.win/article-prompt-caching.html</guid><pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate><description>Plan stable prefixes, break-even measurement, privacy, invalidation, and monitoring.</description></item>
+    <item><title>Local LLM Deployment</title><link>https://www.waiagent.win/article-local-llm-guide.html</link><guid isPermaLink="true">https://www.waiagent.win/article-local-llm-guide.html</guid><pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate><description>Compare Ollama, llama.cpp, and vLLM by workload, hardware, operations, and security.</description></item>
+    <item><title>AI Agent Systems Explained</title><link>https://www.waiagent.win/article-agent-ecosystem.html</link><guid isPermaLink="true">https://www.waiagent.win/article-agent-ecosystem.html</guid><pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate><description>Map models, tools, context, orchestration, memory, policy, evaluation, and observability.</description></item>
+    <item><title>AI Coding Agent Security</title><link>https://www.waiagent.win/article-ai-security.html</link><guid isPermaLink="true">https://www.waiagent.win/article-ai-security.html</guid><pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate><description>Threat-model secrets, prompt injection, permissions, approvals, and unsafe side effects.</description></item>
+    <item><title>Fine-Tuning vs RAG</title><link>https://www.waiagent.win/article-fine-tuning-vs-rag.html</link><guid isPermaLink="true">https://www.waiagent.win/article-fine-tuning-vs-rag.html</guid><pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate><description>Choose retrieval or training based on the observed failure and a representative evaluation set.</description></item>
+    <item><title>MCP Architecture and Security</title><link>https://www.waiagent.win/article-mcp-guide.html</link><guid isPermaLink="true">https://www.waiagent.win/article-mcp-guide.html</guid><pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate><description>Understand MCP hosts, clients, servers, transports, authorization, and testing.</description></item>
+    <item><title>Reliable Structured Outputs</title><link>https://www.waiagent.win/article-structured-outputs.html</link><guid isPermaLink="true">https://www.waiagent.win/article-structured-outputs.html</guid><pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate><description>Design schemas, local validation, refusal handling, versioning, and safe execution boundaries.</description></item>
+  </channel>
+</rss>

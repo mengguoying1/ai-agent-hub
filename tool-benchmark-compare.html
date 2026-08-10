@@ -1,183 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Interactive AI Agent Benchmark Matrix — Filter and sort 12+ frontier LLMs by SWE-bench Verified score, Terminal-Bench v2, pricing, and context windows.">
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.waiagent.win/tool-benchmark-compare.html">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>Interactive AI Agent Benchmark & Model Matrix — AI Agent Hub</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "AI Agent Benchmark Matrix",
-    "url": "https://www.waiagent.win/tool-benchmark-compare.html",
-    "description": "Interactive matrix to filter and compare AI coding agents and LLM models across coding benchmarks, token prices, and context windows.",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "All"
-  }
-  </script>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body class="tool-page">
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
-      <ul class="nav-links">
-        <li><a href="./">Home</a></li>
-        <li><a href="articles.html">Articles</a></li>
-        <li><a href="guide.html">Guides</a></li>
-        <li><a href="category-tools.html">Tools</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <main style="max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-    <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
-      <a href="./">Home</a> &gt; <a href="category-tools.html">Tools</a> &gt; Benchmark Matrix
-    </div>
-
-    <h1>Interactive AI Agent Benchmark & Model Matrix</h1>
-    <p style="color:#9090a0; margin-bottom: 2rem;">Filter and sort models by SWE-bench Verified coding scores, Terminal-Bench v2 interactive execution scores, token costs, and license types.</p>
-
-    <!-- Filters Bar -->
-    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem;">
-      <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
-        
-        <!-- Search Box -->
-        <input type="text" id="searchInput" placeholder="🔍 Search model or provider..." style="padding: .6rem 1rem; border-radius: 999px; background: #0a0c16; color: #fff; border: 1px solid rgba(255,255,255,0.15); width: 260px; font-size: .88rem;" oninput="filterModels()">
-
-        <!-- Filter Pills -->
-        <div style="display: flex; flex-wrap: wrap; gap: .5rem;" id="filterPills">
-          <button class="btn-pill active" onclick="setCategoryFilter('all', this)">All Models</button>
-          <button class="btn-pill" onclick="setCategoryFilter('top-coding', this)">🏆 Top Coding (&gt;65%)</button>
-          <button class="btn-pill" onclick="setCategoryFilter('open-source', this)">🔓 Open Weights</button>
-          <button class="btn-pill" onclick="setCategoryFilter('budget', this)">💰 Budget (&lt;$5/1M)</button>
-          <button class="btn-pill" onclick="setCategoryFilter('large-context', this)">📚 1M+ Context</button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Matrix Table -->
-    <div style="overflow-x: auto; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid rgba(255,255,255,0.06);">
-      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: .9rem;">
-        <thead>
-          <tr style="background: rgba(255,255,255,0.04); color: #a0a0b0;">
-            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('name')">Model System ↕</th>
-            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('developer')">Developer ↕</th>
-            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('sweBench')">SWE-bench Verified ↕</th>
-            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('terminalBench')">Terminal-Bench v2 ↕</th>
-            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('context')">Context ↕</th>
-            <th style="padding: 1rem; cursor:pointer;" onclick="sortTable('inPrice')">Input / Output ↕</th>
-            <th style="padding: 1rem;">License</th>
-          </tr>
-        </thead>
-        <tbody id="benchmarkBody">
-        </tbody>
-      </table>
-    </div>
-  </main>
-
-  <style>
-  .btn-pill {
-    padding: .45rem 1rem; border-radius: 999px; background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1); color: #b0b0c0; font-size: .82rem;
-    cursor: pointer; transition: all .2s;
-  }
-  .btn-pill:hover { border-color: rgba(124,92,252,0.4); color: #fff; }
-  .btn-pill.active { background: rgba(124,92,252,0.25); border-color: #7c5cfc; color: #c4b5fd; font-weight: 600; }
-  </style>
-
-  <script src="js/model-data.js"></script>
-  <script>
-  // Agent-system benchmark scores come from the shared data layer (js/model-data.js).
-  const models = AAH_DATA.agentBenchmarks;
-
-  let currentCategory = 'all';
-  let sortKey = 'sweBench';
-  let sortAsc = false;
-
-  function renderTable() {
-    const search = document.getElementById('searchInput').value.toLowerCase();
-    
-    let filtered = models.filter(m => {
-      const matchesSearch = m.name.toLowerCase().includes(search) || m.developer.toLowerCase().includes(search);
-      
-      if (!matchesSearch) return false;
-
-      if (currentCategory === 'top-coding') return m.sweBench >= 65;
-      if (currentCategory === 'open-source') return m.open === true;
-      if (currentCategory === 'budget') return m.inPrice <= 5.0;
-      if (currentCategory === 'large-context') return m.context >= 1000;
-      
-      return true;
-    });
-
-    filtered.sort((a, b) => {
-      let valA = a[sortKey];
-      let valB = b[sortKey];
-      if (typeof valA === 'string') {
-        return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
-      }
-      return sortAsc ? valA - valB : valB - valA;
-    });
-
-    let html = '';
-    filtered.forEach(m => {
-      html += `
-        <tr style="border-top: 1px solid rgba(255,255,255,0.04);">
-          <td style="padding: 1rem;"><strong>${m.name}</strong></td>
-          <td style="padding: 1rem; color:#a0a0b0;">${m.developer}</td>
-          <td style="padding: 1rem;"><span style="color:#4ade80; font-weight:700;">${m.sweBench}%</span></td>
-          <td style="padding: 1rem;"><span style="color:#22d3ee; font-weight:700;">${m.terminalBench}%</span></td>
-          <td style="padding: 1rem; color:#d0d0e0;">${m.context >= 1000 ? (m.context/1000)+'M' : m.context+'K'}</td>
-          <td style="padding: 1rem; color:#e0e0e0;">$${m.inPrice.toFixed(2)} / $${m.outPrice.toFixed(2)}</td>
-          <td style="padding: 1rem;">
-            ${m.open ? '<span class="badge badge-green">Open Weights</span>' : '<span class="badge badge-purple">Proprietary</span>'}
-          </td>
-        </tr>
-      `;
-    });
-
-    document.getElementById('benchmarkBody').innerHTML = html;
-  }
-
-  function setCategoryFilter(cat, btn) {
-    currentCategory = cat;
-    document.querySelectorAll('#filterPills button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderTable();
-  }
-
-  function filterModels() {
-    renderTable();
-  }
-
-  function sortTable(key) {
-    if (sortKey === key) {
-      sortAsc = !sortAsc;
-    } else {
-      sortKey = key;
-      sortAsc = false;
-    }
-    renderTable();
-  }
-
-  // Initial Render
-  renderTable();
-  </script>
-
-  <footer class="footer">
-    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
-    <div class="policy-links">
-      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
-    </div>
-  </footer>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Compare vendor-published SWE-Bench Pro and Terminal-Bench 2.1 results with source and methodology caveats."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/tool-benchmark-compare.html"><link rel="alternate" type="application/rss+xml" title="AI Agent Hub Guides" href="feed.xml"><meta property="og:type" content="website"><meta property="og:title" content="Coding Benchmark Matrix"><meta property="og:description" content="Filter a small comparable set of vendor-published coding benchmark results with caveats visible."><meta property="og:url" content="https://www.waiagent.win/tool-benchmark-compare.html"><meta name="twitter:card" content="summary"><link rel="icon" href="favicon.svg"><title>Coding Benchmark Matrix — AI Agent Hub</title><link rel="stylesheet" href="css/style.css?v=20260805c"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Coding Benchmark Matrix","applicationCategory":"DeveloperApplication","operatingSystem":"Any","isAccessibleForFree":true,"url":"https://www.waiagent.win/tool-benchmark-compare.html","description":"Filter source-linked vendor-published coding benchmark results.","author":{"@type":"Organization","name":"AI Agent Hub"}}</script><style>.controls{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin:1.5rem 0}.controls input{padding:.7rem 1rem;border-radius:999px;background:#0a0c16;color:#fff;border:1px solid rgba(255,255,255,.15);min-width:240px}.btn-pill{padding:.55rem 1rem;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#b0b0c0;cursor:pointer}.btn-pill.active{background:rgba(124,92,252,.25);border-color:#7c5cfc;color:#ddd6fe}.source-box{padding:1rem 1.2rem;border:1px solid rgba(124,92,252,.35);background:rgba(124,92,252,.08);border-radius:14px;color:#b7b7ca;line-height:1.65}.source-box a{color:#c4b5fd}</style></head><body class="tool-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a></li></ul></div></nav>
+<main id="main-content" style="max-width:1200px;margin:0 auto;padding:3rem 1.5rem 5rem"><div class="breadcrumb"><a href="./">Home</a> &gt; <a href="category-tools.html">Tools</a> &gt; Benchmark matrix</div>
+<h1>Coding Benchmark Matrix</h1><p class="section-desc">A small comparable set of vendor-published SWE-Bench Pro and Terminal-Bench 2.1 results. This is not an independent AI Agent Hub laboratory test.</p>
+<div class="source-box" id="sourceBox"></div>
+<div class="controls"><input type="search" id="searchInput" placeholder="Search model or provider" aria-label="Search model or provider"><button class="btn-pill active" data-filter="all" type="button">All models</button><button class="btn-pill" data-filter="top" type="button">SWE-Bench Pro ≥ 60%</button><button class="btn-pill" data-filter="budget" type="button">Input ≤ $2 / 1M</button><button class="btn-pill" data-filter="context" type="button">1M+ context</button></div>
+<div class="table-wrap"><table><thead><tr><th><button class="btn-pill" type="button" data-sort="name">Model</button></th><th>Developer</th><th><button class="btn-pill" type="button" data-sort="sweBench">SWE-Bench Pro</button></th><th><button class="btn-pill" type="button" data-sort="terminalBench">Terminal-Bench 2.1</button></th><th>Context</th><th>Input / output</th></tr></thead><tbody id="benchmarkBody"></tbody></table></div>
+<p id="resultCount" style="color:#8888a0;margin-top:1rem"></p><div class="highlight-box"><p>Benchmark results are only one input to a model decision. Tool configuration, inference settings, latency, reliability, and your own representative tasks matter. See the <a href="methodology.html">benchmark methodology</a>.</p></div>
+<div class="tool-explainer"><h2>How to read this matrix</h2><p>The rows are limited to results published together with enough shared context to support a narrow comparison. A higher percentage means more tasks met that benchmark's scoring criteria in the cited run; it does not prove that the model will perform better in your repository, language, tool environment, or review process.</p><div class="tool-guide-grid"><section><h3>Comparable does not mean independent</h3><p>The values are vendor-published. AI Agent Hub did not rerun the benchmark, verify every patch, or audit the evaluation harness.</p></section><section><h3>Configuration matters</h3><p>Agent scaffolding, reasoning budget, tool access, retries, model version, and inference settings can materially change a score.</p></section><section><h3>Cost is incomplete here</h3><p>The displayed unit prices do not include how many calls or tokens the benchmark run consumed. Do not infer cost per solved issue from this table.</p></section></div><h2>Use benchmarks to form a shortlist</h2><ol><li>Filter to models that meet your context and price constraints.</li><li>Read the cited source and confirm the exact benchmark version and setup.</li><li>Test the shortlist on representative tasks from your own workflow.</li><li>Measure accepted outcomes, retries, latency, tool steps, and human review time.</li></ol><h2>Common interpretation mistakes</h2><ul><li>Comparing scores from different benchmark versions as if they used the same task set.</li><li>Treating a vendor result as an independent laboratory finding.</li><li>Ignoring contamination, harness changes, or missing confidence intervals.</li><li>Choosing a model from one score without testing safety and operational reliability.</li></ul><div class="related-links"><strong>Related:</strong> use the <a href="tool-agent-selector.html">Model Shortlist Wizard</a>, then follow the evaluation framework in <a href="guide.html">How to Choose an AI Model & Agent Stack</a>.</div></div></main>
+<footer class="footer"><p>© 2026 AI Agent Hub. Independent, source-linked analysis.</p><div class="policy-links"><a href="about.html">About</a> · <a href="methodology.html">Methodology</a> · <a href="contact.html">Corrections</a></div></footer>
+<script src="js/model-data.js"></script><script>
+const allModels = AAH_DATA.agentBenchmarks.slice();
+let filter = 'all', sortKey = 'sweBench', ascending = false;
+const source = AAH_DATA.benchmarkSource;
+document.getElementById('sourceBox').innerHTML = '<strong>Source and caveat:</strong> ' + source.caveat + ' <a href="' + source.url + '" target="_blank" rel="noopener noreferrer">' + source.label + ' ↗</a> Checked ' + source.checked + '.';
+function render(){
+  const query=document.getElementById('searchInput').value.trim().toLowerCase();
+  const rows=allModels.filter(m=>{
+    if(!(m.name+' '+m.developer).toLowerCase().includes(query)) return false;
+    if(filter==='top') return m.sweBench>=60;
+    if(filter==='budget') return m.inPrice<=2;
+    if(filter==='context') return m.context>=1000;
+    return true;
+  }).sort((a,b)=>{
+    const av=a[sortKey], bv=b[sortKey];
+    if(typeof av==='string') return ascending?av.localeCompare(bv):bv.localeCompare(av);
+    return ascending?av-bv:bv-av;
+  });
+  document.getElementById('benchmarkBody').innerHTML=rows.map(m=>'<tr><td><strong>'+m.name+'</strong></td><td>'+m.developer+'</td><td><strong>'+m.sweBench+'%</strong></td><td>'+m.terminalBench+'%</td><td>'+(m.context>=1000?(m.context/1000)+'M':m.context+'K')+'</td><td>$'+m.inPrice.toFixed(2)+' / $'+m.outPrice.toFixed(2)+'</td></tr>').join('');
+  document.getElementById('resultCount').textContent=rows.length+' of '+allModels.length+' comparable models shown';
+}
+document.getElementById('searchInput').addEventListener('input',render);
+document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{
+  filter=btn.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render();
+}));
+document.querySelectorAll('[data-sort]').forEach(btn=>btn.addEventListener('click',()=>{ascending=sortKey===btn.dataset.sort?!ascending:false;sortKey=btn.dataset.sort;render()}));
+render();
+</script></body></html>

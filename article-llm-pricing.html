@@ -1,159 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="How to Think About LLM Pricing — understand token-based pricing, context costs, caching, and how to estimate your real monthly spend on AI coding tools.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.waiagent.win/article-llm-pricing.html">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>How to Think About LLM Pricing — AI Agent Hub</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "How to Think About LLM Pricing",
-    "description": "A practical guide to understanding token-based LLM pricing, context costs, caching benefits, and estimating real monthly spend on AI coding tools.",
-    "author": { "@type": "Organization", "name": "AI Agent Hub" },
-    "publisher": { "@type": "Organization", "name": "AI Agent Hub" },
-    "datePublished": "2026-07-01"
-  }
-  </script>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body class="article-page">
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="./" class="nav-logo">⚡ <span>AI Agent Hub</span></a>
-      <ul class="nav-links">
-        <li><a href="./">Home</a></li>
-        <li><a href="articles.html">Articles</a></li>
-        <li><a href="guide.html">Guides</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <main>
-    <div class="meta">Pricing Guide · 6 min read · Updated July 2026</div>
-    <h1>How to Think About LLM Pricing</h1>
-    <p>LLM pricing looks simple on the surface — dollars per million tokens — but the real cost of using AI for coding depends on factors most developers overlook. This guide explains how pricing actually works and how to estimate what you'll really pay.</p>
-
-    <h2>The Basics: Tokens, Input, and Output</h2>
-    <p>Every LLM provider charges based on <strong>tokens</strong> — roughly 0.75 words per token in English, or about 3–4 characters. Code can be more variable. You're charged separately for:</p>
-    <ul>
-      <li><strong>Input tokens:</strong> Everything you send to the model — your prompt, the code context, conversation history, system instructions.</li>
-      <li><strong>Output tokens:</strong> Everything the model generates — code completions, explanations, function calls.</li>
-    </ul>
-    <p>Most providers charge <strong>3–5x more for output than input</strong>, because generation is more computationally expensive. A typical coding interaction might have 5,000 input tokens (your code + prompt) and 2,000 output tokens (the model's response).</p>
-
-    <h2>Current Pricing Landscape (July 2026)</h2>
-    <div class="card">
-      <table>
-        <thead>
-          <tr><th>Model</th><th>Input (per 1M tokens)</th><th>Output (per 1M tokens)</th><th>Relative Cost vs Cheapest</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Gemini 3.1 Flash</td><td>~$0.075</td><td>~$0.30</td><td>1x (baseline)</td></tr>
-          <tr><td>Yi-Lightning</td><td>~$0.14</td><td>~$0.43</td><td>~1.8x</td></tr>
-          <tr><td>DeepSeek-V3</td><td>~$0.27</td><td>~$0.40</td><td>~2.5x</td></tr>
-          <tr><td>Qwen3-Coder</td><td>~$0.50</td><td>~$2.00</td><td>~5x</td></tr>
-          <tr><td>Claude Haiku 4.8</td><td>$0.80</td><td>$4.00</td><td>~10x</td></tr>
-          <tr><td>GPT-5.5 Mini</td><td>~$1.00</td><td>~$4.00</td><td>~11x</td></tr>
-          <tr><td>Claude Sonnet 4.8</td><td>$3.00</td><td>$15.00</td><td>~36x</td></tr>
-          <tr><td>GPT-5.5</td><td>~$10.00</td><td>~$40.00</td><td>~110x</td></tr>
-          <tr><td>Claude Opus 4.8</td><td>$15.00</td><td>$75.00</td><td>~180x</td></tr>
-        </tbody>
-      </table>
-      <p style="font-size:.82rem;color:#7878a0;margin-top:.5rem;">Prices are approximate and subject to change. Check official provider pricing pages for current rates.</p>
-    </div>
-
-    <h2>What Actually Drives Your Costs</h2>
-
-    <h3>1. Context Window Utilization</h3>
-    <p>The biggest hidden cost driver is <strong>how much context you send with each request</strong>. A 200K token context window is powerful, but if you're sending 50K tokens of codebase context with every query, your input costs multiply fast:</p>
-    <ul>
-      <li><strong>Light context</strong> (2K input per query): $0.006/query on Sonnet 4.8</li>
-      <li><strong>Medium context</strong> (10K input per query): $0.03/query on Sonnet 4.8</li>
-      <li><strong>Full-repo context</strong> (100K input per query): $0.30/query on Sonnet 4.8</li>
-    </ul>
-    <p>At 500 queries per day with full-repo context, that's $150/day — or <strong>$4,500/month</strong>. The same usage with targeted 5K context drops to ~$225/month.</p>
-
-    <h3>2. Prompt Caching</h3>
-    <p>Both Anthropic and OpenAI support prompt caching, which can <strong>reduce input costs by up to 90%</strong> for repeated context. If you frequently send the same codebase context or system instructions, caching is essential:</p>
-    <ul>
-      <li>Claude: Cache read costs $0.30/M tokens (vs $3.00 for base input on Sonnet)</li>
-      <li>GPT: Cached input is 50% cheaper than uncached</li>
-    </ul>
-
-    <div class="tip">
-      <p><strong>💡 Key insight:</strong> Prompt caching is the single biggest cost lever for AI coding. If you're not using it and you send similar context repeatedly, you're likely paying 5–10x more than necessary.</p>
-    </div>
-
-    <h3>3. Output Length Control</h3>
-    <p>Longer outputs cost more. Most providers charge 3–5x for output vs input. Strategies to control output costs:</p>
-    <ul>
-      <li>Set reasonable <code>max_tokens</code> limits based on your actual needs</li>
-      <li>Ask for concise responses when detailed explanations aren't needed</li>
-      <li>Use models with efficient tokenization for code (Claude and GPT are both good here)</li>
-    </ul>
-
-    <h3>4. Usage Patterns</h3>
-    <p>Your actual cost depends heavily on <strong>how</strong> you use AI:</p>
-    <ul>
-      <li><strong>Autocomplete-style:</strong> Many small requests (100–500 tokens each), high volume. Use a cheap, fast model.</li>
-      <li><strong>Chat-style:</strong> Conversational debugging with longer context. Mid-tier models work well.</li>
-      <li><strong>Deep analysis:</strong> Few requests but very large context (full files/repos). Premium models justified for accuracy.</li>
-      <li><strong>Batch processing:</strong> Documentation, tests, migrations. Use the cheapest capable model — DeepSeek-V3 or Gemini 3.1 Flash.</li>
-    </ul>
-
-    <h2>Real Monthly Cost Estimates</h2>
-    <p>Based on a developer making ~500 AI-assisted coding interactions per day (typical for heavy AI tool users):</p>
-    <div class="card">
-      <table>
-        <thead>
-          <tr><th>Stack</th><th>Monthly Input Cost</th><th>Monthly Output Cost</th><th>Total (approx.)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>DeepSeek-V3 only</strong></td><td>~$2.00</td><td>~$3.00</td><td><strong>~$5/mo</strong></td></tr>
-          <tr><td><strong>Gemini 3.1 Flash only</strong></td><td>~$0.55</td><td>~$2.25</td><td><strong>~$2.80/mo</strong></td></tr>
-          <tr><td><strong>GPT-5.5 Mini only</strong></td><td>~$7.50</td><td>~$30.00</td><td><strong>~$37.50/mo</strong></td></tr>
-          <tr><td><strong>Claude Sonnet 4.8 only</strong></td><td>~$22.50</td><td>~$112.50</td><td><strong>~$135/mo</strong></td></tr>
-          <tr><td><strong>Sonnet 4.8 + DeepSeek mix (70/30)</strong></td><td>~$16.30</td><td>~$79.70</td><td><strong>~$96/mo</strong></td></tr>
-          <tr><td><strong>Sonnet 4.8 + caching</strong></td><td>~$8.30</td><td>~$112.50</td><td><strong>~$121/mo</strong></td></tr>
-        </tbody>
-      </table>
-      <p style="font-size:.82rem;color:#7878a0;margin-top:.5rem;">Assumptions: 500 queries/day, avg 5K input + 2K output per query, 22 working days/month. Caching assumes 70% cache hit rate on input. Mix assumes 70% of queries on cheaper model.</p>
-    </div>
-
-    <h2>Practical Cost-Saving Strategies</h2>
-    <ol>
-      <li><strong>Route by task complexity:</strong> Send simple completions to DeepSeek-V3 or Claude Haiku 4.8, complex reasoning to Sonnet 4.8 or Opus 4.8. A 70/30 split can cut costs by 40–60%.</li>
-      <li><strong>Enable prompt caching:</strong> If you use Claude or GPT via API, structure your prompts so repeated context (system instructions, codebase context) is cacheable.</li>
-      <li><strong>Trim context:</strong> Don't send your entire codebase when the relevant file is 500 lines. Be selective about what context the model actually needs.</li>
-      <li><strong>Use free tiers:</strong> Gemini 3.1 Flash has a generous free tier. GitHub Copilot includes a certain number of completions in the subscription.</li>
-      <li><strong>Monitor usage:</strong> Set up usage alerts. It's easy to accidentally leave a long-context session running and rack up unexpected costs.</li>
-      <li><strong>Consider subscriptions:</strong> For heavy users, flat-rate subscriptions (Copilot, Claude Code) may be cheaper than per-token API pricing — do the math for your usage level.</li>
-    </ol>
-
-    <div class="card">
-      <h2>Related Reading</h2>
-      <ul>
-        <li><a href="article-claude-vs-gpt.html">Claude vs GPT vs DeepSeek for Coding</a> — model comparison</li>
-        <li><a href="article-multi-model-workflow.html">Why Multi-Model Workflows Matter</a> — cost optimization through routing</li>
-        <li><a href="guide.html">How to Choose an AI Coding Stack</a> — complete decision framework</li>
-      </ul>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <p>© 2026 AI Agent Hub — Independent analysis for the AI development community.</p>
-    <div class="policy-links">
-      <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="contact.html">Contact</a>
-    </div>
-  </footer>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A practical method for estimating and controlling LLM API cost across input, output, caching, retries, tools, and production traffic."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/article-llm-pricing.html"><link rel="icon" href="favicon.svg"><title>LLM API Cost Planning: A Practical Pricing Method — AI Agent Hub</title><link rel="stylesheet" href="css/style.css?v=20260805c"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"LLM API Cost Planning: A Practical Pricing Method","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"datePublished":"2026-06-18","dateModified":"2026-08-05","mainEntityOfPage":"https://www.waiagent.win/article-llm-pricing.html"}</script></head><body class="article-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a></li></ul></div></nav>
+<main id="main-content"><div class="meta">Cost engineering · Reviewed August 5, 2026</div><h1>LLM API Cost Planning: A Practical Pricing Method</h1>
+<div class="highlight-box"><p><strong>Core idea:</strong> a model's advertised token price is only one input. A useful budget also includes request volume, input/output mix, cache behavior, retries, tool loops, and the share of requests routed to each model.</p></div>
+<p>LLM price tables are easy to compare and easy to misuse. A cheaper input-token rate does not guarantee a cheaper workflow: one model may produce longer answers, require more retries, or need more agent steps. Conversely, an expensive model can be economical when it completes a difficult task in one call. This guide provides a reproducible way to estimate cost without pretending the estimate is a guarantee.</p>
+<h2>Start with a unit-cost equation</h2>
+<p>For a simple text request, estimate the provider charge as:</p>
+<pre><code>request cost =
+  uncached input tokens × input rate
++ cached input tokens × cache-read rate
++ cache-write tokens × cache-write rate
++ output tokens × output rate</code></pre>
+<p>Convert per-million-token prices to per-token prices before multiplying. Then add any provider-specific charges for tools, search, images, audio, storage, batch processing, or long-context tiers. Rates and billing rules change, so store the source URL and verification date with every price in your model registry.</p>
+<h2>Measure a representative traffic sample</h2>
+<p>Do not build a budget from one hand-written prompt. Capture a privacy-safe sample of real or realistic requests and record at least:</p>
+<ul><li>input, cached-input, and output token counts;</li><li>model and API endpoint used;</li><li>number of model calls and tool calls per user task;</li><li>retry, timeout, refusal, and fallback rates;</li><li>latency percentiles and whether the task passed evaluation;</li><li>traffic segment, such as interactive, background, or batch.</li></ul>
+<p>Use medians for a typical case and high percentiles for capacity planning. Averages can hide a small number of long-context requests that dominate the bill.</p>
+<h2>Separate request cost from task cost</h2>
+<table><thead><tr><th>Layer</th><th>What to count</th><th>Why it matters</th></tr></thead><tbody>
+<tr><td>Single request</td><td>Input, cached input, output, provider features</td><td>Useful for API-level comparison</td></tr>
+<tr><td>Agent step</td><td>Planning call, tool result, validation call</td><td>A tool loop can multiply requests</td></tr>
+<tr><td>User task</td><td>All steps, retries, and fallbacks until outcome</td><td>The fairest unit for product economics</td></tr>
+<tr><td>Monthly service</td><td>Task volume, peaks, free usage, abuse, monitoring</td><td>Connects engineering to a budget</td></tr>
+</tbody></table>
+<p>The task should be the main comparison unit. If Model A costs twice as much per call but needs half as many calls and succeeds more often, its cost per accepted result may be lower.</p>
+<h2>Use scenarios, not a single forecast</h2>
+<p>Create low, expected, and high cases. Vary traffic, output length, cache-hit rate, retry rate, and model routing. A simple monthly formula is:</p>
+<pre><code>monthly model cost =
+  tasks per month
+× average calls per task
+× average cost per call
+× (1 + retry rate)</code></pre>
+<p>Model fallbacks separately rather than blending them into the primary-model rate. Include a contingency for price changes and unexpected long outputs, but do not present that contingency as a provider fee.</p>
+<h2>Where caching helps—and where it does not</h2>
+<p>Prompt or context caching can reduce repeated-prefix cost when many requests share a large stable prefix. It is not a universal discount. Some providers distinguish cache writes, reads, retention, and minimum eligible context. A low hit rate or frequently changing prefix can erase the expected benefit. Measure billed cache tokens from usage metadata and compare the full write-plus-read cost with ordinary input cost. See the <a href="article-prompt-caching.html">prompt caching guide</a> for an implementation checklist.</p>
+<h2>Control output before downgrading quality</h2>
+<p>Output tokens are often priced differently from input tokens. Before switching models, tighten response formats, set appropriate maximum output limits, stop generating duplicate explanations, and use structured outputs for machine consumers. Do not set limits so low that responses truncate and trigger retries; test completion rates on representative tasks.</p>
+<h2>Route by task difficulty</h2>
+<p>A practical system may send extraction, classification, or formatting to a lower-cost model and reserve a more capable model for complex planning or failed cases. Routing creates its own costs: a classifier call, extra latency, and new failure modes. Evaluate the whole route against a single-model baseline. Keep an explicit fallback budget and prevent unbounded escalation loops.</p>
+<h2>Include costs outside the model API</h2>
+<ul><li><strong>Retrieval:</strong> embeddings, vector storage, reranking, and document processing.</li><li><strong>Tools:</strong> search, browsing, code execution, databases, and third-party APIs.</li><li><strong>Operations:</strong> logs, traces, evaluations, rate-limit handling, and on-call work.</li><li><strong>Local inference:</strong> hardware amortization, electricity, idle capacity, deployment, and maintenance.</li><li><strong>Quality failures:</strong> human review, refunds, support, or incorrect automated actions.</li></ul>
+<p>These costs do not need to be forced into a token-price table. Keep them visible in a separate service-cost model.</p>
+<h2>A defensible comparison workflow</h2>
+<ol><li>Define the task and an acceptance test.</li><li>Collect a representative evaluation set without unnecessary personal data.</li><li>Run candidate models with the same tools and constraints.</li><li>Record usage metadata, latency, task success, and retries.</li><li>Calculate cost per accepted task, not only cost per request.</li><li>Stress-test long inputs, tool failures, and traffic peaks.</li><li>Recheck official prices before a procurement or launch decision.</li></ol>
+<h2>Common estimation errors</h2>
+<ul><li>Multiplying a chat message's character count by a fixed token ratio.</li><li>Ignoring system prompts and prior conversation history.</li><li>Assuming every repeated prefix will receive a cache hit.</li><li>Comparing models with different output limits or quality thresholds.</li><li>Ignoring failed requests, retries, and agent loops.</li><li>Publishing a price without a currency, unit, source, or verification date.</li></ul>
+<h2>Use the calculator with explicit assumptions</h2>
+<p>Our <a href="tool-cost-calculator.html">LLM cost calculator</a> uses the currently reviewed public model rates in this site's data file. It is an estimator, not an invoice predictor. Enter realistic input and output sizes, then save your traffic and retry assumptions separately.</p>
+<h2>Primary references</h2>
+<ul><li><a href="https://openai.com/api/pricing/" target="_blank" rel="noopener noreferrer">OpenAI API pricing</a></li><li><a href="https://docs.anthropic.com/en/docs/about-claude/pricing" target="_blank" rel="noopener noreferrer">Anthropic pricing documentation</a></li><li><a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer">Gemini API pricing</a></li><li><a href="https://api-docs.deepseek.com/quick_start/pricing" target="_blank" rel="noopener noreferrer">DeepSeek API pricing</a></li></ul>
+<div class="verdict"><h2>Bottom line</h2><p>Budget by accepted user task. Measure real token mix, retries, caching, tool loops, and quality; keep dated primary sources beside every rate; and compare scenarios before committing to a model route.</p></div></main>
+<footer class="footer"><p>© 2026 AI Agent Hub.</p><div class="policy-links"><a href="about-author.html">Editorial desk</a> · <a href="methodology.html">Methodology</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Corrections</a></div></footer></body></html>
