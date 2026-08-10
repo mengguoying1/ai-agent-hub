@@ -770,7 +770,7 @@ body.home {
   padding: 0 1.1rem 1rem; color: #94a3b8; line-height: 1.65; display: none;
   font-family: var(--font-body);
 }
-.faq-item.active .faq-answer { display: block; }
+.faq-item.open .faq-answer { display: block; }
 .latest-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem;
 }
