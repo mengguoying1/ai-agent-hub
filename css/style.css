@@ -340,6 +340,12 @@ body.home {
 }
 .home a { color: var(--cyber-purple); }
 .home a:hover { color: #a78bfa; }
+.home .btn-primary,
+.home .btn-primary:visited,
+.home .btn-primary:hover { color: #fff; }
+.home .btn-outline,
+.home .btn-outline:visited { color: #e2e8f0; }
+.home .btn-outline:hover { color: #fff; }
 .home .footer { padding: 3rem 2rem; }
 .home .policy-links { gap: .8rem; margin-top: 1rem; }
 .home .category-nav { margin-bottom: 1.2rem; }
@@ -855,7 +861,38 @@ body.home {
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .nav-links { display: none; }
+  .nav { padding: 0 .9rem; }
+  .nav-inner {
+    height: auto;
+    min-height: 60px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: .35rem;
+    padding: .65rem 0 .55rem;
+  }
+  .nav-logo { align-self: flex-start; }
+  .nav-links {
+    display: flex;
+    width: 100%;
+    gap: .35rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+    padding: 0 0 .15rem;
+    margin: 0;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links li { flex: 0 0 auto; margin: 0; }
+  .nav-links a {
+    padding: .4rem .7rem;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 999px;
+    background: rgba(255,255,255,.025);
+    line-height: 1.2;
+  }
+  .nav.home-nav { position: sticky; padding: 0 .9rem; }
+  .nav.home-nav .nav-inner { height: auto; }
   .section { padding: 3.5rem 1.2rem; }
   .hero { padding: 5rem 1.2rem 3rem; }
   .module-grid, .pricing-grid, .rec-grid { grid-template-columns: 1fr; }

@@ -15,7 +15,7 @@
   <meta name="twitter:card" content="summary">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>AI Agent Hub — Verified Model Pricing & Developer Tools</title>
-  <link rel="stylesheet" href="css/style.css?v=20260805c">
+  <link rel="stylesheet" href="css/style.css?v=20260810a">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"AI Agent Hub","url":"https://www.waiagent.win/","description":"Verified AI model pricing and practical developer tools.","publisher":{"@type":"Organization","name":"AI Agent Hub Editorial Desk"}}
   </script>
@@ -27,9 +27,15 @@
     .table-wrap small{color:#8888a0;line-height:1.45}.table-wrap a{color:#a78bfa}
   </style>
 </head>
-<body>
+<body class="home">
 <a class="skip-link" href="#main-content">Skip to main content</a>
-<nav class="nav" aria-label="Primary navigation">
+<div class="background-layer" aria-hidden="true">
+  <span class="orb orb-1"></span>
+  <span class="orb orb-2"></span>
+  <span class="orb orb-3"></span>
+</div>
+<div class="cursor-glow" aria-hidden="true"></div>
+<nav class="nav home-nav" aria-label="Primary navigation">
   <div class="nav-inner">
     <a href="./" class="nav-logo">AI <span>Agent Hub</span></a>
     <ul class="nav-links">
@@ -51,7 +57,7 @@
     <p>Compare current API prices and context limits, estimate workload cost, and understand the assumptions behind every number. No invented monthly bills or unlabeled benchmark claims.</p>
     <div class="hero-btns">
       <a href="#models" class="btn btn-primary">Compare verified models</a>
-      <a href="tool-cost-calculator.html" class="btn btn-secondary">Estimate API cost</a>
+      <a href="tool-cost-calculator.html" class="btn btn-outline">Estimate API cost</a>
     </div>
   </div>
 </section>
@@ -318,6 +324,41 @@ document.querySelectorAll('.faq-question').forEach(button => {
     button.querySelector('span').textContent = item.classList.contains('open') ? '−' : '+';
   });
 });
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cursorGlow = document.querySelector('.cursor-glow');
+
+if (!prefersReducedMotion && cursorGlow && window.matchMedia('(pointer: fine)').matches) {
+  let pointerFrame = 0;
+  window.addEventListener('pointermove', event => {
+    if (pointerFrame) return;
+    pointerFrame = window.requestAnimationFrame(() => {
+      const x = `${event.clientX}px`;
+      const y = `${event.clientY}px`;
+      document.documentElement.style.setProperty('--mx', x);
+      document.documentElement.style.setProperty('--my', y);
+      cursorGlow.style.left = x;
+      cursorGlow.style.top = y;
+      cursorGlow.style.opacity = '1';
+      pointerFrame = 0;
+    });
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', () => {
+    cursorGlow.style.opacity = '0';
+  });
+}
+
+if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+  const revealTargets = document.querySelectorAll('.section-label, .section-title, .section-desc, .editorial-strip > article, .pricing-card, .article-card, .news-card, .faq-item');
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('animate');
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
+  revealTargets.forEach(target => revealObserver.observe(target));
+}
 </script>
 </body>
 </html>
