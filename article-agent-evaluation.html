@@ -5,7 +5,7 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="How to Evaluate AI Agents — a guide to coding benchmarks like SWE-bench and building custom evaluation pipelines for agentic workflows.">
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.waiagent.win/article-agent-evaluation.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>How to Benchmark and Evaluate AI Agents: SWE-bench and Beyond — AI Agent Hub</title>
@@ -15,12 +15,14 @@
     "@type": "Article",
     "headline": "How to Benchmark and Evaluate AI Agents: SWE-bench and Beyond",
     "description": "An analysis of evaluation frameworks for AI agents, detailing SWE-bench metrics and local evaluation setups.",
-    "author": { "@type": "Organization", "name": "AI Agent Hub" },
+    "author": { "@type": "Organization", "name": "AI Agent Hub Editorial Desk", "url": "https://www.waiagent.win/about-author.html" },
     "publisher": { "@type": "Organization", "name": "AI Agent Hub" },
-    "datePublished": "2026-07-08"
+    "datePublished": "2026-07-08",
+    "dateModified": "2026-08-10",
+    "mainEntityOfPage": "https://www.waiagent.win/article-agent-evaluation.html"
   }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -38,29 +40,27 @@
   </nav>
 
   <main id="main-content">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
-    <div class="meta">Concepts · 8 min read · Updated July 2026</div>
+
+    <div class="meta">Concepts · 8 min read · Reviewed August 10, 2026</div>
     <h1>How to Benchmark and Evaluate AI Agents: SWE-bench and Beyond</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <p>Evaluating standard language models has evolved from multiple-choice tests (MMLU) and single-function generation (HumanEval) to expert-level reasoning benchmarks like <strong>Humanity's Last Exam (HLE)</strong>. However, evaluating an <strong>AI Agent</strong> is far more complex. Agents operate in loops, write multi-file patches, invoke shell commands, and read local errors. Evaluating their terminal interaction capability requires benchmarks like <strong>Terminal-Bench v2</strong>. This article explains how the AI community benchmarks agentic systems using <strong>SWE-bench</strong> and <strong>Terminal-Bench v2</strong>, and how you can set up evaluation rigs for your own agents.</p>
 
     <h2>SWE-bench: The Ultimate Coding Test</h2>
-    <p>The gold standard for evaluating AI coding agents is <strong>SWE-bench</strong>. Instead of academic tests, SWE-bench uses actual GitHub issues and pull requests from real open-source Python repositories (like Django, SymPy, and Flask).</p>
+    <p>A widely used benchmark for evaluating AI coding agents is <strong>SWE-bench</strong>. Instead of isolated algorithm prompts, it builds tasks from real issue and repository histories in open-source Python projects.</p>
     <p>The agent is given a codebase and an issue description. It must navigate the directory, edit the code, and output a patch. The evaluation harness runs the project's existing test suite plus new tests specifically written for that issue. The agent is marked successful only if the test suite compiles and passes.</p>
 
     <div class="card">
-      <h3>SWE-bench Verified Leaderboard (July 2026 Update)</h3>
+      <h3>How to Read an Agent Benchmark Result</h3>
       <table>
-        <thead>
-          <tr><th>Agent / Model System</th><th>Developer</th><th>SWE-bench Verified Success Rate</th><th>Evaluation Setup</th></tr>
-        </thead>
+        <thead><tr><th>Field</th><th>Why it changes the score</th></tr></thead>
         <tbody>
-          <tr><td><strong>Claude Code (Claude Opus 4.8 Agent)</strong></td><td>Anthropic</td><td><strong>~72%</strong></td><td>Native CLI Agent + Tools</td></tr>
-          <tr><td><strong>OpenAI Agentic Engine (GPT-5.5)</strong></td><td>OpenAI</td><td><strong>~68%</strong></td><td>Dynamic Tool-calling Reasoning Loop</td></tr>
-          <tr><td><strong>Sakana Fugu Orchestration</strong></td><td>Sakana AI</td><td><strong>~65%</strong></td><td>Evolutionary Multi-Agent Orchestration</td></tr>
-          <tr><td><strong>Qwen3-Coder (Agentic Setup)</strong></td><td>Alibaba Cloud</td><td><strong>~61%</strong></td><td>Command-line Coder + Local Tools</td></tr>
-          <tr><td><strong>Gemini 3.1 Pro (Agentic Loop)</strong></td><td>Google DeepMind</td><td><strong>~60%</strong></td><td>Agent Loop + 2M Context Search</td></tr>
-          <tr><td><strong>Cursor Composer (Claude Sonnet 4.8)</strong></td><td>Anysphere</td><td><strong>~58%</strong></td><td>IDE-based User-Guided Agent</td></tr>
-          <tr><td><strong>GPT-5.5 (Raw Model)</strong></td><td>OpenAI</td><td><strong>~25%</strong></td><td>Direct completion (No loops/tools)</td></tr>
+          <tr><td>Dataset and revision</td><td>Tasks can be corrected, removed, public, or contaminated</td></tr>
+          <tr><td>Model snapshot</td><td>An alias may move after the evaluation date</td></tr>
+          <tr><td>Agent harness</td><td>Search, tools, prompts, memory, and retry policy affect outcomes</td></tr>
+          <tr><td>Compute budget</td><td>More turns, samples, or retries can raise pass rate and cost</td></tr>
+          <tr><td>Environment</td><td>Repository setup, network, dependencies, and tests can fail independently</td></tr>
+          <tr><td>Scoring</td><td>Pass@1, best-of-N, selected runs, and averages answer different questions</td></tr>
         </tbody>
       </table>
     </div>
@@ -69,10 +69,10 @@
     <p>If you are building custom AI agents for your team or organization, relying on generic benchmarks isn't enough. You need an internal testing harness composed of three layers:</p>
 
     <h3>1. Secure Sandboxed Execution</h3>
-    <p>Never run agent-generated commands or scripts directly on your host machine. Safe evaluation requires containerized environments (like Docker containers or microVMs) that isolate file modifications and command execution. After each evaluation run, the container must be torn down to guarantee a clean slate.</p>
+    <p>Never run agent-generated commands or scripts directly on your host machine. Safe evaluation requires containerized environments (like Docker containers or microVMs) that isolate file modifications and command execution. After each run, discard the environment and restore it from a versioned clean image; verify the reset procedure rather than assuming isolation alone removed every artifact.</p>
 
-    <h3>2. "LLM-as-a-Judge" grading</h3>
-    <p>Some outputs (like code design, naming choices, or code documentation quality) cannot be tested using simple assertion checks. In these cases, you can use a high-tier model (like Claude Opus 4.8 or GPT-5.5) as a judge. Feed the judge the target requirements, the agent's output, and a rubrics sheet. The judge then outputs a score and reasoning trace.</p>
+    <h3>2. Rubric-Based Grading</h3>
+    <p>Some outputs, such as design quality or documentation usefulness, require judgment. Use blinded human labels for the highest-impact cases. A model grader can help scale a detailed rubric, but calibrate it against humans, require evidence, randomize candidate order, and permit an uncertain result. Never let a model-graded style score override failing tests, an authorization violation, or an unsafe side effect.</p>
 
     <h3>3. Golden Datasets</h3>
     <p>Create a static list of 20 to 100 internal coding tasks that represent the typical workload of your team. This dataset should include:</p>
@@ -84,11 +84,19 @@
     </ul>
     <p>Run your agent against this dataset after making modifications to the agent's system prompt or toolset to detect performance regressions.</p>
 
-    <h2>Dynamic Orchestration: The Sakana Fugu Trend</h2>
-    <p>A major trend in mid-2026 is the shift from static prompt pipelines to dynamic agent orchestration, pioneered by systems like <strong>Sakana AI's Fugu orchestration framework</strong>. Rather than following rigid chains, Sakana Fugu uses evolutionary search algorithms to dynamically discover and orchestrate agent behaviors based on real-time feedback. Evaluating these systems requires dynamic, interactive environments (like Terminal-Bench v2) that can measure the agent's adaptability when tools fail or environment states change unexpectedly.</p>
+    <h2>Evaluate the Complete Trajectory</h2>
+    <p>Store the initial state, every model turn, tool proposal, validated argument, tool result, approval, state mutation, final output, token use, latency, and stop reason. A final patch can pass while the trajectory reads secrets, reaches an unapproved host, or spends far beyond budget. Score both outcome and process constraints.</p>
+    <p>Include tool timeouts, stale repository revisions, prompt injection inside issues, dependency failures, duplicate job delivery, budget exhaustion, and cancellation. Every run should terminate as completed, declined, needs input, needs approval, or failed—never an invisible loop.</p>
 
     <h2>Measuring the Cost-to-Performance Ratio</h2>
     <p>When comparing agents, code correctness is only part of the equation. You must also track <strong>run cost</strong> and <strong>time-to-resolution</strong>. An agent that solves 50% of tasks but spends $10 in API fees per run may be less useful than a faster agent that solves 40% of tasks at a cost of $0.10 per run.</p>
+
+    <h2>Primary References</h2>
+    <ul>
+      <li><a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank" rel="noopener noreferrer">Anthropic: Demystifying evals for AI agents</a></li>
+      <li><a href="https://www.swebench.com/" target="_blank" rel="noopener noreferrer">SWE-bench official documentation and leaderboards</a></li>
+      <li><a href="https://www.tbench.ai/" target="_blank" rel="noopener noreferrer">Terminal-Bench official site</a></li>
+    </ul>
 
     <div class="verdict">
       <h3>The Verdict</h3>

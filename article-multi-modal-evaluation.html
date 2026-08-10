@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Multimodal Vision Agent Evaluation — Benchmarking Claude Opus 5, GPT-5.6 Sol, and Gemini 3.6 Flash on UI/UX screenshot-to-code generation tasks.">
+  <meta name="description" content="A reproducible protocol for evaluating multimodal UI agents and screenshot-to-code systems across fidelity, semantics, accessibility, responsiveness, and runtime behavior.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Multimodal Vision Agent Evaluation">
   <meta property="og:description" content="Benchmarking multimodal vision models on UI/UX screenshot-to-code generation tasks.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-multi-modal-evaluation.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Multimodal Vision Agent Evaluation — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Multimodal Vision Agent Evaluation: UI/UX \u0026 Screenshot-to-Code","description":"A reproducible protocol for evaluating multimodal UI agents and screenshot-to-code systems across fidelity, semantics, accessibility, responsiveness, and runtime behavior.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-multi-modal-evaluation.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,87 +32,98 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-benchmarks.html">Benchmarks</a> &gt; Multimodal Evaluation
     </div>
 
     <h1>Multimodal Vision Agent Evaluation: UI/UX & Screenshot-to-Code</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Benchmarking · 12 min read · Updated July 2026
+      Benchmarking · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      As front-end development shifts toward multimodal AI automation, evaluating an AI agent's ability to inspect Figma mockups, mobile screenshots, and architectural diagrams is vital. This benchmark guide evaluates <strong>Claude Opus 5</strong>, <strong>GPT-5.6 Sol</strong>, and <strong>Gemini 3.6 Flash</strong> on visual UI fidelity, CSS accuracy, and responsive grid generation.
+      Screenshot-to-code systems should be evaluated as complete pipelines: image understanding, generated code, browser rendering, responsive behavior, accessibility, interaction, and repair loops. This reviewed protocol intentionally publishes no model leaderboard because the earlier draft's model names and scores were not supported by reproducible evidence.
     </p>
 
-    <h2>1. Benchmark Methodology: Screenshot-to-Code (WebVision-Bench)</h2>
-    <p>WebVision-Bench evaluates multimodal vision LLMs by feeding them high-resolution Figma design PNGs and scoring the generated HTML/CSS output on:</p>
+    <h2>1. Build a Representative Fixture Set</h2>
+    <p>Use designs you have permission to evaluate and include multiple page shapes, densities, and breakpoints. Keep a hidden test subset so prompt tuning does not target every screenshot. Each fixture should include:</p>
     <ul>
-      <li><strong>Pixel Similarity (SSIM Score):</strong> Structural similarity index between design mockup and browser screenshot.</li>
-      <li><strong>CSS Grid & Flexbox Accuracy:</strong> Proper alignment, padding, and responsive breakpoints.</li>
-      <li><strong>Color Palette Match:</strong> HSL/HEX color code extraction accuracy from raster images.</li>
+      <li>Reference images at desktop and mobile sizes with exact viewport and device-pixel ratio.</li>
+      <li>Required text, controls, states, assets, interactions, and accessibility expectations.</li>
+      <li>Allowed framework, component library, fonts, icons, and asset licenses.</li>
+      <li>Acceptance tolerances for layout, color, typography, overflow, and interaction.</li>
+      <li>Known ambiguity notes where a screenshot cannot reveal behavior or responsive intent.</li>
     </ul>
 
-    <h2>2. Multimodal Vision Benchmark Results</h2>
+    <h2>2. Score Multiple Quality Layers</h2>
     <div style="overflow-x:auto; margin:1.5rem 0;">
       <table style="width:100%; border-collapse:collapse; text-align:left; font-size:.9rem;">
         <thead>
           <tr style="background:rgba(124,92,252,0.15); color:#fff;">
-            <th style="padding:.8rem;">Model</th>
-            <th style="padding:.8rem;">SSIM Visual Score</th>
-            <th style="padding:.8rem;">HTML/CSS Code Quality</th>
-            <th style="padding:.8rem;">Latency per Frame</th>
+            <th style="padding:.8rem;">Layer</th>
+            <th style="padding:.8rem;">Example checks</th>
+            <th style="padding:.8rem;">Evidence</th>
+            <th style="padding:.8rem;">Common false positive</th>
           </tr>
         </thead>
         <tbody style="color:#d0d0e0;">
           <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-            <td style="padding:.8rem; font-weight:700; color:#fff;">Gemini 3.6 Flash</td>
-            <td style="padding:.8rem; color:#4ade80;">94.2%</td>
-            <td style="padding:.8rem;">Clean Tailwind / CSS Grid</td>
-            <td style="padding:.8rem; color:#4ade80;">85ms</td>
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Visual</td>
+            <td style="padding:.8rem;">Geometry, spacing, color, type scale, asset placement</td>
+            <td style="padding:.8rem;">Rendered screenshot plus region-level diff</td>
+            <td style="padding:.8rem;">High global similarity hiding a broken button</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-            <td style="padding:.8rem; font-weight:700; color:#fff;">Claude Opus 5</td>
-            <td style="padding:.8rem; color:#4ade80;">95.8%</td>
-            <td style="padding:.8rem;">Semantic HTML5 & Accessibility</td>
-            <td style="padding:.8rem;">420ms</td>
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Structural</td>
+            <td style="padding:.8rem;">Semantic landmarks, headings, labels, reusable components</td>
+            <td style="padding:.8rem;">DOM and accessibility-tree assertions</td>
+            <td style="padding:.8rem;">Pixel-perfect div soup</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-            <td style="padding:.8rem; font-weight:700; color:#fff;">GPT-5.6 Sol</td>
-            <td style="padding:.8rem;">93.5%</td>
-            <td style="padding:.8rem;">React Component Output</td>
-            <td style="padding:.8rem;">180ms</td>
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Behavioral</td>
+            <td style="padding:.8rem;">Keyboard use, focus, validation, loading, empty and error states</td>
+            <td style="padding:.8rem;">Browser interaction trace and assertions</td>
+            <td style="padding:.8rem;">Static screenshot passing while controls fail</td>
           </tr>
+          <tr><td style="padding:.8rem; font-weight:700; color:#fff;">Responsive</td><td style="padding:.8rem;">Breakpoints, wrapping, overflow, content order</td><td style="padding:.8rem;">Screenshots and DOM checks at declared viewports</td><td style="padding:.8rem;">Desktop-only optimization</td></tr>
+          <tr><td style="padding:.8rem; font-weight:700; color:#fff;">Operational</td><td style="padding:.8rem;">Build success, console health, dependencies, bundle and repair cost</td><td style="padding:.8rem;">Build logs, lockfile diff, browser logs, total calls</td><td style="padding:.8rem;">Ignoring manual cleanup after generation</td></tr>
         </tbody>
       </table>
     </div>
 
-    <h2>3. Python Vision API Calling Example</h2>
-    <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#22d3ee;"><code>import base64
-from openai import OpenAI
+    <h2>3. Control the Generation Environment</h2>
+    <p>Pin the model snapshot or public identifier, API version, prompt, system instructions, framework, dependency versions, browser, viewport, device scale, and maximum repair turns. Start every candidate from the same repository state. If an agent can inspect the rendered page and iterate, count all model calls, tool calls, elapsed time, and human edits.</p>
+    <p>Use the current provider documentation to construct image requests; request formats and model identifiers change. Store only images you are permitted to send, strip private metadata when appropriate, and understand provider retention terms before uploading customer designs.</p>
 
-client = OpenAI()
+    <h2>4. Visual Metrics Need Human and DOM Context</h2>
+    <p>SSIM or pixel differences can help locate mismatches, but animations, antialiasing, fonts, browser rendering, and large backgrounds can distort the score. Compare meaningful regions, mask approved dynamic areas, and pair image metrics with computed-style and DOM assertions. A reviewer should inspect the first viewport, long-page sections, interactive states, and mobile layout while blinded to the candidate name.</p>
 
-def encode_image(image_path):
-    with open(image_path, "rb") as f:
-        return base64.b64encode(f.read()).decode('utf-8')
+    <h2>5. Interaction and Accessibility Gate</h2>
+    <ul>
+      <li>Every visible control has a keyboard path and a programmatic name.</li>
+      <li>Focus is visible and moves predictably through menus, dialogs, and forms.</li>
+      <li>Headings and landmarks describe the page rather than merely matching font size.</li>
+      <li>Text and controls remain usable at zoom and narrow widths.</li>
+      <li>Loading, empty, validation, error, and success states are tested.</li>
+      <li>Console errors, failed assets, hydration issues, and horizontal overflow fail the run.</li>
+    </ul>
 
-b64_img = encode_image("figma_design.png")
+    <h2>6. Report Results Reproducibly</h2>
+    <p>Publish per-fixture scores, median and worst-case results, confidence intervals where repeated runs exist, failure screenshots, and the complete configuration. Separate zero-shot generation from repaired output. Do not label one system the winner if it used more iterations, a different component library, private design metadata, or human correction.</p>
 
-response = client.chat.completions.create(
-    model="gpt-5.6-sol",
-    messages=[{
-        "role": "user",
-        "content": [
-            {"type": "text", "text": "Convert this UI mockup into semantic HTML5 and vanilla CSS."},
-            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64_img}"}}
-        ]
-    }]
-)
-</code></pre>
+    <h2>7. Budget the Repair Loop</h2>
+    <p>Many systems render, inspect, and revise their own output. Set a fixed maximum number of repair turns and preserve every intermediate screenshot and diff. Report zero-shot quality, final quality, total calls, elapsed time, and human edits separately. Otherwise a system that needed repeated expensive repair can appear equal to one that produced an acceptable first result.</p>
 
-    <h2>4. Related Benchmark Matrix & Tools</h2>
+    <h2>8. Primary References</h2>
+    <ul>
+      <li><a href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank" rel="noopener noreferrer">W3C WCAG 2.2 quick reference</a></li>
+      <li><a href="https://playwright.dev/docs/test-snapshots" target="_blank" rel="noopener noreferrer">Playwright visual comparisons</a></li>
+      <li><a href="https://os-world.github.io/" target="_blank" rel="noopener noreferrer">OSWorld multimodal computer-use benchmark</a></li>
+    </ul>
+
+    <h2>9. Related Benchmark Matrix & Tools</h2>
     <ul>
       <li><a href="tool-benchmark-compare.html">📊 Interactive AI Agent Benchmark Matrix</a></li>
       <li><a href="article-swe-bench-deep-dive.html">🏆 Deep Dive into SWE-bench Verified</a></li>

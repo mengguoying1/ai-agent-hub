@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Advanced RAG Document Chunking & Parent-Child Retrieval Strategies — Detailed developer guide on AST syntax tree splitting, semantic windowing, and hybrid search optimization.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Advanced RAG Document Chunking & Parent-Child Retrieval Strategies">
   <meta property="og:description" content="Detailed guide on AST syntax tree splitting, semantic windowing, and hybrid search optimization.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-rag-chunking-strategies.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Advanced RAG Chunking & Parent-Child Retrieval — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Advanced RAG Document Chunking \u0026 Parent-Child Retrieval Strategies","description":"Advanced RAG Document Chunking \u0026 Parent-Child Retrieval Strategies — Detailed developer guide on AST syntax tree splitting, semantic windowing, and hybrid search optimization.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-rag-chunking-strategies.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,14 +32,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; RAG Chunking
     </div>
 
     <h1>Advanced RAG Document Chunking & Parent-Child Retrieval Strategies</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 12 min read · Updated July 2026
+      Architecture · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -80,7 +82,52 @@ chunks = python_splitter.split_text(python_code_str)
       </ol>
     </div>
 
-    <h2>4. Related Architecture Articles & Utilities</h2>
+    <h2>4. Choose Boundaries from the Source Structure</h2>
+    <p>A chunk should be small enough to retrieve precisely and large enough to preserve the evidence needed to answer. For prose, prefer headings, paragraphs, lists, and table boundaries. For code, index symbols with their signatures, docstrings, containing type, imports, and a stable path plus revision. For tickets or chats, retain the speaker and timestamp. Fixed token windows remain a useful baseline, but overlap should be justified by measured recall rather than added automatically.</p>
+    <table>
+      <thead><tr><th>Source</th><th>Retrieval unit</th><th>Returned context</th></tr></thead>
+      <tbody>
+        <tr><td>Policy manual</td><td>Section or paragraph with heading path</td><td>Whole controlling section plus effective date</td></tr>
+        <tr><td>API documentation</td><td>Endpoint, parameter, or example block</td><td>Endpoint contract and relevant example</td></tr>
+        <tr><td>Source code</td><td>Function, method, class, or symbol summary</td><td>Definition plus nearby dependencies</td></tr>
+        <tr><td>Support ticket</td><td>Message or event</td><td>Thread segment with actor and chronology</td></tr>
+        <tr><td>Table</td><td>Row with headers repeated</td><td>Relevant rows plus header and footnotes</td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. Parent–Child Retrieval Without Hidden Context</h2>
+    <p>Parent–child retrieval embeds smaller child chunks for precise matching but returns a larger parent for generation. Store a stable parent ID on every child, keep parent and child versions synchronized, and enforce permissions before either is returned. Deduplicate parents when several children from the same section rank highly; otherwise one document can consume the entire context budget.</p>
+    <p>Do not assume the parent is automatically authoritative. Carry source URL or record ID, revision, effective date, heading path, and access label into the answer context. If a child matches obsolete content, freshness and authority signals should influence ranking before semantic similarity.</p>
+
+    <h2>6. Evaluate Retrieval Independently</h2>
+    <ol>
+      <li>Create questions with labeled supporting spans and explicit no-answer cases.</li>
+      <li>Split documents by time or entity to avoid nearly identical text in development and test sets.</li>
+      <li>Measure whether evidence appears within the actual context budget, not only in the top 100 results.</li>
+      <li>Compare fixed windows, structure-aware chunks, and parent–child retrieval using the same search stack.</li>
+      <li>Track duplicate-context rate, stale-evidence rate, permission leakage, indexing delay, latency, and cost.</li>
+      <li>Only then evaluate answer correctness and citation support with a frozen generator.</li>
+    </ol>
+    <p>An answer failure with missing evidence is a retrieval failure; an answer that contradicts supplied evidence is a generation failure. Keeping those labels separate prevents teams from repeatedly changing chunk size to solve the wrong problem.</p>
+
+    <h2>7. Operational Checklist</h2>
+    <ul>
+      <li>Version the source parser, chunker, embedding or lexical index, and metadata schema.</li>
+      <li>Propagate updates and deletions to children, parents, caches, and citations.</li>
+      <li>Reject malformed documents and preserve parser errors rather than silently indexing garbage.</li>
+      <li>Apply authorization filters before ranking and re-check returned records.</li>
+      <li>Monitor document-age distribution and source-to-index delay.</li>
+      <li>Treat every retrieved string as untrusted input that cannot override system instructions.</li>
+    </ul>
+
+    <h2>8. Primary References</h2>
+    <ul>
+      <li><a href="https://reference.langchain.com/python/langchain-classic/retrievers/parent_document_retriever/ParentDocumentRetriever" target="_blank" rel="noopener noreferrer">LangChain ParentDocumentRetriever reference</a></li>
+      <li><a href="https://docs.langchain.com/oss/python/integrations/retrievers" target="_blank" rel="noopener noreferrer">LangChain retriever documentation</a></li>
+      <li><a href="article-fine-tuning-vs-rag.html">AI Agent Hub: Fine-Tuning vs RAG</a></li>
+    </ul>
+
+    <h2>9. Related Architecture Articles & Utilities</h2>
     <ul>
       <li><a href="article-agentic-rag.html">🔄 Agentic RAG Architecture & Self-Correction Pipelines</a></li>
       <li><a href="tool-cost-calculator.html">🧮 LLM API & Token Cost Calculator</a></li>

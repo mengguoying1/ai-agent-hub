@@ -876,14 +876,11 @@ body.home {
     display: flex;
     width: 100%;
     gap: .35rem;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    scrollbar-width: none;
+    flex-wrap: wrap;
+    overflow: visible;
     padding: 0 0 .15rem;
     margin: 0;
   }
-  .nav-links::-webkit-scrollbar { display: none; }
   .nav-links li { flex: 0 0 auto; margin: 0; }
   .nav-links a {
     padding: .4rem .7rem;

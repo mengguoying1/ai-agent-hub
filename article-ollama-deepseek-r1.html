@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Local DeepSeek-R1 & V3 Deployment with Ollama — Step-by-step guide for running quantized DeepSeek reasoning models on local GPUs and Apple Silicon MacBooks.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Local DeepSeek-R1 & V3 Deployment with Ollama">
   <meta property="og:description" content="Step-by-step guide for running quantized DeepSeek reasoning models on local GPUs and Apple Silicon.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-ollama-deepseek-r1.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Local DeepSeek-R1 Deployment with Ollama — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Local DeepSeek-R1 \u0026 V3 Deployment with Ollama","description":"Local DeepSeek-R1 \u0026 V3 Deployment with Ollama — Step-by-step guide for running quantized DeepSeek reasoning models on local GPUs and Apple Silicon MacBooks.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-ollama-deepseek-r1.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,14 +32,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Ollama DeepSeek-R1
     </div>
 
     <h1>Local DeepSeek-R1 & V3 Deployment with Ollama</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Updated July 2026
+      Tutorial · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -106,7 +108,39 @@ curl http://localhost:11434/api/generate -d '{
     <h2>3. Connecting to VS Code & Cursor IDE</h2>
     <p>Set Ollama's base URL in VS Code extensions (like Continue.dev or OpenCode) to <code>http://localhost:11434/v1</code> for full local inline autocomplete and agent chat.</p>
 
-    <h2>4. Related Hosting & Benchmark Guides</h2>
+    <h2>4. Verify the Artifact Before You Benchmark It</h2>
+    <p>A library tag may point to a distilled model, a quantized conversion, or a later revision rather than the original full checkpoint described in a research paper. Record the exact tag, digest, parameter scale, base model, quantization, license, Ollama version, and model metadata. Do not describe a small distilled variant as the full DeepSeek-R1 system.</p>
+    <pre><code>ollama pull deepseek-r1:8b
+ollama show deepseek-r1:8b
+ollama ps
+ollama --version</code></pre>
+    <p>Check the official Ollama library page before copying a command because available tags change. Confirm the model's context configuration and increase it only after measuring memory. KV cache grows with context and concurrency, so a model that loads successfully can still run out of memory under realistic traffic.</p>
+
+    <h2>5. A Reproducible Local Evaluation</h2>
+    <ol>
+      <li>Freeze 30–50 prompts from the actual task: code review, extraction, question answering, or drafting.</li>
+      <li>Record CPU, GPU, VRAM, system RAM, operating system, driver, runtime, model digest, and context setting.</li>
+      <li>Warm the model, then run several repetitions at concurrency one and at the expected concurrent load.</li>
+      <li>Measure accepted-task quality, time to first token, generation rate, end-to-end latency, memory peak, and failure rate.</li>
+      <li>Test long prompts, cancellation, malformed input, model reload, and memory pressure.</li>
+      <li>Compare with a cloud or alternative local baseline using the same rubric; include hardware and operations cost.</li>
+    </ol>
+    <p>Do not publish a speed result without the full configuration. CPU offload and unified memory can make a model run but may change latency dramatically. The correct model size is the smallest one that meets the quality floor under the real context and concurrency requirement.</p>
+
+    <h2>6. Local Does Not Automatically Mean Private</h2>
+    <p>Bind the server to the minimum required interface, add authentication at a reverse proxy when other machines can reach it, and restrict browser origins. Review IDE extensions and web interfaces because they may send telemetry or prompts elsewhere. Protect model files and logs, patch the runtime, and avoid loading unreviewed custom code. For business data, define retention and deletion even if inference never leaves the device.</p>
+
+    <h2>7. Update and Rollback Discipline</h2>
+    <p>A tag can move to a newer artifact. Pull updates into a staging environment, record the new digest, rerun the frozen quality and load suite, and verify the chat template and API contract. Keep the previous digest locally until the new version survives a canary period. Never update the runtime and model in the same change if you need to identify the cause of a regression.</p>
+
+    <h2>8. Primary References</h2>
+    <ul>
+      <li><a href="https://registry.ollama.com/library/deepseek-r1" target="_blank" rel="noopener noreferrer">Ollama DeepSeek-R1 model library</a></li>
+      <li><a href="https://docs.ollama.com/gpu" target="_blank" rel="noopener noreferrer">Ollama hardware support</a></li>
+      <li><a href="https://github.com/deepseek-ai/DeepSeek-R1" target="_blank" rel="noopener noreferrer">DeepSeek-R1 official repository</a></li>
+    </ul>
+
+    <h2>9. Related Hosting & Benchmark Guides</h2>
     <ul>
       <li><a href="article-vllm-vs-ollama.html">⚖️ vLLM vs Ollama High-Throughput Engine Benchmarks</a></li>
       <li><a href="tool-cost-calculator.html">🧮 API Cost & Token Calculator</a></li>

@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="vLLM vs Ollama vs SGLang — Benchmarking local LLM inference engines for throughput, latency, PagedAttention, and multi-GPU serving.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.waiagent.win/article-vllm-vs-ollama.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>vLLM vs Ollama vs SGLang: Inference Engine Benchmarks — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"vLLM vs Ollama vs SGLang: High-Throughput Local Serving Benchmarks","description":"vLLM vs Ollama vs SGLang — Benchmarking local LLM inference engines for throughput, latency, PagedAttention, and multi-GPU serving.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-vllm-vs-ollama.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -27,18 +28,19 @@
   </nav>
 
   <main id="main-content" style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Inference Engines
     </div>
 
     <h1>vLLM vs Ollama vs SGLang: High-Throughput Local Serving Benchmarks</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Benchmarking · 9 min read · Updated July 2026
+      Benchmarking · 9 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Deploying open-weights models like DeepSeek-V3 or Qwen3 requires choosing an optimal inference engine. This article benchmarks vLLM, Ollama, and SGLang across tokens-per-second, TTFT (Time-to-First-Token), and memory utilization.
+      Deploying an open-weights model requires choosing an inference runtime that fits the workload and operating environment. This guide provides a reproducible comparison plan for vLLM, Ollama, and SGLang without inventing universal benchmark results.
     </p>
 
     <h2>1. Serving Architectures Explained</h2>
@@ -48,42 +50,51 @@
       <li><strong>SGLang (RadixTree Cache & Structured Inference):</strong> Developed by LMSYS. Features RadixAttention for fast automatic prefix caching across complex multi-step agent prompts.</li>
     </ul>
 
-    <h2>2. Performance Benchmark Scorecard</h2>
-    <div class="card" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:1.5rem; margin:1.5rem 0;">
-      <table style="width:100%; border-collapse:collapse; font-size:.88rem;">
-        <thead>
-          <tr style="background:rgba(255,255,255,0.04); color:#a0a0b0;">
-            <th style="padding:.6rem .8rem; text-align:left;">Metric (DeepSeek 70B FP8)</th>
-            <th style="padding:.6rem .8rem; text-align:left;">Ollama</th>
-            <th style="padding:.6rem .8rem; text-align:left;">vLLM v0.8</th>
-            <th style="padding:.6rem .8rem; text-align:left;">SGLang</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-top:1px solid rgba(255,255,255,0.04);">
-            <td style="padding:.6rem .8rem;"><strong>Concurrency (32 clients)</strong></td>
-            <td style="padding:.6rem .8rem;">18 tok/s total</td>
-            <td style="padding:.6rem .8rem; color:#4ade80;">142 tok/s total</td>
-            <td style="padding:.6rem .8rem; color:#22d3ee;">156 tok/s total</td>
-          </tr>
-          <tr style="border-top:1px solid rgba(255,255,255,0.04);">
-            <td style="padding:.6rem .8rem;"><strong>Prefix Cache Hit Speedup</strong></td>
-            <td style="padding:.6rem .8rem;">Baseline</td>
-            <td style="padding:.6rem .8rem;">3.2x faster</td>
-            <td style="padding:.6rem .8rem; color:#4ade80;">4.8x (RadixTree)</td>
-          </tr>
-          <tr style="border-top:1px solid rgba(255,255,255,0.04);">
-            <td style="padding:.6rem .8rem;"><strong>Setup Complexity</strong></td>
-            <td style="padding:.6rem .8rem; color:#4ade80;">Zero Config (One-click)</td>
-            <td style="padding:.6rem .8rem;">Python / Docker CLI</td>
-            <td style="padding:.6rem .8rem;">Docker / PyTorch</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <h2>2. Comparison by Deployment Shape</h2>
+    <table>
+      <thead><tr><th>Dimension</th><th>Ollama</th><th>vLLM</th><th>SGLang</th></tr></thead>
+      <tbody>
+        <tr><td>Primary fit</td><td>Simple local model management and development</td><td>Throughput-oriented API serving</td><td>High-performance serving and structured LM programs</td></tr>
+        <tr><td>Selection question</td><td>Can one operator install and use it safely?</td><td>Can it meet the service objective under load?</td><td>Does prefix reuse or the supported workload benefit from its runtime?</td></tr>
+        <tr><td>Evidence required</td><td>Model identity, local latency, memory, and API needs</td><td>Load curve, queueing, GPU use, and compatibility tests</td><td>Workload-specific throughput, latency, and feature tests</td></tr>
+      </tbody>
+    </table>
 
-    <h2>3. The Verdict</h2>
-    <p>Use <strong>Ollama</strong> for single-developer laptops and local experimentation. Switch to <strong>vLLM</strong> or <strong>SGLang</strong> as soon as you need to serve multi-tenant API traffic or multi-agent loops.</p>
+    <h2>3. Do Not Compare Vendor Benchmark Numbers Directly</h2>
+    <p>Each project publishes results for different models, hardware, request distributions, versions, and tuning. A fair comparison pins the same model artifact and precision when supported, uses the same prompt and output length distributions, and applies the same quality checks. Report the full configuration beside every number.</p>
+
+    <h2>4. Benchmark Protocol</h2>
+    <ol>
+      <li>Pin runtime container or binary, model revision, tokenizer, chat template, precision, and hardware.</li>
+      <li>Use a recorded workload distribution rather than one short synthetic prompt.</li>
+      <li>Measure time to first token, inter-token latency, end-to-end latency, request and token throughput, queue time, memory peak, and errors.</li>
+      <li>Test concurrency from idle to overload and show the service objective on the same graph.</li>
+      <li>Run a fixed quality set after any quantization or template change.</li>
+      <li>Include cold start, model loading, cancellation, long context, and failure recovery.</li>
+    </ol>
+    <p>Prefix caching should be tested with realistic prefix reuse. Continuous batching should be tested with the arrival pattern expected in production. A runtime that wins at maximum throughput may lose for a single interactive user, and the easiest local tool may not provide the isolation or capacity controls required for a multi-tenant service.</p>
+
+    <h2>5. Operational Decision Checklist</h2>
+    <ul>
+      <li>Which models, architectures, quantizations, tool calls, structured outputs, and multimodal features are supported?</li>
+      <li>Does the API contract match the client, including streaming, errors, usage, and cancellation?</li>
+      <li>How are authentication, tenant quotas, TLS, logs, upgrades, and rollback handled?</li>
+      <li>Can the runtime fit the model and KV cache at the required context and concurrency?</li>
+      <li>Is the team optimizing for a laptop workflow, a dedicated internal service, or public multi-user serving?</li>
+    </ul>
+
+    <h2>6. Migration Pilot</h2>
+    <p>Run the candidate runtime beside the existing service with no production writes. Replay redacted traffic, compare normalized responses and usage fields, then shadow a small live slice where policy permits. Exercise overload, cancellation, rolling restart, model-load failure, and rollback. A migration is complete only when the client contract, service objectives, quality suite, monitoring, and operator runbook all pass.</p>
+    <p>Test the operational path people often omit: upgrading the runtime, replacing a model, draining traffic, investigating a malformed request, and recovering after resource exhaustion. A fast benchmark does not compensate for an unsafe update or an incident nobody can explain. Weight each result against the real environment—one workstation, a shared internal service, or a production endpoint—because the same runtime can be appropriate in one setting and unsuitable in another.</p>
+
+    <h2>7. Primary References</h2>
+    <ul>
+      <li><a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer">Ollama documentation</a></li>
+      <li><a href="https://docs.vllm.ai/" target="_blank" rel="noopener noreferrer">vLLM documentation</a></li>
+      <li><a href="https://docs.sglang.io/" target="_blank" rel="noopener noreferrer">SGLang documentation</a></li>
+    </ul>
+
+    <div class="verdict"><h2>Bottom Line</h2><p>Choose from measured workload evidence. Ollama is often the shortest path to a local development environment. vLLM is designed for throughput-oriented serving, while SGLang emphasizes high-performance serving and prefix-aware execution. Validate the exact model, API features, hardware, security controls, and load profile before standardizing.</p></div>
   </main>
 
   <footer class="footer">

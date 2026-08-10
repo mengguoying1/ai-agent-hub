@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Agentic Testing & Self-Correcting Verification Loops — How autonomous AI coding agents dynamically write, execute, and self-correct unit tests.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Agentic Testing & Self-Correcting Verification Loops">
   <meta property="og:description" content="How autonomous AI coding agents dynamically write, execute, and self-correct unit tests.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-agentic-testing.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Agentic Testing & Verification Loops — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Agentic Testing \u0026 Self-Correcting Verification Loops","description":"Agentic Testing \u0026 Self-Correcting Verification Loops — How autonomous AI coding agents dynamically write, execute, and self-correct unit tests.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-agentic-testing.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,14 +32,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Agentic Testing
     </div>
 
     <h1>Agentic Testing & Self-Correcting Verification Loops</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Updated July 2026
+      Tutorial · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -92,7 +94,43 @@ def self_healing_loop(prompt):
     return False
 </code></pre>
 
-    <h2>3. Related Builder Tools & Tutorials</h2>
+    <h2>3. Test the Trajectory, Not Only the Final Sentence</h2>
+    <p>An agent can reach a plausible answer through an unacceptable path: reading forbidden files, making unnecessary network calls, retrying until cost explodes, or editing state that should have remained untouched. Preserve a structured trajectory for every evaluation run: input fixture, model and prompt version, tool requests, validated arguments, tool results, approvals, state changes, final outcome, token use, latency, and stop reason.</p>
+    <table>
+      <thead><tr><th>Test slice</th><th>Expected behavior</th><th>Deterministic evidence</th></tr></thead>
+      <tbody>
+        <tr><td>Ordinary success</td><td>Completes the bounded task</td><td>Required artifact exists and tests pass</td></tr>
+        <tr><td>Ambiguous request</td><td>Asks for missing information</td><td>No write or external action occurred</td></tr>
+        <tr><td>Tool failure</td><td>Retries only within policy</td><td>Typed error and retry count in trace</td></tr>
+        <tr><td>Prompt injection</td><td>Ignores instructions inside untrusted data</td><td>No forbidden tool call was authorized</td></tr>
+        <tr><td>Stale state</td><td>Refreshes or stops before committing</td><td>Revision check rejects the old proposal</td></tr>
+        <tr><td>Budget exhaustion</td><td>Ends visibly instead of looping</td><td>Terminal state records which limit fired</td></tr>
+      </tbody>
+    </table>
+
+    <h2>4. Separate Graders by What They Can Prove</h2>
+    <p>Use ordinary code for facts that can be checked exactly: JSON schema, file diffs, test exit codes, permission decisions, URLs, token budgets, and whether a side effect occurred. Use human review for product usefulness, surprising behavior, and high-impact edge cases. An LLM grader can help scale nuanced rubrics, but it must be calibrated against blinded human labels and should return evidence plus an uncertainty state. Do not let the same model both produce and unquestioningly grade its answer.</p>
+    <p>Report metrics by slice rather than only an average. A 95% overall completion rate can hide a catastrophic 40% authorization failure rate on restricted cases. Track task success, unsafe-action rate, unnecessary-tool rate, regression rate, human override rate, latency, and cost per accepted result.</p>
+
+    <h2>5. Build a Release Gate</h2>
+    <ol>
+      <li>Freeze a representative evaluation set and keep a private holdout for final decisions.</li>
+      <li>Run the current production version several times to establish variance.</li>
+      <li>Change one major component at a time: model, prompt, tool schema, retrieval, or policy.</li>
+      <li>Compare paired cases and inspect every safety or permission regression.</li>
+      <li>Canary the candidate on low-risk traffic with rollback available.</li>
+      <li>Add every confirmed production failure as a redacted regression fixture.</li>
+    </ol>
+    <p>Retries should be a typed policy, not a generic “try again” prompt. Specify which errors are retryable, whether arguments may change, the maximum attempts, backoff, and whether human approval is required. The verifier must have authority to stop the loop.</p>
+
+    <h2>6. Primary References</h2>
+    <ul>
+      <li><a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank" rel="noopener noreferrer">Anthropic: Demystifying evals for AI agents</a></li>
+      <li><a href="https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/" target="_blank" rel="noopener noreferrer">OpenAI practical guide to building agents</a></li>
+      <li><a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/" target="_blank" rel="noopener noreferrer">OWASP prompt injection risk</a></li>
+    </ul>
+
+    <h2>7. Related Builder Tools & Tutorials</h2>
     <ul>
       <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
       <li><a href="article-github-actions-agents.html">🤖 Integrating AI Agents into GitHub Actions CI/CD</a></li>

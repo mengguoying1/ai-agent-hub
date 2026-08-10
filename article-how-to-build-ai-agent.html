@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="How to Build an AI Agent from Scratch — Complete step-by-step developer tutorial on building autonomous AI agents with Python, MCP tools, and ReAct loops.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.waiagent.win/article-how-to-build-ai-agent.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>How to Build an AI Agent from Scratch: Complete Tutorial — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Build an AI Agent from Scratch: Complete Developer Guide","description":"How to Build an AI Agent from Scratch — Complete step-by-step developer tutorial on building autonomous AI agents with Python, MCP tools, and ReAct loops.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-how-to-build-ai-agent.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -27,14 +28,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Build AI Agent
     </div>
 
     <h1>How to Build an AI Agent from Scratch: Complete Developer Guide</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Updated July 2026
+      Tutorial · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -49,7 +51,7 @@
 
     <h2>2. The 4 Pillars of Agent Architecture</h2>
     <ul>
-      <li><strong>Reasoning Layer (The Brain):</strong> The LLM (Claude Opus 5, DeepSeek-V3, GPT-5.6 Sol) that processes observations and generates structured function calls.</li>
+      <li><strong>Proposal Layer:</strong> A currently supported model processes bounded observations and proposes a typed next step; application policy decides whether it may execute.</li>
       <li><strong>Memory Subsystem:</strong> Short-term conversation history buffer combined with long-term vector search (ChromaDB / Pinecone) or knowledge graphs.</li>
       <li><strong>Tool Execution Routines:</strong> Functions registered via JSON schema or Model Context Protocol (MCP) allowing the model to perform web searches, file edits, or terminal operations.</li>
       <li><strong>Control Flow Pattern:</strong> The execution state machine—such as a ReAct (Reason + Act) loop, Plan-and-Solve framework, or LangGraph cyclic graph.</li>
@@ -117,7 +119,54 @@ def run_agent_loop(prompt: str):
 run_agent_loop("If our API spend is $5.5 per day, what is our 30-day budget?")
 </code></pre>
 
-    <h2>4. Try the Interactive Studio</h2>
+    <h2>4. Define the Task Contract Before Adding Autonomy</h2>
+    <p>Write down the trigger, allowed inputs, evidence sources, tools, side effects, stop conditions, and human approval points. A useful first agent has one bounded job. For example: read one bug report, search an approved repository, propose a patch in an isolated branch, run tests, and stop for review. It may not merge, deploy, message a customer, or access another repository.</p>
+    <table>
+      <thead><tr><th>Contract item</th><th>Example</th><th>Enforced by</th></tr></thead>
+      <tbody>
+        <tr><td>Identity</td><td>Signed-in repository contributor</td><td>Application authentication</td></tr>
+        <tr><td>Read scope</td><td>One repository at a pinned revision</td><td>Workspace and API allowlist</td></tr>
+        <tr><td>Write scope</td><td>Ephemeral branch only</td><td>Scoped credential and branch policy</td></tr>
+        <tr><td>Budget</td><td>Eight turns, twelve tool calls, ninety seconds</td><td>Orchestrator counters</td></tr>
+        <tr><td>Success</td><td>Patch produced and specified tests pass</td><td>Deterministic verifier</td></tr>
+        <tr><td>Approval</td><td>Human reviews diff before publication</td><td>Separate privileged action</td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. Build the Smallest Observable Loop</h2>
+    <ol>
+      <li><strong>Construct context:</strong> include durable policy, the current task, and only the evidence needed for the next decision.</li>
+      <li><strong>Ask for a typed proposal:</strong> answer, stop, request input, or call one of a narrow set of tools.</li>
+      <li><strong>Validate:</strong> check schema, authorization, budgets, paths, URLs, and action class outside the model.</li>
+      <li><strong>Execute:</strong> run the tool in an isolated environment and return a bounded structured result.</li>
+      <li><strong>Record:</strong> persist the state transition, evidence IDs, decision, result, cost, and stop reason.</li>
+      <li><strong>Verify:</strong> use tests and business rules; require approval before consequential side effects.</li>
+    </ol>
+    <p>Do not add multiple agents merely to imitate an organization chart. Add a second role only when it provides a measurable boundary, such as an independent verifier with no write access or a specialist that uses a distinct evidence source. A deterministic function is often a better router than another model call.</p>
+
+    <h2>6. Evaluation and Failure Handling</h2>
+    <p>Create fixtures before launch: ordinary success, incomplete input, tool timeout, stale state, conflicting evidence, permission denial, prompt injection inside a file, and budget exhaustion. Measure accepted-task success, unsafe-action rate, unnecessary tool calls, human override rate, latency, and cost. Preserve the complete trajectory so a failure can be attributed to context, model decision, policy, tool, or verifier.</p>
+    <p>Every run needs a visible terminal state. Retry only typed transient failures and use idempotency keys for operations that may already have succeeded. After repeated equivalent failures, stop and ask for help instead of rewriting the prompt indefinitely.</p>
+
+    <h2>7. Production Readiness Checklist</h2>
+    <ul>
+      <li>Credentials are scoped, short-lived, and unavailable to the model text.</li>
+      <li>Untrusted documents and tool output cannot change policy or authorization.</li>
+      <li>Filesystem and network access use explicit allowlists.</li>
+      <li>High-impact actions show exact targets and require fresh approval.</li>
+      <li>Logs contain identifiers and outcomes without unnecessary sensitive content.</li>
+      <li>Model, prompt, tool schema, dataset, and policy versions are recorded.</li>
+      <li>Rollback and incident response do not depend on the agent.</li>
+    </ul>
+
+    <h2>8. Primary References</h2>
+    <ul>
+      <li><a href="https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/" target="_blank" rel="noopener noreferrer">OpenAI practical guide to building agents</a></li>
+      <li><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener noreferrer">Anthropic: Building effective agents</a></li>
+      <li><a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/" target="_blank" rel="noopener noreferrer">OWASP prompt injection guidance</a></li>
+    </ul>
+
+    <h2>9. Try the Interactive Studio</h2>
     <p>Ready to customize your agent architecture and generate TypeScript or Python boilerplate? Try our interactive <a href="tool-agent-builder-lab.html">AI Agent Builder Lab</a> tool.</p>
   </main>
 

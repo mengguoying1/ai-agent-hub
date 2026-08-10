@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Function Calling Security & Indirect Prompt Injection Defense — Technical guide on protecting autonomous AI agents from shell command injection, SSRF, and credential leaks.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Function Calling Security & Indirect Prompt Injection Defense">
   <meta property="og:description" content="Protecting autonomous AI agents from shell command injection, SSRF, and credential leaks.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-function-calling-security.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Function Calling Security & Injection Defense — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Function Calling Security \u0026 Indirect Prompt Injection Defense","description":"Function Calling Security \u0026 Indirect Prompt Injection Defense — Technical guide on protecting autonomous AI agents from shell command injection, SSRF, and credential leaks.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-function-calling-security.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,14 +32,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; Function Security
     </div>
 
     <h1>Function Calling Security & Indirect Prompt Injection Defense</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 12 min read · Updated July 2026
+      Architecture · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -77,7 +79,44 @@ class FileReadInput(BaseModel):
         return v
 </code></pre>
 
-    <h2>4. Related Agent Security Articles</h2>
+    <h2>4. Put a Policy Enforcement Point in Front of Every Tool</h2>
+    <p>A model-generated function call is a proposal, not authorization. Resolve the authenticated user and tenant in application code, map the requested action to a server-side capability, validate arguments against a strict schema, and apply resource-level authorization before execution. Never accept a model-supplied account ID, callback URL, file path, or shell fragment merely because it is valid JSON.</p>
+    <table>
+      <thead><tr><th>Layer</th><th>Required control</th><th>Failure it prevents</th></tr></thead>
+      <tbody>
+        <tr><td>Tool catalog</td><td>Expose only tools needed for the current task</td><td>Unnecessary authority and confused-deputy attacks</td></tr>
+        <tr><td>Schema</td><td>Enums, bounds, normalized identifiers, no arbitrary commands</td><td>Argument injection and parser ambiguity</td></tr>
+        <tr><td>Authorization</td><td>Check caller, tenant, object, and action server-side</td><td>Cross-user or cross-project access</td></tr>
+        <tr><td>Execution</td><td>Sandbox, network allowlist, timeout, idempotency key</td><td>Host compromise, exfiltration, and duplicate effects</td></tr>
+        <tr><td>Approval</td><td>Show exact target and consequence for high-impact actions</td><td>Hidden payment, deploy, deletion, or communication</td></tr>
+        <tr><td>Audit</td><td>Record proposal, policy decision, result, and actor</td><td>Untraceable incidents</td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. Treat Tool Results as Untrusted Input</h2>
+    <p>Indirect prompt injection can arrive through a web page, retrieved document, email, issue, log, image text, or another tool. Delimit the data, retain its source, and do not allow its text to redefine system policy. A second model or input filter may detect known patterns, but it is not a security boundary. Limit the consequences of a compromised decision with least privilege, deterministic validation, and human confirmation.</p>
+    <p>Return structured tool results with typed fields rather than a blob that mixes data and instructions. Strip unnecessary active content, cap result size, and avoid feeding secrets back into the model. For a URL-fetch tool, resolve DNS safely, block private and metadata networks, restrict redirects, and re-check the final destination.</p>
+
+    <h2>6. Adversarial Verification Checklist</h2>
+    <ul>
+      <li>A document asks the agent to reveal its system prompt or read an environment file.</li>
+      <li>A tool result proposes a new URL, recipient, repository, or payment destination.</li>
+      <li>Encoded or obfuscated instructions appear in HTML, Unicode, images, or logs.</li>
+      <li>A valid low-risk call is changed into a high-impact call on retry.</li>
+      <li>Two users request the same object identifier from different tenants.</li>
+      <li>The network times out after an effect succeeds, provoking a duplicate retry.</li>
+      <li>A human approval screen summarizes rather than showing the exact action.</li>
+    </ul>
+    <p>Pass conditions should be observable: the unauthorized call never reaches the executor, the run ends in a typed state, and the audit record explains which policy denied it. Regular expressions alone are not an adequate defense because the attack is semantic and can be transformed.</p>
+
+    <h2>7. Primary References</h2>
+    <ul>
+      <li><a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/" target="_blank" rel="noopener noreferrer">OWASP LLM01: Prompt Injection</a></li>
+      <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP prompt injection prevention cheat sheet</a></li>
+      <li><a href="https://owasp.org/www-project-llm-verification-standard/LLMSVS-v2.0-en.html" target="_blank" rel="noopener noreferrer">OWASP LLM Verification Standard</a></li>
+    </ul>
+
+    <h2>8. Related Agent Security Articles</h2>
     <ul>
       <li><a href="article-ai-security.html">🔒 AI Safety & Enterprise Sandbox Governance</a></li>
       <li><a href="article-github-actions-agents.html">🤖 Integrating AI Agents into CI/CD</a></li>

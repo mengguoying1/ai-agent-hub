@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Agentic RAG Architecture & Self-Correction Pipelines — Comprehensive guide on building autonomous retrieval-augmented generation loops with cross-encoders and web search fallbacks.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Agentic RAG Architecture & Self-Correction Pipelines">
   <meta property="og:description" content="Comprehensive guide on building autonomous RAG loops with cross-encoders and self-correction.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-agentic-rag.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Agentic RAG Architecture & Self-Correction Pipelines — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Agentic RAG Architecture \u0026 Self-Correction Pipelines","description":"Agentic RAG Architecture \u0026 Self-Correction Pipelines — Comprehensive guide on building autonomous retrieval-augmented generation loops with cross-encoders and web search fallbacks.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-agentic-rag.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,14 +32,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; Agentic RAG
     </div>
 
     <h1>Agentic RAG Architecture & Self-Correction Pipelines</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 12 min read · Updated July 2026
+      Architecture · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -132,7 +134,39 @@ workflow.add_edge("retrieve", "grade")
 app = workflow.compile()
 </code></pre>
 
-    <h2>4. Related Architecture Guides & Utilities</h2>
+    <h2>4. Decide Whether Agentic Retrieval Is Justified</h2>
+    <p>A routing loop adds latency, cost, and new failure modes. Start with a conventional retrieval baseline: one well-formed query, access-controlled search, a small set of reranked passages, and an answer that cites them. Add an agent only when measured failures require conditional behavior—for example, decomposing a multi-part question, switching between code and policy indexes, retrying a query after low recall, or refusing when no authoritative evidence exists.</p>
+    <table>
+      <thead><tr><th>Observed failure</th><th>First intervention</th><th>Agent loop needed?</th></tr></thead>
+      <tbody>
+        <tr><td>Relevant document never indexed</td><td>Fix ingestion and freshness</td><td>No</td></tr>
+        <tr><td>Relevant chunk ranks below noisy matches</td><td>Hybrid search, filters, or reranking</td><td>Usually no</td></tr>
+        <tr><td>Question requires two independent evidence sets</td><td>Query decomposition with a fixed budget</td><td>Possibly</td></tr>
+        <tr><td>Retrieved text conflicts</td><td>Expose dates and authority; require abstention</td><td>Possibly</td></tr>
+        <tr><td>Document contains hostile instructions</td><td>Treat retrieval as data and restrict tools</td><td>No; this is a security boundary</td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. Production State Machine</h2>
+    <p>Represent each transition explicitly: <code>classify</code>, <code>retrieve</code>, <code>grade_evidence</code>, <code>rewrite_query</code>, <code>answer</code>, and <code>stop</code>. Store the query version, retrieved document IDs, scores, authorization decision, model response, and stop reason. Set hard limits on rewrites, documents, tokens, wall time, and tool calls. A graph that has no terminal state is a retry storm waiting to happen.</p>
+    <pre><code>START -&gt; authorize -&gt; retrieve -&gt; grade
+                           | sufficient -&gt; answer -&gt; cite -&gt; END
+                           | weak and retries left -&gt; rewrite -&gt; retrieve
+                           | missing/forbidden -&gt; abstain -&gt; END</code></pre>
+    <p>Keep authorization outside the language model. Filters for tenant, project, region, and document permissions must execute before content enters the prompt. Likewise, the answer should cite stable record identifiers rather than model-generated URLs.</p>
+
+    <h2>6. Evaluation That Finds the Broken Component</h2>
+    <p>Create a frozen set containing ordinary questions, recently changed documents, missing-answer cases, conflicting sources, permission-restricted records, and indirect prompt injection. Measure corpus coverage, retrieval recall at the chosen context limit, citation correctness, supported-answer accuracy, abstention precision, p50/p95 latency, and cost per accepted answer. Attribute each failure to ingestion, retrieval, generation, policy, or orchestration so a team does not redesign the graph to compensate for a stale index.</p>
+    <p>Compare the agentic version with the simple baseline on exactly the same cases. Promote the loop only when it improves an agreed outcome enough to justify its extra calls and operational complexity.</p>
+
+    <h2>7. Primary References</h2>
+    <ul>
+      <li><a href="https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_self_rag/" target="_blank" rel="noopener noreferrer">LangGraph custom RAG agent tutorial</a></li>
+      <li><a href="https://arxiv.org/abs/2310.11511" target="_blank" rel="noopener noreferrer">Self-RAG paper</a></li>
+      <li><a href="article-fine-tuning-vs-rag.html">AI Agent Hub: Fine-Tuning vs RAG decision framework</a></li>
+    </ul>
+
+    <h2>8. Related Architecture Guides & Utilities</h2>
     <ul>
       <li><a href="article-rag-chunking-strategies.html">📄 AST Chunking & Parent-Child Document Retrieval</a></li>
       <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>

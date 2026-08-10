@@ -5,7 +5,7 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Claude vs GPT vs DeepSeek for Coding — a detailed practical comparison of the three major model families for developer workflows in 2026.">
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.waiagent.win/article-claude-vs-gpt.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Claude vs GPT vs DeepSeek for Coding — AI Agent Hub</title>
@@ -15,12 +15,14 @@
     "@type": "Article",
     "headline": "Claude vs GPT vs DeepSeek for Coding",
     "description": "A detailed practical comparison of Claude, GPT, and DeepSeek for real-world developer coding workflows.",
-    "author": { "@type": "Organization", "name": "AI Agent Hub" },
+    "author": { "@type": "Organization", "name": "AI Agent Hub Editorial Desk", "url": "https://www.waiagent.win/about-author.html" },
     "publisher": { "@type": "Organization", "name": "AI Agent Hub" },
-    "datePublished": "2026-07-01"
+    "datePublished": "2026-07-01",
+    "dateModified": "2026-08-10",
+    "mainEntityOfPage": "https://www.waiagent.win/article-claude-vs-gpt.html"
   }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -38,10 +40,11 @@
   </nav>
 
   <main id="main-content">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
-    <div class="meta">Comparison · 7 min read · Updated July 2026</div>
+
+    <div class="meta">Comparison · 7 min read · Reviewed August 10, 2026</div>
     <h1>Claude vs GPT vs DeepSeek for Coding</h1>
-    <p>Three model families dominate the AI coding landscape in mid-2026: Anthropic's Claude, OpenAI's GPT, and DeepSeek. Each takes a fundamentally different approach to code generation, reasoning, and developer integration. This article compares them across the dimensions that matter most for real-world development work.</p>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
+    <p>Anthropic, OpenAI, and DeepSeek offer different model families and developer surfaces for coding work. Names, context limits, prices, and tool features change frequently. This reviewed comparison avoids a static winner and shows how to test the current options on a controlled repository task.</p>
 
     <h2>Quick Comparison</h2>
     <div class="card">
@@ -50,33 +53,31 @@
           <tr><th>Dimension</th><th>Claude (Anthropic)</th><th>GPT (OpenAI)</th><th>DeepSeek</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>Best for</strong></td><td>Code reasoning, refactoring, instruction following</td><td>General versatility, ecosystem breadth, creative tasks</td><td>Cost efficiency, bulk coding, self-hosting</td></tr>
-          <tr><td><strong>Top coding model</strong></td><td>Opus 4.8 / Sonnet 4.8</td><td>GPT-5.5 / GPT-5.5 Mini</td><td>DeepSeek-V3 / R1</td></tr>
-          <tr><td><strong>Context window</strong></td><td>200K tokens</td><td>256K tokens</td><td>128K tokens</td></tr>
-          <tr><td><strong>Coding price (per 1M tokens)</strong></td><td>$3/$15 (Sonnet 4.8) to $15/$75 (Opus 4.8)</td><td>~$1.0/$4.0 (Mini) to ~$10/$40 (GPT-5.5)</td><td>~$0.27/$0.40 (V3)</td></tr>
-          <tr><td><strong>IDE integration</strong></td><td>Claude Code (CLI, VS Code, JetBrains)</td><td>GitHub Copilot, Azure, API</td><td>API, OpenRouter, self-host</td></tr>
-          <tr><td><strong>Open weights</strong></td><td>No</td><td>No</td><td>Yes (V3)</td></tr>
-          <tr><td><strong>Multilingual code</strong></td><td>Excellent (Python, JS/TS, Rust, Go, etc.)</td><td>Excellent across all major languages</td><td>Strong (Python, JS, C++, Java, Rust)</td></tr>
+          <tr><td><strong>Verify current models</strong></td><td>Anthropic model overview</td><td>OpenAI model documentation</td><td>DeepSeek API docs and official repositories</td></tr>
+          <tr><td><strong>First-party coding surface</strong></td><td>Claude Code and API</td><td>Codex/OpenAI developer tools and API</td><td>API plus published model artifacts where licensed</td></tr>
+          <tr><td><strong>Context and features</strong></td><td colspan="3">Confirm exact model ID, product surface, region, API version, tool use, structured output, and current documentation</td></tr>
+          <tr><td><strong>Price</strong></td><td colspan="3">Capture dated official input, output, cache, batch, tool, and platform rates; compare cost per accepted task</td></tr>
+          <tr><td><strong>Self-hosting</strong></td><td>Provider service</td><td>Provider service</td><td>Some model families publish weights; verify model and code licenses</td></tr>
+          <tr><td><strong>Selection evidence</strong></td><td colspan="3">Paired evaluation on the same repository, harness, budget, permissions, and acceptance tests</td></tr>
         </tbody>
       </table>
     </div>
 
     <h2>Claude: The Reasoning Specialist</h2>
-    <p>Anthropic's Claude models have earned a reputation as the go-to choice for developers who need <strong>deep reasoning and careful instruction following</strong>. Claude excels at understanding complex codebases, planning multi-step refactors, and producing code that works correctly on the first try.</p>
+    <p>Anthropic offers Claude models through its API and coding products. Evaluate the exact current model and tool as a complete system: repository context, permissions, prompts, search, command execution, and verification all affect results.</p>
 
     <h3>Strengths for Coding</h3>
     <ul>
-      <li><strong>Multi-file refactoring:</strong> Claude understands project structure and can refactor across dozens of files while maintaining consistency.</li>
-      <li><strong>Architectural reasoning:</strong> When asked to design a system or evaluate trade-offs, Claude provides thoughtful, well-structured analysis.</li>
-      <li><strong>Instruction following:</strong> Claude stays on task and follows complex, multi-part instructions without drifting or hallucinating requirements.</li>
-      <li><strong>Tool use (MCP):</strong> Native Model Context Protocol support means Claude can interact with databases, APIs, and file systems directly.</li>
-      <li><strong>Claude Code integration:</strong> The dedicated CLI/IDE tool provides the smoothest Claude-native coding experience with project-aware context.</li>
+      <li><strong>Multi-file work:</strong> test whether the selected coding surface produces a reviewable, scoped diff.</li>
+      <li><strong>Instruction following:</strong> measure acceptance criteria, unrelated changes, and human corrections.</li>
+      <li><strong>Tool use:</strong> verify supported tools and enforce authorization outside the model.</li>
+      <li><strong>Claude Code:</strong> evaluate its current permission and repository workflow against team policy.</li>
     </ul>
 
     <h3>Limitations</h3>
     <ul>
-      <li><strong>Higher cost at premium tier:</strong> Opus 4.8 at $15/$75 per 1M tokens is expensive for heavy usage — best reserved for the hardest problems.</li>
-      <li><strong>Smaller ecosystem:</strong> Fewer third-party integrations compared to the GPT/Copilot ecosystem.</li>
+      <li><strong>Variable cost:</strong> use the current pricing page and measured token/tool behavior.</li>
+      <li><strong>Product dependence:</strong> features and quotas differ across API, subscription, and coding surfaces.</li>
       <li><strong>No open weights:</strong> Cannot be self-hosted. All usage goes through Anthropic's API.</li>
     </ul>
 
@@ -84,21 +85,20 @@
     <p>Use Claude when you need <strong>correctness over speed</strong> — complex refactors, debugging subtle issues, architecture decisions, and any task where getting it wrong costs more than getting it fast.</p>
 
     <h2>GPT / Codex: The Ecosystem Powerhouse</h2>
-    <p>OpenAI's GPT models benefit from the <strong>broadest developer ecosystem</strong> in AI. GitHub Copilot is built on GPT, Azure OpenAI Service provides enterprise deployment, and the Assistants API enables custom agent development. GPT-5.5 models combine strong coding with broad world knowledge.</p>
+    <p>OpenAI provides models and agentic developer products through several surfaces. Do not assume the same model, harness, retention terms, or feature set applies across an API, a hosted coding agent, Azure, or a third-party editor.</p>
 
     <h3>Strengths for Coding</h3>
     <ul>
-      <li><strong>IDE integration:</strong> GitHub Copilot's deep VS Code and JetBrains integration is the most polished AI coding experience available, with inline completions, chat, and agent mode.</li>
-      <li><strong>Language coverage:</strong> GPT-5.5 performs well across virtually all programming languages, including niche and legacy ones.</li>
-      <li><strong>General knowledge:</strong> When coding tasks intersect with domain knowledge (finance, medicine, law, etc.), GPT-5.5's broad training data is an advantage.</li>
-      <li><strong>Enterprise deployment:</strong> Azure marketplace availability and enterprise compliance features make GPT the path of least resistance for large organizations.</li>
-      <li><strong>Agent capabilities:</strong> GPT-5.5's native agent features allow autonomous web browsing, code execution, and multi-step workflows.</li>
+      <li><strong>Developer surfaces:</strong> compare the API and current coding tools that are actually available to the account.</li>
+      <li><strong>Language coverage:</strong> test the repository's real languages, build system, and legacy dependencies.</li>
+      <li><strong>Enterprise requirements:</strong> review the specific product agreement, region, identity, logging, retention, and admin controls.</li>
+      <li><strong>Agent capabilities:</strong> verify each tool, permission, sandbox, network path, and approval boundary.</li>
     </ul>
 
     <h3>Limitations</h3>
     <ul>
-      <li><strong>Instruction following:</strong> GPT-5.5 can occasionally drift from complex instructions or add unrequested features, requiring more careful prompting.</li>
-      <li><strong>Cost at scale:</strong> GPT-5.5 at ~$10/$40 is comparable to Claude Sonnet, but GPT-5.5 Mini is a strong budget option.</li>
+      <li><strong>Behavior variance:</strong> run repeated trials and inspect unrequested changes rather than relying on a reputation.</li>
+      <li><strong>Cost at scale:</strong> include retries, tool loops, caching, and human review in the current route's effective cost.</li>
       <li><strong>Vendor lock-in:</strong> Deep Copilot/Azure integration can make it harder to switch providers later.</li>
     </ul>
 
@@ -106,29 +106,36 @@
     <p>Use GPT when you need <strong>broad ecosystem support</strong> — Copilot integration, enterprise deployment, or tasks that benefit from general world knowledge alongside coding ability.</p>
 
     <h2>DeepSeek: The Cost Disruptor</h2>
-    <p>DeepSeek has fundamentally changed the economics of AI coding. Its V3 model achieves <strong>near-frontier coding quality at roughly 1/50th the cost</strong> of premium models. With open weights and a permissive license, DeepSeek also enables self-hosting for privacy-sensitive environments.</p>
+    <p>DeepSeek publishes API services and model repositories. Some artifacts can be self-hosted under their applicable licenses, creating a different operational option—not an automatic privacy or cost advantage. Verify the exact artifact, conversion, runtime, data path, and license.</p>
 
     <h3>Strengths for Coding</h3>
     <ul>
-      <li><strong>Extreme cost efficiency:</strong> At ~$0.27/$0.40 per 1M tokens, DeepSeek-V3 is 50x cheaper than Opus 4.8 and 13x cheaper than GPT-5.5 for comparable coding quality on many tasks.</li>
-      <li><strong>Open weights (V3):</strong> MIT-licensed weights mean you can run DeepSeek-V3 on your own hardware — critical for enterprises with data privacy requirements or air-gapped environments.</li>
-      <li><strong>Strong on benchmarks:</strong> DeepSeek-V3 matches or approaches GPT-5.5 on HumanEval, MBPP, and SWE-bench coding benchmarks.</li>
-      <li><strong>Chain-of-thought (R1):</strong> DeepSeek-R1 provides transparent reasoning traces, making it excellent for debugging and understanding why code fails.</li>
-      <li><strong>Self-hosting economics:</strong> Once deployed on a single GPU setup, marginal cost approaches zero.</li>
+      <li><strong>API economics:</strong> capture current official rates and measure quality on the same task set.</li>
+      <li><strong>Published artifacts:</strong> self-hosting can support offline or controlled deployments when hardware and operations are available.</li>
+      <li><strong>Benchmark claims:</strong> compare only the same dataset, harness, budget, and model revision.</li>
+      <li><strong>Reasoning models:</strong> evaluate final answers and tool trajectories; hidden or displayed reasoning text is not a correctness proof.</li>
+      <li><strong>Self-hosting cost:</strong> include hardware, power, idle capacity, engineering, security, monitoring, and recovery.</li>
     </ul>
 
     <h3>Limitations</h3>
     <ul>
-      <li><strong>Smaller context window:</strong> 128K tokens vs 200K–256K for Claude/GPT. May be limiting for very large codebases.</li>
+      <li><strong>Context and feature support:</strong> confirm the exact API or artifact and runtime rather than copying a family-level number.</li>
       <li><strong>Less polished tooling:</strong> No first-party IDE integration comparable to Claude Code or Copilot. Relies on API access via OpenRouter or direct API.</li>
-      <li><strong>English-first:</strong> While strong in Chinese and English, other language support is less comprehensive than GPT-5.5.</li>
+      <li><strong>Language coverage:</strong> test the exact programming and natural languages in the intended repository rather than extrapolating from a general benchmark.</li>
       <li><strong>Self-hosting complexity:</strong> Running a 671B MoE model requires significant hardware (multi-GPU setup) and ML ops expertise.</li>
     </ul>
 
     <h3>Best Use Cases</h3>
     <p>Use DeepSeek for <strong>cost-sensitive, high-volume coding tasks</strong> — test generation, documentation, boilerplate, and any scenario where volume matters more than the last 5% of quality. Self-host for privacy-critical environments.</p>
 
-    <h2>How to Choose: Decision Framework</h2>
+    <h2>How to Choose: Controlled Repository Trial</h2>
+    <ol>
+      <li>Freeze ten to thirty representative tasks and the starting commit for each.</li>
+      <li>Use the same tool permissions, network policy, prompt budget, retries, and acceptance tests.</li>
+      <li>Record model snapshot, coding harness, files changed, tests, human corrections, calls, tokens, latency, and cost.</li>
+      <li>Include ambiguous requests, prompt injection in files, dependency failure, stale state, and forbidden actions.</li>
+      <li>Score accepted-task success, regression-free success, unsafe-action rate, unrelated changes, and cost per accepted result.</li>
+    </ol>
     <div class="verdict">
       <h3>Choose Claude if:</h3>
       <ul>
@@ -158,6 +165,13 @@
     </div>
 
     <div class="card">
+      <h2>Primary References</h2>
+      <ul>
+        <li><a href="https://docs.anthropic.com/en/docs/about-claude/models/overview" target="_blank" rel="noopener noreferrer">Anthropic model overview</a></li>
+        <li><a href="https://platform.openai.com/docs/models" target="_blank" rel="noopener noreferrer">OpenAI model documentation</a></li>
+        <li><a href="https://api-docs.deepseek.com/" target="_blank" rel="noopener noreferrer">DeepSeek API documentation</a></li>
+        <li><a href="https://github.com/deepseek-ai" target="_blank" rel="noopener noreferrer">DeepSeek official repositories</a></li>
+      </ul>
       <h2>Related Reading</h2>
       <ul>
         <li><a href="article-multi-model-workflow.html">Why Multi-Model Workflows Matter</a> — combine models for best results</li>

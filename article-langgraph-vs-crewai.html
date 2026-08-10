@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="LangGraph vs CrewAI vs AutoGen — Comparing stateful graph orchestration, role-playing agent crews, and conversational agent architectures for production.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.waiagent.win/article-langgraph-vs-crewai.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>LangGraph vs CrewAI vs AutoGen: Multi-Agent Frameworks — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"LangGraph vs CrewAI vs AutoGen: Comparing Multi-Agent Orchestration","description":"LangGraph vs CrewAI vs AutoGen — Comparing stateful graph orchestration, role-playing agent crews, and conversational agent architectures for production.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-langgraph-vs-crewai.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -27,14 +28,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; Multi-Agent Frameworks
     </div>
 
     <h1>LangGraph vs CrewAI vs AutoGen: Comparing Multi-Agent Orchestration</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 11 min read · Updated July 2026
+      Architecture · 11 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -56,7 +58,7 @@
             <th style="padding:.6rem .8rem; text-align:left;">Dimension</th>
             <th style="padding:.6rem .8rem; text-align:left;">LangGraph</th>
             <th style="padding:.6rem .8rem; text-align:left;">CrewAI</th>
-            <th style="padding:.6rem .8rem; text-align:left;">AutoGen v0.4</th>
+            <th style="padding:.6rem .8rem; text-align:left;">AutoGen</th>
           </tr>
         </thead>
         <tbody>
@@ -88,8 +90,49 @@
       </table>
     </div>
 
-    <h2>3. Production Decision Framework</h2>
-    <p>Choose <strong>LangGraph</strong> if you need strict deterministic control over workflow transitions, exact state rollback, and complex enterprise compliance. Choose <strong>CrewAI</strong> for fast developer velocity when modeling business roles (e.g. Researcher + Writer + Reviewer). Choose <strong>AutoGen</strong> for distributed asynchronous actor networks.</p>
+    <h2>3. First Ask Whether You Need Multiple Agents</h2>
+    <p>Multiple role prompts do not automatically create better reasoning. They add context, model calls, handoffs, failure states, and security boundaries. Start with one agent plus deterministic tools and a verifier. Add another agent only when it supplies a measurable capability: a distinct evidence source, a separate permission boundary, independent review, or parallel work that reduces elapsed time without hiding errors.</p>
+    <table>
+      <thead><tr><th>Requirement</th><th>Simpler baseline</th><th>When a framework helps</th></tr></thead>
+      <tbody>
+        <tr><td>Fixed sequence</td><td>Ordinary application code</td><td>Long-running state, pause/resume, or many conditional paths</td></tr>
+        <tr><td>Specialist review</td><td>Second prompt with no tools</td><td>Independent state, permissions, or asynchronous queue</td></tr>
+        <tr><td>Human approval</td><td>Database state plus UI action</td><td>Framework has durable interrupts that fit the service</td></tr>
+        <tr><td>Parallel research</td><td>Bounded concurrent functions</td><td>Dynamic delegation and trace aggregation are required</td></tr>
+      </tbody>
+    </table>
+
+    <h2>4. Build the Same Proof of Concept in Each Candidate</h2>
+    <p>Use one bounded workflow rather than comparing marketing examples. A useful test is an issue-triage service that reads one ticket, searches an approved corpus, proposes a category, drafts a response with citations, pauses for approval, and resumes after a simulated restart. Implement exactly the same tools, model, prompt budget, state schema, and acceptance tests.</p>
+    <ul>
+      <li>Can the run resume without repeating an external effect?</li>
+      <li>Can state be versioned and migrated?</li>
+      <li>Can a human see the exact proposed action before approval?</li>
+      <li>Are retries, cancellation, timeout, and duplicate delivery explicit?</li>
+      <li>Can tools enforce tenant and resource authorization outside the model?</li>
+      <li>Can traces be exported without storing unnecessary sensitive content?</li>
+    </ul>
+
+    <h2>5. Evaluation Matrix</h2>
+    <p>Measure accepted-task success, unsafe-action rate, unnecessary model/tool calls, recovery from a tool timeout, recovery after process restart, state migration effort, p50/p95 latency, and cost. Include prompt injection inside retrieved content, a stale ticket revision, a denied resource, duplicate queue delivery, and budget exhaustion. Inspect the full trajectory, not only the final answer.</p>
+    <p>Also evaluate maintenance: dependency size, release cadence, upgrade notes, debugging ergonomics, provider portability, deployment requirements, and how much framework-specific code remains in business logic. The best choice is the smallest abstraction that makes the required state and controls clearer.</p>
+
+    <h2>6. Practical Selection Guidance</h2>
+    <ul>
+      <li><strong>LangGraph:</strong> evaluate when explicit graph state, durable execution, branching, and interrupts match the workflow.</li>
+      <li><strong>CrewAI:</strong> evaluate when its agent, task, crew, and flow abstractions make a role-oriented workflow easier for the team to maintain.</li>
+      <li><strong>AutoGen:</strong> evaluate for event-driven or conversational multi-agent patterns after checking the current Microsoft project documentation and migration path.</li>
+      <li><strong>Custom code:</strong> prefer it for a short fixed workflow where framework state would add more concepts than it removes.</li>
+    </ul>
+
+    <h2>7. Primary References</h2>
+    <ul>
+      <li><a href="https://docs.langchain.com/oss/python/langgraph/overview" target="_blank" rel="noopener noreferrer">LangGraph overview</a></li>
+      <li><a href="https://docs.crewai.com/" target="_blank" rel="noopener noreferrer">CrewAI documentation</a></li>
+      <li><a href="https://microsoft.github.io/autogen/stable/" target="_blank" rel="noopener noreferrer">Microsoft AutoGen documentation</a></li>
+    </ul>
+
+    <div class="verdict"><h2>Bottom Line</h2><p>Choose from a controlled prototype and failure tests, not a feature checklist. Most reliable systems need explicit state, narrow tools, deterministic authorization, budgets, observability, and approval; a framework is valuable only when it makes those properties easier to verify.</p></div>
   </main>
 
   <footer class="footer">

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Context Pruning & Prompt Compression (LLMLingua) — Developer guide on compressing long prompts by up to 20x to cut API token costs and inference latency.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Context Pruning & Prompt Compression (LLMLingua)">
   <meta property="og:description" content="Compressing long prompts by up to 20x to cut API token costs and inference latency.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-prompt-compression.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Context Pruning & Prompt Compression Guide — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Context Pruning \u0026 Prompt Compression (LLMLingua) Guide","description":"Context Pruning \u0026 Prompt Compression (LLMLingua) — Developer guide on compressing long prompts by up to 20x to cut API token costs and inference latency.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-prompt-compression.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,14 +32,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Prompt Compression
     </div>
 
     <h1>Context Pruning & Prompt Compression (LLMLingua) Guide</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Updated July 2026
+      Tutorial · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -76,7 +78,45 @@ print(f"Compressed Prompt Tokens: {results['compressed_tokens']}")
 compressed_text = results["compressed_prompt"]
 </code></pre>
 
-    <h2>3. Related Token Estimators & Cost Tools</h2>
+    <h2>3. Compression Is a Quality Trade, Not Free Context</h2>
+    <p>Prompt compression can remove repeated or low-information tokens before a request reaches the target model. It can also delete a negation, identifier, number, exception, delimiter, citation, or security instruction. Do not apply the same rate to every task. Preserve system policy, schemas, code syntax, quoted evidence, user constraints, and the question itself unless a test demonstrates that changing them is safe.</p>
+    <table>
+      <thead><tr><th>Content</th><th>Default treatment</th><th>Reason</th></tr></thead>
+      <tbody>
+        <tr><td>System policy and tool contract</td><td>Do not compress</td><td>Small changes can alter authority or output shape</td></tr>
+        <tr><td>Retrieved prose</td><td>Candidate for selective compression</td><td>Often contains redundancy, but citations must survive</td></tr>
+        <tr><td>Source code and stack traces</td><td>Structure-aware pruning first</td><td>Identifiers and punctuation carry meaning</td></tr>
+        <tr><td>Conversation history</td><td>Summarize resolved turns with provenance</td><td>Old dialogue is often lower value than current state</td></tr>
+        <tr><td>Numbers, dates, IDs, and legal text</td><td>Preserve or verify exactly</td><td>Token removal can change the fact itself</td></tr>
+      </tbody>
+    </table>
+
+    <h2>4. Reproducible Evaluation Protocol</h2>
+    <ol>
+      <li>Freeze a task set with ordinary, long-context, adversarial, and no-answer cases.</li>
+      <li>Run the uncompressed baseline and record accepted-task quality, input tokens, output tokens, latency, and provider cost.</li>
+      <li>Test several compression rates with the same target model and decoding settings.</li>
+      <li>Check exact preservation of citations, identifiers, constraints, and required output fields.</li>
+      <li>Include the compressor's own model loading, compute, latency, and memory in total cost.</li>
+      <li>Choose the lightest transformation that meets a predeclared quality floor; do not select on cost alone.</li>
+    </ol>
+    <p>Report results by slice. A compressor may work well on meeting transcripts and fail on source code or multilingual policy text. Measure unsupported-answer rate and refusal changes in addition to task accuracy. If compression makes a prompt fit but produces an unreliable answer, the context problem has not been solved.</p>
+
+    <h2>5. Prefer Deterministic Pruning Where Possible</h2>
+    <p>Before using a learned compressor, remove duplicate passages, irrelevant log levels, generated files, superseded messages, and retrieval results below an evidence threshold. Select code by symbols and dependencies, trim tool results to typed fields, and summarize completed steps into a state record. These transformations are easier to audit and reproduce.</p>
+    <p>Version the compressor model, tokenizer, parameters, forced tokens, source prompt hash, compressed prompt hash, and target model. Sensitive content processed by a local compressor still requires retention, access-control, and deletion rules.</p>
+
+    <h2>6. Security Regression Set</h2>
+    <p>Include prompts where one word changes permission or meaning: negations, currency, dates, object IDs, code operators, policy exceptions, and instructions hidden inside retrieved text. The compressed output must preserve the trusted instruction hierarchy and must not turn untrusted data into an instruction. Fail the candidate when any prohibited action becomes easier after compression.</p>
+
+    <h2>7. Primary References</h2>
+    <ul>
+      <li><a href="https://github.com/microsoft/LLMLingua" target="_blank" rel="noopener noreferrer">Microsoft LLMLingua repository and usage guide</a></li>
+      <li><a href="https://aclanthology.org/2023.emnlp-main.825/" target="_blank" rel="noopener noreferrer">LLMLingua EMNLP paper</a></li>
+      <li><a href="article-prompt-caching.html">AI Agent Hub: Prompt caching guide</a></li>
+    </ul>
+
+    <h2>8. Related Token Estimators & Cost Tools</h2>
     <ul>
       <li><a href="tool-token-counter.html">🔢 Interactive Prompt Token Counter & Cost Preview</a></li>
       <li><a href="article-prompt-caching.html">⚡ Prompt Caching Implementation Guide</a></li>

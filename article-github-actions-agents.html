@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Integrating Autonomous AI Agents into GitHub Actions & CI/CD Pipelines — Automated PR code reviews, security vulnerability patching, and unit test generation.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Integrating Autonomous AI Agents into GitHub Actions & CI/CD Pipelines">
   <meta property="og:description" content="Automated PR code reviews, security vulnerability patching, and unit test generation via CI/CD.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-github-actions-agents.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Integrating AI Agents into GitHub Actions CI/CD — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Integrating Autonomous AI Agents into GitHub Actions \u0026 CI/CD Pipelines","description":"Integrating Autonomous AI Agents into GitHub Actions \u0026 CI/CD Pipelines — Automated PR code reviews, security vulnerability patching, and unit test generation.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-github-actions-agents.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,14 +32,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; GitHub Actions Agents
     </div>
 
     <h1>Integrating Autonomous AI Agents into GitHub Actions & CI/CD Pipelines</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Updated July 2026
+      Tutorial · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -83,7 +85,7 @@ jobs:
 </code></pre>
 
     <h2>3. Python Headless Review Agent Script</h2>
-    <p>Below is the Python runner script that executes Claude Sonnet 4.8 / DeepSeek-V3 to review PR diffs and post comments via GitHub API:</p>
+    <p>Below is an illustrative Python runner shape for reviewing a bounded diff. Replace the model and API code with a currently documented provider client, and keep publication in a separately authorized step:</p>
 
     <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#4ade80;"><code>import os
 import subprocess
@@ -109,7 +111,48 @@ print("AI Review Summary:")
 print(response.choices[0].message.content)
 </code></pre>
 
-    <h2>4. Related Agent Security & Testing Guides</h2>
+    <h2>4. Use a Two-Workflow Trust Boundary</h2>
+    <p>Code from an untrusted pull request must not execute in a privileged workflow. Keep analysis in a read-only workflow with minimal permissions, no production secrets, and no ability to approve or merge. If a later workflow publishes a comment or artifact, it should consume a small validated result from the first workflow and re-check the repository, pull request, author, commit SHA, and allowed action.</p>
+    <p>Avoid checking out fork code under <code>pull_request_target</code>. That event runs in the context of the base repository and can expose elevated credentials if combined with attacker-controlled code. Prefer <code>pull_request</code> for untrusted execution, explicitly declare <code>permissions</code>, and pin third-party actions to a reviewed full commit SHA rather than a floating tag.</p>
+    <pre><code>permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@&lt;reviewed-full-commit-sha&gt;
+        with:
+          persist-credentials: false
+      - run: python scripts/review.py --output review.json
+        env:
+          AI_API_KEY: ${{ secrets.AI_REVIEW_KEY }}</code></pre>
+
+    <h2>5. Harden the Agent and Its Output</h2>
+    <ul>
+      <li>Use a dedicated provider key with a strict spend limit and no unrelated API privileges.</li>
+      <li>Treat issue text, diffs, source files, logs, and fetched pages as untrusted data that may contain prompt injection.</li>
+      <li>Disable outbound network access unless specific domains are required; never allow arbitrary package installation.</li>
+      <li>Cap changed files, diff size, turns, tool calls, tokens, and wall time.</li>
+      <li>Validate a structured result against the current commit SHA before publishing it.</li>
+      <li>Require branch protection, tests, and human review; an agent recommendation is not an approval.</li>
+      <li>Do not echo prompts, model responses, or environment variables when they may contain secrets.</li>
+    </ul>
+
+    <h2>6. Evaluation and Rollout Plan</h2>
+    <p>Replay the workflow against a fixed set of historical pull requests with secrets disabled. Include ordinary fixes, large generated files, renamed code, failing tests, malicious instructions in comments, dependency changes, and a patch that attempts to modify the workflow itself. Measure useful finding precision, missed critical findings, false-positive review comments, cost per pull request, duration, and unsafe-action rate.</p>
+    <p>Launch in report-only mode: upload an artifact visible to maintainers without posting comments. After reviewers agree that the signal is useful, enable draft comments on selected repositories. Keep merge, release, deployment, and secret-management permissions outside the agent workflow.</p>
+
+    <h2>7. Primary References</h2>
+    <ul>
+      <li><a href="https://docs.github.com/en/actions/reference/security" target="_blank" rel="noopener noreferrer">GitHub Actions security reference</a></li>
+      <li><a href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions" target="_blank" rel="noopener noreferrer">GitHub Actions security hardening</a></li>
+      <li><a href="article-function-calling-security.html">AI Agent Hub: Function calling security</a></li>
+    </ul>
+
+    <h2>8. Related Agent Security & Testing Guides</h2>
     <ul>
       <li><a href="article-function-calling-security.html">🛡️ Function Calling Security & Injection Prevention</a></li>
       <li><a href="article-agentic-testing.html">🧪 Agentic Testing & Code Verification Loops</a></li>

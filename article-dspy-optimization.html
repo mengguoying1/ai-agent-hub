@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="DSPy Programmatic Prompt Optimization & Compilation Guide — Replacing hand-crafted prompts with compiled declarative modules and automatic few-shot learning.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="DSPy Programmatic Prompt Optimization & Compilation Guide">
   <meta property="og:description" content="Replacing hand-crafted prompts with compiled declarative modules and automatic few-shot learning.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-dspy-optimization.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>DSPy Programmatic Prompt Optimization Guide — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DSPy Programmatic Prompt Optimization \u0026 Compilation Guide","description":"DSPy Programmatic Prompt Optimization \u0026 Compilation Guide — Replacing hand-crafted prompts with compiled declarative modules and automatic few-shot learning.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-dspy-optimization.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,14 +32,15 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; DSPy Optimization
     </div>
 
     <h1>DSPy Programmatic Prompt Optimization & Compilation Guide</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Updated July 2026
+      Tutorial · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -47,7 +49,7 @@
 
     <h2>1. Why Programmatic Prompt Compilation Beats Manual Prompting</h2>
     <ul>
-      <li><strong>Model Agnostic:</strong> Switching from Claude Opus 5 to DeepSeek-V3 requires zero manual re-prompting; simply re-compile the DSPy program.</li>
+      <li><strong>Model portability:</strong> a program can be recompiled for another supported model, but the new candidate still requires a full holdout and safety evaluation.</li>
       <li><strong>Automatic Few-Shot Bootstrapping:</strong> Teleprompters automatically discover and synthesize effective few-shot prompt demonstrations.</li>
       <li><strong>Metric-Driven Optimization:</strong> Tunes prompts against measurable metrics (accuracy, JSON validity, exact match).</li>
     </ul>
@@ -82,7 +84,49 @@ teleprompter = BootstrapFewShot(metric=dspy.evaluate.answer_exact_match)
 compiled_rag = teleprompter.compile(RAGModule(), trainset=train_data)
 </code></pre>
 
-    <h2>3. Related Builder Tools & Tutorials</h2>
+    <h2>3. What DSPy Actually Optimizes</h2>
+    <p>A DSPy program declares input and output fields, composes modules, and evaluates predictions with a metric. An optimizer searches for better instructions, demonstrations, or model parameters using a training set and traces. It does not remove the need to define the task. If the metric rewards the wrong behavior, compilation can produce a prompt that scores well while failing users.</p>
+    <p>Start with a narrow signature and a metric that checks the real contract. For a cited support answer, the metric might require the correct disposition, verify that every citation belongs to the supplied evidence, and award partial credit for an appropriate abstention. A generic semantic-similarity score would miss fabricated citations and policy errors.</p>
+
+    <h2>4. Reproducible Optimization Workflow</h2>
+    <ol>
+      <li><strong>Version the examples:</strong> record source, label provenance, consent, and deduplication decisions.</li>
+      <li><strong>Split by entity or time:</strong> keep near-duplicate tickets, documents, or users out of different splits.</li>
+      <li><strong>Freeze a baseline:</strong> measure the uncompiled program with the same model, tools, and decoding settings.</li>
+      <li><strong>Compile on training data:</strong> set an explicit call and cost budget; save the resulting program artifact.</li>
+      <li><strong>Select with validation data:</strong> compare candidate programs without touching the final test set.</li>
+      <li><strong>Evaluate once on holdout:</strong> report uncertainty and inspect failures, not just the aggregate score.</li>
+      <li><strong>Canary in production:</strong> watch quality, latency, cost, and safety separately.</li>
+    </ol>
+
+    <h2>5. Minimal Metric Design</h2>
+    <pre><code>def metric(example, prediction, trace=None):
+    label_ok = prediction.label == example.label
+    grounded = all(c in example.allowed_citations for c in prediction.citations)
+    abstention_ok = example.answerable or prediction.label == "needs_review"
+    return float(label_ok and grounded and abstention_ok)</code></pre>
+    <p>This example intentionally uses deterministic checks. For open-ended quality, add a rubric-based human or calibrated model grader, but keep safety and authorization conditions as hard failures. Store optimizer version, random seed, model snapshot, program hash, dataset hash, metric code, and total optimization calls so the result can be reproduced.</p>
+
+    <h2>6. Failure Modes to Check</h2>
+    <ul>
+      <li><strong>Leakage:</strong> demonstrations contain the same entities or answers as the holdout.</li>
+      <li><strong>Metric gaming:</strong> a program learns formatting shortcuts that satisfy the scorer without solving the task.</li>
+      <li><strong>Overfitting:</strong> validation improves while a later time slice degrades.</li>
+      <li><strong>Cost blindness:</strong> a small quality gain requires many more calls or much larger prompts.</li>
+      <li><strong>Provider drift:</strong> a compiled prompt is assumed to transfer unchanged to another model.</li>
+      <li><strong>Unsafe examples:</strong> secrets or personal data are copied into demonstrations and traces.</li>
+    </ul>
+
+    <h2>7. Primary References</h2>
+    <ul>
+      <li><a href="https://dspy.ai/learn/optimization/optimizers/" target="_blank" rel="noopener noreferrer">DSPy optimizer documentation</a></li>
+      <li><a href="https://github.com/stanfordnlp/dspy" target="_blank" rel="noopener noreferrer">DSPy official repository</a></li>
+      <li><a href="https://arxiv.org/abs/2310.03714" target="_blank" rel="noopener noreferrer">DSPy research paper</a></li>
+    </ul>
+    <h2>8. Change Control in CI</h2>
+    <p>Store the compiled program as a versioned artifact and block silent recompilation in production. A pull request that changes the model, optimizer, metric, examples, or prompt budget should run the same evaluation suite and show paired results. Require review when quality drops on any safety-critical slice even if the average improves. Keep the previous artifact available for rollback and monitor whether live input distribution drifts away from the optimization data.</p>
+
+    <h2>9. Related Builder Tools & Tutorials</h2>
     <ul>
       <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
       <li><a href="article-agentic-rag.html">🔄 Agentic RAG Architecture & Self-Correction Pipelines</a></li>

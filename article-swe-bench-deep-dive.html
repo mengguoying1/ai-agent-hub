@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Deep Dive into SWE-bench Verified & Terminal-Bench v2 — Comprehensive guide on evaluating AI coding agents, patch generation, Docker isolation, and CLI tools.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Deep Dive into SWE-bench Verified & Terminal-Bench v2">
   <meta property="og:description" content="Comprehensive technical guide on evaluating AI coding agents inside isolated Docker containers.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-swe-bench-deep-dive.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Deep Dive into SWE-bench Verified & Terminal-Bench v2 — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Deep Dive into SWE-bench Verified \u0026 Terminal-Bench v2","description":"Deep Dive into SWE-bench Verified \u0026 Terminal-Bench v2 — Comprehensive guide on evaluating AI coding agents, patch generation, Docker isolation, and CLI tools.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-swe-bench-deep-dive.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,18 +32,19 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-benchmarks.html">Benchmarks</a> &gt; SWE-bench Deep Dive
     </div>
 
     <h1>Deep Dive into SWE-bench Verified & Terminal-Bench v2</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Benchmarking · 12 min read · Updated July 2026
+      Benchmarking · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Evaluating LLMs on isolated single-function coding challenges (such as HumanEval or MBPP) has become obsolete for production agent engineering. Modern autonomous AI coding agents operate on repository-scale multi-file codebases. This guide dives deep into <strong>SWE-bench Verified</strong> and <strong>Terminal-Bench v2</strong>, the gold standard benchmark evaluation suites used by Anthropic, OpenAI, and DeepMind.
+      Single-function coding challenges such as HumanEval or MBPP do not represent the full difficulty of production software work. Coding agents operate on repository-scale, multi-file codebases and use tools over multiple turns. This guide explains <strong>SWE-bench Verified</strong> and <strong>Terminal-Bench</strong> while emphasizing dataset, harness, and contamination limits.
     </p>
 
     <h2>1. The Paradigm Shift: Synthetic Snippets vs. Repository Engineering</h2>
@@ -79,43 +81,31 @@
       </pre>
     </div>
 
-    <h2>3. July 2026 SWE-bench Leaderboard Matrix</h2>
-    <p>Below is the current benchmark performance across frontier proprietary models and open-weights reasoning LLMs on SWE-bench Verified:</p>
+    <h2>3. Why This Page Does Not Republish a Static Leaderboard</h2>
+    <p>Scores change with the agent harness, model snapshot, retry and compute budget, dataset correction, and submission rules. A table copied into an article quickly becomes stale and can compare incompatible setups. Use the official leaderboard for current submissions, then open each result's methodology before drawing a conclusion.</p>
 
     <div style="overflow-x:auto; margin:1.5rem 0;">
       <table style="width:100%; border-collapse:collapse; text-align:left; font-size:.9rem;">
         <thead>
           <tr style="background:rgba(124,92,252,0.15); color:#fff;">
-            <th style="padding:.8rem;">Model Name</th>
-            <th style="padding:.8rem;">SWE-bench Verified</th>
-            <th style="padding:.8rem;">Terminal-Bench v2</th>
-            <th style="padding:.8rem;">Agent Harness</th>
+            <th style="padding:.8rem;">Evidence field</th>
+            <th style="padding:.8rem;">Question to ask</th>
+            <th style="padding:.8rem;">Common mistake</th>
+            <th style="padding:.8rem;">Required record</th>
           </tr>
         </thead>
         <tbody style="color:#d0d0e0;">
           <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-            <td style="padding:.8rem; font-weight:700; color:#fff;">Claude Opus 5</td>
-            <td style="padding:.8rem; color:#4ade80;">74.8% resolved</td>
-            <td style="padding:.8rem;">68.2%</td>
-            <td style="padding:.8rem;">Claude Code CLI (Deep Mode)</td>
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Model</td><td style="padding:.8rem;">Which immutable snapshot was used?</td><td style="padding:.8rem;">Quoting a moving alias</td><td style="padding:.8rem;">Provider, ID, date</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-            <td style="padding:.8rem; font-weight:700; color:#fff;">GPT-5.6 Sol</td>
-            <td style="padding:.8rem; color:#4ade80;">72.5% resolved</td>
-            <td style="padding:.8rem;">69.5%</td>
-            <td style="padding:.8rem;">OpenAI Codex Agent Loop</td>
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Harness</td><td style="padding:.8rem;">Which tools, prompt, retries, and budget?</td><td style="padding:.8rem;">Attributing system score to model alone</td><td style="padding:.8rem;">Code, config, traces</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-            <td style="padding:.8rem; font-weight:700; color:#fff;">Claude Sonnet 4.8</td>
-            <td style="padding:.8rem;">69.4% resolved</td>
-            <td style="padding:.8rem;">64.0%</td>
-            <td style="padding:.8rem;">Cursor / Windsurf Agent</td>
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Dataset</td><td style="padding:.8rem;">Which revision and exclusions?</td><td style="padding:.8rem;">Mixing Verified, Lite, and other variants</td><td style="padding:.8rem;">Dataset hash</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-            <td style="padding:.8rem; font-weight:700; color:#fff;">DeepSeek-V3 / R1</td>
-            <td style="padding:.8rem;">65.2% resolved</td>
-            <td style="padding:.8rem;">58.7%</td>
-            <td style="padding:.8rem;">Open-source LangGraph Harness</td>
+            <td style="padding:.8rem; font-weight:700; color:#fff;">Score</td><td style="padding:.8rem;">Pass@1, best-of-N, or selected run?</td><td style="padding:.8rem;">Ignoring variance and failed setup</td><td style="padding:.8rem;">Runs and denominator</td>
           </tr>
         </tbody>
       </table>
@@ -138,7 +128,26 @@
       <li><strong>Environment Pollution:</strong> Modifying global Python packages inside Docker. Fixed via isolated virtualenvs or ephemeral container resets.</li>
     </ol>
 
-    <h2>6. Interactive Tools & Benchmarking Resources</h2>
+    <h2>6. Build an Internal Coding-Agent Evaluation</h2>
+    <ol>
+      <li>Select representative historical tasks you are permitted to use and pin each repository state.</li>
+      <li>Write executable acceptance tests plus explicit forbidden changes.</li>
+      <li>Run every candidate in a fresh isolated environment with fixed network and resource policy.</li>
+      <li>Record tool trajectory, patch, test output, model and harness versions, tokens, cost, latency, and stop reason.</li>
+      <li>Repeat enough runs to expose variance and inspect every safety or regression failure.</li>
+      <li>Keep a private holdout and add redacted production failures as regression fixtures.</li>
+    </ol>
+    <p>Measure resolved tasks, regression-free tasks, unauthorized action rate, unnecessary changes, setup failure rate, cost per accepted patch, and time to accepted patch. A patch that passes target tests but deletes unrelated coverage or weakens security is not a success.</p>
+
+    <h2>7. Primary References</h2>
+    <ul>
+      <li><a href="https://openai.com/index/introducing-swe-bench-verified/" target="_blank" rel="noopener noreferrer">OpenAI introduction to SWE-bench Verified</a></li>
+      <li><a href="https://www.swebench.com/" target="_blank" rel="noopener noreferrer">SWE-bench official documentation and leaderboards</a></li>
+      <li><a href="https://www.tbench.ai/" target="_blank" rel="noopener noreferrer">Terminal-Bench official site</a></li>
+      <li><a href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/" target="_blank" rel="noopener noreferrer">OpenAI audit of SWE-bench Verified limitations</a></li>
+    </ul>
+
+    <h2>8. Interactive Tools & Benchmarking Resources</h2>
     <p>To compare live model costs and benchmark scores, explore our interactive utilities:</p>
     <ul>
       <li><a href="tool-benchmark-compare.html">📊 Interactive AI Agent Benchmark Matrix</a></li>

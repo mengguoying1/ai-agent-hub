@@ -3,24 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="AI Subscription & Usage Refresh Cycles Guide — Understand rolling 5-hour windows, monthly seat resets, and rate limits for Claude Pro, ChatGPT Plus, Cursor, and GitHub Copilot.">
+  <meta name="description" content="A provider-neutral guide to understanding AI subscription quotas, rolling windows, API rate limits, billing resets, and evidence-based capacity planning.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.waiagent.win/article-subscription-refresh-guide.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <title>AI Subscription Refresh Cycles: Rolling 5-Hour Windows & Rate Limits — AI Agent Hub</title>
+  <title>AI Subscription Quotas and Rate Limits: A Verification Guide — AI Agent Hub</title>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "AI Subscription Refresh Cycles: Rolling 5-Hour Windows & Rate Limits",
     "description": "Comprehensive guide to how AI subscriptions and rate limits refresh across Anthropic Claude, OpenAI, Cursor, and GitHub Copilot.",
-    "author": { "@type": "Organization", "name": "AI Agent Hub" },
+    "author": { "@type": "Organization", "name": "AI Agent Hub Editorial Desk", "url": "https://www.waiagent.win/about-author.html" },
     "publisher": { "@type": "Organization", "name": "AI Agent Hub" },
-    "datePublished": "2026-07-21"
+    "datePublished": "2026-07-21",
+    "dateModified": "2026-08-10",
+    "mainEntityOfPage": "https://www.waiagent.win/article-subscription-refresh-guide.html"
   }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -38,99 +40,104 @@
   </nav>
 
   <main id="main-content" style="max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Subscription Refresh Guide
     </div>
 
-    <h1>AI Subscription Refresh Cycles: Rolling Windows & Quota Resets (2026 Guide)</h1>
+    <h1>AI Subscription Quotas and Rate Limits: A Verification Guide</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Guide · 10 min read · Updated July 2026
+      Guide · 10 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Every developer using AI coding tools eventually hits a message limit or rate limit warning. But how do major AI providers calculate and refresh your usage? From Anthropic's rolling 5-hour windows to Cursor's fast-request monthly resets, this guide breaks down the exact mechanics of subscription refreshes so you never get blocked mid-refactor.
+      Every developer using AI coding tools eventually encounters a message cap, spend limit, concurrency limit, or rate-limit response. The exact numbers change by product, plan, model, region, demand, and contract. This guide explains how to identify the limit you actually hit and verify its current reset behavior without relying on an outdated comparison table.
     </p>
 
     <div class="card" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:1.5rem; margin-bottom:2rem;">
-      <h3 style="color:#c4b5fd; margin-bottom:1rem;">Quick Provider Summary Matrix</h3>
+      <h3 style="color:#c4b5fd; margin-bottom:1rem;">Limit Types That Must Not Be Confused</h3>
       <table style="width:100%; border-collapse:collapse; font-size:.88rem;">
         <thead>
           <tr style="background:rgba(255,255,255,0.04); color:#a0a0b0;">
-            <th style="padding:.6rem .8rem; text-align:left;">Provider / Tool</th>
-            <th style="padding:.6rem .8rem; text-align:left;">Primary Refresh Cycle</th>
-            <th style="padding:.6rem .8rem; text-align:left;">Quota Mechanics</th>
+            <th style="padding:.6rem .8rem; text-align:left;">Limit</th>
+            <th style="padding:.6rem .8rem; text-align:left;">Typical scope</th>
+            <th style="padding:.6rem .8rem; text-align:left;">Evidence to capture</th>
           </tr>
         </thead>
         <tbody>
           <tr style="border-top:1px solid rgba(255,255,255,0.04);">
-            <td style="padding:.6rem .8rem;"><strong>Anthropic Claude Pro/Team</strong></td>
-            <td style="padding:.6rem .8rem; color:#4ade80;">Rolling 5-Hour Window</td>
-            <td style="padding:.6rem .8rem; color:#b0b0c0;">Resets 5 hrs after first message in window</td>
+            <td style="padding:.6rem .8rem;"><strong>Subscription message or compute cap</strong></td>
+            <td style="padding:.6rem .8rem;">Consumer or team product</td>
+            <td style="padding:.6rem .8rem;">Plan, model, warning text, reset time shown in product</td>
           </tr>
           <tr style="border-top:1px solid rgba(255,255,255,0.04);">
-            <td style="padding:.6rem .8rem;"><strong>OpenAI ChatGPT Plus/Team</strong></td>
-            <td style="padding:.6rem .8rem; color:#22d3ee;">Rolling 3-Hour Window</td>
-            <td style="padding:.6rem .8rem; color:#b0b0c0;">Dynamic cap based on model demand</td>
+            <td style="padding:.6rem .8rem;"><strong>Requests or tokens per interval</strong></td>
+            <td style="padding:.6rem .8rem;">API organization, project, key, or model</td>
+            <td style="padding:.6rem .8rem;">Response headers, status code, limit tier, official docs</td>
           </tr>
           <tr style="border-top:1px solid rgba(255,255,255,0.04);">
-            <td style="padding:.6rem .8rem;"><strong>Cursor Pro</strong></td>
-            <td style="padding:.6rem .8rem; color:#a78bfa;">Monthly Billing Date</td>
-            <td style="padding:.6rem .8rem; color:#b0b0c0;">500 Fast Requests reset on subscription day</td>
+            <td style="padding:.6rem .8rem;"><strong>Spend or credit allowance</strong></td>
+            <td style="padding:.6rem .8rem;">Billing account or subscription period</td>
+            <td style="padding:.6rem .8rem;">Invoice period, included credits, overage policy</td>
           </tr>
           <tr style="border-top:1px solid rgba(255,255,255,0.04);">
-            <td style="padding:.6rem .8rem;"><strong>GitHub Copilot</strong></td>
-            <td style="padding:.6rem .8rem; color:#fbbf24;">1st of Month / Billing Date</td>
-            <td style="padding:.6rem .8rem; color:#b0b0c0;">Monthly seat reset for premium model completions</td>
+            <td style="padding:.6rem .8rem;"><strong>Concurrency or queue limit</strong></td>
+            <td style="padding:.6rem .8rem;">Workspace, tenant, service, or runtime</td>
+            <td style="padding:.6rem .8rem;">Active jobs, queue state, retry guidance, service status</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h2>1. Anthropic Claude: The Rolling 5-Hour Window</h2>
-    <p>Anthropic does not use a fixed daily reset (such as midnight). Instead, Claude Pro and Team subscriptions operate on a <strong>rolling 5-hour window</strong>:</p>
+    <h2>1. Diagnose the Exact Limiter</h2>
+    <p>Save the full error or banner, timestamp with timezone, product surface, account and workspace scope, model, plan, and recent workload. For APIs, record status code, request ID, response headers, retry guidance, and whether the failure occurred before or after any side effect. Do not assume every 429 response means the same bucket.</p>
     <ul>
-      <li><strong>Trigger Time:</strong> The 5-hour timer starts the exact moment you send your <em>first message</em> after a reset.</li>
-      <li><strong>Reset Calculation:</strong> If you send your first query at 09:00 AM, your quota will reset at 02:00 PM.</li>
-      <li><strong>Model Multipliers:</strong>
-        <ul>
-          <li><strong>Claude Sonnet 4.8:</strong> Standard consumption rate (allows 45–100 messages depending on context size).</li>
-          <li><strong>Claude Opus 4.8:</strong> High consumption rate (~3–5x faster consumption of quota).</li>
-          <li><strong>Claude Haiku 4.8:</strong> Ultra-low consumption rate (virtually unlimited for normal usage).</li>
-        </ul>
-      </li>
-      <li><strong>Context Penalties:</strong> Sending a 150K token codebase prompt burns through your 5-hour quota significantly faster than sending short 2K queries.</li>
+      <li><strong>Rate bucket:</strong> requests, input tokens, output tokens, or total tokens over an interval.</li>
+      <li><strong>Concurrency:</strong> too many active requests or background jobs.</li>
+      <li><strong>Spend:</strong> project budget, prepaid balance, monthly credit, or account hard limit.</li>
+      <li><strong>Subscription usage:</strong> product-specific capacity that may vary with model and context.</li>
+      <li><strong>Availability:</strong> regional, tier, preview, capacity, safety, or service-status restriction.</li>
     </ul>
 
-    <h2>2. OpenAI: Rolling 3-Hour Windows & Tiered API Limits</h2>
-    <p>OpenAI employs two distinct refresh mechanisms depending on whether you access models via ChatGPT or direct API:</p>
+    <h2>2. Fixed, Tumbling, Sliding, and Token-Bucket Windows</h2>
+    <p>A fixed calendar window resets at a named boundary. A tumbling window starts and ends in discrete intervals. A sliding window counts activity during the immediately preceding duration. A token bucket refills capacity continuously up to a maximum. These mechanisms produce different recovery behavior, so use the provider's current documentation and response headers rather than predicting from one observed reset.</p>
 
-    <h3>ChatGPT Plus & Team (Web & App)</h3>
-    <p>Operates on a <strong>rolling 3-hour window</strong>. For flagship models like GPT-5.5, users typically receive 80 messages per 3 hours. Once reached, the system displays a banner indicating the exact minute your access will restore.</p>
-
-    <h3>OpenAI API Tiers (Rate Limits)</h3>
-    <p>API usage is governed by <strong>TPM (Tokens Per Minute)</strong> and <strong>RPM (Requests Per Minute)</strong> buckets, alongside monthly spending limits:</p>
-    <ul>
-      <li><strong>TPM/RPM:</strong> Refreshes continuously on a 60-second sliding window.</li>
-      <li><strong>Monthly Hard Limits:</strong> Resets at 00:00 UTC on the 1st day of each calendar month.</li>
-    </ul>
-
-    <h2>3. Cursor IDE: Fast Requests vs Slow Requests</h2>
-    <p>Cursor Pro ($20/month) uses a dual-bucket quota system:</p>
-    <ul>
-      <li><strong>Fast Requests Bucket (500/month):</strong> Resets on your individual monthly subscription billing date (e.g., if you subscribed on July 14th, your 500 fast requests reset on the 14th of every month).</li>
-      <li><strong>Slow Requests (Unlimited):</strong> After burning your 500 fast requests, your queries enter the standard queue. During off-peak hours, slow requests feel nearly as fast as premium requests.</li>
-    </ul>
-
-    <h2>4. GitHub Copilot: Monthly Subscription Resets</h2>
-    <p>GitHub Copilot Individual ($10/mo) and Business ($19/user/mo) include unlimited inline completions, but impose monthly caps on advanced agentic chat queries using models like Claude Sonnet 4.8 or GPT-5.5. Quotas reset on the 1st of every calendar month at 00:00 UTC.</p>
-
-    <h2>Pro Tips: Managing Refresh Cycles Without Work Stoppage</h2>
+    <h2>3. API Backoff Without Duplicate Effects</h2>
     <ol>
-      <li><strong>Set Up Dual-Model Fallbacks:</strong> When hit by Claude's 5-hour rolling limit, switch your IDE agent to DeepSeek-V3 or Gemini 3.1 Flash via API.</li>
-      <li><strong>Leverage Prompt Caching:</strong> Prompt caching not only reduces token cost but also reduces token consumption counted against rate limit buckets.</li>
-      <li><strong>Time Heavy Refactors:</strong> Start multi-file architectural refactors right after a 5-hour or 3-hour reset to ensure maximum quota headroom.</li>
+      <li>Retry only documented transient failures and respect any server-provided delay.</li>
+      <li>Use exponential backoff with jitter so many workers do not retry together.</li>
+      <li>Cap attempts and total elapsed time; return a visible terminal error.</li>
+      <li>Use idempotency keys or an application operation ID for requests that can create an effect.</li>
+      <li>Do not retry invalid authentication, authorization, schema, or policy errors as if they were capacity problems.</li>
     </ol>
+    <pre><code>delay = min(max_delay, base * (2 ** attempt))
+sleep(random.uniform(0, delay))
+# Stop at the attempt and wall-time budgets.</code></pre>
+
+    <h2>4. Capacity Planning for Teams</h2>
+    <p>Measure accepted tasks per user, input/output token percentiles, peak concurrency, retries, cache hits, agent tool loops, and time-of-day bursts. Reserve capacity for interactive work separately from batch jobs. Route low-risk tasks to a cheaper or locally hosted model only after the same quality and security checks pass; a silent fallback can change data handling, output behavior, or tool support.</p>
+    <p>Build dashboards around the scopes the provider enforces: organization, project, key, user, model, workspace, and billing account. Alert before a hard spend limit and expose current usage to the people who schedule batch work.</p>
+
+    <h2>5. Evidence Checklist for a Current Comparison</h2>
+    <ul>
+      <li>Direct official plan, usage, rate-limit, and billing URLs with access dates.</li>
+      <li>Exact plan and product surface; consumer chat and API are separate.</li>
+      <li>Whether limits are guaranteed, approximate, dynamic, or contract-specific.</li>
+      <li>Reset timezone and whether the period is calendar-based, rolling, or replenishing.</li>
+      <li>Overage behavior: blocked, queued, slowed, billed, or routed to another model.</li>
+      <li>Provider status incidents ruled out before interpreting a limit.</li>
+    </ul>
+
+    <h2>6. Primary References</h2>
+    <ul>
+      <li><a href="https://platform.openai.com/docs/guides/rate-limits" target="_blank" rel="noopener noreferrer">OpenAI API rate-limit guide</a></li>
+      <li><a href="https://docs.anthropic.com/en/api/rate-limits" target="_blank" rel="noopener noreferrer">Anthropic API rate limits</a></li>
+      <li><a href="https://docs.github.com/en/copilot/managing-copilot/monitoring-usage-and-entitlements" target="_blank" rel="noopener noreferrer">GitHub Copilot usage and entitlements</a></li>
+      <li><a href="https://docs.cursor.com/account/usage" target="_blank" rel="noopener noreferrer">Cursor usage documentation</a></li>
+    </ul>
+
+    <div class="verdict"><h2>Bottom Line</h2><p>Trust the current product UI, response headers, official documentation, and account contract—not a static quota table. Diagnose the scope, back off safely, prevent duplicate effects, and plan capacity from measured workloads.</p></div>
   </main>
 
   <footer class="footer">

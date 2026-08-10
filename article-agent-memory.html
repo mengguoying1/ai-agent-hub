@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="AI Agent Long-Term Memory Architecture & MemGPT Systems — Comprehensive guide on short-term sliding windows, vector RAG, and epistemic knowledge graphs for agents.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="AI Agent Long-Term Memory Architecture & MemGPT Systems">
   <meta property="og:description" content="Comprehensive guide on sliding windows, vector RAG, and epistemic knowledge graphs for agents.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-agent-memory.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>AI Agent Long-Term Memory Architecture & MemGPT — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI Agent Long-Term Memory Architecture \u0026 MemGPT Systems","description":"AI Agent Long-Term Memory Architecture \u0026 MemGPT Systems — Comprehensive guide on short-term sliding windows, vector RAG, and epistemic knowledge graphs for agents.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-agent-memory.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,18 +32,19 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-architecture.html">Architecture</a> &gt; Agent Memory
     </div>
 
     <h1>AI Agent Long-Term Memory Architecture & MemGPT Systems</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 12 min read · Updated July 2026
+      Architecture · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Without a persistent memory subsystem, an AI agent treats every conversation session in isolation—forgetting user preferences, architectural decisions, and past debugging attempts. Designing an effective agent memory hierarchy requires combining <strong>Short-Term Working Memory</strong>, <strong>Episodic Vector Memory</strong>, and <strong>Epistemic Knowledge Graphs (MemGPT)</strong>.
+      Without a persistent memory subsystem, an AI agent treats every conversation session in isolation—forgetting user preferences, architectural decisions, and past debugging attempts. A useful memory design separates <strong>working context</strong>, <strong>retrievable history</strong>, and <strong>durable structured facts</strong>. MemGPT, now continued through Letta, is an operating-system-inspired approach to managing limited model context and external memory; it is not itself a knowledge graph.
     </p>
 
     <h2>1. The 3-Tier Memory Hierarchy</h2>
@@ -71,7 +73,7 @@
           </tr>
           <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
             <td style="padding:.8rem; font-weight:700; color:#fff;">Epistemic Memory</td>
-            <td style="padding:.8rem;">Knowledge Graph (Neo4j / MemGPT)</td>
+            <td style="padding:.8rem;">Versioned records or a knowledge graph</td>
             <td style="padding:.8rem;">Permanent System Knowledge</td>
             <td style="padding:.8rem;">Project architecture rules, user personas, API key policies</td>
           </tr>
@@ -93,7 +95,44 @@ def archival_memory_search(query: str, page: int = 0):
     pass
 </code></pre>
 
-    <h2>3. Related Architecture & Builder Tools</h2>
+    <h2>3. Start with a Memory Contract, Not a Vector Database</h2>
+    <p>Before selecting storage, define what the agent is allowed to remember. A production memory record should carry more than text: include the tenant and subject, source event, creation time, expiry policy, sensitivity label, confidence, and the evidence that supports the statement. A preference such as “use concise answers” may be safe to retain; an inferred medical condition, credential, or private document excerpt usually is not. The model may propose a memory, but application code should validate and authorize the write.</p>
+    <div class="card">
+      <table>
+        <thead><tr><th>Field</th><th>Why it matters</th><th>Example control</th></tr></thead>
+        <tbody>
+          <tr><td>Scope</td><td>Prevents one user or project from seeing another's memory</td><td>Tenant and workspace IDs enforced in the query</td></tr>
+          <tr><td>Provenance</td><td>Lets a reviewer trace a remembered claim</td><td>Message, ticket, file revision, or tool-result ID</td></tr>
+          <tr><td>Validity</td><td>Distinguishes current facts from stale observations</td><td><code>valid_from</code>, <code>expires_at</code>, and superseded-by fields</td></tr>
+          <tr><td>Sensitivity</td><td>Controls storage, retrieval, and logging</td><td>Public, internal, confidential, or prohibited</td></tr>
+          <tr><td>User control</td><td>Makes correction and deletion possible</td><td>Readable memory view plus edit and forget actions</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>4. A Safe Write and Retrieval Lifecycle</h2>
+    <ol>
+      <li><strong>Observe:</strong> capture the candidate fact and its source without treating it as true merely because the model stated it.</li>
+      <li><strong>Classify:</strong> reject secrets and prohibited personal data; select scope, retention, and required approval.</li>
+      <li><strong>Normalize:</strong> store a concise claim separately from the supporting event, preserving both identifiers.</li>
+      <li><strong>Deduplicate:</strong> merge an equivalent fact or create a new version instead of accumulating contradictory copies.</li>
+      <li><strong>Retrieve:</strong> filter by authorization and validity before semantic ranking. Similarity search must never be the permission layer.</li>
+      <li><strong>Use visibly:</strong> tell the model which records are memories, include provenance, and allow it to abstain when records conflict.</li>
+      <li><strong>Correct or delete:</strong> propagate user changes to indexes, caches, summaries, and future context construction.</li>
+    </ol>
+
+    <h2>5. Evaluation Plan for Long-Term Memory</h2>
+    <p>Test memory as a subsystem rather than judging a few pleasant conversations. Build fixtures for correct recall, irrelevant recall, conflicting updates, expired facts, cross-tenant access, deletion, and malicious instructions stored inside old content. Report recall precision at the actual context budget, unsupported-memory rate, stale-memory rate, deletion propagation time, added tokens, and latency. A useful memory system should also know when not to remember: measure how often prohibited or low-value candidates are correctly rejected.</p>
+    <p>Run a temporal split so the test set contains updates that occur after earlier facts. This reveals whether the system prefers a newer authoritative record over an older semantically similar one. For high-impact actions, memory can provide context but must not replace current authorization or a fresh read from the system of record.</p>
+
+    <h2>6. Primary References</h2>
+    <ul>
+      <li><a href="https://docs.letta.com/guides/core-concepts/memory/context-hierarchy" target="_blank" rel="noopener noreferrer">Letta context hierarchy documentation</a></li>
+      <li><a href="https://docs.letta.com/guides/core-concepts/memory/memory-blocks" target="_blank" rel="noopener noreferrer">Letta memory blocks documentation</a></li>
+      <li><a href="https://arxiv.org/abs/2310.08560" target="_blank" rel="noopener noreferrer">MemGPT research paper</a></li>
+    </ul>
+
+    <h2>7. Related Architecture & Builder Tools</h2>
     <ul>
       <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
       <li><a href="article-agentic-rag.html">🔄 Agentic RAG Architecture & Self-Correction Pipelines</a></li>

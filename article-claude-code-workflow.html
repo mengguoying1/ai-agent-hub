@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Claude Code CLI Workflow & Multi-File Refactoring Guide — Master terminal-based AI agent coding, VS Code integration, and automated repository editing.">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta property="og:title" content="Claude Code CLI Workflow & Multi-File Refactoring Guide">
   <meta property="og:description" content="Master terminal-based AI agent coding, VS Code integration, and multi-file repo edits.">
   <meta property="og:type" content="article">
@@ -13,7 +13,8 @@
   <link rel="canonical" href="https://www.waiagent.win/article-claude-code-workflow.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Claude Code CLI Workflow & Multi-File Refactoring Guide — AI Agent Hub</title>
-  <link rel="stylesheet" href="css/style.css?v=20260810a">
+  <link rel="stylesheet" href="css/style.css?v=20260810e">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Claude Code CLI Workflow \u0026 Multi-File Refactoring Guide","description":"Claude Code CLI Workflow \u0026 Multi-File Refactoring Guide — Master terminal-based AI agent coding, VS Code integration, and automated repository editing.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-claude-code-workflow.html"}</script>
 </head>
 <body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,18 +32,19 @@
   </nav>
 
   <main id="main-content" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-<div class="highlight-box archive-notice"><p><strong>Archived page:</strong> This page is not part of the reviewed public library and may contain outdated product details. It does not request advertising. Use the <a href="articles.html">reviewed guides</a>, <a href="category-tools.html">current tools</a>, or <a href="contact.html">report a correction</a>.</p></div>
+
     <div class="breadcrumb" style="color:#7c5cfc; font-size:.85rem; margin-bottom: 1rem;">
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Claude Code Workflow
     </div>
 
     <h1>Claude Code CLI Workflow & Multi-File Refactoring Guide</h1>
+    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Updated July 2026
+      Tutorial · 12 min read · Reviewed August 10, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Anthropic's <strong>Claude Code</strong> CLI tool brings the power of Claude Opus 5 and Sonnet 4.8 directly into developer terminal workflows. Unlike IDE extensions that only provide autocomplete, Claude Code acts as a full terminal agent—reading workspace files, running shell commands, generating multi-file code patches, and running test runners autonomously.
+      Anthropic's <strong>Claude Code</strong> is an agentic coding tool that can inspect a workspace, propose or apply edits, and run approved commands. Its models, commands, permissions, and account availability change over time, so this guide focuses on a durable review workflow and links to the current official documentation instead of hard-coding an unverified model name.
     </p>
 
     <h2>1. Installation & Initial Configuration</h2>
@@ -50,25 +52,23 @@
     <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#e2e8f0;"><code># Install Claude Code CLI
 npm install -g @anthropic-ai/claude-code
 
-# Authenticate and set default workspace permissions
-claude config set --global defaultModel claude-sonnet-4.8
-claude login
-
 # Launch interactive CLI inside your repository
-cd ~/my-python-project
+cd /path/to/reviewed-project
 claude
 </code></pre>
+    <p>Verify the current installation path and authentication options in Anthropic's setup documentation. Use a clean test repository first. Do not launch an agent in a home directory, secrets folder, production checkout, or workspace containing unrelated private files.</p>
 
     <h2>2. Architectural Deep-Dive: How Claude Code Operates</h2>
-    <p>Claude Code uses an inner ReAct execution loop paired with Model Context Protocol (MCP) tool bindings:</p>
+    <p>From an operator's perspective, the important behavior is a repeated observe–propose–validate–execute loop. The exact internal implementation is vendor-controlled and should not be inferred from a UI:</p>
     
     <div class="card" style="background:rgba(0,0,0,0.4); border-left:4px solid #7c5cfc; padding:1.2rem; margin:1.5rem 0;">
       <h4 style="color:#c4b5fd; margin-bottom:.5rem;">Execution Cycle:</h4>
       <ol style="color:#cbd5e1; font-size:.9rem; line-height:1.7; margin:0; padding-left:1.2rem;">
-        <li><strong>Repo Indexing:</strong> Scans <code>.gitignore</code> and indexes AST symbols for fast retrieval.</li>
-        <li><strong>Planning Phase:</strong> Breaks complex prompts ("Refactor Auth module") into sub-tasks.</li>
-        <li><strong>Tool Execution:</strong> Invokes <code>FileRead</code>, <code>FileEdit</code>, <code>BashCommand</code>, and <code>GrepSearch</code>.</li>
-        <li><strong>Self-Verification:</strong> Automatically runs test commands (e.g. <code>pytest</code>, <code>npm test</code>) to check for regressions.</li>
+        <li><strong>Inspect:</strong> Reads selected project context and current repository state.</li>
+        <li><strong>Propose:</strong> Describes a plan, edit, or tool action based on the task.</li>
+        <li><strong>Authorize:</strong> Permission rules and the operator decide whether a requested action may run.</li>
+        <li><strong>Execute:</strong> The tool edits or runs a command within the available environment.</li>
+        <li><strong>Verify:</strong> Tests and diff review provide evidence; model confidence is not proof.</li>
       </ol>
     </div>
 
@@ -80,15 +80,49 @@ claude
 > Run npm test after editing to ensure zero test failures.
 </code></pre>
 
-    <h2>4. Best Practices for Cost & Token Optimization</h2>
+    <h2>4. Refactoring Workflow with Review Gates</h2>
+    <ol>
+      <li>Start from a clean branch and record the initial commit.</li>
+      <li>Ask the agent to inspect and propose a plan before editing.</li>
+      <li>Constrain files, behavior, compatibility requirements, and commands that may run.</li>
+      <li>Request the smallest coherent change and inspect the diff immediately.</li>
+      <li>Run focused tests, then broader regression checks, linting, and type checks.</li>
+      <li>Review dependencies, generated files, secrets, permissions, and user-visible behavior.</li>
+      <li>Commit only the verified scope; keep deployment and publication as separate approved actions.</li>
+    </ol>
+
+    <h2>5. Permissions and Prompt-Injection Boundaries</h2>
+    <p>Repository instructions, issues, logs, web pages, packages, and MCP results are untrusted inputs. Review project configuration before trusting a repository. Grant the narrowest filesystem and command access, avoid skip-permission modes for ordinary work, and require fresh approval for network access, installs, credential use, deletion, push, deployment, and external communication.</p>
+    <p>MCP expands the tool surface. Verify each server's publisher, code, startup command, scopes, data flow, and uninstall path. A connected database or ticket system still needs server-side authorization; the model must not decide which tenant or record a user may access.</p>
+
+    <h2>6. Cost and Context Discipline</h2>
     <ul>
-      <li><strong>Use Compact Mode for Search:</strong> Keep initial research queries tight to save prompt tokens.</li>
-      <li><strong>Leverage Prompt Caching:</strong> Claude Code automatically utilizes Anthropic's 90% prompt caching discount on long repository context windows.</li>
-      <li><strong>Set Reasoning Effort Dials:</strong> Use <code>claude --effort low</code> for quick lint fixes, and <code>claude --effort high</code> for complex architecture refactoring.</li>
+      <li><strong>Narrow the task:</strong> provide acceptance criteria and relevant paths instead of asking for a repository-wide improvement.</li>
+      <li><strong>Prefer targeted search:</strong> read symbols and files needed for the next decision rather than repeatedly sending the full tree.</li>
+      <li><strong>Stop failed loops:</strong> after repeated equivalent errors, inspect the environment or ask for help.</li>
+      <li><strong>Measure usage:</strong> compare accepted changes, model calls, tool calls, elapsed time, and subscription or API cost.</li>
+      <li><strong>Confirm current features:</strong> caching, effort controls, and quotas depend on product and model documentation.</li>
     </ul>
 
-    <h2>5. Integration with Model Context Protocol (MCP)</h2>
+    <h2>7. Integration with Model Context Protocol (MCP)</h2>
     <p>Claude Code supports custom MCP servers, allowing you to connect local PostgreSQL databases, Redis caches, and GitHub PR workflows directly to the CLI interface. Read our complete <a href="article-mcp-guide.html">MCP Setup Guide</a> for server configurations.</p>
+
+    <h2>8. Evaluation Checklist</h2>
+    <ul>
+      <li>The requested behavior changes and specified tests pass.</li>
+      <li>No unrelated file, dependency, permission, or workflow change appears.</li>
+      <li>Commands and external access match the approved plan.</li>
+      <li>Failure, cancellation, and stale-state cases stop safely.</li>
+      <li>The operator can explain and revert every changed line.</li>
+      <li>Model, tool version, configuration, test command, and final commit are recorded.</li>
+    </ul>
+
+    <h2>9. Primary References</h2>
+    <ul>
+      <li><a href="https://code.claude.com/docs/en/setup" target="_blank" rel="noopener noreferrer">Claude Code setup documentation</a></li>
+      <li><a href="https://code.claude.com/docs/en/permissions" target="_blank" rel="noopener noreferrer">Claude Code permissions documentation</a></li>
+      <li><a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener noreferrer">Claude Code hooks reference</a></li>
+    </ul>
   </main>
 
   <footer class="footer">
