@@ -1,0 +1,17 @@
+# Cloudflare Web Analytics beacon token
+#
+# How to get it:
+#   1. https://dash.cloudflare.com/  ->  Web Analytics  (left sidebar)
+#   2. Add a site
+#   3. Hostname:  www.waiagent.win
+#   4. Manage site  ->  copy the JS snippet
+#   5. The token is the 32-character hex string inside data-cf-beacon
+#
+# Paste it on its own line below, then run:
+#   python build/add-analytics.py
+#
+# This token is not a credential. It appears in the page source of the live
+# site and only identifies which dashboard bucket receives the measurements.
+# It cannot be used to read data or change settings.
+
+PASTE_TOKEN_HERE
