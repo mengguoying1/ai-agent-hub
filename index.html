@@ -58,7 +58,7 @@
 <main id="main-content">
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-badge">Pricing verified Aug 5 · Debate updated Sep 18, 2026</div>
+    <div class="hero-badge">Pricing verified September 18, 2026</div>
     <h1>AI model comparisons<br>with sources you can check</h1>
     <p>Compare current API prices and context limits, estimate workload cost, and understand the assumptions behind every number. No invented monthly bills or unlabeled benchmark claims.</p>
     <div class="hero-btns">
@@ -86,7 +86,7 @@
   <div class="section-inner">
     <div class="section-label">Verified catalog</div>
     <h2 class="section-title">Current API model comparison — August 2026</h2>
-    <p class="section-desc">Prices are USD per one million input/output tokens. Context limits and pricing were checked on August 5, 2026.</p>
+    <p class="section-desc">Prices are USD per one million input/output tokens. Context limits and pricing were checked on September 18, 2026.</p>
     <div class="tab-nav">
       <button class="tab-btn active" type="button" onclick="switchTab('international', event)">International catalog</button>
       <button class="tab-btn" type="button" onclick="switchTab('china', event)">China-based providers</button>
@@ -99,60 +99,81 @@
           <tbody>
 <!-- GENERATED:rows-international -->
             <tr>
+              <td><strong>Claude Fable 5.1</strong><br><small>Anthropic</small></td>
+              <td>1M</td>
+              <td>Top-end Claude model for long-horizon autonomous agents; 1M context, 128K max output, adaptive thinking always on</td>
+              <td>$10.00 / $50.00<br><small>Released September 1, 2026. Cache reads fell from $1.00 to $0.25 per 1M versus Fable 5, which Anthropic estimates cuts typical workload cost about 25% and agentic workload cost up to 45%. Batch API halves rates to $5 / $25.</small></td>
+              <td><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Verified Sep 18</span></td>
+            </tr>
+            <tr>
               <td><strong>Claude Opus 5</strong><br><small>Anthropic</small></td>
               <td>1M</td>
               <td>Complex agentic coding and enterprise work; adaptive thinking and 128K maximum output</td>
               <td>$5.00 / $25.00</td>
-              <td><a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Verified Aug 5</span></td>
+              <td><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Verified Sep 18</span></td>
             </tr>
             <tr>
               <td><strong>Claude Sonnet 5</strong><br><small>Anthropic</small></td>
               <td>1M</td>
-              <td>Fast agentic coding with a 1M context window</td>
-              <td>$2.00 / $10.00<br><small>Introductory rate was scheduled to become $3 / $15 after August 31, 2026. Provider documentation still listed $2 / $10 when reviewed September 18, 2026; flagged for confirmation.</small></td>
-              <td><a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Rechecking</span></td>
-            </tr>
-            <tr>
-              <td><strong>GPT-5.6 Sol</strong><br><small>OpenAI</small></td>
-              <td>1.05M</td>
-              <td>Frontier model for complex professional work, coding, research, and tool use</td>
-              <td>$5.00 / $30.00</td>
-              <td><a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Verified Aug 5</span></td>
-            </tr>
-            <tr>
-              <td><strong>GPT-5.6 Terra</strong><br><small>OpenAI</small></td>
-              <td>1.05M</td>
-              <td>Balanced GPT-5.6 tier for strong capability at a lower unit price</td>
-              <td>$2.50 / $15.00</td>
-              <td><a href="https://developers.openai.com/api/docs/models/gpt-5.6-terra" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Verified Aug 5</span></td>
-            </tr>
-            <tr>
-              <td><strong>GPT-5.6 Luna</strong><br><small>OpenAI</small></td>
-              <td>1.05M</td>
-              <td>Cost-sensitive, high-volume GPT-5.6 tier with the same published context limit</td>
-              <td>$1.00 / $6.00</td>
-              <td><a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Verified Aug 5</span></td>
-            </tr>
-            <tr>
-              <td><strong>Gemini 3.6 Flash</strong><br><small>Google DeepMind</small></td>
-              <td>1M</td>
-              <td>Multimodal model for coding, knowledge work, and long-context understanding</td>
-              <td>$1.50 / $7.50</td>
-              <td><a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-blue">Verified Aug 5</span></td>
-            </tr>
-            <tr>
-              <td><strong>DeepSeek V4 Flash</strong><br><small>DeepSeek</small></td>
-              <td>1M</td>
-              <td>Low-cost current DeepSeek API model with thinking mode and Responses API support</td>
-              <td>$0.14 / $0.28<br><small>Peak/off-peak pricing was announced without an effective date when checked.</small></td>
-              <td><a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-cyan">Verified Aug 5</span></td>
+              <td>Fast agentic coding with a 1M context window; the default choice for most production work</td>
+              <td>$2.00 / $10.00<br><small>The $2/$10 launch rate was scheduled to rise to $3/$15 on September 1, 2026. Anthropic has since stated that increase will not occur; the pricing page now lists $2/$10 as the standard rate with no expiry.</small></td>
+              <td><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Standard rate</span></td>
             </tr>
             <tr>
               <td><strong>Claude Haiku 4.5</strong><br><small>Anthropic</small></td>
               <td>200K</td>
               <td>Fast current Claude model for high-volume and latency-sensitive work</td>
               <td>$1.00 / $5.00</td>
-              <td><a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Verified Aug 5</span></td>
+              <td><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Verified Sep 18</span></td>
+            </tr>
+            <tr>
+              <td><strong>GPT-6 Astra</strong><br><small>OpenAI</small></td>
+              <td>1.05M</td>
+              <td>Current OpenAI flagship for computer use, coding, and multi-step professional work; 128K max output</td>
+              <td>$10.00 / $50.00<br><small>Released September 3, 2026. First OpenAI model rated Critical for cybersecurity capability under its Preparedness Framework. Prompts over 272K input tokens bill at 2x input and 1.5x output for the whole request. Batch and Flex are half price; Fast mode is double.</small></td>
+              <td><a href="https://developers.openai.com/api/docs/models/gpt-6-astra" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">New Sep 3</span></td>
+            </tr>
+            <tr>
+              <td><strong>GPT-5.6 Sol</strong><br><small>OpenAI</small></td>
+              <td>1.05M</td>
+              <td>Frontier model for complex professional work, coding, research, and tool use</td>
+              <td>$4.00 / $20.00<br><small>Promotional rate guaranteed at least through November 21, 2026. Prompts over 272K input tokens bill at 2x input and 1.5x output for the whole request. Cache writes bill at 1.25x the uncached input rate.</small></td>
+              <td><a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Promo to Nov 21</span></td>
+            </tr>
+            <tr>
+              <td><strong>GPT-5.6 Terra</strong><br><small>OpenAI</small></td>
+              <td>1.05M</td>
+              <td>Balanced GPT-5.6 tier for strong capability at a lower unit price</td>
+              <td>$2.00 / $12.00<br><small>Prompts over 272K input tokens bill at 2x input and 1.5x output for the whole request. Cache writes bill at 1.25x the uncached input rate.</small></td>
+              <td><a href="https://developers.openai.com/api/docs/models/gpt-5.6-terra" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Verified Sep 18</span></td>
+            </tr>
+            <tr>
+              <td><strong>GPT-5.6 Luna</strong><br><small>OpenAI</small></td>
+              <td>1.05M</td>
+              <td>Lowest-cost GPT-5.6 tier; cheapest current-generation frontier rate published by OpenAI</td>
+              <td>$0.20 / $1.20<br><small>Prompts over 272K input tokens bill at 2x input and 1.5x output for the whole request. Cache writes bill at 1.25x the uncached input rate.</small></td>
+              <td><a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Verified Sep 18</span></td>
+            </tr>
+            <tr>
+              <td><strong>Gemini 3.1 Pro</strong><br><small>Google DeepMind</small></td>
+              <td>1M</td>
+              <td>Google flagship for reasoning, agentic work, and long context; multimodal input</td>
+              <td>$2.00 / $12.00<br><small>Prompts above 200K input tokens bill at $4.00 input and $18.00 output per 1M for the whole request. Paid tier only since April 1, 2026; the free tier no longer covers Pro models.</small></td>
+              <td><a href="https://deepmind.google/models/gemini/pro/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-blue">Verified Sep 18</span></td>
+            </tr>
+            <tr>
+              <td><strong>Gemini 3.8 Flash</strong><br><small>Google DeepMind</small></td>
+              <td>1M</td>
+              <td>Newest Flash model for long-horizon software engineering and autonomous agents; 1M context, 64K output</td>
+              <td>$0.75 / $3.75<br><small>Launched September 2, 2026 on the same introductory rate as Gemini 3.6 and 3.7 Flash. Standard pricing of $1.50 / $7.50 per 1M applies from January 1, 2027. Thinking tokens bill at the output rate.</small></td>
+              <td><a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-blue">Promo to Dec 31</span></td>
+            </tr>
+            <tr>
+              <td><strong>DeepSeek V4.1 Flash</strong><br><small>DeepSeek</small></td>
+              <td>1M</td>
+              <td>Low-cost current DeepSeek API model with thinking mode, vision, and Responses API support</td>
+              <td>$0.15 / $0.60<br><small>Off-peak rate shown. Peak hours are 01:00-04:00 and 06:00-10:00 UTC on weekdays, when input doubles to $0.30 and output to $1.20 per 1M. Model name is deepseek-flash; the retired deepseek-v4-flash identifier still resolves here.</small></td>
+              <td><a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
             </tr>
           <!-- /GENERATED:rows-international -->
           </tbody>
@@ -167,18 +188,18 @@
           <tbody>
 <!-- GENERATED:rows-china -->
             <tr>
-              <td><strong>DeepSeek V4 Flash</strong><br><small>DeepSeek</small></td>
+              <td><strong>DeepSeek V4.1 Flash</strong><br><small>DeepSeek</small></td>
               <td>1M</td>
-              <td>Low-cost current DeepSeek API model with thinking mode and Responses API support</td>
-              <td>$0.14 / $0.28<br><small>Peak/off-peak pricing was announced without an effective date when checked.</small></td>
-              <td><a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-cyan">Verified Aug 5</span></td>
+              <td>Low-cost current DeepSeek API model with thinking mode, vision, and Responses API support</td>
+              <td>$0.15 / $0.60<br><small>Off-peak rate shown. Peak hours are 01:00-04:00 and 06:00-10:00 UTC on weekdays, when input doubles to $0.30 and output to $1.20 per 1M. Model name is deepseek-flash; the retired deepseek-v4-flash identifier still resolves here.</small></td>
+              <td><a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
             </tr>
             <tr>
               <td><strong>DeepSeek V4 Pro</strong><br><small>DeepSeek</small></td>
               <td>1M</td>
-              <td>Higher-capability DeepSeek V4 API model with thinking mode and 384K maximum output</td>
-              <td>$0.43 / $0.87<br><small>Peak/off-peak pricing was announced without an effective date when checked.</small></td>
-              <td><a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-cyan">Verified Aug 5</span></td>
+              <td>Higher-capability DeepSeek model with thinking mode and 384K maximum output</td>
+              <td>$0.66 / $1.98<br><small>Off-peak rate shown; peak hours are 01:00-04:00 and 06:00-10:00 UTC on weekdays, when input doubles to $1.32 and output to $3.96 per 1M. DeepSeek had planned to withdraw this model on September 14, 2026 and has since extended it.</small></td>
+              <td><a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
             </tr>
           <!-- /GENERATED:rows-china -->
           </tbody>
@@ -197,54 +218,41 @@
     <div class="pricing-grid">
 <!-- GENERATED:pricing-cards -->
       <div class="pricing-card">
-        <div class="pricing-name">DeepSeek V4 Flash</div>
-        <div class="pricing-provider">DeepSeek API</div>
-        <div class="pricing-price">$0.14 / $0.28 <span>/ 1M tokens (input/output)</span></div>
+        <div class="pricing-name">GPT-5.6 Luna</div>
+        <div class="pricing-provider">OpenAI API</div>
+        <div class="pricing-price">$0.20 / $1.20 <span>/ 1M tokens (input/output)</span></div>
         <div class="pricing-detail">Lowest published unit price in this verified set</div>
         <ul class="pricing-features">
-          <li>1M context window</li>
-          <li>Cache-hit input: $0.0028 / 1M tokens</li>
-          <li>Thinking mode available</li>
-          <li>Official API pricing linked below</li>
+          <li>1.05M context window</li>
+          <li>Cached input: $0.02 / 1M tokens</li>
+          <li>Prompts above 272K bill at a premium</li>
+          <li>Official API model page linked below</li>
         </ul>
-        <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline">Official pricing ↗</a>
+        <a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline">Official model page ↗</a>
       </div>
       <div class="pricing-card featured">
         <div class="pricing-name">Claude Sonnet 5</div>
         <div class="pricing-provider">Anthropic API</div>
         <div class="pricing-price">$2.00 / $10.00 <span>/ 1M tokens (input/output)</span></div>
-        <div class="pricing-detail">$2 / $10 still listed on provider docs at our Sep 18, 2026 review</div>
+        <div class="pricing-detail">Scheduled September increase cancelled</div>
         <ul class="pricing-features">
           <li>1M context window</li>
           <li>Strong agentic coding focus</li>
           <li>128K maximum output</li>
-          <li>Scheduled $3 / $15 rise not reflected in provider docs; flagged</li>
+          <li>$2 / $10 is now the standard rate</li>
         </ul>
-        <a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-primary">Official model page ↗</a>
+        <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-primary">Official pricing ↗</a>
       </div>
       <div class="pricing-card">
-        <div class="pricing-name">GPT-5.6 Luna</div>
-        <div class="pricing-provider">OpenAI API</div>
-        <div class="pricing-price">$1.00 / $6.00 <span>/ 1M tokens (input/output)</span></div>
-        <div class="pricing-detail">Lower-cost GPT-5.6 tier for volume workloads</div>
-        <ul class="pricing-features">
-          <li>1.05M context window</li>
-          <li>$0.10 cached input / 1M tokens</li>
-          <li>Tool use and coding support</li>
-          <li>Official API model page linked below</li>
-        </ul>
-        <a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline">Official model page ↗</a>
-      </div>
-      <div class="pricing-card">
-        <div class="pricing-name">Gemini 3.6 Flash</div>
+        <div class="pricing-name">Gemini 3.8 Flash</div>
         <div class="pricing-provider">Google AI / Vertex AI</div>
-        <div class="pricing-price">$1.50 / $7.50 <span>/ 1M tokens (input/output)</span></div>
-        <div class="pricing-detail">Multimodal, long-context option</div>
+        <div class="pricing-price">$0.75 / $3.75 <span>/ 1M tokens (input/output)</span></div>
+        <div class="pricing-detail">Introductory rate through December 31, 2026</div>
         <ul class="pricing-features">
           <li>1M context window</li>
           <li>Multimodal input</li>
           <li>Vendor-published benchmark data</li>
-          <li>Calculator assumes no cache discount</li>
+          <li>Reverts to $1.50 / $7.50 on January 1</li>
         </ul>
         <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline">Official model page ↗</a>
       </div>
@@ -273,7 +281,7 @@
     <h2 class="section-title">What changed in the current catalog</h2>
     <div class="news-grid">
       <article class="news-card"><div class="news-date">Checked Aug 5, 2026</div><h4>OpenAI GPT-5.6 tiers</h4><p>Sol, Terra, and Luna are listed separately so readers can compare published unit rates without collapsing them into one generic “GPT” price. <a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank" rel="noopener noreferrer">OpenAI source ↗</a></p></article>
-      <article class="news-card"><div class="news-date">Rechecked Sep 18, 2026</div><h4>Claude Sonnet 5 price status</h4><p>The scheduled move from the introductory $2/$10 rate to $3/$15 after August 31 is not reflected in provider documentation, which still lists $2/$10. The row stays flagged pending confirmation. <a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5" target="_blank" rel="noopener noreferrer">Anthropic source ↗</a></p></article>
+      <article class="news-card"><div class="news-date">Rechecked Sep 18, 2026</div><h4>Claude Sonnet 5 price status</h4><p>Anthropic cancelled the September 1 increase. Its pricing page now states that the $2/$10 rate "is now the standard price" and that the scheduled move to $3/$15 "will not occur". The row is no longer flagged. <a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5" target="_blank" rel="noopener noreferrer">Anthropic source ↗</a></p></article>
       <article class="news-card"><div class="news-date">Checked Aug 5, 2026</div><h4>DeepSeek V4 pricing</h4><p>Flash and Pro are separated, including cache-hit rates and the provider's not-yet-effective peak/off-peak note. <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">DeepSeek source ↗</a></p></article>
       <article class="news-card"><div class="news-date">Checked Aug 5, 2026</div><h4>Gemini 3.6 Flash</h4><p>The model card uses the provider-published 1M context figure and does not assume an undocumented cache discount. <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer">Google source ↗</a></p></article>
     </div>

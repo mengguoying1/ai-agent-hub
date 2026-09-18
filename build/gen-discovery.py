@@ -10,7 +10,8 @@ TODAY = "2026-09-18"
 
 SECTIONS = [
     ("Model pricing and cost planning", None, [
-        "article-llm-pricing", "article-prompt-caching", "article-prompt-compression",
+        "article-september-2026-pricing-update", "article-llm-pricing",
+        "article-prompt-caching", "article-prompt-compression",
         "article-subscription-refresh-guide", "article-moe-explained", "tool-cost-calculator",
     ]),
     ("Agent architecture and orchestration", None, [

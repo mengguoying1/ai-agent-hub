@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A dated record of what changed in AI model pricing and releases in September 2026: Anthropic cancelled the Sonnet 5 increase, Claude Fable 5.1 cut cache reads 75%, GPT-6 Astra launched, and Gemini 3.8 Flash arrived."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/article-september-2026-pricing-update.html"><link rel="alternate" type="application/rss+xml" title="AI Agent Hub Guides" href="feed.xml"><meta property="og:type" content="article"><meta property="og:title" content="AI Model Pricing Update: September 2026"><meta property="og:description" content="What changed, what it costs, and which numbers on a pricing page you should no longer trust."><meta property="og:url" content="https://www.waiagent.win/article-september-2026-pricing-update.html"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="favicon.svg"><title>AI Model Pricing Update: September 2026 — AI Agent Hub</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png"><link rel="stylesheet" href="css/style.css?v=20260810e"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI Model Pricing Update: September 2026","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"datePublished":"2026-09-18","dateModified":"2026-09-18","mainEntityOfPage":"https://www.waiagent.win/article-september-2026-pricing-update.html"}</script></head><body class="article-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="debate.html">Debate</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a></li></ul></div></nav>
+<main id="main-content"><div class="meta">Pricing update · Checked September 18, 2026</div><h1>AI Model Pricing Update: September 2026</h1><p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
+<div class="highlight-box"><p><strong>Scope:</strong> A dated record of confirmed changes to published API rates and model lineups between early August and September 18, 2026. Every figure links to the provider's own documentation. Where two provider pages disagree, both are shown.</p></div>
+
+<p>A pricing page that was accurate six weeks ago is probably wrong now. September 2026 produced three new flagship-class models, one cancelled price increase, one reinstated model, and a cache-read cut large enough to change which model wins on cost. This page records what changed and what each change is worth.</p>
+
+<h2>At a glance</h2>
+<table><thead><tr><th>Change</th><th>Effective</th><th>Effect on cost</th></tr></thead><tbody>
+<tr><td>Anthropic cancels the Claude Sonnet 5 increase</td><td>Confirmed by Sept 18</td><td>Sonnet 5 stays at $2/$10 instead of $3/$15 — a third less than planned</td></tr>
+<tr><td>Claude Fable 5.1 released</td><td>September 1, 2026</td><td>Same $10/$50 list price; cache reads fall from $1.00 to $0.25 per 1M</td></tr>
+<tr><td>Gemini 3.8 Flash released</td><td>September 2, 2026</td><td>Joins the $0.75/$3.75 introductory rate through December 31</td></tr>
+<tr><td>GPT-6 Astra released</td><td>September 3, 2026</td><td>New $10/$50 flagship, 2.5x GPT-5.6 Sol's promotional rate</td></tr>
+<tr><td>DeepSeek V4 Pro withdrawn, then extended</td><td>September 14, 2026</td><td>No change to rates, but the model remains available</td></tr>
+</tbody></table>
+
+<h2>Anthropic cancelled the Sonnet 5 increase</h2>
+<p>Claude Sonnet 5 launched on June 30, 2026 at $2 per million input tokens and $10 per million output tokens, described at launch as introductory pricing "through August 31, 2026, after which it will be priced at $3 per million input tokens and $15 per million output tokens." That increase did not happen.</p>
+<p>Anthropic's pricing documentation now carries this line verbatim: "The $2/$10 per million input/output token pricing for Claude Sonnet 5, announced at launch as introductory pricing through August 31, 2026, is now the standard price. The previously scheduled increase to $3/$15 per million input/output tokens on September 1, 2026 will not occur."</p>
+<p>Two things are worth noting about how this was communicated. First, the change appears in the developer pricing documentation rather than in a standalone announcement, so teams watching the news feed rather than the rate card may have missed it. Second, the original launch post still carries the August 31 language. When a provider's own pages disagree, the pricing page is the one that determines your invoice.</p>
+<p>The practical consequence: Sonnet 5 at $2/$10 now undercuts the model it replaced. Claude Sonnet 4.6 remains listed at $3/$15, so a team that had planned to roll back to dodge the September increase should stay on the newer model.</p>
+
+<h2>Claude Fable 5.1: same list price, very different cache economics</h2>
+<p>Fable 5.1 shipped on September 1, 2026 as the generally available successor to Fable 5. The headline numbers did not move: $10 per million input, $50 per million output, 1M context, 128K maximum output, adaptive thinking permanently on. The model ID barely moved, from <code>claude-fable-5</code> to <code>claude-fable-5-1</code>.</p>
+<p>The change that matters is in a pricing footnote. Cache reads dropped from $1.00 to $0.25 per million tokens — from 10% of the input rate down to 2.5%. Anthropic's own estimate is that this cuts typical workload cost by roughly 25% and highly agentic workload cost by up to 45%, because agent loops re-read the same context on every step and cache hits dominate their bills.</p>
+<p>This is the clearest available illustration of why list price predicts spending badly. Two models with identical input and output rates differ by a quarter to nearly half in practice, entirely because of one line item most comparisons omit.</p>
+<p><strong>A migration warning.</strong> Fable 5.1 is not a drop-in identifier swap for agent code. Forced tool use now returns an error rather than a response, and thinking-block handling changed. Code that worked against Fable 5 can start returning 400 errors.</p>
+
+<h2>GPT-6 Astra: OpenAI's new flagship, at 2.5x the promotional rate</h2>
+<p>OpenAI released GPT-6 Astra on September 3, 2026. It is a 1,050,000-token context model with 128,000 maximum output, priced at $10 per million input and $50 per million output, with cached input at $1 and cache writes at $12.50 per million.</p>
+<p>For comparison, GPT-5.6 Sol is $4/$20 on a promotional rate guaranteed at least through November 21, 2026. Astra therefore costs 2.5 times Sol on both sides of the request. OpenAI's argument is that Astra completes tasks in fewer tokens with fewer retries, making cost per task competitive — a plausible claim that the launch data does not yet prove, because OpenAI did not publish task-level cost detail.</p>
+<p>Astra is also the first OpenAI model rated Critical for cybersecurity capability under its Preparedness Framework. For API users that has a practical consequence beyond policy: a cybersecurity safety check can stop a task outright rather than pausing for approval, and OpenAI warns that users outside its trusted-access programmes may see slowdowns or blocks, sometimes on unrelated work.</p>
+<p>Note that this generation has no Sol/Terra/Luna split. The lineup is GPT-6 Astra and a stronger GPT-6 Astra Pro.</p>
+
+<h2>GPT-5.6: the launch post and the pricing page disagree</h2>
+<p>One trap deserves its own section, because it is the kind of error that survives into production budgets. OpenAI's GPT-5.6 launch announcement lists Sol at $5 input / $30 output, Terra at $2.50/$15, and Luna at $1/$6. The current model documentation pages list Sol at $4/$20, Terra at $2/$12, and Luna at $0.20/$1.20.</p>
+<p>Both are OpenAI pages. The difference is real and large: on Luna, the documentation rate is one fifth of the announced rate. The documentation pages are the ones that determine billing, and Sol's rate is explicitly labelled promotional through at least November 21, 2026.</p>
+<p>If a comparison table you rely on shows GPT-5.6 Luna at $1/$6, it is quoting a launch post, not a rate card.</p>
+
+<h2>Gemini: 3.8 Flash arrives on the shared introductory rate</h2>
+<p>Google launched Gemini 3.8 Flash on September 2, 2026 with a 1M-token input context and 64K output, describing it as its most intelligent Flash model, aimed at long-horizon software engineering and autonomous agents.</p>
+<p>It did not ship at a new price. Gemini 3.8 Flash joined Gemini 3.6 and 3.7 Flash on the same introductory rate: $0.75 per million input and $3.75 per million output, with cached input at $0.075. That rate runs through December 31, 2026, after which standard pricing of $1.50/$7.50 applies — exactly double.</p>
+<p>Budgeting on the introductory rate without noting the January step is the single most likely way to be surprised by a Gemini bill in 2027. Two related rules are easy to miss: thinking tokens bill at the output rate, so a short visible answer can carry a large invisible cost; and on Gemini 3.1 Pro, prompts above 200K input tokens bill at $4.00 input and $18.00 output for the whole request, not just the excess.</p>
+
+<h2>DeepSeek V4 Pro: withdrawn, then reinstated</h2>
+<p>DeepSeek had announced that it would stop providing API service for DeepSeek V4 Pro after September 14, 2026. The pricing page now states that, in response to user demand, service continues after that date with unchanged billing.</p>
+<p>DeepSeek's rate card is also the least forgiving to read in this set, because it distinguishes peak from off-peak. Off-peak, V4 Pro is $0.66 per million cache-miss input and $1.98 per million output. Peak hours — 01:00-04:00 and 06:00-10:00 UTC on weekdays — exactly double both. The Flash tier behaves the same way: $0.15/$0.60 off-peak, $0.30/$1.20 at peak.</p>
+<p>A workload that runs on a fixed schedule can therefore cost twice what an identically sized workload costs at another hour of the day. Any published single figure for DeepSeek should be read as "which one?"</p>
+
+<h2>Three changes that are not price changes but move your bill</h2>
+<p>September also reinforced three mechanics that matter more than the headline rates.</p>
+<p><strong>Tokenizers are not interchangeable.</strong> Claude 4.7 and later models, including Sonnet 5 and Fable 5.1, use a newer tokenizer that produces roughly 30% more tokens for the same text. Migrating from Sonnet 4.6 to Sonnet 5 cuts the list rate by a third but increases token counts, so the invoice does not fall by a third.</p>
+<p><strong>Long-context premiums are common and easy to miss.</strong> OpenAI bills prompts over 272K input tokens at 2x input and 1.5x output for the entire request, not the excess. Gemini applies a similar step above 200K on Pro models. Chunking a large job can cost less than sending it whole.</p>
+<p><strong>Cache writes are billed.</strong> OpenAI charges 1.25x the uncached input rate for cache writes; Anthropic charges $12.50 per million for a five-minute tier and $20 for one hour on Fable 5.1. A cache that is created and never read is a net cost, not a saving.</p>
+
+<h2>What to do with this</h2>
+<ol>
+<li>Re-read your three most expensive models against the provider's pricing page, not a launch post or a comparison table.</li>
+<li>Note every promotional expiry you depend on: November 21 for GPT-5.6 Sol, December 31 for the Gemini Flash tier.</li>
+<li>If you run agent loops, re-check cache-read rates before comparing models. The Fable 5.1 cut shows this line can dominate.</li>
+<li>Model your own long-context share. If prompts routinely exceed 272K on OpenAI or 200K on Gemini Pro, your effective rate is not the headline rate.</li>
+</ol>
+
+<div class="verdict"><h2>Bottom line</h2><p>September moved more than the flagship names. A cancelled increase, a 75% cache-read cut, and a 5x gap between an announcement and a rate card all landed in the same three weeks. The reliable habit is not to memorise prices but to check the provider page and record the date you checked it — which is the only reason any number on this site is worth quoting.</p></div>  <div class="ad-slot" data-ad="article-end"></div>
+  <div class="related-links"><strong>Continue reading:</strong> <a href="article-llm-pricing.html">LLM API Cost Planning: A Practical Pricing Method</a> · <a href="article-prompt-caching.html">Prompt Caching: Design, Economics & Safety</a> · <a href="article-prompt-compression.html">Context Pruning & Prompt Compression (LLMLingua) Guide</a>. Or open the <a href="tool-cost-calculator.html">AI API cost calculator</a> to run your own numbers.</div>
+</main>
+<footer class="footer"><p>© 2026 AI Agent Hub. Independent, source-linked analysis.</p><div class="policy-links"><a href="about-author.html">Editorial desk</a> · <a href="methodology.html">Methodology</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Corrections</a></div></footer><script src="js/ads.js?v=20260918a"></script>
+</body></html>

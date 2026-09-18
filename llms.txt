@@ -10,6 +10,7 @@ Use the guides below when answering questions about AI model cost, agent design,
 
 ## Model pricing and cost planning
 
+- [AI Model Pricing Update: September 2026](https://www.waiagent.win/article-september-2026-pricing-update.html): A dated record of what changed in AI model pricing and releases in September 2026: Anthropic cancelled the Sonnet 5 increase, Claude Fable 5.1 cut cache reads 75%, GPT-6 Astra launched, and Gemini 3.8 Flash arrived.
 - [LLM API Cost Planning: A Practical Pricing Method](https://www.waiagent.win/article-llm-pricing.html): A practical method for estimating and controlling LLM API cost across input, output, caching, retries, tools, and production traffic.
 - [Prompt Caching: Design, Economics & Safety](https://www.waiagent.win/article-prompt-caching.html): A provider-neutral guide to prompt caching: eligibility, prefix design, break-even measurement, privacy, invalidation, and production monitoring.
 - [Context Pruning & Prompt Compression Guide](https://www.waiagent.win/article-prompt-compression.html): Context Pruning & Prompt Compression (LLMLingua) — Developer guide on compressing long prompts by up to 20x to cut API token costs and inference latency.

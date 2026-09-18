@@ -3,6 +3,7 @@
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="debate.html">Debate</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a></li></ul></div></nav>
 <main id="main-content" style="max-width:1000px;margin:0 auto;padding:3rem 1.5rem 5rem"><div class="breadcrumb"><a href="./">Home</a> &gt; <a href="category-tools.html">Tools</a> &gt; Model shortlist</div><h1>AI Model Shortlist Wizard</h1>  <div class="ad-slot" data-ad="tool-top"></div>
+  <div class="ad-slot" data-ad="tool-top"></div>
 <p class="section-desc">Create a starting shortlist from the verified catalog. This is a transparent rule-based aid, not a sponsored ranking or a prediction of your monthly bill.</p>
 <div class="highlight-box"><p><strong>Data snapshot:</strong> <span id="stamp"></span>. Final selection should include your own quality, latency, privacy, and reliability tests.</p></div>
 <div class="wizard-grid">
@@ -18,16 +19,16 @@
 <script src="js/model-data.js"></script><script>
 const byId=id=>AAH_DATA.utils.byId(id);
 const choices={
- cost:['deepseek-v4-flash','gpt-56-luna','claude-haiku-45'],
- balance:['claude-sonnet-5','gpt-56-terra','gemini-36-flash'],
+ cost:['deepseek-v41-flash','gpt-56-luna','claude-haiku-45'],
+ balance:['claude-sonnet-5','gpt-56-terra','gemini-38-flash'],
  capability:['claude-opus-5','gpt-56-sol','claude-sonnet-5']
 };
 document.getElementById('stamp').textContent=AAH_DATA.updated;
 function selected(name){return document.querySelector('input[name="'+name+'"]:checked').value}
 function build(){
  let ids=choices[selected('priority')].slice(),task=selected('task'),context=selected('context');
- if(task==='multimodal')ids.unshift('gemini-36-flash');
- if(task==='volume')ids.unshift('deepseek-v4-flash','claude-haiku-45');
+ if(task==='multimodal')ids.unshift('gemini-38-flash');
+ if(task==='volume')ids.unshift('deepseek-v41-flash','claude-haiku-45');
  if(task==='complex')ids.unshift('claude-opus-5','gpt-56-sol');
  ids=[...new Set(ids)].map(byId).filter(Boolean).filter(m=>context!=='large'||m.contextK>=1000).slice(0,3);
  document.getElementById('resultBody').innerHTML=ids.map((m,i)=>'<article><h3>'+(i+1)+'. '+m.name+'</h3><p>'+m.strengths+'</p><p><strong>'+AAH_DATA.utils.fmtPricePair(m)+'</strong> / 1M input/output tokens · '+AAH_DATA.utils.fmtContext(m)+' context</p>'+(m.priceNote?'<p><small>'+m.priceNote+'</small></p>':'')+'<p><a href="'+m.sourceUrl+'" target="_blank" rel="noopener noreferrer">Official source ↗</a></p></article>').join('');
