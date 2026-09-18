@@ -33,7 +33,7 @@ EXCLUDE = {"google00919b0deaa106f6.html"}
 
 BEACON = (
     "<!-- Cloudflare Web Analytics -->"
-    "<script defer src='https://static.cloudflareinsights.com/beacon.min.js' "
+    "<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' "
     'data-cf-beacon=\'{"token": "%s"}\'></script>'
     "<!-- End Cloudflare Web Analytics -->"
 )
@@ -87,7 +87,7 @@ def main():
             # Guard against a beacon whose comment markers were stripped.
             if new == s:
                 new = re.sub(
-                    r"[ \t]*<script defer src='https://static\.cloudflareinsights\.com[^>]*></script>\n?",
+                    r"[ \t]*<script (?:defer |type='module' )src='https://static\.cloudflareinsights\.com[^>]*></script>\n?",
                     snippet + "\n", s, count=1)
             if new == s:
                 skipped += 1

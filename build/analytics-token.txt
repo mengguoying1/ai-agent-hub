@@ -14,4 +14,4 @@
 # site and only identifies which dashboard bucket receives the measurements.
 # It cannot be used to read data or change settings.
 
-PASTE_TOKEN_HERE
+8d2f3ff402aa4df8a8479a2ca8886792
