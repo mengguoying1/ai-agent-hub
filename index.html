@@ -12,12 +12,17 @@
   <meta property="og:title" content="AI Agent Hub — Verified Model Pricing & Developer Tools">
   <meta property="og:description" content="Source-linked AI model pricing, transparent comparisons, practical tools, and reviewed engineering guides.">
   <meta property="og:url" content="https://www.waiagent.win/">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://www.waiagent.win/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>AI Agent Hub — Verified Model Pricing & Developer Tools</title>
   <link rel="stylesheet" href="css/style.css?v=20260810f">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"AI Agent Hub","url":"https://www.waiagent.win/","description":"Verified AI model pricing and practical developer tools.","publisher":{"@type":"Organization","name":"AI Agent Hub Editorial Desk"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are these monthly prices?","acceptedAnswer":{"@type":"Answer","text":"No. They are provider-published rates per one million tokens. Monthly cost depends on your workload."}},{"@type":"Question","name":"Did AI Agent Hub run the benchmark tests?","acceptedAnswer":{"@type":"Answer","text":"No. The benchmark matrix clearly labels vendor-published results and links the source. We do not present them as independent lab results."}},{"@type":"Question","name":"How often is the data reviewed?","acceptedAnswer":{"@type":"Answer","text":"Each data snapshot shows its verification date. We recheck primary sources during updates and accept documented correction reports."}}]}
   </script>
   <style>
     .source-note{margin:1.25rem 0;padding:1rem 1.1rem;border:1px solid rgba(124,92,252,.28);border-radius:12px;background:rgba(124,92,252,.07);color:#b8b8ca;line-height:1.7}
@@ -43,6 +48,7 @@
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="category-tools.html">Tools</a></li>
       <li><a href="articles.html">Guides</a></li>
+      <li><a href="debate.html">Debate</a></li>
       <li><a href="methodology.html">Methodology</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
@@ -52,7 +58,7 @@
 <main id="main-content">
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-badge">Verified August 5, 2026</div>
+    <div class="hero-badge">Pricing verified Aug 5 · Debate updated Sep 18, 2026</div>
     <h1>AI model comparisons<br>with sources you can check</h1>
     <p>Compare current API prices and context limits, estimate workload cost, and understand the assumptions behind every number. No invented monthly bills or unlabeled benchmark claims.</p>
     <div class="hero-btns">
@@ -102,9 +108,9 @@
             <tr>
               <td><strong>Claude Sonnet 5</strong><br><small>Anthropic</small></td>
               <td>1M</td>
-              <td>Fast agentic coding with a 1M context window; introductory price through Aug 31, 2026</td>
-              <td>$2.00 / $10.00<br><small>Standard price becomes $3 input / $15 output after August 31, 2026.</small></td>
-              <td><a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Intro price</span></td>
+              <td>Fast agentic coding with a 1M context window</td>
+              <td>$2.00 / $10.00<br><small>Introductory rate was scheduled to become $3 / $15 after August 31, 2026. Provider documentation still listed $2 / $10 when reviewed September 18, 2026; flagged for confirmation.</small></td>
+              <td><a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Rechecking</span></td>
             </tr>
             <tr>
               <td><strong>GPT-5.6 Sol</strong><br><small>OpenAI</small></td>
@@ -207,12 +213,12 @@
         <div class="pricing-name">Claude Sonnet 5</div>
         <div class="pricing-provider">Anthropic API</div>
         <div class="pricing-price">$2.00 / $10.00 <span>/ 1M tokens (input/output)</span></div>
-        <div class="pricing-detail">Introductory pricing through August 31, 2026</div>
+        <div class="pricing-detail">$2 / $10 still listed on provider docs at our Sep 18, 2026 review</div>
         <ul class="pricing-features">
           <li>1M context window</li>
           <li>Strong agentic coding focus</li>
           <li>128K maximum output</li>
-          <li>Price rises to $3 / $15 after August 31</li>
+          <li>Scheduled $3 / $15 rise not reflected in provider docs; flagged</li>
         </ul>
         <a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-primary">Official model page ↗</a>
       </div>
@@ -267,9 +273,23 @@
     <h2 class="section-title">What changed in the current catalog</h2>
     <div class="news-grid">
       <article class="news-card"><div class="news-date">Checked Aug 5, 2026</div><h4>OpenAI GPT-5.6 tiers</h4><p>Sol, Terra, and Luna are listed separately so readers can compare published unit rates without collapsing them into one generic “GPT” price. <a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank" rel="noopener noreferrer">OpenAI source ↗</a></p></article>
-      <article class="news-card"><div class="news-date">Checked Aug 5, 2026</div><h4>Claude Sonnet 5 introductory price</h4><p>The catalog labels the temporary $2/$10 rate and the announced $3/$15 price after August 31. <a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5" target="_blank" rel="noopener noreferrer">Anthropic source ↗</a></p></article>
+      <article class="news-card"><div class="news-date">Rechecked Sep 18, 2026</div><h4>Claude Sonnet 5 price status</h4><p>The scheduled move from the introductory $2/$10 rate to $3/$15 after August 31 is not reflected in provider documentation, which still lists $2/$10. The row stays flagged pending confirmation. <a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5" target="_blank" rel="noopener noreferrer">Anthropic source ↗</a></p></article>
       <article class="news-card"><div class="news-date">Checked Aug 5, 2026</div><h4>DeepSeek V4 pricing</h4><p>Flash and Pro are separated, including cache-hit rates and the provider's not-yet-effective peak/off-peak note. <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">DeepSeek source ↗</a></p></article>
       <article class="news-card"><div class="news-date">Checked Aug 5, 2026</div><h4>Gemini 3.6 Flash</h4><p>The model card uses the provider-published 1M context figure and does not assume an undocumented cache discount. <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer">Google source ↗</a></p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="debate">
+  <div class="section-inner">
+    <div class="section-label">AI debate &amp; evidence</div>
+    <h2 class="section-title">The arguments everyone is having, settled with sources</h2>
+    <p class="section-desc">Every claim dated, every number labeled as fact, estimate, or judgment — including the places where credible sources disagree.</p>
+    <div class="guide-grid">
+      <article class="article-card"><div class="article-meta">September 2026</div><h3>Should AI Development Slow Down?</h3><p>What “Pacing the Frontier” actually proposes, who supports and rejects it, and what the proposed safeguard costs against a single training run.</p><a href="debate-pacing-frontier.html">Read the breakdown →</a></article>
+      <article class="article-card"><div class="article-meta">Incident data</div><h3>Is AI Actually Dangerous?</h3><p>1,663 recorded incidents sorted by cause, system type, and severity. Misuse outranks malfunction; software harms outnumber robots.</p><a href="debate-ai-risk-evidence.html">See the incident data →</a></article>
+      <article class="article-card"><div class="article-meta">Economics</div><h3>What a Frontier Model Costs to Train</h3><p>Estimated training costs from GPT-3 to today, where the money goes, and why chip sellers and model labs want opposite things from a slowdown.</p><a href="debate-training-cost-power.html">Follow the money →</a></article>
+      <article class="article-card"><div class="article-meta">Employment</div><h3>Is AI Taking Entry-Level Jobs?</h3><p>Payroll records and employer surveys tell opposite stories. What each one measures, and where causation is still contested.</p><a href="debate-jobs-evidence.html">Compare the sources →</a></article>
     </div>
   </div>
 </section>

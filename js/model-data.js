@@ -18,10 +18,10 @@
     {
       id: 'claude-sonnet-5', name: 'Claude Sonnet 5', company: 'Anthropic',
       contextK: 1000, inputPrice: 2, outputPrice: 10, cacheReadPrice: 0.2,
-      strengths: 'Fast agentic coding with a 1M context window; introductory price through Aug 31, 2026',
-      tabs: ['international'], status: { text: 'Intro price', badge: 'badge-purple' },
+      strengths: 'Fast agentic coding with a 1M context window',
+      tabs: ['international'], status: { text: 'Rechecking', badge: 'badge-purple' },
       sourceUrl: 'https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5',
-      priceNote: 'Standard price becomes $3 input / $15 output after August 31, 2026.', verifiedAt: '2026-08-05'
+      priceNote: 'Introductory rate was scheduled to become $3 input / $15 output after August 31, 2026. Provider documentation still listed $2 / $10 when reviewed September 18, 2026; flagged for confirmation.', verifiedAt: '2026-09-18'
     },
     {
       id: 'gpt-56-sol', name: 'GPT-5.6 Sol', company: 'OpenAI',
