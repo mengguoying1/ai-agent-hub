@@ -38,7 +38,7 @@
     <h1>vLLM vs Ollama vs SGLang: High-Throughput Local Serving Benchmarks</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Benchmarking · 9 min read · Reviewed August 10, 2026
+      Benchmarking · 5 min read · Reviewed September 18, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -97,6 +97,26 @@
     </ul>
 
     <div class="verdict"><h2>Bottom Line</h2><p>Choose from measured workload evidence. Ollama is often the shortest path to a local development environment. vLLM is designed for throughput-oriented serving, while SGLang emphasizes high-performance serving and prefix-aware execution. Validate the exact model, API features, hardware, security controls, and load profile before standardizing.</p></div>
+    
+    <h2>What high-throughput serving replaces</h2>
+    <p>Throughput comparisons between serving frameworks matter in proportion to the API spend they displace. Below: one request at 25K input, 15K cached, 3K output, at fifteen thousand a month. Of the 25,000 input tokens, 15,000 are billed at the cache-read rate and 10,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per request</th>
+        <th>Monthly at 15,000 requests</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4.1 Flash</td><td>$0.0033</td><td>$50.17</td></tr>
+      <tr><td>GPT-5.6 Luna</td><td>$0.0059</td><td>$88.50</td></tr>
+      <tr><td>DeepSeek V4 Pro</td><td>$0.013</td><td>$193</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>$0.020</td><td>$298</td></tr>
+      </tbody>
+    </table>
+    <p>The spread across these four is roughly eightfold, which is a reminder that the baseline matters as much as the framework: the same throughput improvement is worth eight times more against the expensive entry than the cheap one.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-local-llm-guide.html">Local LLM Deployment: Ollama vs llama.cpp vs vLLM</a> · <a href="article-ollama-deepseek-r1.html">Local DeepSeek-R1 & V3 Deployment with Ollama</a> · <a href="article-self-host-deepseek.html">How to Self-Host DeepSeek-R1: A Hardware and Software Guide</a>. Or open the <a href="tool-token-counter.html">token counter</a> to run your own numbers.</div>
 </main>

@@ -42,7 +42,7 @@
     <h1>DSPy Programmatic Prompt Optimization & Compilation Guide</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Reviewed August 10, 2026
+      Tutorial · 5 min read · Reviewed September 18, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -133,6 +133,25 @@ compiled_rag = teleprompter.compile(RAGModule(), trainset=train_data)
       <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
       <li><a href="article-agentic-rag.html">🔄 Agentic RAG Architecture & Self-Correction Pipelines</a></li>
     </ul>
+    
+    <h2>What compiling a program costs</h2>
+    <p>Optimisation is the expensive part of DSPy, not inference: the compiler evaluates many candidate prompts over a training set before it emits anything. It is also the part people budget least carefully. Below: one compilation at 2M input with no cache benefit and 200K output.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per compilation</th>
+        <th>Monthly at 20 compilations</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>GPT-5.6 Luna</td><td>$0.640</td><td>$12.80</td></tr>
+      <tr><td>Claude Sonnet 5</td><td>$6.00</td><td>$120</td></tr>
+      <tr><td>GPT-5.6 Terra</td><td>$6.40</td><td>$128</td></tr>
+      </tbody>
+    </table>
+    <p>Output dominates because the compiler is generating and scoring candidates, not just reading them. Compiling against a small model and deploying the result to a large one is the usual answer, and the arithmetic above is why: the same compilation is roughly thirty times cheaper on Luna.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-claude-code-workflow.html">Claude Code CLI Workflow & Multi-File Refactoring Guide</a> · <a href="article-claude-vs-gpt.html">Claude vs GPT vs DeepSeek for Coding</a> · <a href="article-cursor-vs-windsurf.html">Comparing Cursor, Windsurf, and VS Code Copilot</a>. Or open the <a href="tool-agent-builder-lab.html">agent builder lab</a> to run your own numbers.</div>
 </main>

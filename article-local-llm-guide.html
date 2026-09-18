@@ -2,7 +2,7 @@
   <link rel="alternate" type="application/rss+xml" title="AI Agent Hub Guides" href="feed.xml"><link rel="icon" href="favicon.svg"><title>Local LLM Deployment: Ollama vs llama.cpp vs vLLM — AI Agent Hub</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png"><link rel="stylesheet" href="css/style.css?v=20260810e"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Local LLM Deployment: Ollama vs llama.cpp vs vLLM","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"datePublished":"2026-06-29","dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-local-llm-guide.html"}</script></head><body class="article-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="debate.html">Debate</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a></li></ul></div></nav>
-<main id="main-content"><div class="meta">Deployment guide · Reviewed August 10, 2026</div><h1>Local LLM Deployment: Ollama vs llama.cpp vs vLLM</h1><p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
+<main id="main-content"><div class="meta">Deployment guide · Reviewed September 18, 2026</div><h1>Local LLM Deployment: Ollama vs llama.cpp vs vLLM</h1><p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
 <div class="highlight-box"><p><strong>Choose the operating model first:</strong> Ollama favors a convenient local API, llama.cpp emphasizes portable inference and quantized GGUF models, and vLLM targets higher-throughput serving. Model quality and hardware fit still require your own evaluation.</p></div>
 <p>“Run it locally” can mean a developer laptop, an offline workstation, an on-premises service, or a multi-user GPU server. Those environments have different security and performance requirements. This guide compares deployment roles rather than declaring one runtime universally best.</p>
 <h2>Decision summary</h2>
@@ -90,7 +90,27 @@ vllm serve organization/model --api-key local-test-token --generation-config vll
 <p>Self-hosting is not automatically cheaper. A hosted API may be preferable when traffic is low or bursty, the team lacks GPU operations experience, or managed capability and reliability outweigh data-residency needs. A hybrid design can keep sensitive workloads local and route approved tasks externally, but the route must be explicit and auditable.</p>
 <h2>Primary references</h2>
 <ul><li><a href="https://docs.ollama.com/api/introduction" target="_blank" rel="noopener noreferrer">Ollama API introduction</a></li><li><a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md" target="_blank" rel="noopener noreferrer">llama.cpp server documentation</a></li><li><a href="https://github.com/ggml-org/llama.cpp/security" target="_blank" rel="noopener noreferrer">llama.cpp security guidance</a></li><li><a href="https://docs.vllm.ai/en/latest/serving/online_serving/openai_compatible_server/" target="_blank" rel="noopener noreferrer">vLLM OpenAI-compatible server</a></li><li><a href="https://docs.vllm.ai/en/latest/deployment/docker/" target="_blank" rel="noopener noreferrer">vLLM container deployment</a></li></ul>
-<div class="verdict"><h2>Bottom line</h2><p>Start with the runtime that matches your deployment shape, then verify the exact model, quantization, hardware, concurrency, security, and license. Local inference is an operational system—not just a model download.</p></div>  <div class="ad-slot" data-ad="article-end"></div>
+<div class="verdict"><h2>Bottom line</h2><p>Start with the runtime that matches your deployment shape, then verify the exact model, quantization, hardware, concurrency, security, and license. Local inference is an operational system—not just a model download.</p></div>  
+    <h2>The API cost you are comparing against</h2>
+    <p>Self-hosting is usually justified by avoiding API spend, so the comparison needs the API number to be real. Below: the API equivalent of one local query at 20K input, 12K cached, 1.5K output, at twenty thousand queries a month. Of the 20,000 input tokens, 12,000 are billed at the cache-read rate and 8,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per query</th>
+        <th>Monthly at 20,000 querys</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4.1 Flash</td><td>$0.0021</td><td>$42.72</td></tr>
+      <tr><td>GPT-5.6 Luna</td><td>$0.0036</td><td>$72.80</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>$0.013</td><td>$250</td></tr>
+      <tr><td>Claude Haiku 4.5</td><td>$0.017</td><td>$334</td></tr>
+      </tbody>
+    </table>
+    <p>On the cheap models the API equivalent of a fairly busy month is in the tens of dollars, which is worth knowing before buying a GPU to avoid it. Self-hosting wins on privacy, latency and fixed-cost predictability; on pure token economics at this volume it usually does not.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
+    <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-ollama-deepseek-r1.html">Local DeepSeek-R1 & V3 Deployment with Ollama</a> · <a href="article-self-host-deepseek.html">How to Self-Host DeepSeek-R1: A Hardware and Software Guide</a> · <a href="article-vllm-openai-compat.html">vLLM OpenAI-Compatible API Server Deployment Guide</a>. Or open the <a href="tool-token-counter.html">token counter</a> to run your own numbers.</div>
 </main>
 <footer class="footer"><p>© 2026 AI Agent Hub.</p><div class="policy-links"><a href="about-author.html">Editorial desk</a> · <a href="methodology.html">Methodology</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Corrections</a></div></footer><script src="js/ads.js?v=20260918a"></script>

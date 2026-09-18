@@ -43,7 +43,7 @@
 
   <main id="main-content">
 
-    <div class="meta">Concepts · 8 min read · Reviewed August 10, 2026</div>
+    <div class="meta">Concepts · 6 min read · Reviewed September 18, 2026</div>
     <h1>Mixture of Experts (MoE) Architecture: Inside DeepSeek-V3 and Qwen3</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
 <div class="highlight-box"><p><strong>Editorial note:</strong> Reviewed August 5, 2026. Concepts are separated from fast-changing product claims; see our <a href="methodology.html">methodology</a> and report corrections through <a href="contact.html">contact</a>.</p></div>
@@ -125,6 +125,26 @@
       <h3>The Verdict</h3>
       <p>MoE separates total parameter capacity from per-token sparse computation. Its real value depends on training quality and a serving system that manages weights, routing, communication, cache, and load efficiently. Verify each product claim with its technical report and a workload-specific benchmark.</p>
     </div>
+    
+    <h2>What MoE pricing actually looks like</h2>
+    <p>Mixture-of-Experts architectures activate only a subset of parameters per token, and the pricing reflects it: MoE models tend to sit well below dense models of similar capability. Below: one request at 100K input, 50K cached, 10K output. Of the 100,000 input tokens, 50,000 are billed at the cache-read rate and 50,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per request</th>
+        <th>Monthly at 3,000 requests</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4.1 Flash</td><td>$0.014</td><td>$40.95</td></tr>
+      <tr><td>DeepSeek V4 Pro</td><td>$0.054</td><td>$162</td></tr>
+      <tr><td>Claude Sonnet 5</td><td>$0.210</td><td>$630</td></tr>
+      <tr><td>GPT-5.6 Terra</td><td>$0.230</td><td>$690</td></tr>
+      </tbody>
+    </table>
+    <p>DeepSeek's MoE line is roughly a fifth of the dense mid-tier at this shape, and the gap is structural rather than promotional. That is the commercial reason MoE has become the default for high-volume workloads: the architecture is the discount.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-llm-pricing.html">LLM API Cost Planning: A Practical Pricing Method</a> · <a href="article-prompt-caching.html">Prompt Caching: Design, Economics & Safety</a> · <a href="article-prompt-compression.html">Context Pruning & Prompt Compression (LLMLingua) Guide</a>. Or open the <a href="tool-cost-calculator.html">AI API cost calculator</a> to run your own numbers.</div>
 </main>

@@ -42,7 +42,7 @@
     <h1>Agentic RAG Architecture & Self-Correction Pipelines</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 12 min read · Reviewed August 10, 2026
+      Architecture · 5 min read · Reviewed September 18, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -173,6 +173,26 @@ app = workflow.compile()
       <li><a href="article-rag-chunking-strategies.html">📄 AST Chunking & Parent-Child Document Retrieval</a></li>
       <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
     </ul>
+    
+    <h2>What retrieval costs per query</h2>
+    <p>Agentic RAG re-ranks, re-queries and self-corrects, so one user question can mean several model calls. Cost per query, not cost per call, is the number to plan with. Below: one resolved query at 20K input tokens, 12K cached, 1.5K output. Of the 20,000 input tokens, 12,000 are billed at the cache-read rate and 8,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per query</th>
+        <th>Monthly at 20,000 querys</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4.1 Flash</td><td>$0.0021</td><td>$42.72</td></tr>
+      <tr><td>GPT-5.6 Luna</td><td>$0.0036</td><td>$72.80</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>$0.013</td><td>$250</td></tr>
+      <tr><td>Claude Haiku 4.5</td><td>$0.017</td><td>$334</td></tr>
+      </tbody>
+    </table>
+    <p>At twenty thousand queries a month the entire range fits inside a rounding error of most infrastructure bills, which is why the small models dominate this category. The self-correction loop is worth its cost precisely because it is cheap: an extra verification call costs a fraction of a cent on these models and a wrong answer does not.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-agent-ecosystem.html">AI Agent Systems Explained: Components, Boundaries & Evaluation</a> · <a href="article-agent-memory.html">AI Agent Long-Term Memory Architecture & MemGPT Systems</a> · <a href="article-how-to-build-ai-agent.html">How to Build an AI Agent from Scratch: Complete Developer Guide</a>. Or open the <a href="tool-agent-selector.html">agent stack selector</a> to run your own numbers.</div>
 </main>

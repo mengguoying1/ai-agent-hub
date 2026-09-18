@@ -42,7 +42,7 @@
     <h1>AI Agent Long-Term Memory Architecture & MemGPT Systems</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 12 min read · Reviewed August 10, 2026
+      Architecture · 5 min read · Reviewed September 18, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -139,6 +139,26 @@ def archival_memory_search(query: str, page: int = 0):
       <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
       <li><a href="article-agentic-rag.html">🔄 Agentic RAG Architecture & Self-Correction Pipelines</a></li>
     </ul>
+    
+    <h2>The cost of carrying context forward</h2>
+    <p>A memory tier only pays for itself if retrieving history is cheaper than re-sending it, and that is a question with a numeric answer. Below: one memory-augmented turn at 30K input tokens, 24K of them served from the cache that a stable prefix produces, and 2K output. Of the 30,000 input tokens, 24,000 are billed at the cache-read rate and 6,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per turn</th>
+        <th>Monthly at 5,000 turns</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4.1 Flash</td><td>$0.0022</td><td>$10.86</td></tr>
+      <tr><td>GPT-5.6 Luna</td><td>$0.0041</td><td>$20.40</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>$0.014</td><td>$69.00</td></tr>
+      <tr><td>Claude Sonnet 5</td><td>$0.037</td><td>$184</td></tr>
+      </tbody>
+    </table>
+    <p>This is where the memory design earns its keep. Because the prefix is stable, most of the input bills at the cache rate rather than the input rate, and on Sonnet 5 that is a tenfold difference. An architecture that reshuffles the prefix on every turn throws that away.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-agent-ecosystem.html">AI Agent Systems Explained: Components, Boundaries & Evaluation</a> · <a href="article-agentic-rag.html">Agentic RAG Architecture & Self-Correction Pipelines</a> · <a href="article-how-to-build-ai-agent.html">How to Build an AI Agent from Scratch: Complete Developer Guide</a>. Or open the <a href="tool-agent-selector.html">agent stack selector</a> to run your own numbers.</div>
 </main>

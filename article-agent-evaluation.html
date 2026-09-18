@@ -43,7 +43,7 @@
 
   <main id="main-content">
 
-    <div class="meta">Concepts · 8 min read · Reviewed August 10, 2026</div>
+    <div class="meta">Concepts · 5 min read · Reviewed September 18, 2026</div>
     <h1>How to Benchmark and Evaluate AI Agents: SWE-bench and Beyond</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <p>Evaluating standard language models has evolved from multiple-choice tests (MMLU) and single-function generation (HumanEval) to expert-level reasoning benchmarks like <strong>Humanity's Last Exam (HLE)</strong>. However, evaluating an <strong>AI Agent</strong> is far more complex. Agents operate in loops, write multi-file patches, invoke shell commands, and read local errors. Evaluating their terminal interaction capability requires benchmarks like <strong>Terminal-Bench v2</strong>. This article explains how the AI community benchmarks agentic systems using <strong>SWE-bench</strong> and <strong>Terminal-Bench v2</strong>, and how you can set up evaluation rigs for your own agents.</p>
@@ -104,6 +104,26 @@
       <h3>The Verdict</h3>
       <p>Building high-performance AI agents requires treating them like human software engineers. Do not evaluate them based on static test templates. Instead, build a sandboxed testing harness that runs unit tests, tracks token costs, and runs regular regression checks against your team's real-world code workloads.</p>
     </div>
+    
+    <h2>What it costs to run an evaluation suite</h2>
+    <p>Evaluation is the one agent activity where cost is easy to underestimate, because a full suite re-runs the same harness hundreds of times and each run re-sends context. Budget for the suite, not for the single task. Below: one full suite run at 200K input tokens, 120K of them cached, and 20K output. Of the 200,000 input tokens, 120,000 are billed at the cache-read rate and 80,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per suite run</th>
+        <th>Monthly at 40 suite runs</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4 Pro</td><td>$0.095</td><td>$3.80</td></tr>
+      <tr><td>Claude Sonnet 5</td><td>$0.384</td><td>$15.36</td></tr>
+      <tr><td>Gemini 3.1 Pro</td><td>$0.424</td><td>$16.96</td></tr>
+      <tr><td>GPT-5.6 Sol</td><td>$0.768</td><td>$30.72</td></tr>
+      </tbody>
+    </table>
+    <p>Forty suite runs a month is a realistic cadence for a team that evaluates on every release, and it costs less than most teams spend on CI compute. The expensive failure mode is not the suite itself but re-running it without a cache, which roughly triples the input line.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-agentic-testing.html">Agentic Testing & Self-Correcting Verification Loops</a> · <a href="article-swe-bench-deep-dive.html">Deep Dive into SWE-bench Verified & Terminal-Bench v2</a> · <a href="article-multi-modal-evaluation.html">Multimodal Vision Agent Evaluation: UI/UX & Screenshot-to-Code</a>. Or open the <a href="tool-benchmark-compare.html">benchmark comparator</a> to run your own numbers.</div>
 </main>

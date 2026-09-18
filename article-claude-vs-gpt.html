@@ -43,7 +43,7 @@
 
   <main id="main-content">
 
-    <div class="meta">Comparison · 7 min read · Reviewed August 10, 2026</div>
+    <div class="meta">Comparison · 6 min read · Reviewed September 18, 2026</div>
     <h1>Claude vs GPT vs DeepSeek for Coding</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <p>Anthropic, OpenAI, and DeepSeek offer different model families and developer surfaces for coding work. Names, context limits, prices, and tool features change frequently. This reviewed comparison avoids a static winner and shows how to test the current options on a controlled repository task.</p>
@@ -182,6 +182,25 @@
         <li><a href="article-agent-ecosystem.html">The Agent Ecosystem Explained</a> — how agents work</li>
       </ul>
     </div>
+    
+    <h2>Comparing the three on one real workload</h2>
+    <p>Model comparisons built on benchmark scores answer a different question than the one a team actually has, which is what the same job costs on each model. Below: one coding task at 80K input, 50K cached, 10K output. Of the 80,000 input tokens, 50,000 are billed at the cache-read rate and 30,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per task</th>
+        <th>Monthly at 1,200 tasks</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4 Pro</td><td>$0.041</td><td>$48.84</td></tr>
+      <tr><td>Claude Sonnet 5</td><td>$0.170</td><td>$204</td></tr>
+      <tr><td>GPT-5.6 Sol</td><td>$0.340</td><td>$408</td></tr>
+      </tbody>
+    </table>
+    <p>The spread between the three is about eightfold, which is large enough that a team's monthly bill depends far more on which of these it defaults to than on any prompt-level optimisation. Measure your own task shape before trusting anyone's ranking, including this one.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-claude-code-workflow.html">Claude Code CLI Workflow & Multi-File Refactoring Guide</a> · <a href="article-cursor-vs-windsurf.html">Comparing Cursor, Windsurf, and VS Code Copilot</a> · <a href="article-dspy-optimization.html">DSPy Programmatic Prompt Optimization & Compilation Guide</a>. Or open the <a href="tool-agent-builder-lab.html">agent builder lab</a> to run your own numbers.</div>
 </main>

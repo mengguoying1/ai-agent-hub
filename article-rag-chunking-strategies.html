@@ -42,7 +42,7 @@
     <h1>Advanced RAG Document Chunking & Parent-Child Retrieval Strategies</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 12 min read · Reviewed August 10, 2026
+      Architecture · 5 min read · Reviewed September 18, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -134,6 +134,26 @@ chunks = python_splitter.split_text(python_code_str)
       <li><a href="article-agentic-rag.html">🔄 Agentic RAG Architecture & Self-Correction Pipelines</a></li>
       <li><a href="tool-cost-calculator.html">🧮 LLM API & Token Cost Calculator</a></li>
     </ul>
+    
+    <h2>What chunking decisions cost</h2>
+    <p>Chunking is normally discussed as a retrieval quality problem. It is also a cost control: smaller chunks mean fewer input tokens per query, and parent-child retrieval changes the ratio further. Below: one query retrieving 15K input tokens, 10K cached, 1.2K output. Of the 15,000 input tokens, 10,000 are billed at the cache-read rate and 5,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per query</th>
+        <th>Monthly at 30,000 querys</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4.1 Flash</td><td>$0.0015</td><td>$45.00</td></tr>
+      <tr><td>GPT-5.6 Luna</td><td>$0.0026</td><td>$79.20</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>$0.0090</td><td>$270</td></tr>
+      <tr><td>Claude Haiku 4.5</td><td>$0.012</td><td>$360</td></tr>
+      </tbody>
+    </table>
+    <p>Cutting retrieved context in half halves the largest line in this table, which is usually a bigger saving than moving to a cheaper model. The trade-off is recall, so measure both rather than optimising the bill alone.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-claude-code-workflow.html">Claude Code CLI Workflow & Multi-File Refactoring Guide</a> · <a href="article-claude-vs-gpt.html">Claude vs GPT vs DeepSeek for Coding</a> · <a href="article-cursor-vs-windsurf.html">Comparing Cursor, Windsurf, and VS Code Copilot</a>. Or open the <a href="tool-agent-builder-lab.html">agent builder lab</a> to run your own numbers.</div>
 </main>

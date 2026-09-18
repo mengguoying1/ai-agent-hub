@@ -42,7 +42,7 @@
     <h1>Agentic Testing & Self-Correcting Verification Loops</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Reviewed August 10, 2026
+      Tutorial · 5 min read · Reviewed September 18, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -137,6 +137,25 @@ def self_healing_loop(prompt):
       <li><a href="tool-agent-builder-lab.html">🛠️ Interactive AI Agent Builder Lab & Code Studio</a></li>
       <li><a href="article-github-actions-agents.html">🤖 Integrating AI Agents into GitHub Actions CI/CD</a></li>
     </ul>
+    
+    <h2>What generated test suites cost</h2>
+    <p>Generating tests is a write-heavy workload: the model sees a lot of source and emits a lot of code, so output tokens carry more weight than in a chat workload. Below: one generated suite at 40K input, 10K cached, 8K output. Of the 40,000 input tokens, 10,000 are billed at the cache-read rate and 30,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per suite</th>
+        <th>Monthly at 1,500 suites</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4 Pro</td><td>$0.036</td><td>$53.79</td></tr>
+      <tr><td>Claude Sonnet 5</td><td>$0.142</td><td>$213</td></tr>
+      <tr><td>GPT-5.6 Sol</td><td>$0.284</td><td>$426</td></tr>
+      </tbody>
+    </table>
+    <p>Output tokens are half the bill here, which flips the usual advice: for code generation a model with a low output rate beats one with a low input rate, even when its input rate is higher. DeepSeek V4 Pro wins this specific shape of workload by a wide margin.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-agent-evaluation.html">How to Benchmark and Evaluate AI Agents: SWE-bench and Beyond</a> · <a href="article-swe-bench-deep-dive.html">Deep Dive into SWE-bench Verified & Terminal-Bench v2</a> · <a href="article-multi-modal-evaluation.html">Multimodal Vision Agent Evaluation: UI/UX & Screenshot-to-Code</a>. Or open the <a href="tool-benchmark-compare.html">benchmark comparator</a> to run your own numbers.</div>
 </main>

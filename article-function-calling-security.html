@@ -42,7 +42,7 @@
     <h1>Function Calling Security & Indirect Prompt Injection Defense</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Architecture · 12 min read · Reviewed August 10, 2026
+      Architecture · 5 min read · Reviewed September 18, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -123,6 +123,25 @@ class FileReadInput(BaseModel):
       <li><a href="article-ai-security.html">🔒 AI Safety & Enterprise Sandbox Governance</a></li>
       <li><a href="article-github-actions-agents.html">🤖 Integrating AI Agents into CI/CD</a></li>
     </ul>
+    
+    <h2>What tool-call auditing costs</h2>
+    <p>Validating every tool call before execution sounds expensive until it is priced, because the audit is a small model's job rather than a large one's. Below: one audited call at 35K input, 20K cached, 3K output. Of the 35,000 input tokens, 20,000 are billed at the cache-read rate and 15,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per call</th>
+        <th>Monthly at 6,000 calls</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>GPT-5.6 Luna</td><td>$0.0070</td><td>$42.00</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>$0.024</td><td>$144</td></tr>
+      <tr><td>Claude Haiku 4.5</td><td>$0.032</td><td>$192</td></tr>
+      </tbody>
+    </table>
+    <p>Auditing every call on these models costs single-digit dollars a month at six thousand calls. The defence is affordable; what it needs is the schema discipline, which costs engineering time instead of money.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-ai-security.html">AI Coding Agent Security: A Practical Threat Model</a> · <a href="article-mcp-guide.html">Model Context Protocol: Architecture & Security Guide</a> · <a href="article-agent-ecosystem.html">AI Agent Systems Explained: Components, Boundaries & Evaluation</a>. Or open the <a href="tool-cost-calculator.html">AI API cost calculator</a> to run your own numbers.</div>
 </main>

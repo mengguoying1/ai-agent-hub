@@ -43,7 +43,7 @@
 
   <main id="main-content">
 
-    <div class="meta">Guide · 10 min read · Reviewed September 18, 2026</div>
+    <div class="meta">Guide · 6 min read · Reviewed September 18, 2026</div>
     <h1>How to Self-Host DeepSeek-R1: A Hardware and Software Guide</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <p>DeepSeek-R1 was a widely adopted open-weights reasoning release, reported at launch to approach closed frontier models on math, science, and coding tasks. Newer DeepSeek generations have since shipped; treat the figures below as specific to R1. Because it is released under a permissive open license, developers and enterprises can host it locally or on private cloud servers. This guide explains the hardware sizing, quantization options, and software tools required to successfully run DeepSeek-R1.</p>
@@ -136,6 +136,26 @@
         <li><strong>For large checkpoints:</strong> compare total ownership and operations cost with a managed API; activated parameters do not eliminate weight-memory and communication requirements.</li>
       </ul>
     </div>
+    
+    <h2>What self-hosting is competing with</h2>
+    <p>Hardware decisions need a baseline, and the baseline is the hosted cost of the same traffic. Below: one request at 15K input, 8K cached, 2K output, at ten thousand requests a month. Of the 15,000 input tokens, 8,000 are billed at the cache-read rate and 7,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per request</th>
+        <th>Monthly at 10,000 requests</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4.1 Flash</td><td>$0.0023</td><td>$22.74</td></tr>
+      <tr><td>GPT-5.6 Luna</td><td>$0.0040</td><td>$39.60</td></tr>
+      <tr><td>DeepSeek V4 Pro</td><td>$0.0088</td><td>$87.56</td></tr>
+      <tr><td>Claude Haiku 4.5</td><td>$0.018</td><td>$178</td></tr>
+      </tbody>
+    </table>
+    <p>At ten thousand requests a month the hosted cost is low enough that hardware payback is measured in years rather than months. If the reason to self-host is data residency or a hard latency requirement, the arithmetic is beside the point; if it is cost alone, run this table at your real volume first.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-local-llm-guide.html">Local LLM Deployment: Ollama vs llama.cpp vs vLLM</a> · <a href="article-ollama-deepseek-r1.html">Local DeepSeek-R1 & V3 Deployment with Ollama</a> · <a href="article-vllm-openai-compat.html">vLLM OpenAI-Compatible API Server Deployment Guide</a>. Or open the <a href="tool-token-counter.html">token counter</a> to run your own numbers.</div>
 </main>

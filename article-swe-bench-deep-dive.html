@@ -42,7 +42,7 @@
     <h1>Deep Dive into SWE-bench Verified & Terminal-Bench v2</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Benchmarking · 12 min read · Reviewed August 10, 2026
+      Benchmarking · 5 min read · Reviewed September 18, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -156,6 +156,26 @@
       <li><a href="tool-cost-calculator.html">🧮 LLM API & Token Cost Calculator</a></li>
       <li><a href="tool-agent-builder-lab.html">🛠️ AI Agent Builder Lab & Code Studio</a></li>
     </ul>
+    
+    <h2>What a full benchmark run costs</h2>
+    <p>SWE-bench Verified is 500 tasks, and the reason results are often reported from partial runs is that a full run is not cheap. It is, however, cheap enough to be worth knowing the number. Below: one full pass at 60K input, 30K cached and 8K output per task. Per task: 30,000 input tokens at full rate, 30,000 at the cache-read rate, and 8,000 output tokens. One full pass is 500 tasks.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per task</th>
+        <th>Full 500-task pass</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4 Pro</td><td>$0.036</td><td>$18.15</td></tr>
+      <tr><td>Claude Sonnet 5</td><td>$0.146</td><td>$73.00</td></tr>
+      <tr><td>GPT-5.6 Sol</td><td>$0.292</td><td>$146</td></tr>
+      <tr><td>Claude Opus 5</td><td>$0.365</td><td>$182</td></tr>
+      </tbody>
+    </table>
+    <p>A complete run on the mid-tier models is in the low hundreds of dollars, which is within reach of a small team and far below the cost of the engineering time that a misleading partial result can waste. Partial runs are usually a harness limitation, not a budget one.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-agent-evaluation.html">How to Benchmark and Evaluate AI Agents: SWE-bench and Beyond</a> · <a href="article-agentic-testing.html">Agentic Testing & Self-Correcting Verification Loops</a> · <a href="article-multi-modal-evaluation.html">Multimodal Vision Agent Evaluation: UI/UX & Screenshot-to-Code</a>. Or open the <a href="tool-benchmark-compare.html">benchmark comparator</a> to run your own numbers.</div>
 </main>

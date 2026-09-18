@@ -50,7 +50,7 @@
     <h1>AI Subscription Quotas and Rate Limits: A Verification Guide</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Guide · 10 min read · Reviewed August 10, 2026
+      Guide · 5 min read · Reviewed September 18, 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
@@ -140,6 +140,25 @@ sleep(random.uniform(0, delay))
     </ul>
 
     <div class="verdict"><h2>Bottom Line</h2><p>Trust the current product UI, response headers, official documentation, and account contract—not a static quota table. Diagnose the scope, back off safely, prevent duplicate effects, and plan capacity from measured workloads.</p></div>
+    
+    <h2>Where API use overtakes a subscription</h2>
+    <p>Quota limits make subscriptions look constrained and APIs look unlimited, but the crossover point is a calculable number of requests. Below: a heavy individual pattern of 150 requests a day, each 8K input with 4K cached and 1.5K output. Of the 8,000 input tokens, 4,000 are billed at the cache-read rate and 4,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per request</th>
+        <th>Monthly at 4,500 requests</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>Claude Sonnet 5</td><td>$0.024</td><td>$107</td></tr>
+      <tr><td>GPT-5.6 Terra</td><td>$0.027</td><td>$121</td></tr>
+      <tr><td>GPT-5.6 Sol</td><td>$0.048</td><td>$214</td></tr>
+      </tbody>
+    </table>
+    <p>At this pattern the API lands near or below a typical individual subscription on the mid-tier models, and well below a professional tier. The subscription is still the better deal for most people, but the margin is narrower than the quota differences suggest, and it inverts for light users.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-llm-pricing.html">LLM API Cost Planning: A Practical Pricing Method</a> · <a href="article-prompt-caching.html">Prompt Caching: Design, Economics & Safety</a> · <a href="article-prompt-compression.html">Context Pruning & Prompt Compression (LLMLingua) Guide</a>. Or open the <a href="tool-cost-calculator.html">AI API cost calculator</a> to run your own numbers.</div>
 </main>

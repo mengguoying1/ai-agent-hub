@@ -42,7 +42,7 @@
     <h1>Local DeepSeek-R1 & V3 Deployment with Ollama</h1>
     <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 12 min read · Reviewed September 18, 2026
+      Tutorial · 5 min read · Reviewed September 18, 2026
     </div>
 
     <div class="highlight-box"><p><strong>Model currency:</strong> this guide targets DeepSeek-R1 and V3, which remain widely deployed open-weights models. DeepSeek’s current generation is V4.1, also released with open weights under the MIT license. Check the current model card and repository before sizing hardware or committing to a variant.</p></div>
@@ -148,6 +148,26 @@ ollama --version</code></pre>
       <li><a href="article-vllm-vs-ollama.html">⚖️ vLLM vs Ollama High-Throughput Engine Benchmarks</a></li>
       <li><a href="tool-cost-calculator.html">🧮 API Cost & Token Calculator</a></li>
     </ul>
+    
+    <h2>What the hosted equivalent costs</h2>
+    <p>Running DeepSeek locally is a reasonable choice for privacy and for fixed costs, but it helps to know what the same traffic would cost on the hosted API before deciding. Below: one request at 15K input, 8K cached, 1.5K output, at ten thousand a month. Of the 15,000 input tokens, 8,000 are billed at the cache-read rate and 7,000 at full input rate.</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Model</th>
+        <th>Cost per request</th>
+        <th>Monthly at 10,000 requests</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>DeepSeek V4.1 Flash</td><td>$0.0020</td><td>$19.74</td></tr>
+      <tr><td>GPT-5.6 Luna</td><td>$0.0034</td><td>$33.60</td></tr>
+      <tr><td>DeepSeek V4 Pro</td><td>$0.0078</td><td>$77.66</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>$0.011</td><td>$115</td></tr>
+      </tbody>
+    </table>
+    <p>Note that the two DeepSeek entries differ by roughly fourfold for the same workload: the model choice inside one provider's catalogue matters more than the choice between local and hosted at this volume.</p>
+    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-local-llm-guide.html">Local LLM Deployment: Ollama vs llama.cpp vs vLLM</a> · <a href="article-self-host-deepseek.html">How to Self-Host DeepSeek-R1: A Hardware and Software Guide</a> · <a href="article-vllm-openai-compat.html">vLLM OpenAI-Compatible API Server Deployment Guide</a>. Or open the <a href="tool-token-counter.html">token counter</a> to run your own numbers.</div>
 </main>
