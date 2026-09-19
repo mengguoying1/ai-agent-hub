@@ -6,11 +6,11 @@ from datetime import datetime, timezone
 ROOT = r"D:\Desktop\coding\ai-agent-hub"
 os.chdir(ROOT)
 BASE = "https://www.waiagent.win/"
-TODAY = "2026-09-18"
+TODAY = "2026-09-19"
 
 SECTIONS = [
     ("Model pricing and cost planning", None, [
-        "article-september-2026-pricing-update", "article-llm-pricing",
+        "article-cache-price-war-september-2026", "article-september-2026-pricing-update", "article-llm-pricing",
         "article-prompt-caching", "article-prompt-compression",
         "article-subscription-refresh-guide", "article-moe-explained", "tool-cost-calculator",
     ]),
@@ -21,7 +21,7 @@ SECTIONS = [
         "tool-agent-selector", "tool-agent-builder-lab",
     ]),
     ("Security and trust boundaries", None, [
-        "article-ai-security", "article-function-calling-security", "article-mcp-guide",
+        "article-agent-security-september-2026", "article-ai-security", "article-function-calling-security", "article-mcp-guide",
     ]),
     ("Evaluation and benchmarks", None, [
         "article-agent-evaluation", "article-agentic-testing", "article-swe-bench-deep-dive",
