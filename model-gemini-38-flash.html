@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Gemini 3.8 Flash costs $0.75 input / $3.75 output per 1M tokens, cache reads $0.075, 1M context. Verified September 18, 2026 against Google DeepMind documentation, with worked agent-workload cost examples."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/model-gemini-38-flash.html"><link rel="alternate" type="application/rss+xml" title="AI Agent Hub Guides" href="feed.xml"><link rel="icon" href="favicon.svg"><title>Gemini 3.8 Flash API Pricing: $0.75 / $3.75 per 1M Tokens (Sep 2026)</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png"><link rel="stylesheet" href="css/style.css?v=20260810e"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Gemini 3.8 Flash API Pricing: $0.75 / $3.75 per 1M Tokens","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"datePublished":"2026-09-20","dateModified":"2026-09-20","mainEntityOfPage":"https://www.waiagent.win/model-gemini-38-flash.html"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does Gemini 3.8 Flash cost per million tokens?","acceptedAnswer":{"@type":"Answer","text":"Gemini 3.8 Flash costs $0.75 per 1M input tokens and $3.75 per 1M output tokens, with cached input at $0.075 per 1M. Verified September 18, 2026 against Google DeepMind's official pricing."}},{"@type":"Question","name":"What is the context window of Gemini 3.8 Flash?","acceptedAnswer":{"@type":"Answer","text":"Gemini 3.8 Flash supports a 1M token context window, per Google DeepMind's documentation checked September 18, 2026."}},{"@type":"Question","name":"Does Gemini 3.8 Flash support prompt caching?","acceptedAnswer":{"@type":"Answer","text":"Yes. Cached input tokens bill at $0.075 per 1M instead of the full input rate; cache writes bill at the input rate (per-hour cache storage is excluded)."}},{"@type":"Question","name":"When was this Gemini 3.8 Flash price last checked?","acceptedAnswer":{"@type":"Answer","text":"On September 18, 2026, against Google DeepMind's own pricing page: https://deepmind.google/models/gemini/flash/"}}]}</script></head><body class="article-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="debate.html">Debate</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a> · <a href="editorial-policy.html">Editorial policy</a></li></ul></div></nav>
+<main id="main-content"><div class="meta">Model pricing reference · Verified September 18, 2026</div>
+<h1>Gemini 3.8 Flash API Pricing: $0.75 / $3.75 per 1M Tokens</h1>
+<p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
+<div class="highlight-box"><p><strong>The numbers:</strong> Gemini 3.8 Flash (Google DeepMind) bills <strong>$0.75</strong> per 1M input tokens, <strong>$3.75</strong> per 1M output tokens, and <strong>$0.075</strong> per 1M cached input tokens, inside a 1M context window. On our reference 200-step agent workload that works out to about <strong>$0.97</strong> per task.</p></div>
+<p>Newest Flash model for long-horizon software engineering and autonomous agents; 1M context, 64K output. Every figure on this page was read directly from Google DeepMind&rsquo;s own documentation on September 18, 2026 &mdash; not copied from a third-party comparison table. Rates change; the source link and check date below are part of the data.</p>
+<h2>Verified rates</h2>
+<table><thead><tr><th>Item</th><th>Rate</th><th>Unit</th></tr></thead><tbody>
+<tr><td>Input</td><td>$0.75</td><td>per 1M tokens</td></tr>
+<tr><td>Output</td><td>$3.75</td><td>per 1M tokens</td></tr>
+<tr><td>Cached input (cache read)</td><td>$0.075</td><td>per 1M tokens</td></tr>
+<tr><td>Context window</td><td>1M</td><td>tokens</td></tr>
+</tbody></table>
+<p><strong>Billing notes:</strong> Launched September 2, 2026 on the same introductory rate as Gemini 3.6 and 3.7 Flash. Standard pricing of $1.50 / $7.50 per 1M applies from January 1, 2027. Thinking tokens bill at the output rate.</p>
+<p>Source: <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer">Google DeepMind official pricing &#8599;</a>, checked September 18, 2026.</p>
+<h2>What a real workload costs on Gemini 3.8 Flash</h2>
+<p>List rates are not bills. These two reference workloads translate the table above into money. The assumptions are visible so you can swap in your own trace &mdash; the <a href="tool-cost-calculator.html">cost calculator</a> does exactly that.</p>
+<h3>Scenario A &mdash; one 200-step agent task</h3>
+<p>A coding agent runs 200 steps against a stable 40,000-token prefix (system prompt, tools, repository map). The prefix is written to cache on the first step, re-read on the remaining 199, and each step produces 500 output tokens. For Google DeepMind, cache writes bill at the input rate (per-hour cache storage is excluded).</p>
+<table><thead><tr><th>Component</th><th>Calculation</th><th>Cost</th></tr></thead><tbody>
+<tr><td>Cache write (once)</td><td>billed via hourly cache storage (excluded)</td><td>&mdash;</td></tr>
+<tr><td>Cache reads</td><td>199 &times; 40,000 &times; $0.075 / 1M</td><td>$0.60</td></tr>
+<tr><td>Output</td><td>200 &times; 500 &times; $3.75 / 1M</td><td>$0.38</td></tr>
+<tr><td><strong>Total per task</strong></td><td></td><td><strong>$0.97</strong></td></tr>
+</tbody></table>
+<h3>Scenario B &mdash; one heavy month</h3>
+<p>A production service pushes 50M fresh input tokens, 150M cached input tokens, and 10M output tokens through Gemini 3.8 Flash in a month:</p>
+<table><thead><tr><th>Component</th><th>Volume</th><th>Cost</th></tr></thead><tbody>
+<tr><td>Fresh input</td><td>50M &times; $0.75</td><td>$37.50</td></tr>
+<tr><td>Cached input</td><td>150M &times; $0.075</td><td>$11.25</td></tr>
+<tr><td>Output</td><td>10M &times; $3.75</td><td>$37.50</td></tr>
+<tr><td><strong>Monthly total</strong></td><td></td><td><strong>$86.25</strong></td></tr>
+</tbody></table>
+<h2>Head-to-head cost comparisons</h2>
+<ul>
+<li><a href="compare-gpt-56-luna-vs-gemini-38-flash.html">GPT-5.6 Luna vs Gemini 3.8 Flash</a> &mdash; same workload, $0.29 vs $0.97 (3.4x apart).</li>
+<li><a href="compare-gemini-38-flash-vs-deepseek-v41-flash.html">Gemini 3.8 Flash vs DeepSeek V4.1 Flash</a> &mdash; same workload, $0.97 vs $0.09 (10.8x apart).</li>
+<li><a href="compare-claude-haiku-45-vs-gemini-38-flash.html">Claude Haiku 4.5 vs Gemini 3.8 Flash</a> &mdash; same workload, $1.35 vs $0.97 (1.4x apart).</li>
+</ul>
+<h2>Frequently asked questions</h2>
+<h3>How much does Gemini 3.8 Flash cost per million tokens?</h3>
+<p>Gemini 3.8 Flash costs $0.75 per 1M input tokens and $3.75 per 1M output tokens, with cached input at $0.075 per 1M. Verified September 18, 2026 against Google DeepMind's official pricing.</p>
+<h3>What is the context window of Gemini 3.8 Flash?</h3>
+<p>Gemini 3.8 Flash supports a 1M token context window, per Google DeepMind's documentation checked September 18, 2026.</p>
+<h3>Does Gemini 3.8 Flash support prompt caching?</h3>
+<p>Yes. Cached input tokens bill at $0.075 per 1M instead of the full input rate; cache writes bill at the input rate (per-hour cache storage is excluded).</p>
+<h3>When was this Gemini 3.8 Flash price last checked?</h3>
+<p>On September 18, 2026, against Google DeepMind's own pricing page: https://deepmind.google/models/gemini/flash/</p>
+<h2>Keep digging</h2>
+<div class="related-links"><strong>Related:</strong> <a href="tool-cost-calculator.html">AI API cost calculator</a> · <a href="article-cache-price-war-september-2026.html">The September 2026 cache price war</a> · <a href="model-pricing.html">All verified model pricing</a> · Also from Google DeepMind: <a href="model-gemini-31-pro.html">Gemini 3.1 Pro</a></div>
+<div class="ad-slot" data-ad="article-end"></div>
+</main>
+<footer class="footer"><p>© 2026 AI Agent Hub.</p><div class="policy-links"><a href="about-author.html">Editorial desk</a> · <a href="methodology.html">Methodology</a> · <a href="editorial-policy.html">Editorial policy</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Corrections</a></div></footer><script src="js/ads.js?v=20260918a"></script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "8d2f3ff402aa4df8a8479a2ca8886792"}'></script><!-- End Cloudflare Web Analytics -->
+</body></html>

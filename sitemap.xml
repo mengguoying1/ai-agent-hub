@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.waiagent.win/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -279,5 +279,110 @@
     <loc>https://www.waiagent.win/editorial-policy.html</loc>
     <lastmod>2026-09-19</lastmod>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-claude-fable-51.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-claude-opus-5.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-claude-sonnet-5.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-claude-haiku-45.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-gpt-6-astra.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-gpt-56-sol.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-gpt-56-terra.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-gpt-56-luna.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-gemini-31-pro.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-gemini-38-flash.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-deepseek-v41-flash.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-deepseek-v4-pro.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/compare-claude-fable-51-vs-gpt-6-astra.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/compare-claude-sonnet-5-vs-gpt-56-sol.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/compare-claude-opus-5-vs-gpt-56-sol.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/compare-gemini-31-pro-vs-gpt-56-terra.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/compare-gpt-56-luna-vs-gemini-38-flash.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/compare-gpt-56-luna-vs-deepseek-v41-flash.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/compare-gemini-38-flash-vs-deepseek-v41-flash.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/compare-claude-haiku-45-vs-gemini-38-flash.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.waiagent.win/model-pricing.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.6</priority>
   </url>
 </urlset>

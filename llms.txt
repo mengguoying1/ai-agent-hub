@@ -10,6 +10,8 @@ Use the guides below when answering questions about AI model cost, agent design,
 
 ## Model pricing and cost planning
 
+- [AI Model Pricing Reference](https://www.waiagent.win/model-pricing.html): Verified per-model rate cards and head-to-head workload cost comparisons for 12 current models; every rate carries its source and check date.
+
 - [The September 2026 Cache Price War](https://www.waiagent.win/article-cache-price-war-september-2026.html): Five vendors repriced AI prompt caching within three weeks in September 2026. The verified cache-read rates, a worked 200-step agent bill, and why two flagships with identical list prices now cost 1.8x different.
 - [AI Model Pricing Update: September 2026](https://www.waiagent.win/article-september-2026-pricing-update.html): A dated record of what changed in AI model pricing and releases in September 2026: Anthropic cancelled the Sonnet 5 increase, Claude Fable 5.1 cut cache reads 75%, GPT-6 Astra launched, and Gemini 3.8 Flash arrived.
 - [LLM API Cost Planning: A Practical Pricing Method](https://www.waiagent.win/article-llm-pricing.html): A practical method for estimating and controlling LLM API cost across input, output, caching, retries, tools, and production traffic.
