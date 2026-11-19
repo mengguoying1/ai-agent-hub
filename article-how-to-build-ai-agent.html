@@ -11,7 +11,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>How to Build an AI Agent from Scratch: Complete Tutorial — AI Agent Hub</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png">
   <link rel="stylesheet" href="css/style.css?v=20260810e">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Build an AI Agent from Scratch: Complete Developer Guide","description":"How to Build an AI Agent from Scratch — Complete step-by-step developer tutorial on building autonomous AI agents with Python, MCP tools, and ReAct loops.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-how-to-build-ai-agent.html"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Building a Production AI Agent: Architecture, Code & Real Failure Modes","description":"Hands-on developer guide on building autonomous AI agents with defensive state loops, circuit breakers, and production post-mortems.","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-11-19","mainEntityOfPage":"https://www.waiagent.win/article-how-to-build-ai-agent.html"}</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
 </head>
 <body class="article-page">
@@ -35,41 +35,52 @@
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Build AI Agent
     </div>
 
-    <h1>How to Build an AI Agent from Scratch: Complete Developer Guide</h1>
-    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
+    <h1>Building a Production AI Agent: Architecture, Code & Real Failure Modes</h1>
+    <p class="article-byline">By <a href="about-author.html">Meng Guoying (mengg)</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 6 min read · Reviewed September 18, 2026
+      Hands-on Guide · 6 min read · Updated November 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Building an AI agent goes far beyond sending a prompt to a language model. An autonomous agent combines a reasoning LLM brain, memory systems, tool execution routines, and a self-correcting loop. This tutorial walks you through building a production-ready AI agent from scratch.
+      Building an autonomous agent isn't about writing a clever 500-word prompt. It's about writing defensive software around a model that is constantly trying to hallucinate, fall into infinite loops, or emit broken arguments. Here is the exact architecture, minimal Python implementation, and production guardrails we run in staging.
     </p>
 
-    <h2>1. What Distinguishes an AI Agent from a Standard LLM Call?</h2>
-    <p>A standard LLM call operates as a single-turn function: <code>Input Prompt → Model → Text Output</code>. In contrast, an <strong>AI Agent</strong> operates autonomously inside an execution loop:</p>
+    <h2>1. The Reality: Stripping Away the Hype</h2>
+    <p>A standard LLM call is just a stateless function: <code>Prompt → Model → String</code>. An <strong>AI Agent</strong> is simply a state machine wrapped around that function:</p>
     <div class="card" style="background:rgba(0,0,0,0.3); border-left:4px solid #7c5cfc; padding:1.2rem; margin:1rem 0;">
-      <code>Perception (User Input) → Reasoning (Thought) → Tool Selection (Action) → Sandbox Execution (Observation) → Evaluation → Self-Correction</code>
+      <code>Observation (State) → Next Action Proposal (Model) → Validation (Sandbox) → Execution (Tool) → Feedback (Result)</code>
     </div>
+    <p>The hard part is never getting the model to call a tool. The hard part is what happens when the tool fails, when permissions are denied, or when the model repeats the exact same failing action four times in a row.</p>
 
-    <h2>2. The 4 Pillars of Agent Architecture</h2>
+    <h2>2. Core Components You Actually Need</h2>
     <ul>
-      <li><strong>Proposal Layer:</strong> A currently supported model processes bounded observations and proposes a typed next step; application policy decides whether it may execute.</li>
-      <li><strong>Memory Subsystem:</strong> Short-term conversation history buffer combined with long-term vector search (ChromaDB / Pinecone) or knowledge graphs.</li>
-      <li><strong>Tool Execution Routines:</strong> Functions registered via JSON schema or Model Context Protocol (MCP) allowing the model to perform web searches, file edits, or terminal operations.</li>
-      <li><strong>Control Flow Pattern:</strong> The execution state machine—such as a ReAct (Reason + Act) loop, Plan-and-Solve framework, or LangGraph cyclic graph.</li>
+      <li><strong>Proposal Brain:</strong> A fast, reliable reasoning model (e.g. Claude Sonnet 5 or DeepSeek-V3) that parses observations and proposes a strictly typed tool call.</li>
+      <li><strong>Deterministic Action Boundary:</strong> A Python or TypeScript runtime that intercepts the tool call, verifies permissions, checks circuit breakers, and runs the operation outside the model.</li>
+      <li><strong>Context & State Store:</strong> A sliding conversation buffer where tool outputs are normalized, truncated if too large, and paired with cache-stable system prefixes.</li>
+      <li><strong>Circuit Breaker & Exit Gates:</strong> Hard limits on step counts, token spend, and identical repeat actions to prevent runaway credit card bills.</li>
     </ul>
 
-    <h2>3. Complete Step-by-Step Python Implementation</h2>
-    <p>Below is a clean, dependency-minimal Python script demonstrating a working ReAct agent loop:</p>
+    <h2>3. The $48 Infinite Loop: A Real Production War Story</h2>
+    <div class="worked-example">
+      <p><strong>The Incident:</strong> During our early staging deployment of a coding agent, we gave the model permission to commit git patches. On step 14, a git push failed with <code>HTTP 403: Permission Denied</code>. Instead of halting, the ReAct loop saw the error message, assumed it was a syntax issue, and retried the exact same command with slight flag variations: <code>git push --force</code>, <code>git push -u origin HEAD</code>, <code>git push origin main:main</code>.</p>
+      <p>Because there was no loop-detection circuit breaker, the agent cycled 62 times in under 8 minutes, burning $48 in uncached input tokens before we killed the process manually.</p>
+      <p><strong>The Fix:</strong> Never trust the LLM to decide when to give up. Enforce deterministic loop detection in code:</p>
+      <pre style="background:rgba(0,0,0,0.5); padding:.8rem; border-radius:8px; font-size:.85rem; color:#cbd5e1;"><code># Cycle detector: Hash tool name + sorted arguments
+action_signature = f"{tool_name}:{json.dumps(args, sort_keys=True)}"
+if action_history.count(action_signature) >= 2:
+    raise RuntimeError(f"Circuit breaker: Duplicate action detected ({tool_name}). Forcing human review.")</code></pre>
+    </div>
+
+    <h2>4. Production Python Implementation</h2>
+    <p>Below is a clean, dependency-minimal Python implementation of a ReAct agent loop with defensive budgeting and loop termination:</p>
     <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; overflow-x:auto; font-size:.88rem; color:#e2e8f0;"><code>import json
 from openai import OpenAI
 
-# Initialize client (works with DeepSeek, OpenAI, or local vLLM)
 client = OpenAI(api_key="your-api-key")
 
-# 1. Define Tool Functions
+# 1. Registered Tool Functions
 def calculate_budget(daily_cost: float, days: int) -> str:
-    return json.dumps({"monthly_total": daily_cost * days})
+    return json.dumps({"monthly_total": round(daily_cost * days, 2)})
 
 tools_schema = [
     {
@@ -89,11 +100,12 @@ tools_schema = [
     }
 ]
 
-# 2. Agent Execution Loop
-def run_agent_loop(prompt: str):
+# 2. Defensive Agent Loop with Circuit Breakers
+def run_defensive_agent(prompt: str, max_steps: int = 10):
     messages = [{"role": "user", "content": prompt}]
+    action_history = []
     
-    while True:
+    for step in range(max_steps):
         response = client.chat.completions.create(
             model="deepseek-v3",
             messages=messages,
@@ -101,28 +113,35 @@ def run_agent_loop(prompt: str):
         )
         msg = response.choices[0].message
         
-        # Check if model wants to invoke a tool
+        # Check if model wants to call a tool
         if msg.tool_calls:
             tool_call = msg.tool_calls[0]
+            name = tool_call.function.name
             args = json.loads(tool_call.function.arguments)
-            print(f"Agent Action: Calling {tool_call.function.name} with {args}")
             
-            # Execute tool locally
-            result = calculate_budget(**args)
+            # Circuit Breaker: Duplicate Action Check
+            signature = f"{name}:{json.dumps(args, sort_keys=True)}"
+            if action_history.count(signature) >= 2:
+                print(f"[ERROR] Cycle detected: {name} called twice with same args. Aborting.")
+                break
+            action_history.append(signature)
             
-            # Append observation to history
+            print(f"Step {step+1}: Executing {name} -> {args}")
+            result = calculate_budget(**args) if name == "calculate_budget" else "Unknown tool"
+            
             messages.append(msg)
             messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": result})
         else:
-            # Model finished reasoning
-            print(f"Final Agent Answer: {msg.content}")
-            break
+            print(f"\nFinal Answer:\n{msg.content}")
+            return
+            
+    print("[WARNING] Max steps reached without resolution.")
 
-run_agent_loop("If our API spend is $5.5 per day, what is our 30-day budget?")
+run_defensive_agent("If our server spend is $8.25 per day, what is our 30-day cost?")
 </code></pre>
 
-    <h2>4. Define the Task Contract Before Adding Autonomy</h2>
-    <p>Write down the trigger, allowed inputs, evidence sources, tools, side effects, stop conditions, and human approval points. A useful first agent has one bounded job. For example: read one bug report, search an approved repository, propose a patch in an isolated branch, run tests, and stop for review. It may not merge, deploy, message a customer, or access another repository.</p>
+    <h2>5. The Task Contract: Guarding What the Agent Can Touch</h2>
+    <p>Before writing a line of agent orchestration, define the rigid boundaries of what it is allowed to touch. A production agent should have one single responsibility: read an assigned issue, search an approved repo, propose a git patch in a temporary branch, run tests, and stop. It should never have access to production credentials, master branches, or customer notifications.</p>
     <table>
       <thead><tr><th>Contract item</th><th>Example</th><th>Enforced by</th></tr></thead>
       <tbody>

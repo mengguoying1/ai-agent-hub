@@ -15,7 +15,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Local DeepSeek-R1 Deployment with Ollama — AI Agent Hub</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png">
   <link rel="stylesheet" href="css/style.css?v=20260810e">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Local DeepSeek-R1 \u0026 V3 Deployment with Ollama","description":"Local DeepSeek-R1 \u0026 V3 Deployment with Ollama — Step-by-step guide for running quantized DeepSeek reasoning models on local GPUs and Apple Silicon MacBooks.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-ollama-deepseek-r1.html"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Running DeepSeek Locally with Ollama: Hardware Realities, VRAM Math & Benchmarks","description":"A no-nonsense engineer's guide to deploying DeepSeek reasoning models locally with Ollama on RTX GPUs and Apple Silicon MacBooks.","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-11-19","mainEntityOfPage":"https://www.waiagent.win/article-ollama-deepseek-r1.html"}</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
 </head>
 <body class="article-page">
@@ -39,19 +39,19 @@
       <a href="./">Home</a> &gt; <a href="category-tutorials.html">Tutorials</a> &gt; Ollama DeepSeek-R1
     </div>
 
-    <h1>Local DeepSeek-R1 & V3 Deployment with Ollama</h1>
-    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
+    <h1>Running DeepSeek Locally with Ollama: Hardware Realities, VRAM Math & Benchmarks</h1>
+    <p class="article-byline">By <a href="about-author.html">Meng Guoying (mengg)</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Tutorial · 5 min read · Reviewed September 18, 2026
+      Tutorial · 6 min read · Updated November 2026
     </div>
 
-    <div class="highlight-box"><p><strong>Model currency:</strong> this guide targets DeepSeek-R1 and V3, which remain widely deployed open-weights models. DeepSeek’s current generation is V4.1, also released with open weights under the MIT license. Check the current model card and repository before sizing hardware or committing to a variant.</p></div>
+    <div class="highlight-box"><p><strong>Model currency:</strong> This guide targets DeepSeek-R1 and V3 distillations, which remain widely deployed for local hosting alongside DeepSeek's current V4.1 MIT-licensed models. Test your actual tokens/sec throughput with a full context window before committing hardware.</p></div>
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      DeepSeek-R1 and V3 were widely adopted open-weights reasoning releases and remain common choices for local hosting. Running DeepSeek models locally gives developers complete privacy, zero API rate limits, and zero recurring token costs. This guide covers local deployment using <strong>Ollama</strong> across NVIDIA GPUs and Apple Silicon MacBooks.
+      Running DeepSeek models locally gives developers complete privacy, offline capability, and zero token bills. But hardware reality hits hard: if you blow past your VRAM budget by even 500MB, your generation speed doesn't just slow down—it collapses from 30 tokens/second to 2 tokens/second as layers spill into system RAM. Here is what actually runs cleanly on RTX cards and Apple Silicon.
     </p>
 
-    <h2>1. Selecting the Right DeepSeek-R1 Model Distill Flag</h2>
-    <p>Depending on your hardware VRAM capacity, select the appropriate parameter quantization size:</p>
+    <h2>1. The VRAM Reality Check: Sizing Model Quantizations</h2>
+    <p>Do not trust nominal model parameter sizes alone. You must budget for the <strong>model weights + KV cache at full context</strong>:</p>
 
     <div style="overflow-x:auto; margin:1.5rem 0;">
       <table style="width:100%; border-collapse:collapse; text-align:left; font-size:.9rem;">

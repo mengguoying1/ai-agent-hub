@@ -188,8 +188,8 @@
   };
 
   return {
-    updated: 'September 18, 2026',
-    verifiedAt: '2026-09-18',
+    updated: 'November 2026',
+    verifiedAt: '2026-11-19',
     models,
     agentBenchmarks,
     benchmarkSource,

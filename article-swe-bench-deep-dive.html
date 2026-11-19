@@ -15,7 +15,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Deep Dive into SWE-bench Verified & Terminal-Bench v2 — AI Agent Hub</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png">
   <link rel="stylesheet" href="css/style.css?v=20260810e">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Deep Dive into SWE-bench Verified \u0026 Terminal-Bench v2","description":"Deep Dive into SWE-bench Verified \u0026 Terminal-Bench v2 — Comprehensive guide on evaluating AI coding agents, patch generation, Docker isolation, and CLI tools.","author":{"@type":"Organization","name":"AI Agent Hub Editorial Desk","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-08-10","mainEntityOfPage":"https://www.waiagent.win/article-swe-bench-deep-dive.html"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"SWE-bench Verified & Terminal-Bench v2: A Realistic Benchmark Field Guide","description":"Realistic engineering breakdown of evaluating AI coding agents on SWE-bench Verified and Terminal-Bench, including Docker harness costs and leaderboard pitfalls.","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-11-19","mainEntityOfPage":"https://www.waiagent.win/article-swe-bench-deep-dive.html"}</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
 </head>
 <body class="article-page">
@@ -39,18 +39,18 @@
       <a href="./">Home</a> &gt; <a href="category-benchmarks.html">Benchmarks</a> &gt; SWE-bench Deep Dive
     </div>
 
-    <h1>Deep Dive into SWE-bench Verified & Terminal-Bench v2</h1>
-    <p class="article-byline">By <a href="about-author.html">AI Agent Hub Editorial Desk</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
+    <h1>SWE-bench Verified & Terminal-Bench v2: A Realistic Benchmark Field Guide</h1>
+    <p class="article-byline">By <a href="about-author.html">Meng Guoying (mengg)</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
     <div class="meta" style="color:#7c5cfc; font-size:.8rem; font-weight:700; text-transform:uppercase; margin-bottom:1.5rem;">
-      Benchmarking · 5 min read · Reviewed September 18, 2026
+      Benchmarking · 6 min read · Updated November 2026
     </div>
 
     <p class="lead" style="font-size:1.1rem; color:#d0d0e0; margin-bottom: 2rem;">
-      Single-function coding challenges such as HumanEval or MBPP do not represent the full difficulty of production software work. Coding agents operate on repository-scale, multi-file codebases and use tools over multiple turns. This guide explains <strong>SWE-bench Verified</strong> and <strong>Terminal-Bench</strong> while emphasizing dataset, harness, and contamination limits.
+      If you've ever tried running SWE-bench Verified locally, you already know the engineering friction: 500 Docker containers spinning up, obscure Python 3.8 vs 3.11 conda environment collisions, and watching an agent burn $6.50 in API tokens just to miss an off-by-one error in a SymPy regex parser. Here is an honest, developer-first breakdown of <strong>SWE-bench Verified</strong> and <strong>Terminal-Bench</strong>—what their leaderboard scores actually prove, what they hide, and what reproducing them will cost you.
     </p>
 
-    <h2>1. The Paradigm Shift: Synthetic Snippets vs. Repository Engineering</h2>
-    <p>Early code evaluation benchmarks tested simple algorithmic functions (e.g., reversing a linked list or checking palindrome strings). However, real-world software engineering requires:</p>
+    <h2>1. The Myth of Single-Function Benchmarks</h2>
+    <p>Academic benchmarks like HumanEval or MBPP test isolated 10-line algorithmic snippets. But production coding agents don't write palindrome checkers. They navigate massive, messy repositories:</p>
     <ul>
       <li>Navigating codebase directory trees containing thousands of files.</li>
       <li>Locating relevant class definitions and function call chains across decoupled modules.</li>

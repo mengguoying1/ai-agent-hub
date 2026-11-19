@@ -5,7 +5,7 @@
     <link>https://www.waiagent.win/articles.html</link>
     <description>Reviewed, source-linked guides for AI model selection, agent architecture, security, cost, caching, retrieval, deployment, and the evidence behind current AI policy debates.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 19 Sep 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://www.waiagent.win/feed.xml" rel="self" type="application/rss+xml"/>
     <item><title>The September 2026 Cache Price War</title><link>https://www.waiagent.win/article-cache-price-war-september-2026.html</link><guid isPermaLink="true">https://www.waiagent.win/article-cache-price-war-september-2026.html</guid><pubDate>Sat, 19 Sep 2026 00:00:00 GMT</pubDate><description>Five vendors repriced AI prompt caching within three weeks in September 2026. The verified cache-read rates, a worked 200-step agent bill, and why two flagships with identical list prices now cost 1.8x different.</description></item>
     <item><title>When Agents Attack: September 2026's Security Inflection Points</title><link>https://www.waiagent.win/article-agent-security-september-2026.html</link><guid isPermaLink="true">https://www.waiagent.win/article-agent-security-september-2026.html</guid><pubDate>Sat, 19 Sep 2026 00:00:00 GMT</pubDate><description>Two verified September 2026 incidents define AI agent security: GreyNoise's PaperCut campaign where agents ran a full attack chain, and Google ADK's CVSS 10.0 flaw that bypassed the model entirely. What happened, sourced.</description></item>
