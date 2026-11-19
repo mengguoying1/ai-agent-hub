@@ -14,7 +14,7 @@
 <tr><td>Cached input (cache read)</td><td>$1.00</td><td>per 1M tokens</td></tr>
 <tr><td>Context window</td><td>1.05M</td><td>tokens</td></tr>
 </tbody></table>
-<p><strong>Billing notes:</strong> Released September 3, 2026. First OpenAI model rated Critical for cybersecurity capability under its Preparedness Framework. Prompts over 272K input tokens bill at 2x input and 1.5x output for the whole request. Batch and Flex are half price; Fast mode is double.</p>
+<p><strong>Billing notes:</strong> Rated Critical for cybersecurity capability under OpenAI Preparedness Framework. Prompts over 272K input tokens bill at 2x input and 1.5x output.</p>
 <p>Source: <a href="https://developers.openai.com/api/docs/models/gpt-6-astra" target="_blank" rel="noopener noreferrer">OpenAI official pricing &#8599;</a>, checked November 2026.</p>
 <h2>Translating list rates into real engineering spend</h2>
 <p>List rates per million tokens can be deceiving because autonomous loops hit prompt caches repeatedly. Below are two concrete reference workloads calculating the exact dollar burn for GPT-6 Astra:</p>

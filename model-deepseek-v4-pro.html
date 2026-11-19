@@ -14,7 +14,7 @@
 <tr><td>Cached input (cache read)</td><td>$0.022</td><td>per 1M tokens</td></tr>
 <tr><td>Context window</td><td>1M</td><td>tokens</td></tr>
 </tbody></table>
-<p><strong>Billing notes:</strong> Off-peak rate shown; peak hours are 01:00-04:00 and 06:00-10:00 UTC on weekdays, when input doubles to $1.32 and output to $3.96 per 1M. DeepSeek had planned to withdraw this model on September 14, 2026 and has since extended it.</p>
+<p><strong>Billing notes:</strong> Off-peak rate shown; weekday peak hours double to $1.32 / $3.96 per 1M.</p>
 <p>Source: <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">DeepSeek official pricing &#8599;</a>, checked November 2026.</p>
 <h2>Translating list rates into real engineering spend</h2>
 <p>List rates per million tokens can be deceiving because autonomous loops hit prompt caches repeatedly. Below are two concrete reference workloads calculating the exact dollar burn for DeepSeek V4 Pro:</p>

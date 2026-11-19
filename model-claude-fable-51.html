@@ -14,7 +14,7 @@
 <tr><td>Cached input (cache read)</td><td>$0.25</td><td>per 1M tokens</td></tr>
 <tr><td>Context window</td><td>1M</td><td>tokens</td></tr>
 </tbody></table>
-<p><strong>Billing notes:</strong> Released September 1, 2026. Cache reads fell from $1.00 to $0.25 per 1M versus Fable 5, which Anthropic estimates cuts typical workload cost about 25% and agentic workload cost up to 45%. Batch API halves rates to $5 / $25.</p>
+<p><strong>Billing notes:</strong> Cache reads at $0.25 per 1M (75% discount vs Fable 5). Batch API halves rates to $5 / $25.</p>
 <p>Source: <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Anthropic official pricing &#8599;</a>, checked November 2026.</p>
 <h2>Translating list rates into real engineering spend</h2>
 <p>List rates per million tokens can be deceiving because autonomous loops hit prompt caches repeatedly. Below are two concrete reference workloads calculating the exact dollar burn for Claude Fable 5.1:</p>

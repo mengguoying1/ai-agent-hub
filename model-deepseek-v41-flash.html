@@ -14,7 +14,7 @@
 <tr><td>Cached input (cache read)</td><td>$0.0030</td><td>per 1M tokens</td></tr>
 <tr><td>Context window</td><td>1M</td><td>tokens</td></tr>
 </tbody></table>
-<p><strong>Billing notes:</strong> Off-peak rate shown. Peak hours are 01:00-04:00 and 06:00-10:00 UTC on weekdays, when input doubles to $0.30 and output to $1.20 per 1M. Model name is deepseek-flash; the retired deepseek-v4-flash identifier still resolves here.</p>
+<p><strong>Billing notes:</strong> Off-peak rate shown. Peak hours (01:00-04:00, 06:00-10:00 UTC weekdays) double rates to $0.30 / $1.20.</p>
 <p>Source: <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">DeepSeek official pricing &#8599;</a>, checked November 2026.</p>
 <h2>Translating list rates into real engineering spend</h2>
 <p>List rates per million tokens can be deceiving because autonomous loops hit prompt caches repeatedly. Below are two concrete reference workloads calculating the exact dollar burn for DeepSeek V4.1 Flash:</p>
