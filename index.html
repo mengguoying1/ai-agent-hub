@@ -87,6 +87,33 @@
     <div class="section-label">Verified catalog</div>
     <h2 class="section-title">Current API model comparison — November 2026</h2>
     <p class="section-desc">Prices are USD per one million input/output tokens. Context limits and pricing rechecked in November 2026.</p>
+
+    <div class="editorial-analysis-card" style="background:rgba(124,92,252,0.06);border:1px solid rgba(124,92,252,0.25);border-radius:14px;padding:1.5rem;margin:1.75rem 0 2rem;line-height:1.7;">
+      <h3 style="font-size:1.15rem;margin:0 0 0.75rem;color:#e2e8f0;display:flex;align-items:center;gap:0.5rem;">
+        <span style="color:var(--cyber-purple);">◆</span> 2026 Production LLM Economics: 4 Architectural Rules Before Picking an API
+      </h3>
+      <p style="color:#b8b8ca;margin-bottom:0.75rem;font-size:0.95rem;">
+        API price tags per million tokens rarely represent production bills. In multi-step agentic workflows, unit rates interact with caching mechanics, context tier penalties, and autonomous loop error recovery. Review these four operational realities before committing to a provider:
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:1rem;">
+        <div style="background:rgba(0,0,0,0.25);padding:1rem;border-radius:10px;border-left:3px solid var(--neon-cyan);">
+          <strong style="color:#fff;font-size:0.95rem;">1. Long-Context Tier Surcharges</strong>
+          <p style="color:#a0a0b5;font-size:0.88rem;margin-top:0.35rem;">OpenAI models (e.g. GPT-5.6 Sol, GPT-6 Astra) apply a <strong>2x input and 1.5x output surcharge</strong> once a prompt crosses 272K tokens. Google's Gemini 3.1 Pro maintains flat pricing across its full 1M context. Keep prompts structured to avoid crossing rate cliffs unintentionally.</p>
+        </div>
+        <div style="background:rgba(0,0,0,0.25);padding:1rem;border-radius:10px;border-left:3px solid var(--cyber-purple);">
+          <strong style="color:#fff;font-size:0.95rem;">2. Prompt Caching Dictates Invoices</strong>
+          <p style="color:#a0a0b5;font-size:0.88rem;margin-top:0.35rem;">With Anthropic and DeepSeek cache-read discounts reaching 75% to 90%, system architectures that preserve static prefix ordering (tool schemas + system prompt + static memory) achieve effective input rates under $0.50/1M even on frontier models. Read our <a href="article-prompt-caching.html">Prompt Caching Deep Dive</a>.</p>
+        </div>
+        <div style="background:rgba(0,0,0,0.25);padding:1rem;border-radius:10px;border-left:3px solid #10b981;">
+          <strong style="color:#fff;font-size:0.95rem;">3. Benchmark Pass Rate vs Loop Retries</strong>
+          <p style="color:#a0a0b5;font-size:0.88rem;margin-top:0.35rem;">A cheaper $0.20/1M model that fails test suites and retries 6 times consumes 6x tokens, easily outspending a $2.00/1M model that passes on turn 1. Check the <a href="#leaderboard">SWE-bench Verified Leaderboard</a> below to evaluate coding reliability alongside cost.</p>
+        </div>
+        <div style="background:rgba(0,0,0,0.25);padding:1rem;border-radius:10px;border-left:3px solid #f59e0b;">
+          <strong style="color:#fff;font-size:0.95rem;">4. Batch API vs Real-Time Workloads</strong>
+          <p style="color:#a0a0b5;font-size:0.88rem;margin-top:0.35rem;">All major providers offer 50% discounts for asynchronous batch endpoints with 24-hour turnaround. Routine codebase scanning, regression audits, and synthetic dataset generation should never run on synchronous real-time rates. Test assumptions in our <a href="tool-cost-calculator.html">API Cost Calculator</a>.</p>
+        </div>
+      </div>
+    </div>
     <div class="tab-nav">
       <button class="tab-btn active" type="button" onclick="switchTab('international', event)">International catalog</button>
       <button class="tab-btn" type="button" onclick="switchTab('china', event)">China-based providers</button>
@@ -99,81 +126,81 @@
           <tbody>
 <!-- GENERATED:rows-international -->
             <tr>
-              <td><strong>Claude Fable 5.1</strong><br><small>Anthropic</small></td>
+              <td><a href="model-claude-fable-51.html"><strong>Claude Fable 5.1</strong></a><br><small>Anthropic</small></td>
               <td>1M</td>
               <td>Top-end Claude model for long-horizon autonomous agents; 1M context, 128K max output, adaptive thinking always on</td>
               <td>$10.00 / $50.00<br><small>Cache reads at $0.25 per 1M (75% discount vs Fable 5). Batch API halves rates to $5 / $25.</small></td>
-              <td><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Verified Nov 2026</span></td>
+              <td><a href="model-claude-fable-51.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Verified Nov 2026</span></td>
             </tr>
             <tr>
-              <td><strong>Claude Opus 5</strong><br><small>Anthropic</small></td>
+              <td><a href="model-claude-opus-5.html"><strong>Claude Opus 5</strong></a><br><small>Anthropic</small></td>
               <td>1M</td>
               <td>Complex agentic coding and enterprise work; adaptive thinking and 128K maximum output</td>
               <td>$5.00 / $25.00</td>
-              <td><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Verified Nov 2026</span></td>
+              <td><a href="model-claude-opus-5.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Verified Nov 2026</span></td>
             </tr>
             <tr>
-              <td><strong>Claude Sonnet 5</strong><br><small>Anthropic</small></td>
+              <td><a href="model-claude-sonnet-5.html"><strong>Claude Sonnet 5</strong></a><br><small>Anthropic</small></td>
               <td>1M</td>
               <td>Fast agentic coding with a 1M context window; the default choice for most production work</td>
               <td>$2.00 / $10.00<br><small>$2/$10 is the confirmed permanent standard rate with no scheduled increase.</small></td>
-              <td><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Standard rate</span></td>
+              <td><a href="model-claude-sonnet-5.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Standard rate</span></td>
             </tr>
             <tr>
-              <td><strong>Claude Haiku 4.5</strong><br><small>Anthropic</small></td>
+              <td><a href="model-claude-haiku-45.html"><strong>Claude Haiku 4.5</strong></a><br><small>Anthropic</small></td>
               <td>200K</td>
               <td>Fast current Claude model for high-volume, low-latency triage and classification</td>
               <td>$1.00 / $5.00</td>
-              <td><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-purple">Verified Nov 2026</span></td>
+              <td><a href="model-claude-haiku-45.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Verified Nov 2026</span></td>
             </tr>
             <tr>
-              <td><strong>GPT-6 Astra</strong><br><small>OpenAI</small></td>
+              <td><a href="model-gpt-6-astra.html"><strong>GPT-6 Astra</strong></a><br><small>OpenAI</small></td>
               <td>1.05M</td>
               <td>Current OpenAI flagship for computer use, coding, and multi-step professional work; 128K max output</td>
               <td>$10.00 / $50.00<br><small>Rated Critical for cybersecurity capability under OpenAI Preparedness Framework. Prompts over 272K input tokens bill at 2x input and 1.5x output.</small></td>
-              <td><a href="https://developers.openai.com/api/docs/models/gpt-6-astra" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Flagship tier</span></td>
+              <td><a href="model-gpt-6-astra.html" style="font-weight:600;">Analysis</a> · <a href="https://developers.openai.com/api/docs/models/gpt-6-astra" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Flagship tier</span></td>
             </tr>
             <tr>
-              <td><strong>GPT-5.6 Sol</strong><br><small>OpenAI</small></td>
+              <td><a href="model-gpt-56-sol.html"><strong>GPT-5.6 Sol</strong></a><br><small>OpenAI</small></td>
               <td>1.05M</td>
               <td>Frontier model for complex professional work, coding, research, and tool use</td>
               <td>$4.00 / $20.00<br><small>$4/$20 rate extended through Q1 2027. Prompts over 272K input tokens bill at 2x input and 1.5x output. Cache writes bill at 1.25x.</small></td>
-              <td><a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Standard rate</span></td>
+              <td><a href="model-gpt-56-sol.html" style="font-weight:600;">Analysis</a> · <a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Standard rate</span></td>
             </tr>
             <tr>
-              <td><strong>GPT-5.6 Terra</strong><br><small>OpenAI</small></td>
+              <td><a href="model-gpt-56-terra.html"><strong>GPT-5.6 Terra</strong></a><br><small>OpenAI</small></td>
               <td>1.05M</td>
               <td>Balanced GPT-5.6 tier for strong capability at a lower unit price</td>
               <td>$2.00 / $12.00<br><small>Prompts over 272K input tokens bill at 2x input and 1.5x output. Cache writes bill at 1.25x the uncached input rate.</small></td>
-              <td><a href="https://developers.openai.com/api/docs/models/gpt-5.6-terra" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Verified Nov 2026</span></td>
+              <td><a href="model-gpt-56-terra.html" style="font-weight:600;">Analysis</a> · <a href="https://developers.openai.com/api/docs/models/gpt-5.6-terra" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Verified Nov 2026</span></td>
             </tr>
             <tr>
-              <td><strong>GPT-5.6 Luna</strong><br><small>OpenAI</small></td>
+              <td><a href="model-gpt-56-luna.html"><strong>GPT-5.6 Luna</strong></a><br><small>OpenAI</small></td>
               <td>1.05M</td>
               <td>Lowest-cost GPT-5.6 tier; cheapest current-generation frontier rate published by OpenAI</td>
               <td>$0.20 / $1.20<br><small>Prompts over 272K input tokens bill at 2x input and 1.5x output. Cache writes bill at 1.25x.</small></td>
-              <td><a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-green">Value champion</span></td>
+              <td><a href="model-gpt-56-luna.html" style="font-weight:600;">Analysis</a> · <a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Value champion</span></td>
             </tr>
             <tr>
-              <td><strong>Gemini 3.1 Pro</strong><br><small>Google DeepMind</small></td>
+              <td><a href="model-gemini-31-pro.html"><strong>Gemini 3.1 Pro</strong></a><br><small>Google DeepMind</small></td>
               <td>1M</td>
               <td>Google flagship for reasoning, agentic work, and long context; multimodal input</td>
               <td>$2.00 / $12.00<br><small>Prompts above 200K input tokens bill at $4.00 input and $18.00 output per 1M. Paid tier only.</small></td>
-              <td><a href="https://deepmind.google/models/gemini/pro/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-blue">Verified Nov 2026</span></td>
+              <td><a href="model-gemini-31-pro.html" style="font-weight:600;">Analysis</a> · <a href="https://deepmind.google/models/gemini/pro/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-blue">Verified Nov 2026</span></td>
             </tr>
             <tr>
-              <td><strong>Gemini 3.8 Flash</strong><br><small>Google DeepMind</small></td>
+              <td><a href="model-gemini-38-flash.html"><strong>Gemini 3.8 Flash</strong></a><br><small>Google DeepMind</small></td>
               <td>1M</td>
               <td>Fastest Flash model for long-horizon software engineering and agents; 1M context, 64K output</td>
               <td>$0.75 / $3.75<br><small>Introductory rate $0.75 / $3.75 valid through December 31, 2026. Standard pricing applies from January 1, 2027.</small></td>
-              <td><a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-blue">Promo to Dec 31</span></td>
+              <td><a href="model-gemini-38-flash.html" style="font-weight:600;">Analysis</a> · <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-blue">Promo to Dec 31</span></td>
             </tr>
             <tr>
-              <td><strong>DeepSeek V4.1 Flash</strong><br><small>DeepSeek</small></td>
+              <td><a href="model-deepseek-v41-flash.html"><strong>DeepSeek V4.1 Flash</strong></a><br><small>DeepSeek</small></td>
               <td>1M</td>
               <td>Ultra-low-cost DeepSeek API model with thinking mode, vision, and Responses API support</td>
               <td>$0.15 / $0.60<br><small>Off-peak rate shown. Peak hours (01:00-04:00, 06:00-10:00 UTC weekdays) double rates to $0.30 / $1.20.</small></td>
-              <td><a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
+              <td><a href="model-deepseek-v41-flash.html" style="font-weight:600;">Analysis</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
             </tr>
           <!-- /GENERATED:rows-international -->
           </tbody>
@@ -188,18 +215,18 @@
           <tbody>
 <!-- GENERATED:rows-china -->
             <tr>
-              <td><strong>DeepSeek V4.1 Flash</strong><br><small>DeepSeek</small></td>
+              <td><a href="model-deepseek-v41-flash.html"><strong>DeepSeek V4.1 Flash</strong></a><br><small>DeepSeek</small></td>
               <td>1M</td>
               <td>Ultra-low-cost DeepSeek API model with thinking mode, vision, and Responses API support</td>
               <td>$0.15 / $0.60<br><small>Off-peak rate shown. Peak hours (01:00-04:00, 06:00-10:00 UTC weekdays) double rates to $0.30 / $1.20.</small></td>
-              <td><a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
+              <td><a href="model-deepseek-v41-flash.html" style="font-weight:600;">Analysis</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
             </tr>
             <tr>
-              <td><strong>DeepSeek V4 Pro</strong><br><small>DeepSeek</small></td>
+              <td><a href="model-deepseek-v4-pro.html"><strong>DeepSeek V4 Pro</strong></a><br><small>DeepSeek</small></td>
               <td>1M</td>
               <td>Higher-capability DeepSeek model with deep reasoning and 384K maximum output limit</td>
               <td>$0.66 / $1.98<br><small>Off-peak rate shown; weekday peak hours double to $1.32 / $3.96 per 1M.</small></td>
-              <td><a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Official source</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
+              <td><a href="model-deepseek-v4-pro.html" style="font-weight:600;">Analysis</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
             </tr>
           <!-- /GENERATED:rows-china -->
           </tbody>
@@ -341,7 +368,7 @@
     <div class="pricing-grid">
 <!-- GENERATED:pricing-cards -->
       <div class="pricing-card">
-        <div class="pricing-name">GPT-5.6 Luna</div>
+        <div class="pricing-name"><a href="model-gpt-56-luna.html">GPT-5.6 Luna</a></div>
         <div class="pricing-provider">OpenAI API</div>
         <div class="pricing-price">$0.20 / $1.20 <span>/ 1M tokens (input/output)</span></div>
         <div class="pricing-detail">Lowest published unit price in current frontier class</div>
@@ -351,10 +378,13 @@
           <li>Ideal for automated linting &amp; background PR reviews</li>
           <li>Official API model page linked below</li>
         </ul>
-        <a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline">Official model page ↗</a>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">
+          <a href="model-gpt-56-luna.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
+          <a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official model page ↗</a>
+        </div>
       </div>
       <div class="pricing-card featured">
-        <div class="pricing-name">Claude Sonnet 5</div>
+        <div class="pricing-name"><a href="model-claude-sonnet-5.html">Claude Sonnet 5</a></div>
         <div class="pricing-provider">Anthropic API</div>
         <div class="pricing-price">$2.00 / $10.00 <span>/ 1M tokens (input/output)</span></div>
         <div class="pricing-detail">$2 / $10 confirmed standard production rate</div>
@@ -364,10 +394,13 @@
           <li>128K maximum output buffer</li>
           <li>63.2% SWE-bench Verified score</li>
         </ul>
-        <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-primary">Official pricing ↗</a>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">
+          <a href="model-claude-sonnet-5.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
+          <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-primary" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official pricing ↗</a>
+        </div>
       </div>
       <div class="pricing-card">
-        <div class="pricing-name">DeepSeek V4.1 Flash</div>
+        <div class="pricing-name"><a href="model-deepseek-v41-flash.html">DeepSeek V4.1 Flash</a></div>
         <div class="pricing-provider">DeepSeek API</div>
         <div class="pricing-price">$0.15 / $0.60 <span>/ 1M tokens (input/output)</span></div>
         <div class="pricing-detail">Sub-dollar economics with $0.003 cache read rate</div>
@@ -377,10 +410,13 @@
           <li>OpenAI SDK drop-in compatibility</li>
           <li>57.3% SWE-bench Verified coding rate</li>
         </ul>
-        <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline">Official API docs ↗</a>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">
+          <a href="model-deepseek-v41-flash.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
+          <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official API docs ↗</a>
+        </div>
       </div>
       <div class="pricing-card">
-        <div class="pricing-name">Gemini 3.8 Flash</div>
+        <div class="pricing-name"><a href="model-gemini-38-flash.html">Gemini 3.8 Flash</a></div>
         <div class="pricing-provider">Google AI / Vertex AI</div>
         <div class="pricing-price">$0.75 / $3.75 <span>/ 1M tokens (input/output)</span></div>
         <div class="pricing-detail">High-speed 1M context agent engine</div>
@@ -390,7 +426,10 @@
           <li>Introductory $0.75 / $3.75 through Dec 31</li>
           <li>Hourly cache billing model</li>
         </ul>
-        <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline">Official model page ↗</a>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">
+          <a href="model-gemini-38-flash.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
+          <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official model page ↗</a>
+        </div>
       </div>
           <!-- /GENERATED:pricing-cards -->
     </div>

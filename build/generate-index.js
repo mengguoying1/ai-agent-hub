@@ -16,13 +16,14 @@ function standardRow(model, tab) {
   const strengths = (model.tabStrengths && model.tabStrengths[tab]) || model.strengths;
   const status = (model.tabStatus && model.tabStatus[tab]) || model.status;
   const note = model.priceNote ? '<br><small>' + escapeHtml(model.priceNote) + '</small>' : '';
+  const modelPage = 'model-' + model.id + '.html';
   return [
     '            <tr>',
-    '              <td><strong>' + escapeHtml(model.name) + '</strong><br><small>' + escapeHtml(model.company) + '</small></td>',
+    '              <td><a href="' + modelPage + '"><strong>' + escapeHtml(model.name) + '</strong></a><br><small>' + escapeHtml(model.company) + '</small></td>',
     '              <td>' + escapeHtml(u.fmtContext(model)) + '</td>',
     '              <td>' + escapeHtml(strengths) + '</td>',
     '              <td>' + escapeHtml(u.fmtPricePair(model)) + note + '</td>',
-    '              <td><a href="' + escapeHtml(model.sourceUrl) + '" target="_blank" rel="noopener noreferrer">Official source</a><br>' + u.badge(status) + '</td>',
+    '              <td><a href="' + modelPage + '" style="font-weight:600;">Analysis</a> · <a href="' + escapeHtml(model.sourceUrl) + '" target="_blank" rel="noopener noreferrer">Source ↗</a><br>' + u.badge(status) + '</td>',
     '            </tr>'
   ].join('\n');
 }
@@ -31,9 +32,10 @@ function pricingCard(card) {
   const model = u.byId(card.modelId);
   if (!model) throw new Error('Unknown pricing model: ' + card.modelId);
   const classes = card.featured ? 'pricing-card featured' : 'pricing-card';
+  const modelPage = 'model-' + model.id + '.html';
   const lines = [
     '      <div class="' + classes + '">',
-    '        <div class="pricing-name">' + escapeHtml(model.name) + '</div>',
+    '        <div class="pricing-name"><a href="' + modelPage + '">' + escapeHtml(model.name) + '</a></div>',
     '        <div class="pricing-provider">' + escapeHtml(card.provider) + '</div>',
     '        <div class="pricing-price">' + escapeHtml(u.fmtPricePair(model)) + ' <span>/ 1M tokens (input/output)</span></div>',
     '        <div class="pricing-detail">' + escapeHtml(card.detail) + '</div>',
@@ -42,7 +44,10 @@ function pricingCard(card) {
   card.features.forEach(feature => lines.push('          <li>' + escapeHtml(feature) + '</li>'));
   lines.push(
     '        </ul>',
-    '        <a href="' + escapeHtml(card.cta.href) + '" target="_blank" rel="noopener noreferrer" class="pricing-cta ' + escapeHtml(card.cta.cls) + '">' + escapeHtml(card.cta.text) + ' ↗</a>',
+    '        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">',
+    '          <a href="' + modelPage + '" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>',
+    '          <a href="' + escapeHtml(card.cta.href) + '" target="_blank" rel="noopener noreferrer" class="pricing-cta ' + escapeHtml(card.cta.cls) + '" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">' + escapeHtml(card.cta.text) + ' ↗</a>',
+    '        </div>',
     '      </div>'
   );
   return lines.join('\n');
