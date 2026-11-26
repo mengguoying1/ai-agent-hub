@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Gemini 4 Hydrogen costs $1.50 input / $7.50 output per 1M tokens, cache reads $0.075, 1M context. Verified November 2026 with engineering notes and real agent cost analysis."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.waiagent.win/model-gemini-4-hydrogen.html"><link rel="alternate" type="application/rss+xml" title="AI Agent Hub Guides" href="feed.xml"><link rel="icon" href="favicon.svg"><title>Gemini 4 Hydrogen API Pricing &amp; Real Workload Costs (November 2026)</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png"><link rel="stylesheet" href="css/style.css?v=20260810e"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Gemini 4 Hydrogen API Pricing & Real Workload Costs","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"datePublished":"2026-11-26","dateModified":"2026-11-26","mainEntityOfPage":"https://www.waiagent.win/model-gemini-4-hydrogen.html"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does Gemini 4 Hydrogen cost per million tokens?","acceptedAnswer":{"@type":"Answer","text":"Gemini 4 Hydrogen costs $1.50 per 1M input tokens and $7.50 per 1M output tokens, with cached input at $0.075 per 1M. Verified November 2026 against Google DeepMind's official pricing."}},{"@type":"Question","name":"What is the context window of Gemini 4 Hydrogen?","acceptedAnswer":{"@type":"Answer","text":"Gemini 4 Hydrogen supports a 1M token context window, per Google DeepMind's documentation checked November 2026."}},{"@type":"Question","name":"Does Gemini 4 Hydrogen support prompt caching?","acceptedAnswer":{"@type":"Answer","text":"Yes. Cached input tokens bill at $0.075 per 1M instead of the full input rate; cache writes bill at the input rate (per-hour cache storage is excluded)."}},{"@type":"Question","name":"When was this Gemini 4 Hydrogen price last checked?","acceptedAnswer":{"@type":"Answer","text":"In November 2026, against Google DeepMind's own pricing page: https://ai.google.dev/gemini-api/docs/pricing"}}]}</script></head><body class="article-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="debate.html">Debate</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a> · <a href="editorial-policy.html">Editorial policy</a></li><li><a href="about-author.html">Author</a></li></ul></div></nav>
+<main id="main-content"><div class="meta">Model pricing reference · Verified November 2026</div>
+<h1>Gemini 4 Hydrogen API Pricing & Workload Cost Analysis</h1>
+<p class="article-byline">By <a href="about-author.html">Meng Guoying (mengg)</a> · <a href="methodology.html">Review method</a> · <a href="contact.html">Corrections</a></p>
+<div class="highlight-box"><p><strong>The verified numbers:</strong> Gemini 4 Hydrogen (Google DeepMind) bills <strong>$1.50</strong> per 1M input tokens, <strong>$7.50</strong> per 1M output tokens, and <strong>$0.075</strong> per 1M cached input tokens, inside a 1M context window. On a reference 200-step agent loop, that totals roughly <strong>$1.35</strong> per task.</p></div>
+<h2>Engineering perspective & production reality</h2>
+<p>Gemini 4 Hydrogen ($1.50/$7.50, $0.075 cache read) is Google's speed-first Gemini 4 workhorse available on both Free and Paid tiers, featuring a 1M context window and adjustable thinking budgets.</p>
+<h2>Verified rate card</h2>
+<table><thead><tr><th>Item</th><th>Rate</th><th>Unit</th></tr></thead><tbody>
+<tr><td>Input</td><td>$1.50</td><td>per 1M tokens</td></tr>
+<tr><td>Output</td><td>$7.50</td><td>per 1M tokens</td></tr>
+<tr><td>Cached input (cache read)</td><td>$0.075</td><td>per 1M tokens</td></tr>
+<tr><td>Context window</td><td>1M</td><td>tokens</td></tr>
+</tbody></table>
+<p><strong>Billing notes:</strong> Available on both Free and Paid Gemini API tiers with uniform 1M context window.</p>
+<p>Source: <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer">Google DeepMind official pricing &#8599;</a>, checked November 2026.</p>
+<h2>Translating list rates into real engineering spend</h2>
+<p>List rates per million tokens can be deceiving because autonomous loops hit prompt caches repeatedly. Below are two concrete reference workloads calculating the exact dollar burn for Gemini 4 Hydrogen:</p>
+<h3>Scenario A &mdash; One 200-step autonomous agent task</h3>
+<p>A coding agent operates over 200 steps with a fixed 40,000-token prefix (system instructions, tool declarations, repository map). The prefix is cached on step 1 and re-read on the remaining 199 steps, producing 500 output tokens per step. For Google DeepMind, cache writes bill at the input rate (per-hour cache storage is excluded).</p>
+<table><thead><tr><th>Component</th><th>Calculation</th><th>Cost</th></tr></thead><tbody>
+<tr><td>Cache write (once)</td><td>billed via hourly cache storage (excluded)</td><td>&mdash;</td></tr>
+<tr><td>Cache reads</td><td>199 &times; 40,000 &times; $0.075 / 1M</td><td>$0.60</td></tr>
+<tr><td>Output</td><td>200 &times; 500 &times; $7.50 / 1M</td><td>$0.75</td></tr>
+<tr><td><strong>Total per task</strong></td><td></td><td><strong>$1.35</strong></td></tr>
+</tbody></table>
+<h3>Scenario B &mdash; Monthly production volume</h3>
+<p>A team runs a production service processing 50M fresh input tokens, 150M cached input tokens, and 10M output tokens through Gemini 4 Hydrogen per month:</p>
+<table><thead><tr><th>Component</th><th>Volume</th><th>Cost</th></tr></thead><tbody>
+<tr><td>Fresh input</td><td>50M &times; $1.50</td><td>$75.00</td></tr>
+<tr><td>Cached input</td><td>150M &times; $0.075</td><td>$11.25</td></tr>
+<tr><td>Output</td><td>10M &times; $7.50</td><td>$75.00</td></tr>
+<tr><td><strong>Monthly total</strong></td><td></td><td><strong>$161.25</strong></td></tr>
+</tbody></table>
+<h2>Head-to-head comparisons</h2>
+<ul>
+<li><a href="compare-gemini-4-hydrogen-vs-gpt-61-terra.html">Gemini 4 Hydrogen vs GPT-6.1 Terra</a> &mdash; same workload, $1.35 vs $0.95 (1.4x apart).</li>
+</ul>
+<h2>Frequently asked questions</h2>
+<h3>How much does Gemini 4 Hydrogen cost per million tokens?</h3>
+<p>Gemini 4 Hydrogen costs $1.50 per 1M input tokens and $7.50 per 1M output tokens, with cached input at $0.075 per 1M. Verified November 2026 against Google DeepMind's official pricing.</p>
+<h3>What is the context window of Gemini 4 Hydrogen?</h3>
+<p>Gemini 4 Hydrogen supports a 1M token context window, per Google DeepMind's documentation checked November 2026.</p>
+<h3>Does Gemini 4 Hydrogen support prompt caching?</h3>
+<p>Yes. Cached input tokens bill at $0.075 per 1M instead of the full input rate; cache writes bill at the input rate (per-hour cache storage is excluded).</p>
+<h3>When was this Gemini 4 Hydrogen price last checked?</h3>
+<p>In November 2026, against Google DeepMind's own pricing page: https://ai.google.dev/gemini-api/docs/pricing</p>
+<h2>Keep digging</h2>
+<div class="related-links"><strong>Related:</strong> <a href="tool-cost-calculator.html">AI API cost calculator</a> · <a href="article-cache-price-war-september-2026.html">The September 2026 cache price war</a> · <a href="model-pricing.html">All verified model pricing</a> · Also from Google DeepMind: <a href="model-gemini-4-carbon.html">Gemini 4 Carbon</a>, <a href="model-gemini-4-neon.html">Gemini 4 Neon</a>, <a href="model-gemini-38-flash.html">Gemini 3.8 Flash</a></div>
+<div class="ad-slot" data-ad="article-end"></div>
+</main>
+<footer class="footer"><p>© 2026 AI Agent Hub. Maintained by Meng Guoying. Independent, source-linked analysis.</p><div class="policy-links"><a href="about.html">About</a> · <a href="about-author.html">Author & Maintainer</a> · <a href="methodology.html">Methodology</a> · <a href="editorial-policy.html">Editorial policy</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="contact.html">Contact</a></div></footer><script src="js/ads.js?v=20260918a"></script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "8d2f3ff402aa4df8a8479a2ca8886792"}'></script><!-- End Cloudflare Web Analytics -->
+</body></html>

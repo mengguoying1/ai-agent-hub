@@ -98,7 +98,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:1rem;">
         <div style="background:rgba(0,0,0,0.25);padding:1rem;border-radius:10px;border-left:3px solid var(--neon-cyan);">
           <strong style="color:#fff;font-size:0.95rem;">1. Long-Context Tier Surcharges</strong>
-          <p style="color:#a0a0b5;font-size:0.88rem;margin-top:0.35rem;">OpenAI models (e.g. GPT-5.6 Sol, GPT-6 Astra) apply a <strong>2x input and 1.5x output surcharge</strong> once a prompt crosses 272K tokens, and Gemini 3.1 Pro doubles above 200K ($4/$18). Gemini 3.8 Flash and DeepSeek V4 keep flat tiering up to 1M.</p>
+          <p style="color:#a0a0b5;font-size:0.88rem;margin-top:0.35rem;">OpenAI models (e.g. GPT-6.2 Astra, GPT-6.2 Sol) apply long-context scaling above 272K tokens, and Gemini 3.1 Pro doubles above 200K ($4/$18). Gemini 4 Carbon/Hydrogen and DeepSeek V4 keep uniform 1M context tiering.</p>
         </div>
         <div style="background:rgba(0,0,0,0.25);padding:1rem;border-radius:10px;border-left:3px solid var(--cyber-purple);">
           <strong style="color:#fff;font-size:0.95rem;">2. Prompt Caching Dictates Invoices</strong>
@@ -126,74 +126,88 @@
           <tbody>
 <!-- GENERATED:rows-international -->
             <tr>
-              <td><a href="model-claude-fable-51.html"><strong>Claude Fable 5.1</strong></a><br><small>Anthropic</small></td>
+              <td><a href="model-claude-fable-52.html"><strong>Claude Fable 5.2</strong></a><br><small>Anthropic</small></td>
               <td>1M</td>
-              <td>Top-end Claude model for long-horizon autonomous agents; 1M context, 128K max output, adaptive thinking always on</td>
-              <td>$10.00 / $50.00<br><small>Cache reads at $0.25 per 1M (75% discount vs Fable 5). Batch API halves rates to $5 / $25.</small></td>
-              <td><a href="model-claude-fable-51.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Verified Nov 2026</span></td>
+              <td>Latest Anthropic flagship for multi-step reasoning, agentic orchestration, and 128K output; 20% cheaper than Fable 5.1</td>
+              <td>$8.00 / $40.00<br><small>Cache reads at $0.40 per 1M (95% discount). Batch API halves rates to $4 / $20.</small></td>
+              <td><a href="model-claude-fable-52.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">New Nov 2026</span></td>
             </tr>
             <tr>
-              <td><a href="model-claude-opus-5.html"><strong>Claude Opus 5</strong></a><br><small>Anthropic</small></td>
+              <td><a href="model-claude-opus-55.html"><strong>Claude Opus 5.5</strong></a><br><small>Anthropic</small></td>
               <td>1M</td>
-              <td>Complex agentic coding and enterprise work; adaptive thinking and 128K maximum output</td>
-              <td>$5.00 / $25.00</td>
-              <td><a href="model-claude-opus-5.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Verified Nov 2026</span></td>
+              <td>Long-running agentic coding and computer-use workflows; adaptive thinking always on, faster and 20% cheaper than Opus 5</td>
+              <td>$4.00 / $20.00<br><small>Cache reads at $0.20 per 1M. Batch API halves rates to $2 / $10.</small></td>
+              <td><a href="model-claude-opus-55.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">New Nov 2026</span></td>
             </tr>
             <tr>
-              <td><a href="model-claude-sonnet-5.html"><strong>Claude Sonnet 5</strong></a><br><small>Anthropic</small></td>
+              <td><a href="model-claude-sonnet-55.html"><strong>Claude Sonnet 5.5</strong></a><br><small>Anthropic</small></td>
               <td>1M</td>
-              <td>Fast agentic coding with a 1M context window; the default choice for most production work</td>
-              <td>$2.00 / $10.00<br><small>$2/$10 is the confirmed permanent standard rate with no scheduled increase.</small></td>
-              <td><a href="model-claude-sonnet-5.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Standard rate</span></td>
+              <td>Upgraded default production workhorse balancing speed, 1M context, and coding intelligence</td>
+              <td>$2.00 / $10.00<br><small>$2/$10 confirmed standard rate. Prompt caching cuts repeated input by up to 95%.</small></td>
+              <td><a href="model-claude-sonnet-55.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Standard rate</span></td>
             </tr>
             <tr>
-              <td><a href="model-claude-haiku-45.html"><strong>Claude Haiku 4.5</strong></a><br><small>Anthropic</small></td>
-              <td>200K</td>
-              <td>Fast current Claude model for high-volume, low-latency triage and classification</td>
-              <td>$1.00 / $5.00</td>
-              <td><a href="model-claude-haiku-45.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Verified Nov 2026</span></td>
-            </tr>
-            <tr>
-              <td><a href="model-gpt-6-astra.html"><strong>GPT-6 Astra</strong></a><br><small>OpenAI</small></td>
-              <td>1.05M</td>
-              <td>Current OpenAI flagship for computer use, coding, and multi-step professional work; 128K max output</td>
-              <td>$10.00 / $50.00<br><small>Rated Critical for cybersecurity capability under OpenAI Preparedness Framework. Prompts over 272K input tokens bill at 2x input and 1.5x output.</small></td>
-              <td><a href="model-gpt-6-astra.html" style="font-weight:600;">Analysis</a> · <a href="https://developers.openai.com/api/docs/models/gpt-6-astra" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Flagship tier</span></td>
-            </tr>
-            <tr>
-              <td><a href="model-gpt-56-sol.html"><strong>GPT-5.6 Sol</strong></a><br><small>OpenAI</small></td>
-              <td>1.05M</td>
-              <td>Frontier model for complex professional work, coding, research, and tool use</td>
-              <td>$4.00 / $20.00<br><small>$4/$20 rate extended through Q1 2027. Prompts over 272K input tokens bill at 2x input and 1.5x output. Cache writes bill at 1.25x.</small></td>
-              <td><a href="model-gpt-56-sol.html" style="font-weight:600;">Analysis</a> · <a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Standard rate</span></td>
-            </tr>
-            <tr>
-              <td><a href="model-gpt-56-terra.html"><strong>GPT-5.6 Terra</strong></a><br><small>OpenAI</small></td>
-              <td>1.05M</td>
-              <td>Balanced GPT-5.6 tier for strong capability at a lower unit price</td>
-              <td>$2.00 / $12.00<br><small>Prompts over 272K input tokens bill at 2x input and 1.5x output. Cache writes bill at 1.25x the uncached input rate.</small></td>
-              <td><a href="model-gpt-56-terra.html" style="font-weight:600;">Analysis</a> · <a href="https://developers.openai.com/api/docs/models/gpt-5.6-terra" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Verified Nov 2026</span></td>
-            </tr>
-            <tr>
-              <td><a href="model-gpt-56-luna.html"><strong>GPT-5.6 Luna</strong></a><br><small>OpenAI</small></td>
-              <td>1.05M</td>
-              <td>Lowest-cost GPT-5.6 tier; cheapest current-generation frontier rate published by OpenAI</td>
-              <td>$0.20 / $1.20<br><small>Prompts over 272K input tokens bill at 2x input and 1.5x output. Cache writes bill at 1.25x.</small></td>
-              <td><a href="model-gpt-56-luna.html" style="font-weight:600;">Analysis</a> · <a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Value champion</span></td>
-            </tr>
-            <tr>
-              <td><a href="model-gemini-31-pro.html"><strong>Gemini 3.1 Pro</strong></a><br><small>Google DeepMind</small></td>
+              <td><a href="model-claude-haiku-55.html"><strong>Claude Haiku 5.5</strong></a><br><small>Anthropic</small></td>
               <td>1M</td>
-              <td>Google flagship for reasoning, agentic work, and long context; multimodal input</td>
-              <td>$2.00 / $12.00<br><small>Prompts above 200K input tokens bill at $4.00 input and $18.00 output per 1M. Paid tier only.</small></td>
-              <td><a href="model-gemini-31-pro.html" style="font-weight:600;">Analysis</a> · <a href="https://deepmind.google/models/gemini/pro/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-blue">Verified Nov 2026</span></td>
+              <td>Ultra-fast, high-volume triage, routing, and real-time classification; 90% price drop vs Haiku 4.5</td>
+              <td>$0.10 / $0.50<br><small>$0.10 / $0.50 for prompts ≤ 100K tokens; prompts &gt; 100K bill at $0.50 / $2.50 per 1M.</small></td>
+              <td><a href="model-claude-haiku-55.html" style="font-weight:600;">Analysis</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-purple">Value leader</span></td>
+            </tr>
+            <tr>
+              <td><a href="model-gpt-62-astra.html"><strong>GPT-6.2 Astra</strong></a><br><small>OpenAI</small></td>
+              <td>1.05M</td>
+              <td>Latest OpenAI flagship for computer use, multi-file coding, and Responses API background mode; 20% cheaper than GPT-6 Astra</td>
+              <td>$8.00 / $40.00<br><small>Prompts over 272K input tokens trigger long-context scaling. Batch API cuts rates 50% to $4 / $20.</small></td>
+              <td><a href="model-gpt-62-astra.html" style="font-weight:600;">Analysis</a> · <a href="https://openai.com/api/pricing/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Flagship tier</span></td>
+            </tr>
+            <tr>
+              <td><a href="model-gpt-62-sol.html"><strong>GPT-6.2 Sol</strong></a><br><small>OpenAI</small></td>
+              <td>1.05M</td>
+              <td>Cost-efficient mid-tier frontier model for coding, tool calling, and agentic workflows (halved from GPT-5.6 Sol $4/$20)</td>
+              <td>$2.00 / $10.00<br><small>Cache reads at $0.10 per 1M. Background mode offers 30%-40% completion-window discounts.</small></td>
+              <td><a href="model-gpt-62-sol.html" style="font-weight:600;">Analysis</a> · <a href="https://openai.com/api/pricing/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">New Nov 2026</span></td>
+            </tr>
+            <tr>
+              <td><a href="model-gpt-61-terra.html"><strong>GPT-6.1 Terra</strong></a><br><small>OpenAI</small></td>
+              <td>1.05M</td>
+              <td>Balanced GPT-6.1 tier for visual reasoning and structured workflows at half the price of GPT-5.6 Terra</td>
+              <td>$1.00 / $5.00<br><small>Prompts over 272K input tokens incur long-context multiplier. Batch API bills $0.50 / $2.50.</small></td>
+              <td><a href="model-gpt-61-terra.html" style="font-weight:600;">Analysis</a> · <a href="https://openai.com/api/pricing/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Verified Nov 2026</span></td>
+            </tr>
+            <tr>
+              <td><a href="model-gpt-6-luna.html"><strong>GPT-6 Luna</strong></a><br><small>OpenAI</small></td>
+              <td>1.05M</td>
+              <td>Lowest-cost GPT-6 tier for high-volume linting, classification, and background PR automation (50% cheaper than 5.6 Luna)</td>
+              <td>$0.10 / $0.50<br><small>Cache reads at $0.01 per 1M. Batch API cuts rates to $0.05 / $0.25.</small></td>
+              <td><a href="model-gpt-6-luna.html" style="font-weight:600;">Analysis</a> · <a href="https://openai.com/api/pricing/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-green">Value champion</span></td>
+            </tr>
+            <tr>
+              <td><a href="model-gemini-4-carbon.html"><strong>Gemini 4 Carbon</strong></a><br><small>Google DeepMind</small></td>
+              <td>1M</td>
+              <td>Google Gemini 4 flagship heavy-reasoning model for deep coding, debugging, and open-ended research</td>
+              <td>$2.00 / $10.00<br><small>Introductory $2.00 / $10.00 valid through November 30, 2026; standard rate $4.00 / $20.00 takes effect December 1, 2026.</small></td>
+              <td><a href="model-gemini-4-carbon.html" style="font-weight:600;">Analysis</a> · <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-blue">Intro to Nov 30</span></td>
+            </tr>
+            <tr>
+              <td><a href="model-gemini-4-neon.html"><strong>Gemini 4 Neon</strong></a><br><small>Google DeepMind</small></td>
+              <td>1M</td>
+              <td>Mid-tier Gemini 4 reasoning model bridging Hydrogen and Carbon for fast software engineering and scientific workflows</td>
+              <td>$3.00 / $15.00<br><small>Paid tier on Google AI Studio and Vertex AI. Context caching cuts input reads to $0.15 / 1M.</small></td>
+              <td><a href="model-gemini-4-neon.html" style="font-weight:600;">Analysis</a> · <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-blue">New Nov 2026</span></td>
+            </tr>
+            <tr>
+              <td><a href="model-gemini-4-hydrogen.html"><strong>Gemini 4 Hydrogen</strong></a><br><small>Google DeepMind</small></td>
+              <td>1M</td>
+              <td>Speed-first Gemini 4 workhorse for high-throughput agentic execution, multimodal input, and adjustable thinking</td>
+              <td>$1.50 / $7.50<br><small>Available on both Free and Paid Gemini API tiers with uniform 1M context window.</small></td>
+              <td><a href="model-gemini-4-hydrogen.html" style="font-weight:600;">Analysis</a> · <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-blue">New Nov 2026</span></td>
             </tr>
             <tr>
               <td><a href="model-gemini-38-flash.html"><strong>Gemini 3.8 Flash</strong></a><br><small>Google DeepMind</small></td>
               <td>1M</td>
-              <td>Fastest Flash model for long-horizon software engineering and agents; 1M context, 64K output</td>
-              <td>$0.75 / $3.75<br><small>Introductory rate $0.75 / $3.75 valid through December 31, 2026. Standard pricing applies from January 1, 2027.</small></td>
-              <td><a href="model-gemini-38-flash.html" style="font-weight:600;">Analysis</a> · <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-blue">Promo to Dec 31</span></td>
+              <td>Fast Flash workhorse for long-horizon software engineering and agents; 1M context, 64K output</td>
+              <td>$0.75 / $3.75<br><small>Introductory rate $0.75 / $3.75 valid through December 31, 2026; standard $1.50 / $7.50 applies from January 1, 2027.</small></td>
+              <td><a href="model-gemini-38-flash.html" style="font-weight:600;">Analysis</a> · <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-blue">Promo to Dec 31</span></td>
             </tr>
           <!-- /GENERATED:rows-international -->
           </tbody>
@@ -210,7 +224,7 @@
             <tr>
               <td><a href="model-deepseek-v41-flash.html"><strong>DeepSeek V4.1 Flash</strong></a><br><small>DeepSeek</small></td>
               <td>1M</td>
-              <td>Ultra-low-cost DeepSeek API model with thinking mode, vision, and Responses API support</td>
+              <td>Ultra-low-cost DeepSeek API model with thinking mode, 384K output, vision, and Responses API support</td>
               <td>$0.15 / $0.60<br><small>Off-peak rate shown. Peak hours (01:00-04:00, 06:00-10:00 UTC weekdays) double rates to $0.30 / $1.20.</small></td>
               <td><a href="model-deepseek-v41-flash.html" style="font-weight:600;">Analysis</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
             </tr>
@@ -232,8 +246,8 @@
         <span style="font-size:0.82rem;color:#94a3b8;">Maintained by <a href="about-author.html">Meng Guoying</a> · Last audited Nov 26, 2026</span>
       </div>
       <ul style="margin:0;padding-left:1.2rem;color:#cbd5e1;font-size:0.9rem;line-height:1.7;">
-        <li><strong>2026-11-26:</strong> Removed expired Nov 21 promo flags; deduplicated DeepSeek V4.1 Flash into the China-based providers catalog; added 12-model Value Index efficiency chart below.</li>
-        <li><strong>2026-11-19:</strong> Verified <a href="model-claude-sonnet-5.html">Claude Sonnet 5</a> permanent $2.00 / $10.00 standard rate and <a href="model-gpt-56-sol.html">GPT-5.6 Sol</a> $4.00 / $20.00 extension through Q1 2027.</li>
+        <li><strong>2026-11-26:</strong> Major late-Nov catalog refresh: added <strong>Gemini 4</strong> family (Carbon, Neon, Hydrogen), upgraded Anthropic to <strong>Claude 5.2 / 5.5</strong> (Haiku 5.5 cut 90% to $0.10/$0.50), and updated OpenAI to <strong>GPT-6.2 Astra/Sol</strong> &amp; <strong>GPT-6 Luna</strong> ($0.10/$0.50).</li>
+        <li><strong>2026-11-19:</strong> Verified <a href="model-claude-sonnet-55.html">Claude Sonnet 5.5</a> $2.00 / $10.00 standard rate and <a href="model-deepseek-v41-flash.html">DeepSeek V4.1 Flash</a> 384K max output limit.</li>
         <li><strong>2026-11-08:</strong> Logged <a href="model-gemini-38-flash.html">Gemini 3.8 Flash</a> introductory $0.75 / $3.75 tier valid through December 31, 2026, and DeepSeek weekday peak-hour 2x multipliers.</li>
       </ul>
     </div>
@@ -310,55 +324,87 @@
         <tbody>
 <!-- GENERATED:leaderboard-rows -->
             <tr>
-              <td><span class="badge badge-purple">#1</span> <a href="model-claude-fable-51.html"><strong>Claude Fable 5.1</strong></a><br><small>Anthropic · Frontier Flagship</small></td>
-              <td><strong>68.4%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:68.4%;"></div></div></td>
-              <td><strong>86.2%</strong></td>
+              <td><span class="badge badge-purple">#1</span> <a href="model-claude-fable-52.html"><strong>Claude Fable 5.2</strong></a><br><small>Anthropic · Frontier Flagship</small></td>
+              <td><strong>93.3%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:93.3%;"></div></div></td>
+              <td><strong>89.4%</strong></td>
               <td>1M</td>
-              <td>$10.00 / $50.00</td>
-              <td><span class="badge badge-purple">72 / 100</span></td>
+              <td>$8.00 / $40.00</td>
+              <td><span class="badge badge-purple">81 / 100</span></td>
             </tr>
             <tr>
-              <td><span class="badge badge-purple">#2</span> <a href="model-gpt-6-astra.html"><strong>GPT-6 Astra</strong></a><br><small>OpenAI · Frontier Flagship</small></td>
-              <td><strong>67.8%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:67.8%;"></div></div></td>
-              <td><strong>87.5%</strong></td>
-              <td>1.05M</td>
-              <td>$10.00 / $50.00</td>
-              <td><span class="badge badge-purple">71 / 100</span></td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-purple">#3</span> <a href="model-claude-opus-5.html"><strong>Claude Opus 5</strong></a><br><small>Anthropic · Heavy Reasoning</small></td>
-              <td><strong>65.5%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:65.5%;"></div></div></td>
-              <td><strong>83.1%</strong></td>
-              <td>1M</td>
-              <td>$5.00 / $25.00</td>
-              <td><span class="badge badge-purple">82 / 100</span></td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-blue">#4</span> <a href="model-gpt-56-sol.html"><strong>GPT-5.6 Sol</strong></a><br><small>OpenAI · Production Workhorse</small></td>
-              <td><strong>64.9%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:64.9%;"></div></div></td>
-              <td><strong>82.8%</strong></td>
-              <td>1.05M</td>
-              <td>$4.00 / $20.00</td>
-              <td><span class="badge badge-cyan">86 / 100</span></td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-blue">#5</span> <a href="model-claude-sonnet-5.html"><strong>Claude Sonnet 5</strong></a><br><small>Anthropic · Production Workhorse</small></td>
-              <td><strong>63.2%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:63.2%;"></div></div></td>
-              <td><strong>80.4%</strong></td>
+              <td><span class="badge badge-purple">#2</span> <a href="model-claude-sonnet-55.html"><strong>Claude Sonnet 5.5</strong></a><br><small>Anthropic · Production Workhorse</small></td>
+              <td><strong>81.3%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:81.3%;"></div></div></td>
+              <td><strong>84.2%</strong></td>
               <td>1M</td>
               <td>$2.00 / $10.00</td>
+              <td><span class="badge badge-green">95 / 100</span></td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-purple">#3</span> <a href="model-claude-opus-55.html"><strong>Claude Opus 5.5</strong></a><br><small>Anthropic · Heavy Reasoning</small></td>
+              <td><strong>79.5%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:79.5%;"></div></div></td>
+              <td><strong>86.4%</strong></td>
+              <td>1M</td>
+              <td>$4.00 / $20.00</td>
+              <td><span class="badge badge-cyan">88 / 100</span></td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">#4</span> <a href="model-gpt-62-astra.html"><strong>GPT-6.2 Astra</strong></a><br><small>OpenAI · Frontier Flagship</small></td>
+              <td><strong>77%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:77%;"></div></div></td>
+              <td><strong>89.8%</strong></td>
+              <td>1.05M</td>
+              <td>$8.00 / $40.00</td>
+              <td><span class="badge badge-purple">76 / 100</span></td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">#5</span> <a href="model-gpt-62-sol.html"><strong>GPT-6.2 Sol</strong></a><br><small>OpenAI · Production Workhorse</small></td>
+              <td><strong>74.2%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:74.2%;"></div></div></td>
+              <td><strong>85.1%</strong></td>
+              <td>1.05M</td>
+              <td>$2.00 / $10.00</td>
+              <td><span class="badge badge-cyan">92 / 100</span></td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">#6</span> <a href="model-gemini-4-carbon.html"><strong>Gemini 4 Carbon</strong></a><br><small>Google DeepMind · Heavy Reasoning</small></td>
+              <td><strong>68%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:68%;"></div></div></td>
+              <td><strong>84.5%</strong></td>
+              <td>1M</td>
+              <td>$2.00 / $10.00</td>
+              <td><span class="badge badge-cyan">90 / 100</span></td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">#7</span> <a href="model-gpt-61-terra.html"><strong>GPT-6.1 Terra</strong></a><br><small>OpenAI · Balanced Tier</small></td>
+              <td><strong>66.5%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:66.5%;"></div></div></td>
+              <td><strong>80.2%</strong></td>
+              <td>1.05M</td>
+              <td>$1.00 / $5.00</td>
               <td><span class="badge badge-cyan">94 / 100</span></td>
             </tr>
             <tr>
-              <td><span class="badge badge-blue">#6</span> <a href="model-gpt-56-luna.html"><strong>GPT-5.6 Luna</strong></a><br><small>OpenAI · Value Champion</small></td>
-              <td><strong>62.7%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:62.7%;"></div></div></td>
-              <td><strong>84.7%</strong></td>
+              <td><span class="badge badge-blue">#8</span> <a href="model-gemini-4-neon.html"><strong>Gemini 4 Neon</strong></a><br><small>Google DeepMind · Multimodal Reasoning</small></td>
+              <td><strong>65.4%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:65.4%;"></div></div></td>
+              <td><strong>81.8%</strong></td>
+              <td>1M</td>
+              <td>$3.00 / $15.00</td>
+              <td><span class="badge badge-cyan">85 / 100</span></td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">#9</span> <a href="model-gpt-6-luna.html"><strong>GPT-6 Luna</strong></a><br><small>OpenAI · Value Champion</small></td>
+              <td><strong>64.1%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:64.1%;"></div></div></td>
+              <td><strong>85.2%</strong></td>
               <td>1.05M</td>
-              <td>$0.20 / $1.20</td>
+              <td>$0.10 / $0.50</td>
               <td><span class="badge badge-green">99 / 100</span></td>
             </tr>
             <tr>
-              <td><span class="badge badge-blue">#7</span> <a href="model-deepseek-v4-pro.html"><strong>DeepSeek V4 Pro</strong></a><br><small>DeepSeek · Reasoning Specialist</small></td>
+              <td><span class="badge badge-blue">#10</span> <a href="model-gemini-4-hydrogen.html"><strong>Gemini 4 Hydrogen</strong></a><br><small>Google DeepMind · High-Speed Agent</small></td>
+              <td><strong>62.8%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:62.8%;"></div></div></td>
+              <td><strong>79.6%</strong></td>
+              <td>1M</td>
+              <td>$1.50 / $7.50</td>
+              <td><span class="badge badge-cyan">89 / 100</span></td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">#11</span> <a href="model-deepseek-v4-pro.html"><strong>DeepSeek V4 Pro</strong></a><br><small>DeepSeek · Reasoning Specialist</small></td>
               <td><strong>62.1%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:62.1%;"></div></div></td>
               <td><strong>81.3%</strong></td>
               <td>1M</td>
@@ -366,23 +412,7 @@
               <td><span class="badge badge-green">96 / 100</span></td>
             </tr>
             <tr>
-              <td><span class="badge badge-blue">#8</span> <a href="model-gemini-31-pro.html"><strong>Gemini 3.1 Pro</strong></a><br><small>Google DeepMind · Multimodal Flagship</small></td>
-              <td><strong>61.5%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:61.5%;"></div></div></td>
-              <td><strong>79.2%</strong></td>
-              <td>1M</td>
-              <td>$2.00 / $12.00</td>
-              <td><span class="badge badge-cyan">88 / 100</span></td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-blue">#9</span> <a href="model-gpt-56-terra.html"><strong>GPT-5.6 Terra</strong></a><br><small>OpenAI · Balanced Tier</small></td>
-              <td><strong>60.8%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:60.8%;"></div></div></td>
-              <td><strong>78.9%</strong></td>
-              <td>1.05M</td>
-              <td>$2.00 / $12.00</td>
-              <td><span class="badge badge-cyan">87 / 100</span></td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-blue">#10</span> <a href="model-gemini-38-flash.html"><strong>Gemini 3.8 Flash</strong></a><br><small>Google DeepMind · High-Speed Agent</small></td>
+              <td><span class="badge badge-blue">#12</span> <a href="model-gemini-38-flash.html"><strong>Gemini 3.8 Flash</strong></a><br><small>Google DeepMind · High-Speed Agent</small></td>
               <td><strong>58.7%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:58.7%;"></div></div></td>
               <td><strong>78%</strong></td>
               <td>1M</td>
@@ -390,20 +420,20 @@
               <td><span class="badge badge-cyan">93 / 100</span></td>
             </tr>
             <tr>
-              <td><span class="badge badge-blue">#11</span> <a href="model-deepseek-v41-flash.html"><strong>DeepSeek V4.1 Flash</strong></a><br><small>DeepSeek · Ultra-Budget Leader</small></td>
+              <td><span class="badge badge-blue">#13</span> <a href="model-claude-haiku-55.html"><strong>Claude Haiku 5.5</strong></a><br><small>Anthropic · Fast Triage</small></td>
+              <td><strong>58.1%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:58.1%;"></div></div></td>
+              <td><strong>75.4%</strong></td>
+              <td>1M</td>
+              <td>$0.10 / $0.50</td>
+              <td><span class="badge badge-green">97 / 100</span></td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">#14</span> <a href="model-deepseek-v41-flash.html"><strong>DeepSeek V4.1 Flash</strong></a><br><small>DeepSeek · Ultra-Budget Leader</small></td>
               <td><strong>57.3%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:57.3%;"></div></div></td>
               <td><strong>76.5%</strong></td>
               <td>1M</td>
               <td>$0.15 / $0.60</td>
               <td><span class="badge badge-green">98 / 100</span></td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-blue">#12</span> <a href="model-claude-haiku-45.html"><strong>Claude Haiku 4.5</strong></a><br><small>Anthropic · Fast Triage</small></td>
-              <td><strong>54.2%</strong><br><div style="background:rgba(255,255,255,0.08);border-radius:999px;height:5px;width:110px;margin-top:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--cyber-purple),var(--neon-cyan));height:100%;width:54.2%;"></div></div></td>
-              <td><strong>72.8%</strong></td>
-              <td>200K</td>
-              <td>$1.00 / $5.00</td>
-              <td><span class="badge badge-cyan">85 / 100</span></td>
             </tr>
           <!-- /GENERATED:leaderboard-rows -->
         </tbody>
@@ -421,67 +451,67 @@
     <div class="pricing-grid">
 <!-- GENERATED:pricing-cards -->
       <div class="pricing-card">
-        <div class="pricing-name"><a href="model-gpt-56-luna.html">GPT-5.6 Luna</a></div>
+        <div class="pricing-name"><a href="model-gpt-6-luna.html">GPT-6 Luna</a></div>
         <div class="pricing-provider">OpenAI API</div>
-        <div class="pricing-price">$0.20 / $1.20 <span>/ 1M tokens (input/output)</span></div>
-        <div class="pricing-detail">Lowest published unit price in current frontier class</div>
+        <div class="pricing-price">$0.10 / $0.50 <span>/ 1M tokens (input/output)</span></div>
+        <div class="pricing-detail">Lowest published unit price in GPT-6 class</div>
         <ul class="pricing-features">
           <li>1.05M context window</li>
-          <li>Cached input: $0.02 / 1M tokens</li>
-          <li>Ideal for automated linting &amp; background PR reviews</li>
-          <li>Official API model page linked below</li>
+          <li>Cached input: $0.01 / 1M tokens</li>
+          <li>50% cheaper than GPT-5.6 Luna</li>
+          <li>Batch API: $0.05 in / $0.25 out</li>
         </ul>
         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">
-          <a href="model-gpt-56-luna.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
-          <a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official model page ↗</a>
+          <a href="model-gpt-6-luna.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
+          <a href="https://openai.com/api/pricing/" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official pricing ↗</a>
         </div>
       </div>
       <div class="pricing-card featured">
-        <div class="pricing-name"><a href="model-claude-sonnet-5.html">Claude Sonnet 5</a></div>
+        <div class="pricing-name"><a href="model-claude-sonnet-55.html">Claude Sonnet 5.5</a></div>
         <div class="pricing-provider">Anthropic API</div>
         <div class="pricing-price">$2.00 / $10.00 <span>/ 1M tokens (input/output)</span></div>
-        <div class="pricing-detail">$2 / $10 confirmed standard production rate</div>
+        <div class="pricing-detail">$2 / $10 standard production workhorse</div>
         <ul class="pricing-features">
           <li>1M context window</li>
+          <li>81.3% SWE-bench Pro/Verified tier</li>
+          <li>95% prompt caching discount ($0.10/1M)</li>
           <li>Industry default for autonomous coding</li>
-          <li>128K maximum output buffer</li>
-          <li>63.2% SWE-bench Verified score</li>
         </ul>
         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">
-          <a href="model-claude-sonnet-5.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
+          <a href="model-claude-sonnet-55.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
           <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-primary" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official pricing ↗</a>
+        </div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name"><a href="model-claude-haiku-55.html">Claude Haiku 5.5</a></div>
+        <div class="pricing-provider">Anthropic API</div>
+        <div class="pricing-price">$0.10 / $0.50 <span>/ 1M tokens (input/output)</span></div>
+        <div class="pricing-detail">90% price drop to $0.10 / $0.50 (≤100K)</div>
+        <ul class="pricing-features">
+          <li>1M context window</li>
+          <li>Cached input: $0.01 / 1M tokens</li>
+          <li>Ideal for semantic routing &amp; triage</li>
+          <li>Batch API: $0.05 in / $0.25 out</li>
+        </ul>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">
+          <a href="model-claude-haiku-55.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
+          <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official pricing ↗</a>
         </div>
       </div>
       <div class="pricing-card">
         <div class="pricing-name"><a href="model-deepseek-v41-flash.html">DeepSeek V4.1 Flash</a></div>
         <div class="pricing-provider">DeepSeek API</div>
         <div class="pricing-price">$0.15 / $0.60 <span>/ 1M tokens (input/output)</span></div>
-        <div class="pricing-detail">Sub-dollar economics with $0.003 cache read rate</div>
+        <div class="pricing-detail">Sub-dollar economics with $0.003 cache read</div>
         <ul class="pricing-features">
-          <li>1M context window</li>
+          <li>1M context &amp; 384K max output</li>
           <li>Off-peak: $0.15 in / $0.60 out</li>
           <li>OpenAI SDK drop-in compatibility</li>
-          <li>57.3% SWE-bench Verified coding rate</li>
+          <li>57.3% coding benchmark rate</li>
         </ul>
         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">
           <a href="model-deepseek-v41-flash.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
           <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official API docs ↗</a>
-        </div>
-      </div>
-      <div class="pricing-card">
-        <div class="pricing-name"><a href="model-gemini-38-flash.html">Gemini 3.8 Flash</a></div>
-        <div class="pricing-provider">Google AI / Vertex AI</div>
-        <div class="pricing-price">$0.75 / $3.75 <span>/ 1M tokens (input/output)</span></div>
-        <div class="pricing-detail">High-speed 1M context agent engine</div>
-        <ul class="pricing-features">
-          <li>1M context window with fast TTFT</li>
-          <li>Multimodal vision + code support</li>
-          <li>Introductory $0.75 / $3.75 through Dec 31</li>
-          <li>Hourly cache billing model</li>
-        </ul>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem;">
-          <a href="model-gemini-38-flash.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;">Deep Dive →</a>
-          <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer" class="pricing-cta cta-outline" style="flex:1;text-align:center;padding:0.65rem 0.8rem;font-size:0.85rem;margin:0;">Official model page ↗</a>
         </div>
       </div>
           <!-- /GENERATED:pricing-cards -->
