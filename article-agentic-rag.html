@@ -50,6 +50,7 @@
       Naive RAG breaks down in production for a simple mathematical reason: cosine distance does not equal logical relevance. The moment a user submits a negative query ("Which microservices do NOT use Kafka?") or an aggregation ("Compare Q2 vs Q3 cloud expenses"), naive vector search dumps top-5 semantically adjacent but logically useless chunks into the prompt, and the model confidently hallucinates. <strong>Agentic RAG</strong> transforms retrieval from a linear conveyor belt into a cyclic state machine: retrieve &rarr; grade relevance &rarr; rewrite query &rarr; fallback to web search.
     </p>
 
+    <div class="verdict" style="margin:1.25rem 0;"><strong>TL;DR Verdict &amp; Boundary:</strong> Keep standard 1-pass hybrid RAG (BM25 + vector + reranker) for 80% of FAQ/doc search where latency under 1.5s matters. Only introduce a Self-RAG grading/rewrite loop when multi-hop retrieval misses exceed 25% and users tolerate 4–8s response times.</div>
     <h2>1. The Evolution: Naive RAG vs. Agentic RAG</h2>
     <div style="overflow-x:auto; margin:1.5rem 0;">
       <table style="width:100%; border-collapse:collapse; text-align:left; font-size:.9rem;">
@@ -221,6 +222,19 @@ app = workflow.compile()
     <p><small>Rates verified against provider documentation on November 26, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-agent-ecosystem.html">AI Agent Systems Explained: Components, Boundaries & Evaluation</a> · <a href="article-agent-memory.html">AI Agent Long-Term Memory Architecture & MemGPT Systems</a> · <a href="article-how-to-build-ai-agent.html">How to Build an AI Agent from Scratch: Complete Developer Guide</a>. Or open the <a href="tool-agent-selector.html">agent stack selector</a> to run your own numbers.</div>
+
+<section class="author-feedback-card" style="margin:2rem 0;padding:1.25rem 1.5rem;background:rgba(124,92,252,0.06);border:1px solid rgba(124,92,252,0.25);border-radius:14px;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+    <div style="flex:1;min-width:240px;">
+      <strong style="color:#fff;font-size:0.98rem;">Written &amp; Verified by <a href="about-author.html">Meng Guoying</a></strong>
+      <p style="color:#b8b8ca;font-size:0.88rem;margin:0.4rem 0 0;line-height:1.6;">Independent AI systems engineer building production agent loops, local vLLM/Ollama clusters, and cost-controlled LLM pipelines. Every token rate and benchmark on this page is cross-checked against provider documentation.</p>
+    </div>
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+      <a href="contact.html" class="btn btn-outline" style="font-size:0.84rem;padding:0.5rem 0.9rem;">Report Error / Feedback →</a>
+      <a href="https://github.com/mengguoying1/ai-agent-hub/discussions" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size:0.84rem;padding:0.5rem 0.9rem;">Discuss on GitHub ↗</a>
+    </div>
+  </div>
+</section>
 </main>
 
   <footer class="footer">

@@ -51,6 +51,7 @@
       Running DeepSeek models locally gives developers complete privacy, offline capability, and zero token bills. But hardware reality hits hard: if you blow past your VRAM budget by even 500MB, your generation speed doesn't just slow down—it collapses from 30 tokens/second to 2 tokens/second as layers spill into system RAM. Here is what actually runs cleanly on RTX cards and Apple Silicon.
     </p>
 
+    <div class="verdict" style="margin:1.25rem 0;"><strong>TL;DR Verdict &amp; Boundary:</strong> Never deploy a quantized model whose weights + KV cache exceed your physical GPU VRAM—PCIe spillover drops throughput by ~80% (from 44 tok/s to ~8 tok/s). On 16GB–24GB consumer GPUs, stick to 14B/32B Q4_K_M models and route 70B+ reasoning to cloud APIs.</div>
     <h2>1. The VRAM Reality Check: Sizing Model Quantizations</h2>
     <figure style="margin:1.5rem 0;background:rgba(12,14,24,0.85);border:1px solid rgba(124,92,252,0.28);border-radius:14px;padding:1.25rem;">
       <svg viewBox="0 0 740 175" width="100%" height="auto" role="img" aria-label="Local LLM Token Throughput: Pure VRAM vs System RAM Spill" style="display:block;max-width:100%;font-family:system-ui,-apple-system,sans-serif;">
@@ -184,6 +185,19 @@ ollama --version</code></pre>
     <p><small>Rates verified against provider documentation on November 26, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-local-llm-guide.html">Local LLM Deployment: Ollama vs llama.cpp vs vLLM</a> · <a href="article-self-host-deepseek.html">How to Self-Host DeepSeek-R1: A Hardware and Software Guide</a> · <a href="article-vllm-openai-compat.html">vLLM OpenAI-Compatible API Server Deployment Guide</a>. Or open the <a href="tool-token-counter.html">token counter</a> to run your own numbers.</div>
+
+<section class="author-feedback-card" style="margin:2rem 0;padding:1.25rem 1.5rem;background:rgba(124,92,252,0.06);border:1px solid rgba(124,92,252,0.25);border-radius:14px;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+    <div style="flex:1;min-width:240px;">
+      <strong style="color:#fff;font-size:0.98rem;">Written &amp; Verified by <a href="about-author.html">Meng Guoying</a></strong>
+      <p style="color:#b8b8ca;font-size:0.88rem;margin:0.4rem 0 0;line-height:1.6;">Independent AI systems engineer building production agent loops, local vLLM/Ollama clusters, and cost-controlled LLM pipelines. Every token rate and benchmark on this page is cross-checked against provider documentation.</p>
+    </div>
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+      <a href="contact.html" class="btn btn-outline" style="font-size:0.84rem;padding:0.5rem 0.9rem;">Report Error / Feedback →</a>
+      <a href="https://github.com/mengguoying1/ai-agent-hub/discussions" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size:0.84rem;padding:0.5rem 0.9rem;">Discuss on GitHub ↗</a>
+    </div>
+  </div>
+</section>
 </main>
 
   <footer class="footer">

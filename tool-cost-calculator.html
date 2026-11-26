@@ -11,7 +11,7 @@
 <div class="control"><label for="modelSelect"><span>Model</span></label><select id="modelSelect"></select></div>
 <div class="control"><label for="inputTokens"><span>Input tokens / call</span><strong id="inputValue"></strong></label><input id="inputTokens" type="range" min="500" max="50000" step="500" value="5000"></div>
 <div class="control"><label for="outputTokens"><span>Output tokens / call</span><strong id="outputValue"></strong></label><input id="outputTokens" type="range" min="100" max="10000" step="100" value="2000"></div>
-<div class="control"><label for="calls"><span>Calls / day</span><strong id="callsValue"></strong></label><input id="calls" type="range" min="10" max="5000" step="10" value="500"></div>
+<div class="control"><label for="calls"><span>Calls / day</span><strong id="callsValue"></strong></label><input id="calls" type="range" min="10" max="10000" step="10" value="500"></div>
 <div class="control"><label for="days"><span>Working days / month</span><strong id="daysValue"></strong></label><input id="days" type="range" min="1" max="31" value="22"></div>
 <div class="control"><label for="cache"><span>Cache-hit share of input</span><strong id="cacheValue"></strong></label><input id="cache" type="range" min="0" max="90" step="5" value="50"></div></section>
 <section class="card"><div class="meta">Estimated monthly API usage</div><div class="result" id="monthly">$105.19</div><p id="daily">$4.78 per working day</p><hr><p>Input cost: <strong id="inputCost">$22.69</strong></p><p>Output cost: <strong id="outputCost">$82.50</strong></p><p>Estimated cache savings: <strong id="savings">$18.56</strong></p><p id="modelNote" style="color:#a0a0b5"></p></section></div>
@@ -30,7 +30,29 @@
 <tr><td><strong>DeepSeek V4 Pro</strong></td><td>$0.66 / $1.98</td><td>$62.32</td><td>-$42.87</td></tr>
 </tbody></table></div>
 <div class="notice" style="margin-top:1.5rem"><strong>Excluded:</strong> taxes, currency conversion, account tiers, reseller markup, batch discounts, minimum commitments, and charges outside token usage. Cache math uses each displayed cache rate. Where a provider publishes no cache-read price, no discount is assumed. Read the <a href="methodology.html">calculator methodology</a>.</div>
-<div class="tool-explainer"><h2>Worked Case Study: 200-Step Autonomous Coding Agent Monthly Bill</h2>
+<div class="tool-explainer"><h2>3 Production Business Presets (Click to Load)</h2>
+<p>Instead of guessing abstract token counts, click any realistic production workload below to populate the calculator sliders and compare real monthly costs and failure pitfalls:</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.1rem;margin:1.25rem 0 2rem;">
+  <article class="card" style="padding:1.25rem;">
+    <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">1. 10,000 Daily Support Tickets</h3>
+    <p style="font-size:0.88rem;color:#b8b8ca;margin-bottom:0.65rem;"><strong>Workload:</strong> 2,500 in / 400 out, 10,000 calls/day, 30 days, 75% cache hit (FAQ policy prefix).</p>
+    <p style="font-size:0.88rem;color:#94a3b8;margin-bottom:0.9rem;"><strong>Cost &amp; Pitfall:</strong> With <strong>GPT-5.6 Luna</strong> ($0.20/$1.20), this runs ~$196/mo. <em>Pitfall:</em> Putting dynamic user timestamps at index 0 breaks the 75% cache hit, doubling input spend overnight.</p>
+    <button type="button" class="btn btn-outline" style="width:100%;cursor:pointer;font-size:0.85rem;" onclick="loadPreset('gpt-56-luna',2500,400,10000,30,75)">Load Support Preset →</button>
+  </article>
+  <article class="card" style="padding:1.25rem;">
+    <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">2. 50-Engineer Coding &amp; PR Team</h3>
+    <p style="font-size:0.88rem;color:#b8b8ca;margin-bottom:0.65rem;"><strong>Workload:</strong> 12,000 in / 1,500 out, 2,500 calls/day, 22 days, 65% cache hit (repo context).</p>
+    <p style="font-size:0.88rem;color:#94a3b8;margin-bottom:0.9rem;"><strong>Cost &amp; Pitfall:</strong> With <strong>Claude Sonnet 5</strong> ($2/$10), this runs ~$1,435/mo. <em>Pitfall:</em> Unbounded linter-retry loops can easily 3x daily call volume unless a step cap is enforced.</p>
+    <button type="button" class="btn btn-outline" style="width:100%;cursor:pointer;font-size:0.85rem;" onclick="loadPreset('claude-sonnet-5',12000,1500,2500,22,65)">Load Engineering Preset →</button>
+  </article>
+  <article class="card" style="padding:1.25rem;">
+    <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">3. Legal / Contract Long-Context RAG</h3>
+    <p style="font-size:0.88rem;color:#b8b8ca;margin-bottom:0.65rem;"><strong>Workload:</strong> 35,000 in / 2,500 out, 200 calls/day, 22 days, 20% cache hit (unique PDFs).</p>
+    <p style="font-size:0.88rem;color:#94a3b8;margin-bottom:0.9rem;"><strong>Cost &amp; Pitfall:</strong> With <strong>Gemini 3.8 Flash</strong> ($0.75/$3.75), this runs ~$139/mo. <em>Pitfall:</em> Beware crossing 200K–272K thresholds on tiered models where whole-prompt 2x surcharges kick in.</p>
+    <button type="button" class="btn btn-outline" style="width:100%;cursor:pointer;font-size:0.85rem;" onclick="loadPreset('gemini-38-flash',35000,2500,200,22,20)">Load Legal RAG Preset →</button>
+  </article>
+</div>
+<h2>Worked Case Study: 200-Step Autonomous Coding Agent Monthly Bill</h2>
 <p>To illustrate how input volume, output tokens, and prompt caching interact in real engineering work, consider a mid-sized team running an autonomous PR-fixing agent across <strong>500 coding tasks per day</strong> (22 working days/month). Each task averages 5,000 input tokens (system instructions, repo map, and failing test trace) and 2,000 output tokens (diagnostic reasoning plus git patch).</p>
 <figure style="margin:1.5rem 0;background:rgba(12,14,24,0.85);border:1px solid rgba(124,92,252,0.28);border-radius:14px;padding:1.25rem;">
   <svg viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Monthly API Cost Comparison across 0%, 50%, and 85% Cache Hit Rates" style="display:block;max-width:100%;font-family:system-ui,-apple-system,sans-serif;">
@@ -75,7 +97,17 @@ function render(){
  document.getElementById('inputCost').textContent=money(w.input);document.getElementById('outputCost').textContent=money(w.output);document.getElementById('savings').textContent=money(w.savings);
  document.getElementById('modelNote').textContent=[selected.priceNote,selected.cacheNote].filter(Boolean).join(' ');
  document.getElementById('matrix').innerHTML=models.map(m=>{const x=workload(m),d=x.total-w.total;return '<tr><td><strong>'+m.name+'</strong></td><td>'+AAH_DATA.utils.fmtPricePair(m)+'</td><td>'+money(x.total)+'</td><td>'+(Math.abs(d)<.01?'Selected':(d>0?'+':'-')+money(Math.abs(d)))+'</td></tr>'}).join('');
-}render();
+}function loadPreset(modelId,inTok,outTok,callsDay,daysMo,cachePct){
+ select.value=modelId;
+ document.getElementById('inputTokens').value=inTok;
+ document.getElementById('outputTokens').value=outTok;
+ document.getElementById('calls').value=callsDay;
+ document.getElementById('days').value=daysMo;
+ document.getElementById('cache').value=cachePct;
+ render();
+ window.scrollTo({top:180,behavior:'smooth'});
+}
+render();
 </script><script src="js/ads.js?v=20260918a"></script>
 <script>
 document.querySelectorAll('.faq-question').forEach(function(btn){

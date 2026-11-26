@@ -19,7 +19,7 @@
   <title>AI Agent Hub — Verified Model Pricing & Developer Tools</title>
   <link rel="stylesheet" href="css/style.css?v=20260810e">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebSite","name":"AI Agent Hub","url":"https://www.waiagent.win/","description":"Verified AI model pricing and practical developer tools.","publisher":{"@type":"Organization","name":"AI Agent Hub Editorial Desk"}}
+  {"@context":"https://schema.org","@type":"WebSite","name":"AI Agent Hub","url":"https://www.waiagent.win/","description":"Verified AI model pricing and practical developer tools.","publisher":{"@type":"Organization","name":"Meng Guoying"}}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are these monthly prices?","acceptedAnswer":{"@type":"Answer","text":"No. They are provider-published rates per one million tokens. Monthly cost depends on your workload."}},{"@type":"Question","name":"Did AI Agent Hub run the benchmark tests?","acceptedAnswer":{"@type":"Answer","text":"No. The benchmark matrix clearly labels vendor-published results and links the source. We do not present them as independent lab results."}},{"@type":"Question","name":"How often is the data reviewed?","acceptedAnswer":{"@type":"Answer","text":"Each data snapshot shows its verification date. We recheck primary sources during updates and accept documented correction reports."}}]}
@@ -98,7 +98,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:1rem;">
         <div style="background:rgba(0,0,0,0.25);padding:1rem;border-radius:10px;border-left:3px solid var(--neon-cyan);">
           <strong style="color:#fff;font-size:0.95rem;">1. Long-Context Tier Surcharges</strong>
-          <p style="color:#a0a0b5;font-size:0.88rem;margin-top:0.35rem;">OpenAI models (e.g. GPT-5.6 Sol, GPT-6 Astra) apply a <strong>2x input and 1.5x output surcharge</strong> once a prompt crosses 272K tokens. Google's Gemini 3.1 Pro maintains flat pricing across its full 1M context. Keep prompts structured to avoid crossing rate cliffs unintentionally.</p>
+          <p style="color:#a0a0b5;font-size:0.88rem;margin-top:0.35rem;">OpenAI models (e.g. GPT-5.6 Sol, GPT-6 Astra) apply a <strong>2x input and 1.5x output surcharge</strong> once a prompt crosses 272K tokens, and Gemini 3.1 Pro doubles above 200K ($4/$18). Gemini 3.8 Flash and DeepSeek V4 keep flat tiering up to 1M.</p>
         </div>
         <div style="background:rgba(0,0,0,0.25);padding:1rem;border-radius:10px;border-left:3px solid var(--cyber-purple);">
           <strong style="color:#fff;font-size:0.95rem;">2. Prompt Caching Dictates Invoices</strong>
@@ -225,6 +225,17 @@
           </tbody>
         </table>
       </div>
+    </div>
+    <div class="changelog-box" style="margin-top:1.75rem;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.25);border-radius:12px;padding:1.25rem 1.5rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+        <strong style="color:#34d399;font-size:1rem;">November 2026 Pricing &amp; Model Changelog</strong>
+        <span style="font-size:0.82rem;color:#94a3b8;">Maintained by <a href="about-author.html">Meng Guoying</a> · Last audited Nov 26, 2026</span>
+      </div>
+      <ul style="margin:0;padding-left:1.2rem;color:#cbd5e1;font-size:0.9rem;line-height:1.7;">
+        <li><strong>2026-11-26:</strong> Removed expired Nov 21 promo flags; deduplicated DeepSeek V4.1 Flash into the China-based providers catalog; added 12-model Value Index efficiency chart below.</li>
+        <li><strong>2026-11-19:</strong> Verified <a href="model-claude-sonnet-5.html">Claude Sonnet 5</a> permanent $2.00 / $10.00 standard rate and <a href="model-gpt-56-sol.html">GPT-5.6 Sol</a> $4.00 / $20.00 extension through Q1 2027.</li>
+        <li><strong>2026-11-08:</strong> Logged <a href="model-gemini-38-flash.html">Gemini 3.8 Flash</a> introductory $0.75 / $3.75 tier valid through December 31, 2026, and DeepSeek weekday peak-hour 2x multipliers.</li>
+      </ul>
     </div>
     <div class="source-note"><strong>Important:</strong> token prices are not monthly subscription prices. Your bill depends on token volume, output ratio, caching, provider tiers, and any regional or platform fees. Use the <a href="tool-cost-calculator.html">cost calculator</a> for a transparent estimate.</div>
   </div>

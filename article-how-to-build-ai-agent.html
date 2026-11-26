@@ -46,6 +46,7 @@
       Building an autonomous agent isn't about writing a clever 500-word prompt. It's about writing defensive software around a model that is constantly trying to hallucinate, fall into infinite loops, or emit broken arguments. Here is the exact architecture, minimal Python implementation, and production guardrails we run in staging.
     </p>
 
+    <div class="verdict" style="margin:1.25rem 0;"><strong>TL;DR Verdict &amp; Boundary:</strong> Start with a single deterministic Python loop, strict schema validation, and a hard step/budget circuit breaker before touching multi-agent frameworks. Only adopt stateful graph orchestration (e.g. LangGraph) when your workflow needs human-in-the-loop checkpoints or branching retries.</div>
     <h2>1. The Reality: Stripping Away the Hype</h2>
     <p>A standard LLM call is just a stateless function: <code>Prompt → Model → String</code>. An <strong>AI Agent</strong> is simply a state machine wrapped around that function:</p>
     <div class="card" style="background:rgba(0,0,0,0.3); border-left:4px solid #7c5cfc; padding:1.2rem; margin:1rem 0;">
@@ -239,6 +240,19 @@ run_defensive_agent("If our server spend is $8.25 per day, what is our 30-day co
     <p><small>Rates verified against provider documentation on November 26, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-agent-ecosystem.html">AI Agent Systems Explained: Components, Boundaries & Evaluation</a> · <a href="article-agent-memory.html">AI Agent Long-Term Memory Architecture & MemGPT Systems</a> · <a href="article-agentic-rag.html">Agentic RAG Architecture & Self-Correction Pipelines</a>. Or open the <a href="tool-agent-selector.html">agent stack selector</a> to run your own numbers.</div>
+
+<section class="author-feedback-card" style="margin:2rem 0;padding:1.25rem 1.5rem;background:rgba(124,92,252,0.06);border:1px solid rgba(124,92,252,0.25);border-radius:14px;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+    <div style="flex:1;min-width:240px;">
+      <strong style="color:#fff;font-size:0.98rem;">Written &amp; Verified by <a href="about-author.html">Meng Guoying</a></strong>
+      <p style="color:#b8b8ca;font-size:0.88rem;margin:0.4rem 0 0;line-height:1.6;">Independent AI systems engineer building production agent loops, local vLLM/Ollama clusters, and cost-controlled LLM pipelines. Every token rate and benchmark on this page is cross-checked against provider documentation.</p>
+    </div>
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;">
+      <a href="contact.html" class="btn btn-outline" style="font-size:0.84rem;padding:0.5rem 0.9rem;">Report Error / Feedback →</a>
+      <a href="https://github.com/mengguoying1/ai-agent-hub/discussions" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size:0.84rem;padding:0.5rem 0.9rem;">Discuss on GitHub ↗</a>
+    </div>
+  </div>
+</section>
 </main>
 
   <footer class="footer">
