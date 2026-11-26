@@ -18,6 +18,26 @@
 <ul><li>input, cached-input, and output token counts;</li><li>model and API endpoint used;</li><li>number of model calls and tool calls per user task;</li><li>retry, timeout, refusal, and fallback rates;</li><li>latency percentiles and whether the task passed evaluation;</li><li>traffic segment, such as interactive, background, or batch.</li></ul>
 <p>Use medians for a typical case and high percentiles for capacity planning. Averages can hide a small number of long-context requests that dominate the bill.</p>
 <h2>Separate request cost from task cost</h2>
+<figure style="margin:1.5rem 0;background:rgba(12,14,24,0.85);border:1px solid rgba(124,92,252,0.28);border-radius:14px;padding:1.25rem;">
+  <svg viewBox="0 0 740 170" width="100%" height="auto" role="img" aria-label="272K Long-Context Billing Cliff Comparison" style="display:block;max-width:100%;font-family:system-ui,-apple-system,sans-serif;">
+    <rect width="740" height="170" rx="10" fill="#090b14"/>
+    <text x="20" y="28" fill="#e2e8f0" font-size="12" font-weight="700">The 272K Context Cliff: Flat Context Pricing vs. Tiered 2x Surcharge</text>
+    <line x1="60" y1="130" x2="700" y2="130" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    <line x1="60" y1="45" x2="60" y2="130" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    <line x1="340" y1="45" x2="340" y2="130" stroke="#f87171" stroke-dasharray="4 4"/>
+    <text x="345" y="56" fill="#fca5a5" font-size="10" font-weight="600">272K Token Threshold (2x Surcharge)</text>
+    <!-- Flat curve -->
+    <polyline points="60,120 340,95 680,68" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
+    <text x="580" y="84" fill="#67e8f9" font-size="10" font-weight="600">Flat 1M Rate (Gemini 3.1 Pro)</text>
+    <!-- Cliff curve -->
+    <polyline points="60,118 340,92 341,65 680,45" fill="none" stroke="#f472b6" stroke-width="2.5"/>
+    <text x="410" y="42" fill="#f9a8d4" font-size="10" font-weight="600">2x Whole-Prompt Cliff (GPT-5.6 / 6)</text>
+    <text x="60" y="148" fill="#64748b" font-size="10">10K</text>
+    <text x="325" y="148" fill="#fca5a5" font-size="10">272K</text>
+    <text x="665" y="148" fill="#64748b" font-size="10">1M Tokens</text>
+  </svg>
+  <figcaption style="margin-top:0.65rem;font-size:0.85rem;color:#94a3b8;"><strong>Figure 1:</strong> Crossing 272K input tokens triggers a whole-request multiplier on tiered models rather than only pricing excess tokens.</figcaption>
+</figure>
 <table><thead><tr><th>Layer</th><th>What to count</th><th>Why it matters</th></tr></thead><tbody>
 <tr><td>Single request</td><td>Input, cached input, output, provider features</td><td>Useful for API-level comparison</td></tr>
 <tr><td>Agent step</td><td>Planning call, tool result, validation call</td><td>A tool loop can multiply requests</td></tr>

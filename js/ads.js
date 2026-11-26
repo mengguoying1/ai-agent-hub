@@ -32,10 +32,9 @@
       'Start from the <a href="./#models">verified catalog</a>, then read ' +
       '<a href="methodology.html">how each number is checked</a>.</small>',
     'tool-top':
-      '<p><strong>Assumptions you can edit.</strong></p>' +
-      '<small>Change every input above and re-read the result. ' +
-      'Method and exclusions are documented in the ' +
-      '<a href="methodology.html">calculator methodology</a>.</small>'
+      '<p><strong>Verified November 2026 Assumptions.</strong></p>' +
+      '<small>Calculations use source-linked provider token rates. Review exclusions, cache-write multipliers, and long-context tier thresholds in the ' +
+      '<a href="methodology.html">methodology guide</a>.</small>'
   };
 
   function mount(el) {

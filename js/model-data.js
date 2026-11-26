@@ -22,14 +22,14 @@
       tabs: ['international'], status: { text: 'Verified Nov 2026', badge: 'badge-purple' },
       sourceUrl: 'https://platform.claude.com/docs/en/about-claude/pricing',
       priceNote: 'Cache reads at $0.25 per 1M (75% discount vs Fable 5). Batch API halves rates to $5 / $25.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     },
     {
       id: 'claude-opus-5', name: 'Claude Opus 5', company: 'Anthropic',
       contextK: 1000, inputPrice: 5, outputPrice: 25, cacheReadPrice: 0.5,
       strengths: 'Complex agentic coding and enterprise work; adaptive thinking and 128K maximum output',
       tabs: ['international'], status: { text: 'Verified Nov 2026', badge: 'badge-purple' },
-      sourceUrl: 'https://platform.claude.com/docs/en/about-claude/pricing', verifiedAt: '2026-11-19'
+      sourceUrl: 'https://platform.claude.com/docs/en/about-claude/pricing', verifiedAt: '2026-11-26'
     },
     {
       id: 'claude-sonnet-5', name: 'Claude Sonnet 5', company: 'Anthropic',
@@ -38,14 +38,14 @@
       tabs: ['international'], status: { text: 'Standard rate', badge: 'badge-purple' },
       sourceUrl: 'https://platform.claude.com/docs/en/about-claude/pricing',
       priceNote: '$2/$10 is the confirmed permanent standard rate with no scheduled increase.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     },
     {
       id: 'claude-haiku-45', name: 'Claude Haiku 4.5', company: 'Anthropic',
       contextK: 200, inputPrice: 1, outputPrice: 5, cacheReadPrice: 0.1,
       strengths: 'Fast current Claude model for high-volume, low-latency triage and classification',
       tabs: ['international'], status: { text: 'Verified Nov 2026', badge: 'badge-purple' },
-      sourceUrl: 'https://platform.claude.com/docs/en/about-claude/pricing', verifiedAt: '2026-11-19'
+      sourceUrl: 'https://platform.claude.com/docs/en/about-claude/pricing', verifiedAt: '2026-11-26'
     },
 
     /* ------------------------------------------------------- OpenAI */
@@ -56,7 +56,7 @@
       tabs: ['international'], status: { text: 'Flagship tier', badge: 'badge-green' },
       sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-6-astra',
       priceNote: 'Rated Critical for cybersecurity capability under OpenAI Preparedness Framework. Prompts over 272K input tokens bill at 2x input and 1.5x output.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     },
     {
       id: 'gpt-56-sol', name: 'GPT-5.6 Sol', company: 'OpenAI',
@@ -65,7 +65,7 @@
       tabs: ['international'], status: { text: 'Standard rate', badge: 'badge-green' },
       sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-5.6-sol',
       priceNote: '$4/$20 rate extended through Q1 2027. Prompts over 272K input tokens bill at 2x input and 1.5x output. Cache writes bill at 1.25x.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     },
     {
       id: 'gpt-56-terra', name: 'GPT-5.6 Terra', company: 'OpenAI',
@@ -74,7 +74,7 @@
       tabs: ['international'], status: { text: 'Verified Nov 2026', badge: 'badge-green' },
       sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-5.6-terra',
       priceNote: 'Prompts over 272K input tokens bill at 2x input and 1.5x output. Cache writes bill at 1.25x the uncached input rate.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     },
     {
       id: 'gpt-56-luna', name: 'GPT-5.6 Luna', company: 'OpenAI',
@@ -83,7 +83,7 @@
       tabs: ['international'], status: { text: 'Value champion', badge: 'badge-green' },
       sourceUrl: 'https://developers.openai.com/api/docs/models/gpt-5.6-luna',
       priceNote: 'Prompts over 272K input tokens bill at 2x input and 1.5x output. Cache writes bill at 1.25x.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     },
 
     /* ------------------------------------------------ Google DeepMind */
@@ -94,7 +94,7 @@
       tabs: ['international'], status: { text: 'Verified Nov 2026', badge: 'badge-blue' },
       sourceUrl: 'https://deepmind.google/models/gemini/pro/',
       priceNote: 'Prompts above 200K input tokens bill at $4.00 input and $18.00 output per 1M. Paid tier only.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     },
     {
       id: 'gemini-38-flash', name: 'Gemini 3.8 Flash', company: 'Google DeepMind',
@@ -103,7 +103,7 @@
       tabs: ['international'], status: { text: 'Promo to Dec 31', badge: 'badge-blue' },
       sourceUrl: 'https://deepmind.google/models/gemini/flash/',
       priceNote: 'Introductory rate $0.75 / $3.75 valid through December 31, 2026. Standard pricing applies from January 1, 2027.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     },
 
     /* ------------------------------------------------------- DeepSeek */
@@ -111,10 +111,10 @@
       id: 'deepseek-v41-flash', name: 'DeepSeek V4.1 Flash', company: 'DeepSeek',
       contextK: 1000, inputPrice: 0.15, outputPrice: 0.6, cacheReadPrice: 0.003,
       strengths: 'Ultra-low-cost DeepSeek API model with thinking mode, vision, and Responses API support',
-      tabs: ['international', 'china'], status: { text: 'Off-peak rate', badge: 'badge-cyan' },
+      tabs: ['china'], status: { text: 'Off-peak rate', badge: 'badge-cyan' },
       sourceUrl: 'https://api-docs.deepseek.com/quick_start/pricing/',
       priceNote: 'Off-peak rate shown. Peak hours (01:00-04:00, 06:00-10:00 UTC weekdays) double rates to $0.30 / $1.20.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     },
     {
       id: 'deepseek-v4-pro', name: 'DeepSeek V4 Pro', company: 'DeepSeek',
@@ -123,7 +123,7 @@
       tabs: ['china'], status: { text: 'Off-peak rate', badge: 'badge-cyan' },
       sourceUrl: 'https://api-docs.deepseek.com/quick_start/pricing/',
       priceNote: 'Off-peak rate shown; weekday peak hours double to $1.32 / $3.96 per 1M.',
-      verifiedAt: '2026-11-19'
+      verifiedAt: '2026-11-26'
     }
   ];
 
@@ -203,7 +203,7 @@
 
   return {
     updated: 'November 2026',
-    verifiedAt: '2026-11-19',
+    verifiedAt: '2026-11-26',
     models,
     agentBenchmarks,
     benchmarkSource,

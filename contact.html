@@ -2,8 +2,48 @@
   <link rel="alternate" type="application/rss+xml" title="AI Agent Hub Guides" href="feed.xml"><link rel="icon" href="favicon.svg"><title>Contact & Corrections — AI Agent Hub</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png"><link rel="stylesheet" href="css/style.css?v=20260810e"></head><body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <nav class="nav" aria-label="Primary navigation"><div class="nav-inner"><a href="./" class="nav-logo">AI <span>Agent Hub</span></a><ul class="nav-links"><li><a href="./">Home</a></li><li><a href="articles.html">Guides</a></li><li><a href="debate.html">Debate</a></li><li><a href="category-tools.html">Tools</a></li><li><a href="methodology.html">Methodology</a> · <a href="editorial-policy.html">Editorial policy</a></li><li><a href="about-author.html">Author</a></li></ul></div></nav>
-<main id="main-content"><h1>Contact & Corrections</h1><p>Email is the site's only current contact channel. There is no web form, account system, guest-post submission portal, or paid-placement checkout.</p>
+<main id="main-content"><h1>Contact & Corrections</h1><p>Use the structured correction form below, open a public issue on <a href="https://github.com/mengguoying1/ai-agent-hub/issues" target="_blank" rel="noopener noreferrer">GitHub Issues ↗</a>, or email us directly at <a href="mailto:contact@waiagent.win">contact@waiagent.win</a>.</p>
 <div class="card"><h2>Email</h2><p><a href="mailto:contact@waiagent.win">contact@waiagent.win</a></p><p>Use a descriptive subject such as <strong>Data correction</strong>, <strong>Privacy request</strong>, <strong>Accessibility issue</strong>, or <strong>Business inquiry</strong>. Do not email passwords, API keys, confidential source code, medical information, or payment data.</p></div>
+<div class="card" style="margin-top:1.5rem;">
+  <h2>Submit a Data Correction or Feedback</h2>
+  <form id="contactForm" onsubmit="return submitFeedback(event)" style="display:grid;gap:0.85rem;margin-top:0.75rem;">
+    <div>
+      <label for="fbTopic" style="display:block;font-weight:600;margin-bottom:0.3rem;">Inquiry Type</label>
+      <select id="fbTopic" required style="width:100%;padding:0.65rem;border-radius:8px;background:#0a0c16;color:#e2e8f0;border:1px solid rgba(255,255,255,0.18);">
+        <option value="Data correction">Data / Pricing Correction</option>
+        <option value="Reader feedback">Article Feedback / Question</option>
+        <option value="Accessibility issue">Technical or Accessibility Issue</option>
+        <option value="Privacy request">Privacy Request</option>
+        <option value="Business inquiry">Business / Sponsorship Inquiry</option>
+      </select>
+    </div>
+    <div>
+      <label for="fbUrl" style="display:block;font-weight:600;margin-bottom:0.3rem;">Affected Page URL (optional)</label>
+      <input id="fbUrl" type="url" placeholder="https://www.waiagent.win/..." style="width:100%;padding:0.65rem;border-radius:8px;background:#0a0c16;color:#e2e8f0;border:1px solid rgba(255,255,255,0.18);">
+    </div>
+    <div>
+      <label for="fbDetails" style="display:block;font-weight:600;margin-bottom:0.3rem;">Details &amp; Primary Source Link</label>
+      <textarea id="fbDetails" rows="4" required placeholder="Quote the statement or rate, and include an official provider documentation link if reporting a price change..." style="width:100%;padding:0.65rem;border-radius:8px;background:#0a0c16;color:#e2e8f0;border:1px solid rgba(255,255,255,0.18);"></textarea>
+    </div>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;">
+      <button type="submit" class="btn btn-primary" style="cursor:pointer;">Compose Email Report →</button>
+      <a href="https://github.com/mengguoying1/ai-agent-hub/issues/new" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Open Public GitHub Issue ↗</a>
+    </div>
+    <p id="fbStatus" style="color:#6ee7b7;font-size:0.9rem;margin:0;"></p>
+  </form>
+  <script>
+    function submitFeedback(e){
+      e.preventDefault();
+      var topic=document.getElementById('fbTopic').value;
+      var url=document.getElementById('fbUrl').value || 'Not specified';
+      var details=document.getElementById('fbDetails').value;
+      var body='Page URL: '+url+'\n\nDetails:\n'+details;
+      window.location.href='mailto:contact@waiagent.win?subject='+encodeURIComponent('[AI Agent Hub] '+topic)+'&body='+encodeURIComponent(body);
+      document.getElementById('fbStatus').textContent='Opening your mail client addressed to contact@waiagent.win...';
+      return false;
+    }
+  </script>
+</div>
 <h2>Reporting a factual error</h2><ol><li>Include the exact AI Agent Hub page URL.</li><li>Quote the statement or value you believe is wrong.</li><li>Provide a primary source, preferably provider documentation.</li><li>Explain any relevant region, pricing tier, date, or temporary promotion.</li></ol><p>Price, availability, and security corrections receive priority. Accepted changes update the shared data verification date where applicable.</p>
 <h2>Reporting a technical or accessibility problem</h2><p>Include the page URL, device/browser, what you expected, what happened, and a screenshot if useful. Please remove personal or confidential information from screenshots.</p>
 <h2>Commercial inquiries</h2><p>Advertising or sponsorship proposals are reviewed separately from editorial decisions. Payment does not guarantee coverage, inclusion, ranking, or a favorable conclusion. Any accepted sponsorship or affiliate relationship will be disclosed near the relevant content.</p>

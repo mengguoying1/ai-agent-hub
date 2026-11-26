@@ -6,6 +6,27 @@
 <div class="highlight-box"><p><strong>No universal savings claim:</strong> caching helps only when an eligible, stable prefix is reused enough times. Measure cache writes, hits, retention, and misses from provider usage data before forecasting savings.</p></div>
 <p>Large prompts often repeat the same system instructions, tool definitions, examples, repository context, or reference documents. Prompt caching—also called context caching by some providers—can reuse work associated with that shared prefix. Provider behavior differs: caching may be automatic or explicit, eligibility and retention vary by model, and billing may separate writes, reads, and storage. Treat caching as an optimization with measurable preconditions, not as a correctness feature.</p>
 <h2>What gets reused</h2>
+<figure style="margin:1.5rem 0;background:rgba(12,14,24,0.85);border:1px solid rgba(124,92,252,0.28);border-radius:14px;padding:1.25rem;">
+  <svg viewBox="0 0 740 165" width="100%" height="auto" role="img" aria-label="Prompt Caching Prefix Structure and Cost Reduction" style="display:block;max-width:100%;font-family:system-ui,-apple-system,sans-serif;">
+    <rect width="740" height="165" rx="10" fill="#090b14"/>
+    <text x="20" y="28" fill="#e2e8f0" font-size="12" font-weight="700">Prefix Ordering Rule: Static Segments First, Dynamic Payload Last</text>
+    <rect x="20" y="48" width="160" height="44" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="100" y="68" text-anchor="middle" fill="#ecfdf5" font-size="11" font-weight="700">System Instructions</text>
+    <text x="100" y="83" text-anchor="middle" fill="#6ee7b7" font-size="9">Cached (Up to 90% Off)</text>
+    <rect x="188" y="48" width="160" height="44" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="268" y="68" text-anchor="middle" fill="#ecfdf5" font-size="11" font-weight="700">Tool JSON Schemas</text>
+    <text x="268" y="83" text-anchor="middle" fill="#6ee7b7" font-size="9">Cached (Prefix Lock)</text>
+    <rect x="356" y="48" width="165" height="44" rx="6" fill="#1e1b4b" stroke="#7c5cfc" stroke-width="1.5"/>
+    <text x="438" y="68" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="700">Static Repo Context</text>
+    <text x="438" y="83" text-anchor="middle" fill="#a5b4fc" font-size="9">Cached Checkpoint</text>
+    <rect x="529" y="48" width="190" height="44" rx="6" fill="#451a03" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="624" y="68" text-anchor="middle" fill="#fef3c7" font-size="11" font-weight="700">User Turn + Timestamp</text>
+    <text x="624" y="83" text-anchor="middle" fill="#fcd34d" font-size="9">Uncached (1.0x Base Rate)</text>
+    <text x="20" y="128" fill="#f87171" font-size="11" font-weight="600">Warning: Inserting a dynamic timestamp or session ID at index 0 invalidates the entire 500-token+ cache prefix.</text>
+    <text x="20" y="146" fill="#94a3b8" font-size="10">Cache hits require byte-for-byte identical prefix tokens across consecutive requests.</text>
+  </svg>
+  <figcaption style="margin-top:0.65rem;font-size:0.85rem;color:#94a3b8;"><strong>Figure 1:</strong> Required prompt prefix ordering to maintain deterministic KV-cache reuse across agent loop turns.</figcaption>
+</figure>
 <p>Caching generally works on a matching prefix. Put stable, broadly shared material first and request-specific content later. Small changes near the beginning can invalidate reuse for everything after them. The exact matching and routing rules are provider-specific, so avoid relying on undocumented behavior.</p>
 <pre><code>stable prefix
   system policy

@@ -11,7 +11,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>How to Build an AI Agent from Scratch: Complete Tutorial — AI Agent Hub</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png">
   <link rel="stylesheet" href="css/style.css?v=20260810e">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Building a Production AI Agent: Architecture, Code & Real Failure Modes","description":"Hands-on developer guide on building autonomous AI agents with defensive state loops, circuit breakers, and production post-mortems.","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-11-19","mainEntityOfPage":"https://www.waiagent.win/article-how-to-build-ai-agent.html"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Building a Production AI Agent: Architecture, Code & Real Failure Modes","description":"Hands-on developer guide on building autonomous AI agents with defensive state loops, circuit breakers, and production post-mortems.","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-11-26","mainEntityOfPage":"https://www.waiagent.win/article-how-to-build-ai-agent.html"}</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
 </head>
 <body class="article-page">
@@ -54,6 +54,33 @@
     <p>The hard part is never getting the model to call a tool. The hard part is what happens when the tool fails, when permissions are denied, or when the model repeats the exact same failing action four times in a row.</p>
 
     <h2>2. Core Components You Actually Need</h2>
+    <figure style="margin:1.5rem 0;background:rgba(12,14,24,0.85);border:1px solid rgba(124,92,252,0.28);border-radius:14px;padding:1.25rem;">
+      <svg viewBox="0 0 740 165" width="100%" height="auto" role="img" aria-label="Production AI Agent Loop with Circuit Breaker Architecture" style="display:block;max-width:100%;font-family:system-ui,-apple-system,sans-serif;">
+        <rect width="740" height="165" rx="10" fill="#090b14"/>
+        <rect x="20" y="48" width="120" height="54" rx="8" fill="#1e1b4b" stroke="#7c5cfc" stroke-width="1.5"/>
+        <text x="80" y="72" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="700">1. Context Builder</text>
+        <text x="80" y="88" text-anchor="middle" fill="#a5b4fc" font-size="9">System + State + History</text>
+        <line x1="140" y1="75" x2="170" y2="75" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="172" y="48" width="115" height="54" rx="8" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="229" y="72" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="700">2. LLM Planner</text>
+        <text x="229" y="88" text-anchor="middle" fill="#67e8f9" font-size="9">Tool Call / Final Answer</text>
+        <line x1="287" y1="75" x2="317" y2="75" stroke="#22d3ee" stroke-width="1.5"/>
+        <rect x="319" y="48" width="130" height="54" rx="8" fill="#3b0764" stroke="#f472b6" stroke-width="1.5"/>
+        <text x="384" y="72" text-anchor="middle" fill="#fdf2f8" font-size="11" font-weight="700">3. Circuit Breaker</text>
+        <text x="384" y="88" text-anchor="middle" fill="#f9a8d4" font-size="9">Max Steps / Cost Cap / Repeat</text>
+        <line x1="449" y1="75" x2="479" y2="75" stroke="#22d3ee" stroke-width="1.5"/>
+        <rect x="481" y="48" width="115" height="54" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+        <text x="538" y="72" text-anchor="middle" fill="#ecfdf5" font-size="11" font-weight="700">4. Tool Sandbox</text>
+        <text x="538" y="88" text-anchor="middle" fill="#6ee7b7" font-size="9">Read / Diff / Test Runner</text>
+        <line x1="596" y1="75" x2="626" y2="75" stroke="#10b981" stroke-width="1.5"/>
+        <rect x="628" y="48" width="92" height="54" rx="8" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="674" y="72" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">5. Verified</text>
+        <text x="674" y="88" text-anchor="middle" fill="#cbd5e1" font-size="9">Output / Abort</text>
+        <path d="M 538 102 L 538 132 L 80 132 L 80 102" fill="none" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <text x="310" y="147" text-anchor="middle" fill="#94a3b8" font-size="10">Observation Feedback Loop (Aborted if Circuit Breaker trips)</text>
+      </svg>
+      <figcaption style="margin-top:0.65rem;font-size:0.85rem;color:#94a3b8;"><strong>Figure 1:</strong> Production agent execution loop featuring a mandatory Circuit Breaker guard before every external tool invocation.</figcaption>
+    </figure>
     <ul>
       <li><strong>Proposal Brain:</strong> A fast, reliable reasoning model (e.g. Claude Sonnet 5 or DeepSeek-V3) that parses observations and proposes a strictly typed tool call.</li>
       <li><strong>Deterministic Action Boundary:</strong> A Python or TypeScript runtime that intercepts the tool call, verifies permissions, checks circuit breakers, and runs the operation outside the model.</li>
@@ -209,7 +236,7 @@ run_defensive_agent("If our server spend is $8.25 per day, what is our 30-day co
       </tbody>
     </table>
     <p>The gap between the default choice and the cheap end is roughly twentyfold at this shape. Most prototypes never need the flagship for the majority of their calls, which is exactly the case the multi-model routing guide makes.</p>
-    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
+    <p><small>Rates verified against provider documentation on November 26, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-agent-ecosystem.html">AI Agent Systems Explained: Components, Boundaries & Evaluation</a> · <a href="article-agent-memory.html">AI Agent Long-Term Memory Architecture & MemGPT Systems</a> · <a href="article-agentic-rag.html">Agentic RAG Architecture & Self-Correction Pipelines</a>. Or open the <a href="tool-agent-selector.html">agent stack selector</a> to run your own numbers.</div>
 </main>

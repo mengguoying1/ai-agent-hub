@@ -15,7 +15,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Agentic RAG Architecture & Self-Correction Pipelines — AI Agent Hub</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png">
   <link rel="stylesheet" href="css/style.css?v=20260810e">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Agentic RAG Architecture & Self-Correction Pipelines: A Production Field Guide","description":"Practical engineering guide on building self-grading, self-correcting RAG state machines with cross-encoders, query rewriting, and fallback tools.","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-11-19","mainEntityOfPage":"https://www.waiagent.win/article-agentic-rag.html"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Agentic RAG Architecture & Self-Correction Pipelines: A Production Field Guide","description":"Practical engineering guide on building self-grading, self-correcting RAG state machines with cross-encoders, query rewriting, and fallback tools.","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-11-26","mainEntityOfPage":"https://www.waiagent.win/article-agentic-rag.html"}</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
 </head>
 <body class="article-page">
@@ -86,6 +86,31 @@
     </div>
 
     <h2>2. Architectural Deep-Dive: Self-RAG State Machine</h2>
+    <figure style="margin:1.5rem 0;background:rgba(12,14,24,0.85);border:1px solid rgba(124,92,252,0.28);border-radius:14px;padding:1.25rem;">
+      <svg viewBox="0 0 740 165" width="100%" height="auto" role="img" aria-label="Self-RAG Corrective Retrieval State Machine" style="display:block;max-width:100%;font-family:system-ui,-apple-system,sans-serif;">
+        <rect width="740" height="165" rx="10" fill="#090b14"/>
+        <text x="20" y="28" fill="#e2e8f0" font-size="12" font-weight="700">Corrective Agentic RAG Routing &amp; Relevance Grader</text>
+        <rect x="20" y="52" width="130" height="48" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="85" y="75" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="700">Retrieve Chunks</text>
+        <text x="85" y="90" text-anchor="middle" fill="#7dd3fc" font-size="9">Hybrid BM25 + Vector</text>
+        <line x1="150" y1="76" x2="185" y2="76" stroke="#94a3b8" stroke-width="1.5"/>
+        <rect x="187" y="52" width="150" height="48" rx="8" fill="#3b0764" stroke="#c084fc" stroke-width="1.5"/>
+        <text x="262" y="75" text-anchor="middle" fill="#fdf4ff" font-size="11" font-weight="700">Grade Relevance</text>
+        <text x="262" y="90" text-anchor="middle" fill="#e9d5ff" font-size="9">Are docs sufficient?</text>
+        <line x1="337" y1="76" x2="395" y2="76" stroke="#10b981" stroke-width="1.5"/>
+        <text x="366" y="69" text-anchor="middle" fill="#34d399" font-size="9">YES</text>
+        <rect x="397" y="52" width="145" height="48" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+        <text x="469" y="75" text-anchor="middle" fill="#ecfdf5" font-size="11" font-weight="700">Generate Answer</text>
+        <text x="469" y="90" text-anchor="middle" fill="#6ee7b7" font-size="9">With Inline Citations</text>
+        <line x1="542" y1="76" x2="577" y2="76" stroke="#10b981" stroke-width="1.5"/>
+        <rect x="579" y="52" width="140" height="48" rx="8" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="649" y="75" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">Hallucination Check</text>
+        <text x="649" y="90" text-anchor="middle" fill="#cbd5e1" font-size="9">Grounded in Context</text>
+        <path d="M 262 100 L 262 135 L 85 135 L 85 100" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="174" y="148" text-anchor="middle" fill="#fbbf24" font-size="10">NO (Low Score): Rewrite Query &amp; Re-retrieve (Max 2 Loops)</text>
+      </svg>
+      <figcaption style="margin-top:0.65rem;font-size:0.85rem;color:#94a3b8;"><strong>Figure 1:</strong> Bounded corrective RAG loop preventing irrelevant vector chunks from polluting final generation.</figcaption>
+    </figure>
     <p>Agentic RAG introduces three crucial node evaluations in the graph execution:</p>
     
     <div class="card" style="background:rgba(0,0,0,0.4); border-left:4px solid #7c5cfc; padding:1.2rem; margin:1.5rem 0;">
@@ -193,7 +218,7 @@ app = workflow.compile()
       </tbody>
     </table>
     <p>At twenty thousand queries a month the entire range fits inside a rounding error of most infrastructure bills, which is why the small models dominate this category. The self-correction loop is worth its cost precisely because it is cheap: an extra verification call costs a fraction of a cent on these models and a wrong answer does not.</p>
-    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
+    <p><small>Rates verified against provider documentation on November 26, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-agent-ecosystem.html">AI Agent Systems Explained: Components, Boundaries & Evaluation</a> · <a href="article-agent-memory.html">AI Agent Long-Term Memory Architecture & MemGPT Systems</a> · <a href="article-how-to-build-ai-agent.html">How to Build an AI Agent from Scratch: Complete Developer Guide</a>. Or open the <a href="tool-agent-selector.html">agent stack selector</a> to run your own numbers.</div>
 </main>

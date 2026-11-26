@@ -195,13 +195,6 @@
               <td>$0.75 / $3.75<br><small>Introductory rate $0.75 / $3.75 valid through December 31, 2026. Standard pricing applies from January 1, 2027.</small></td>
               <td><a href="model-gemini-38-flash.html" style="font-weight:600;">Analysis</a> · <a href="https://deepmind.google/models/gemini/flash/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-blue">Promo to Dec 31</span></td>
             </tr>
-            <tr>
-              <td><a href="model-deepseek-v41-flash.html"><strong>DeepSeek V4.1 Flash</strong></a><br><small>DeepSeek</small></td>
-              <td>1M</td>
-              <td>Ultra-low-cost DeepSeek API model with thinking mode, vision, and Responses API support</td>
-              <td>$0.15 / $0.60<br><small>Off-peak rate shown. Peak hours (01:00-04:00, 06:00-10:00 UTC weekdays) double rates to $0.30 / $1.20.</small></td>
-              <td><a href="model-deepseek-v41-flash.html" style="font-weight:600;">Analysis</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing/" target="_blank" rel="noopener noreferrer">Source ↗</a><br><span class="badge badge-cyan">Off-peak rate</span></td>
-            </tr>
           <!-- /GENERATED:rows-international -->
           </tbody>
         </table>
@@ -242,6 +235,55 @@
     <div class="section-label">Verified Performance &amp; SWE-bench Rankings</div>
     <h2 class="section-title">Frontier Model Capability &amp; Coding Leaderboard</h2>
     <p class="section-desc">Comparing repository-scale software engineering (SWE-bench Verified) and autonomous CLI execution (Terminal-Bench 2.1) across all verified models. The Value Index measures coding performance relative to effective token pricing.</p>
+    <figure style="margin:1.5rem 0 2rem;background:rgba(12,14,24,0.85);border:1px solid rgba(124,92,252,0.28);border-radius:14px;padding:1.25rem;">
+      <svg viewBox="0 0 760 280" width="100%" height="auto" role="img" aria-label="2026 LLM Capability vs Price Efficiency Quadrant Chart" style="display:block;max-width:100%;font-family:system-ui,-apple-system,sans-serif;">
+        <rect width="760" height="280" rx="10" fill="#090b14"/>
+        <rect x="65" y="24" width="320" height="105" fill="rgba(16,185,129,0.06)" rx="6"/>
+        <text x="76" y="42" fill="#34d399" font-size="11" font-weight="700">HIGH VALUE SWEET SPOT (≥60% SWE-bench, ≤$2.50/1M)</text>
+        <line x1="65" y1="230" x2="730" y2="230" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <line x1="65" y1="24" x2="65" y2="230" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <line x1="65" y1="129" x2="730" y2="129" stroke="rgba(255,255,255,0.08)" stroke-dasharray="4 4"/>
+        <line x1="385" y1="24" x2="385" y2="230" stroke="rgba(255,255,255,0.08)" stroke-dasharray="4 4"/>
+        <text x="15" y="135" fill="#94a3b8" font-size="11" transform="rotate(-90 15 135)">SWE-bench Verified (%)</text>
+        <text x="340" y="264" fill="#94a3b8" font-size="11">Input Token Rate ($ / 1M Tokens, Log-Scaled)</text>
+        <text x="35" y="36" fill="#64748b" font-size="10">70%</text>
+        <text x="35" y="132" fill="#64748b" font-size="10">60%</text>
+        <text x="35" y="228" fill="#64748b" font-size="10">50%</text>
+        <text x="70" y="246" fill="#64748b" font-size="10">$0.15</text>
+        <text x="200" y="246" fill="#64748b" font-size="10">$0.66</text>
+        <text x="360" y="246" fill="#64748b" font-size="10">$2.00</text>
+        <text x="530" y="246" fill="#64748b" font-size="10">$5.00</text>
+        <text x="690" y="246" fill="#64748b" font-size="10">$10.00</text>
+        <!-- GPT-5.6 Luna: $0.20, 62.7% -->
+        <circle cx="115" cy="103" r="8" fill="#10b981"/>
+        <text x="128" y="106" fill="#e2e8f0" font-size="11" font-weight="600">GPT-5.6 Luna (62.7% · $0.20)</text>
+        <!-- DeepSeek V4 Pro: $0.66, 62.1% -->
+        <circle cx="215" cy="110" r="8" fill="#22d3ee"/>
+        <text x="228" y="114" fill="#e2e8f0" font-size="11" font-weight="600">DeepSeek V4 Pro (62.1% · $0.66)</text>
+        <!-- Claude Sonnet 5: $2.00, 63.2% -->
+        <circle cx="365" cy="96" r="8" fill="#a78bfa"/>
+        <text x="378" y="99" fill="#e2e8f0" font-size="11" font-weight="600">Claude Sonnet 5 (63.2% · $2.00)</text>
+        <!-- Gemini 3.1 Pro: $2.00, 61.5% -->
+        <circle cx="365" cy="116" r="6" fill="#60a5fa"/>
+        <text x="378" y="121" fill="#cbd5e1" font-size="10">Gemini 3.1 Pro (61.5%)</text>
+        <!-- Claude Opus 5: $5.00, 65.5% -->
+        <circle cx="545" cy="72" r="7" fill="#c084fc"/>
+        <text x="556" y="76" fill="#cbd5e1" font-size="10">Claude Opus 5 (65.5%)</text>
+        <!-- Claude Fable 5.1: $10.00, 68.4% -->
+        <circle cx="695" cy="42" r="8" fill="#f472b6"/>
+        <text x="580" y="38" fill="#f9a8d4" font-size="11" font-weight="600">Claude Fable 5.1 (68.4%)</text>
+        <!-- GPT-6 Astra: $10.00, 67.8% -->
+        <circle cx="695" cy="52" r="7" fill="#fb923c"/>
+        <text x="598" y="56" fill="#fdba74" font-size="10">GPT-6 Astra (67.8%)</text>
+        <!-- Gemini 3.8 Flash: $0.75, 57.6% -->
+        <circle cx="235" cy="156" r="6" fill="#38bdf8"/>
+        <text x="246" y="160" fill="#94a3b8" font-size="10">Gemini 3.8 Flash (57.6%)</text>
+        <!-- DeepSeek V4.1 Flash: $0.15, 56.2% -->
+        <circle cx="85" cy="170" r="6" fill="#2dd4bf"/>
+        <text x="96" y="174" fill="#94a3b8" font-size="10">DeepSeek V4.1 Flash (56.2%)</text>
+      </svg>
+      <figcaption style="margin-top:0.75rem;font-size:0.86rem;color:#94a3b8;"><strong>Figure 1:</strong> Capability vs. Input Cost efficiency map across 2026 verified models. Data plotted from <a href="methodology.html">AI Agent Hub November 2026 snapshot</a>.</figcaption>
+    </figure>
     <div class="table-wrap">
       <table>
         <thead>

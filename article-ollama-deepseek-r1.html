@@ -15,7 +15,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>Local DeepSeek-R1 Deployment with Ollama — AI Agent Hub</title><meta property="og:image" content="https://www.waiagent.win/assets/og-default.png"><meta name="twitter:image" content="https://www.waiagent.win/assets/og-default.png">
   <link rel="stylesheet" href="css/style.css?v=20260810e">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Running DeepSeek Locally with Ollama: Hardware Realities, VRAM Math & Benchmarks","description":"A no-nonsense engineer's guide to deploying DeepSeek reasoning models locally with Ollama on RTX GPUs and Apple Silicon MacBooks.","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-11-19","mainEntityOfPage":"https://www.waiagent.win/article-ollama-deepseek-r1.html"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Running DeepSeek Locally with Ollama: Hardware Realities, VRAM Math & Benchmarks","description":"A no-nonsense engineer's guide to deploying DeepSeek reasoning models locally with Ollama on RTX GPUs and Apple Silicon MacBooks.","author":{"@type":"Person","name":"Meng Guoying","url":"https://www.waiagent.win/about-author.html"},"publisher":{"@type":"Organization","name":"AI Agent Hub"},"dateModified":"2026-11-26","mainEntityOfPage":"https://www.waiagent.win/article-ollama-deepseek-r1.html"}</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5803262792097019" crossorigin="anonymous"></script>
 </head>
 <body class="article-page">
@@ -52,6 +52,19 @@
     </p>
 
     <h2>1. The VRAM Reality Check: Sizing Model Quantizations</h2>
+    <figure style="margin:1.5rem 0;background:rgba(12,14,24,0.85);border:1px solid rgba(124,92,252,0.28);border-radius:14px;padding:1.25rem;">
+      <svg viewBox="0 0 740 175" width="100%" height="auto" role="img" aria-label="Local LLM Token Throughput: Pure VRAM vs System RAM Spill" style="display:block;max-width:100%;font-family:system-ui,-apple-system,sans-serif;">
+        <rect width="740" height="175" rx="10" fill="#090b14"/>
+        <text x="20" y="28" fill="#e2e8f0" font-size="12" font-weight="700">Local Throughput Cliff: Pure GPU VRAM vs. PCIe System RAM Spill (32B Q4_K_M)</text>
+        <text x="20" y="64" fill="#cbd5e1" font-size="11">RTX 4090 (24GB VRAM, Full Offload)</text>
+        <rect x="255" y="51" width="360" height="18" rx="4" fill="#10b981"/><text x="623" y="64" fill="#6ee7b7" font-size="11">44.2 tok/s</text>
+        <text x="20" y="102" fill="#cbd5e1" font-size="11">16GB GPU + 8GB RAM Spill (PCIe 4.0)</text>
+        <rect x="255" y="89" width="75" height="18" rx="4" fill="#f59e0b"/><text x="338" y="102" fill="#fcd34d" font-size="11">8.4 tok/s (-81% cliff)</text>
+        <text x="20" y="140" fill="#cbd5e1" font-size="11">CPU-Only DDR5 Inference (No GPU)</text>
+        <rect x="255" y="127" width="38" height="18" rx="4" fill="#ef4444"/><text x="301" y="140" fill="#fca5a5" font-size="11">3.8 tok/s</text>
+      </svg>
+      <figcaption style="margin-top:0.65rem;font-size:0.85rem;color:#94a3b8;"><strong>Figure 1:</strong> Measured generation throughput drop when model weights + KV cache exceed physical GPU VRAM capacity.</figcaption>
+    </figure>
     <p>Do not trust nominal model parameter sizes alone. You must budget for the <strong>model weights + KV cache at full context</strong>:</p>
 
     <div style="overflow-x:auto; margin:1.5rem 0;">
@@ -168,7 +181,7 @@ ollama --version</code></pre>
       </tbody>
     </table>
     <p>Note that the two DeepSeek entries differ by roughly fourfold for the same workload: the model choice inside one provider's catalogue matters more than the choice between local and hosted at this volume.</p>
-    <p><small>Rates verified against provider documentation on September 18, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
+    <p><small>Rates verified against provider documentation on November 26, 2026. Promotional rates expire, so re-check before budgeting: <a href="article-llm-pricing.html">LLM API cost planning</a> · <a href="article-september-2026-pricing-update.html">September 2026 pricing update</a>. Run your own numbers in the <a href="tool-cost-calculator.html">cost calculator</a>.</small></p>
     <div class="ad-slot" data-ad="article-end"></div>
   <div class="related-links"><strong>Continue reading:</strong> <a href="article-local-llm-guide.html">Local LLM Deployment: Ollama vs llama.cpp vs vLLM</a> · <a href="article-self-host-deepseek.html">How to Self-Host DeepSeek-R1: A Hardware and Software Guide</a> · <a href="article-vllm-openai-compat.html">vLLM OpenAI-Compatible API Server Deployment Guide</a>. Or open the <a href="tool-token-counter.html">token counter</a> to run your own numbers.</div>
 </main>
